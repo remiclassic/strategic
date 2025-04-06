@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Palm Trees -->
+    <g id="palm-left">
+        <path d="M50,200 L70,100" stroke="#8B4513" stroke-width="10" fill="none"/>
+        <path d="M70,100 Q40,80 30,90" stroke="#228B22" stroke-width="6" fill="none"/>
+        <path d="M70,100 Q80,70 90,80" stroke="#228B22" stroke-width="6" fill="none"/>
+        <path d="M70,100 Q100,90 110,100" stroke="#228B22" stroke-width="6" fill="none"/>
+    </g>
+    
+    <g id="palm-right">
+        <path d="M350,200 L330,100" stroke="#8B4513" stroke-width="10" fill="none"/>
+        <path d="M330,100 Q360,80 370,90" stroke="#228B22" stroke-width="6" fill="none"/>
+        <path d="M330,100 Q320,70 310,80" stroke="#228B22" stroke-width="6" fill="none"/>
+        <path d="M330,100 Q300,90 290,100" stroke="#228B22" stroke-width="6" fill="none"/>
+    </g>
+
+    <!-- Hammock -->
+    <path d="M70,150 Q200,220 330,150" stroke="#FFD700" stroke-width="8" fill="none"/>
+    <path d="M70,170 Q200,240 330,170" stroke="#FFD700" stroke-width="8" fill="none"/>
+    
+    <!-- Sloth -->
+    <g transform="translate(160,130)">
+        <!-- Body -->
+        <ellipse cx="40" cy="40" rx="50" ry="30" fill="#8B7355"/>
+        
+        <!-- Face -->
+        <circle cx="25" cy="35" r="6" fill="#2C3E50"/> <!-- Left Eye -->
+        <circle cx="55" cy="35" r="6" fill="#2C3E50"/> <!-- Right Eye -->
+        <path d="M35,50 Q40,55 45,50" stroke="#2C3E50" stroke-width="3" fill="none"/> <!-- Smile -->
+        
+        <!-- Arms -->
+        <path d="M10,40 Q0,50 -10,60" stroke="#8B7355" stroke-width="10" fill="none"/>
+        <path d="M70,40 Q80,50 90,60" stroke="#8B7355" stroke-width="10" fill="none"/>
+        
+        <!-- ZZZ -->
+        <text x="80" y="20" font-family="Comic Sans MS" fill="#2C3E50" font-size="24">💤</text>
+    </g>
+</svg> 

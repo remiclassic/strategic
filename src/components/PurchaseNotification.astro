@@ -1,0 +1,139 @@
+---
+// Purchase notification data
+const notifications = [
+  {
+    name: "Sarah",
+    location: "New York",
+    time: "2 minutes ago",
+    product: "Don't Do Anything",
+    amount: "$5"
+  },
+  {
+    name: "Michael",
+    location: "London",
+    time: "5 minutes ago",
+    product: "STARTER PACKAGE",
+    amount: "$17"
+  },
+  {
+    name: "Emma",
+    location: "Sydney",
+    time: "8 minutes ago",
+    product: "BEST VALUE PACKAGE",
+    amount: "$47"
+  },
+  {
+    name: "James",
+    location: "Toronto",
+    time: "12 minutes ago",
+    product: "SCALE TO FREEDOM PATH",
+    amount: "$97"
+  }
+];
+---
+
+<div id="purchase-notification" class="fixed bottom-4 left-4 z-40">
+  <a href="#get-started" class="block">
+    <div class="relative w-fit transform transition-all duration-300 opacity-0 translate-y-4" id="notification-container">
+      <!-- Main notification box -->
+      <div class="bg-white rounded-[16px] px-4 py-3 shadow-[3px_3px_0px_rgba(0,0,0,1)] border-[3px] border-black">
+        <div class="flex flex-col">
+          <p class="text-base font-bold leading-tight">James just purchased</p>
+          <p class="text-[15px] text-black/80">SCALE TO FREEDOM...</p>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const notifications = [
+    {
+      name: "Sarah",
+      product: "Don't Do Anything"
+    },
+    {
+      name: "Michael",
+      product: "STARTER PACKAGE"
+    },
+    {
+      name: "Emma",
+      product: "BEST VALUE PACKAGE"
+    },
+    {
+      name: "James",
+      product: "SCALE TO FREEDOM"
+    }
+  ];
+
+  const notificationContainer = document.getElementById('notification-container');
+  const nameEl = document.getElementById('purchase-notification').querySelector('.font-bold');
+  const detailsEl = document.getElementById('purchase-notification').querySelector('.text-black\\/80');
+  let currentIndex = 0;
+
+  function showNotification() {
+    // Get current notification data
+    const data = notifications[currentIndex];
+    
+    // Update content
+    nameEl.textContent = `${data.name} just purchased`;
+    detailsEl.textContent = `${data.product}...`;
+    
+    // Show notification
+    notificationContainer.classList.remove('opacity-0', 'translate-y-4');
+    notificationContainer.classList.add('opacity-100', 'translate-y-0');
+    
+    // Hide after delay
+    setTimeout(() => {
+      notificationContainer.classList.remove('opacity-100', 'translate-y-0');
+      notificationContainer.classList.add('opacity-0', 'translate-y-4');
+      
+      // Prepare for next notification
+      currentIndex = (currentIndex + 1) % notifications.length;
+      
+      // Show next notification after delay
+      setTimeout(showNotification, 8000);
+    }, 4000);
+  }
+
+  // Start showing notifications after initial delay
+  setTimeout(showNotification, 2000);
+});
+</script>
+
+<style>
+  .comic-card {
+    border: 1px solid black;
+    box-shadow: 1px 1px 0 #000;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .comic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+  }
+
+  .comic-icon {
+    border: 1px solid black;
+    box-shadow: 1px 1px 0 #000;
+    border-radius: 50%;
+  }
+  
+  @keyframes bounce-horizontal {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(3px); }
+  }
+  
+  .animate-bounce-horizontal {
+    animation: bounce-horizontal 1s infinite;
+  }
+</style> 

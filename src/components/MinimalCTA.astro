@@ -1,0 +1,90 @@
+<div id="mobile-cta" class="fixed bottom-4 left-0 right-0 flex justify-center z-50 opacity-0 translate-y-full transition-all duration-300 hidden md:hidden">
+  <a 
+    href="#get-started" 
+    class="comic-button !bg-[#FFD600] hover:!bg-[#FFE44D] text-black font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:scale-105 relative group"
+  >
+    <span class="absolute -right-2 -top-2 w-4 h-4 bg-red-500 rounded-full animate-pulse"></span>
+    GET THE BLUEPRINT
+  </a>
+</div>
+
+<script>
+  // Only run this script on mobile devices
+  if (window.innerWidth < 768) {
+    const mobileCtaElement = document.getElementById('mobile-cta');
+    let lastScrollY = window.scrollY;
+    let isVisible = false;
+    let hasInteracted = false;
+    let scrollTimeout;
+
+    // Show CTA after user has scrolled a bit and waited
+    function handleScroll() {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY;
+      const nearBottom = window.innerHeight + currentScrollY >= document.documentElement.scrollHeight - 100;
+      
+      // Hide when scrolling up or near bottom
+      if (!scrollingDown || nearBottom) {
+        hideCTA();
+      } else if (!hasInteracted && currentScrollY > 300) {
+        // Show after scrolling down 300px
+        scrollTimeout = setTimeout(() => {
+          showCTA();
+        }, 1000); // Wait 1 second of no scrolling before showing
+      }
+
+      lastScrollY = currentScrollY;
+    }
+
+    function showCTA() {
+      if (!isVisible && !hasInteracted) {
+        mobileCtaElement.classList.remove('hidden');
+        // Use requestAnimationFrame to ensure the display:block has taken effect
+        requestAnimationFrame(() => {
+          mobileCtaElement.classList.remove('opacity-0', 'translate-y-full');
+        });
+        isVisible = true;
+      }
+    }
+
+    function hideCTA() {
+      if (isVisible) {
+        mobileCtaElement.classList.add('opacity-0', 'translate-y-full');
+        // Wait for transition to complete before hiding
+        setTimeout(() => {
+          mobileCtaElement.classList.add('hidden');
+        }, 300);
+        isVisible = false;
+      }
+    }
+
+    // Handle button click
+    mobileCtaElement.querySelector('a').addEventListener('click', () => {
+      hasInteracted = true;
+      hideCTA();
+    });
+
+    // Add scroll event listener with throttling
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Handle resize events
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        hideCTA();
+      }
+    });
+  }
+</script> 

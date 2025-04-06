@@ -1,0 +1,409 @@
+---
+// Navigation links with updated section IDs and more descriptive labels
+const navItems = [
+  { 
+    text: "Why It Works", 
+    href: "#the-problem", 
+    description: "The core ideas behind the system",
+    preview: "Discover how laziness can be your greatest asset"
+  },
+  { 
+    text: "Your Escape Plan", 
+    href: "#journey", 
+    description: "4-phase roadmap to freedom",
+    preview: "Step-by-step guide to financial freedom"
+  },
+  { 
+    text: "Dream Life", 
+    href: "#dream-life", 
+    description: "See your future lifestyle",
+    preview: "Visualize your freedom lifestyle"
+  },
+  { 
+    text: "Meet the Sloth", 
+    href: "#about-me", 
+    description: "The story behind it all",
+    preview: "Learn from the master of strategic laziness"
+  }
+];
+---
+
+<header class="fixed top-0 z-50 w-full bg-[#FFF7E6] border-b-2 border-black">
+  <nav class="container-custom mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+    <!-- Logo -->
+    <a href="/" class="flex items-center space-x-3">
+      <div class="relative">
+        <div class="absolute top-[2px] left-[2px] w-10 h-10 rounded-full bg-black/30"></div>
+        <div class="relative flex items-center justify-center w-10 h-10 bg-[#FFD600] rounded-full border-2 border-black">
+          <span class="text-2xl">🦥</span>
+        </div>
+      </div>
+      <span class="font-black text-xl tracking-tight text-black" style="font-family: 'Inter', system-ui, sans-serif;">STRATEGIC SLOTH</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden items-center space-x-8 lg:flex">
+      {navItems.map((item) => (
+        <a 
+          href={item.href} 
+          class="group relative text-gray-900 hover:text-black nav-link"
+        >
+          <span class="relative">
+            {item.text}
+            <div class="absolute -bottom-1 left-0 h-[3px] w-full bg-[#FF4D4D] transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100"></div>
+          </span>
+          <div class="absolute left-0 top-full z-50 mt-2 hidden w-64 rounded-lg border-2 border-black bg-white p-4 shadow-lg group-hover:block">
+            <p class="mb-1 font-bold">{item.preview}</p>
+            <p class="text-sm text-gray-600">{item.description}</p>
+          </div>
+        </a>
+      ))}
+      <a 
+        href="#get-started" 
+        class="flex items-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-2 text-[#1B1B3D] hover:bg-[#1B1B3D] hover:text-white transition-colors duration-200"
+      >
+        <span>🎯</span>
+        <span class="font-bold">GET STARTED</span>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-button"
+      class="lg:hidden"
+      aria-label="Toggle mobile menu"
+    >
+      <svg
+        class="h-6 w-6 text-black"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-50 hidden bg-[#FFF7E6] lg:hidden"
+  >
+    <div class="container-custom mx-auto flex h-full flex-col px-4 py-6">
+      <div class="flex items-center justify-between border-b-2 border-black pb-4">
+        <a href="/" class="flex items-center space-x-3">
+          <div class="relative">
+            <div class="absolute top-[2px] left-[2px] w-8 h-8 rounded-full bg-black/30"></div>
+            <div class="relative flex items-center justify-center w-8 h-8 bg-[#FFD600] rounded-full border-2 border-black">
+              <span class="text-xl">🦥</span>
+            </div>
+          </div>
+          <span class="font-black text-lg tracking-tight text-black" style="font-family: 'Inter', system-ui, sans-serif;">STRATEGIC SLOTH</span>
+        </a>
+        <button
+          id="close-mobile-menu"
+          class="text-black"
+          aria-label="Close mobile menu"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="mt-8 flex flex-col space-y-6">
+        {navItems.map((item) => (
+          <div class="space-y-2">
+            <a
+              href={item.href}
+              class="text-lg text-gray-900 hover:text-black relative group"
+              onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+            >
+              <span class="relative">
+                {item.text}
+                <div class="absolute -bottom-1 left-0 h-[3px] w-full bg-[#FF4D4D] transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100"></div>
+              </span>
+            </a>
+            <p class="text-sm text-gray-600">{item.preview}</p>
+          </div>
+        ))}
+        <a
+          href="#get-started"
+          class="mt-4 flex items-center justify-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-3 text-[#1B1B3D] hover:bg-[#1B1B3D] hover:text-white transition-colors duration-200"
+          onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+        >
+          <span>🎯</span>
+          <span class="font-bold">GET STARTED</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Add smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Adjust based on navbar height */
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+  
+  /* Comic-inspired font */
+  .font-comic {
+    font-family: 'Lexend', 'Fredoka', system-ui, sans-serif;
+  }
+
+  /* Pop-out shadow effect */
+  .shadow-pop {
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .shadow-pop:hover {
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    transform: translate(-2px, -2px);
+  }
+  
+  /* Active nav link styles */
+  .nav-link.active span {
+    color: var(--comic-primary);
+    font-weight: 700;
+  }
+  
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--comic-primary),
+      var(--comic-primary) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+  
+  /* Mobile menu animation */
+  #mobile-menu {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  #mobile-menu:not(.hidden) {
+    opacity: 1;
+  }
+
+  /* Mobile menu button animation */
+  .menu-text {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+  }
+
+  #mobile-menu-button:hover .menu-text {
+    opacity: 1;
+    transform: scale(1) translateY(-24px);
+  }
+
+  /* Pulse animation for CTA button */
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(253, 210, 49, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(253, 210, 49, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(253, 210, 49, 0);
+    }
+  }
+  
+  .pulse-animation {
+    animation: pulse 2s infinite;
+  }
+
+  /* Tooltip styles */
+  .tooltip::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 6px 4px 6px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+  }
+
+  /* Enhanced Preview Card Styles */
+  .comic-card {
+    transform-style: preserve-3d;
+    transition: all 0.2s ease;
+  }
+
+  .comic-card:hover {
+    transform: translateY(-2px) rotateX(5deg);
+  }
+
+  /* Progress Bar Animation */
+  #scroll-progress {
+    transition: width 100ms ease-out;
+  }
+
+  /* Active Section Indicator */
+  .nav-link.active::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #2C2D5D;
+    transform: scaleX(1);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #2C2D5D;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Active nav link styles */
+  .nav-link.active span::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #FF4D4D;
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  // Mobile menu functionality
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+
+  closeMobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+
+  // Close mobile menu on window resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+      mobileMenu?.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Combined scroll handler for all scroll-related functionality
+  function handleScroll() {
+    // Update scroll progress
+    const winScroll = window.scrollY;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (winScroll / height) * 100;
+    if (scrollProgress) {
+      scrollProgress.style.width = scrolled + '%';
+    }
+
+    // Navbar show/hide on scroll
+    if (winScroll <= 0) {
+      navbar?.classList.remove('shadow-lg');
+    } else {
+      if (winScroll > lastScroll) {
+        // Scrolling down
+        navbar?.classList.add('-translate-y-full', 'transform', 'transition-transform', 'duration-300');
+        navbar?.classList.remove('shadow-lg');
+      } else {
+        // Scrolling up
+        navbar?.classList.remove('-translate-y-full');
+        navbar?.classList.add('shadow-lg');
+      }
+    }
+    lastScroll = winScroll;
+
+    // Update active section
+    const scrollPosition = winScroll + 100; // Offset for better detection
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionBottom = sectionTop + section.offsetHeight;
+      const sectionId = section.getAttribute('id');
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === '#' + sectionId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }
+
+  // Add scroll event listener
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('load', handleScroll);
+
+  // Smooth scroll enhancement
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        const navHeight = document.querySelector('header')?.offsetHeight || 0;
+        const targetPosition = targetElement.offsetTop - navHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Close mobile menu if open
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+  });
+</script> 

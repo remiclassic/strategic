@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Body -->
+  <path d="M200 300c55.228 0 100-44.772 100-100S255.228 100 200 100s-100 44.772-100 100 44.772 100 100 100z" fill="#8B4513" stroke="#2C3E50" stroke-width="8"/>
+  
+  <!-- Face -->
+  <circle cx="180" cy="180" r="15" fill="#2C3E50"/> <!-- Left eye -->
+  <circle cx="220" cy="180" r="15" fill="#2C3E50"/> <!-- Right eye -->
+  <path d="M180 220c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20z" fill="#2C3E50"/> <!-- Nose -->
+  <path d="M170 240c20 10 40 10 60 0" stroke="#2C3E50" stroke-width="8" stroke-linecap="round"/> <!-- Smile -->
+  
+  <!-- Arms -->
+  <path d="M100 200c-20-20-40-20-60 0" stroke="#8B4513" stroke-width="16" stroke-linecap="round"/>
+  <path d="M300 200c20-20 40-20 60 0" stroke="#8B4513" stroke-width="16" stroke-linecap="round"/>
+  
+  <!-- Cape -->
+  <path d="M150 150c-20-40 0-80 50-100 50 20 70 60 50 100" fill="#FF3A3A" stroke="#2C3E50" stroke-width="8"/>
+  
+  <!-- Money symbols -->
+  <text x="320" y="160" font-family="Arial" font-size="40" fill="#FFD700">💰</text>
+  <text x="60" y="180" font-family="Arial" font-size="40" fill="#FFD700">💰</text>
+  <text x="200" y="100" font-family="Arial" font-size="40" fill="#FFD700">💰</text>
+</svg> 

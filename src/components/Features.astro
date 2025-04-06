@@ -1,0 +1,106 @@
+---
+const features = [
+	{
+		icon: "🏖️",
+		title: "Your Beachfront Office",
+		description: "Trade your cubicle for a hammock. Your new office has a better view — and zero fluorescent lights.",
+		image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=60"
+	},
+	{
+		icon: "🌍",
+		title: "Freedom to Roam",
+		description: "Work from anywhere, live everywhere. Your income follows you — not the other way around.",
+		image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&auto=format&fit=crop&q=60"
+	},
+	{
+		icon: "🎯",
+		title: "Live Your Adventures",
+		description: "Turn 'someday' dreams into 'this Wednesday' reality. Adventure does not wait for retirement.",
+		image: "https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=800&auto=format&fit=crop&q=60"
+	}
+];
+---
+
+<section class="relative py-24 bg-gradient-to-b from-sky-50 to-white comic-text">
+	<!-- Comic-style top border -->
+	<div class="absolute top-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_0%,5%_100%,10%_0%,15%_100%,20%_0%,25%_100%,30%_0%,35%_100%,40%_0%,45%_100%,50%_0%,55%_100%,60%_0%,65%_100%,70%_0%,75%_100%,80%_0%,85%_100%,90%_0%,95%_100%,100%_0%)]"></div>
+
+	<div class="container mx-auto px-4">
+		<div class="max-w-6xl mx-auto">
+			<!-- Header -->
+			<div class="text-center mb-16">
+				<div class="comic-bubble bg-comic-accent inline-block transform -rotate-2 mb-6 p-4">
+					<h2 class="text-4xl font-bold text-indigo-800">LIFESTYLE SHOWCASE</h2>
+				</div>
+				
+				<div class="comic-bubble bg-white/50 inline-block transform rotate-1 p-4 mb-8">
+					<p class="text-xl text-gray-800">These photos? Just my average Tuesday.</p>
+				</div>
+
+				<div class="comic-bubble bg-comic-primary/10 inline-block transform -rotate-1 p-6 max-w-2xl mx-auto">
+					<p class="text-xl text-indigo-800">This is not a dream — it is your new reality. Join thousands already living this lifestyle.</p>
+				</div>
+			</div>
+
+			<!-- Features -->
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				{features.map((feature) => (
+					<div class="comic-card bg-white/90 p-6 rounded-xl shadow-lg transform hover:scale-105 hover:-rotate-2 transition-all duration-300">
+						<div class="relative overflow-hidden rounded-lg mb-4 h-72">
+							<img 
+								src={feature.image} 
+								alt={feature.title}
+								class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+							/>
+							<div class="absolute top-4 right-4 comic-icon w-16 h-16 flex items-center justify-center text-2xl bg-comic-primary/90 rounded-full shadow-lg">
+								{feature.icon}
+							</div>
+						</div>
+						
+						<h3 class="comic-title text-2xl font-bold mb-3 text-indigo-700">{feature.title}</h3>
+						
+						<div class="comic-bubble bg-white/50 p-4 rounded-lg">
+							<p class="text-gray-700 text-lg">{feature.description}</p>
+						</div>
+					</div>
+				))}
+			</div>
+
+			<!-- CTA -->
+			<div class="text-center mt-16">
+				<div class="comic-bubble bg-comic-accent inline-block transform rotate-1 mb-8 p-4">
+					<p class="text-2xl font-bold text-indigo-800">Start Your Journey Today</p>
+				</div>
+				<div class="comic-bubble bg-white/50 inline-block transform -rotate-1 mb-8 p-4">
+					<p class="text-xl text-gray-800">Join 5,000+ members already living their dream lifestyle</p>
+				</div>
+				<a 
+					href="#pricing" 
+					class="comic-button bg-white text-black hover:bg-comic-accent hover:text-black transform hover:scale-105 hover:-rotate-2 transition-all duration-300 inline-flex items-center gap-2 text-xl py-4 px-8 rounded-lg shadow-lg"
+				>
+					Begin Your Adventure
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Comic-style bottom border -->
+	<div class="absolute bottom-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_100%,5%_0%,10%_100%,15%_0%,20%_100%,25%_0%,30%_100%,35%_0%,40%_100%,45%_0%,50%_100%,55%_0%,60%_100%,65%_0%,70%_100%,75%_0%,80%_100%,85%_0%,90%_100%,95%_0%,100%_100%)]"></div>
+</section>
+
+<style>
+	.comic-card {
+		transition: all 0.3s ease-out;
+	}
+
+	.comic-card:hover .comic-bubble {
+		transform: rotate(2deg) scale(1.05);
+	}
+
+	.comic-card:hover .comic-icon {
+		transform: rotate(-15deg) scale(1.1);
+	}
+</style> 

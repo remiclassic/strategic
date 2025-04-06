@@ -1,0 +1,402 @@
+---
+// LegalModals.astro
+---
+
+<!-- Disclaimer Modal -->
+<div id="modal-disclaimer" class="fixed inset-0 z-50 flex items-center justify-center hidden comic-text" role="dialog" aria-modal="true" aria-labelledby="disclaimer-title">
+  <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="disclaimer-overlay"></div>
+  
+  <div class="relative bg-comic-bg-yellow rounded-lg max-w-4xl w-11/12 md:w-3/5 max-h-[80vh] overflow-hidden transform transition-all duration-300 scale-95 opacity-0 comic-card" id="disclaimer-content">
+    <!-- Close button -->
+    <button id="close-disclaimer" class="absolute top-4 right-4 comic-icon z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="p-6 md:p-8 overflow-y-auto max-h-[80vh]">
+      <h2 id="disclaimer-title" class="comic-title text-3xl md:text-4xl text-center mb-6">⚠️ Disclaimer ⚠️</h2>
+      
+      <div class="prose prose-lg max-w-none space-y-6">
+        <p class="text-gray-700 leading-relaxed">
+          This website and its content are for informational purposes only. The information provided is not intended to be financial, legal, or tax advice. Always consult with a qualified professional before making any financial decisions.
+        </p>
+        
+        <p class="text-gray-700 leading-relaxed">
+          While we strive to provide accurate and up-to-date information, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the website or the information, products, services, or related graphics contained on the website.
+        </p>
+        
+        <p class="text-gray-700 leading-relaxed">
+          Any reliance you place on such information is therefore strictly at your own risk. We shall not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
+        </p>
+        
+        <p class="text-gray-700 leading-relaxed">
+          The success stories and testimonials featured on this website are individual results and do not guarantee similar results for others. Your results may vary based on your individual effort, dedication, and external factors.
+        </p>
+        
+        <p class="text-gray-700 leading-relaxed font-medium">
+          By using this website, you agree to these terms and conditions.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="modal-privacy" class="fixed inset-0 z-50 flex items-center justify-center hidden comic-text" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+  <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="privacy-overlay"></div>
+  
+  <div class="relative bg-comic-bg-blue rounded-lg max-w-4xl w-11/12 md:w-3/5 max-h-[80vh] overflow-hidden transform transition-all duration-300 scale-95 opacity-0 comic-card" id="privacy-content">
+    <!-- Close button -->
+    <button id="close-privacy" class="absolute top-4 right-4 comic-icon z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="p-6 md:p-8 overflow-y-auto max-h-[80vh]">
+      <h2 id="privacy-title" class="comic-title text-3xl md:text-4xl text-center mb-2">🔒 Privacy Policy 🔒</h2>
+      <p class="text-sm text-center mb-8">Last updated: January 1, 2025</p>
+      
+      <div class="prose prose-lg max-w-none space-y-8">
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">1. Information We Collect</h3>
+          <p class="text-gray-700 leading-relaxed mb-3">We collect information that you provide directly to us, including:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Name and contact information</li>
+            <li>Payment information</li>
+            <li>Account credentials</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">2. How We Use Your Information</h3>
+          <p class="text-gray-700 leading-relaxed mb-3">We use the information we collect to:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Process your transactions</li>
+            <li>Send you updates and marketing materials</li>
+            <li>Improve our services</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">3. Information Sharing</h3>
+          <p class="text-gray-700 leading-relaxed mb-3">We do not sell your personal information. We may share your information with:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Service providers</li>
+            <li>Legal authorities when required</li>
+            <li>Business partners with your consent</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">4. Your Rights</h3>
+          <p class="text-gray-700 leading-relaxed mb-3">You have the right to:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Access your personal data</li>
+            <li>Correct inaccurate data</li>
+            <li>Request deletion of your data</li>
+            <li>Opt-out of marketing communications</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">5. Data Security</h3>
+          <p class="text-gray-700 leading-relaxed">
+            We implement appropriate security measures to protect your personal information. However, no method of transmission over the internet is 100% secure.
+          </p>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">6. Contact Us</h3>
+          <p class="text-gray-700 leading-relaxed">
+            If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@strategicsloth.com" class="text-purple-600 hover:text-purple-800">privacy@strategicsloth.com</a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Terms of Use Modal -->
+<div id="modal-terms" class="fixed inset-0 z-50 flex items-center justify-center hidden comic-text" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+  <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="terms-overlay"></div>
+  
+  <div class="relative bg-comic-bg-green rounded-lg max-w-4xl w-11/12 md:w-3/5 max-h-[80vh] overflow-hidden transform transition-all duration-300 scale-95 opacity-0 comic-card" id="terms-content">
+    <!-- Close button -->
+    <button id="close-terms" class="absolute top-4 right-4 comic-icon z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="p-6 md:p-8 overflow-y-auto max-h-[80vh]">
+      <h2 id="terms-title" class="comic-title text-3xl md:text-4xl text-center mb-2">📜 Terms of Use 📜</h2>
+      <p class="text-sm text-center mb-8">Last updated: January 1, 2025</p>
+      
+      <div class="prose prose-lg max-w-none space-y-8">
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">1. Agreement to Terms</h3>
+          <p class="text-gray-700 leading-relaxed">
+            By accessing and using this website, you agree to be bound by these Terms of Use and all applicable laws and regulations.
+          </p>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">2. Intellectual Property Rights</h3>
+          <p class="text-gray-700 leading-relaxed">
+            The content on this website, including text, graphics, logos, and software, is the property of Strategic Sloth LLC and is protected by copyright laws.
+          </p>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">3. User Conduct</h3>
+          <p class="text-gray-700 leading-relaxed mb-3">You agree not to:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Use the materials for any commercial purpose</li>
+            <li>Attempt to decompile or reverse engineer any software</li>
+            <li>Remove any copyright or other proprietary notations</li>
+            <li>Transfer the materials to another person</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">4. Disclaimer</h3>
+          <p class="text-gray-700 leading-relaxed">
+            The materials on Strategic Sloth's website are provided on an 'as is' basis. Strategic Sloth makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+          </p>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">5. Limitations</h3>
+          <p class="text-gray-700 leading-relaxed">
+            In no event shall Strategic Sloth or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Strategic Sloth's website.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Test Modal -->
+<div id="modal-test" class="fixed inset-0 z-50 flex items-center justify-center hidden comic-text" role="dialog" aria-modal="true" aria-labelledby="test-title">
+  <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="test-overlay"></div>
+  
+  <div class="relative bg-comic-bg-yellow rounded-lg max-w-4xl w-11/12 md:w-3/5 max-h-[80vh] overflow-hidden transform transition-all duration-300 scale-95 opacity-0 comic-card" id="test-content">
+    <!-- Close button -->
+    <button id="close-test" class="absolute top-4 right-4 comic-icon z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="p-6 md:p-8 overflow-y-auto max-h-[80vh]">
+      <h2 id="test-title" class="comic-title text-3xl md:text-4xl text-center mb-2">🍪 Cookie Policy 🍪</h2>
+      <p class="text-sm text-center mb-8">Last updated: January 1, 2025</p>
+      
+      <div class="prose prose-lg max-w-none space-y-8">
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">What Are Cookies</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Cookies are small text files that are placed on your computer or mobile device when you visit our website. They help us provide you with a better experience and enable certain features to function properly.
+          </p>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">How We Use Cookies</h3>
+          <p class="text-gray-700 leading-relaxed mb-3">We use cookies to:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Remember your preferences</li>
+            <li>Analyze how you use our website</li>
+            <li>Improve our services</li>
+            <li>Provide personalized content</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">Types of Cookies We Use</h3>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Essential cookies for website functionality</li>
+            <li>Analytics cookies to understand usage</li>
+            <li>Preference cookies to remember your settings</li>
+            <li>Marketing cookies for targeted advertising</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">Managing Cookies</h3>
+          <p class="text-gray-700 leading-relaxed">
+            You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Policy Modal -->
+<div id="modal-cookies" class="fixed inset-0 z-50 flex items-center justify-center hidden comic-text" role="dialog" aria-modal="true" aria-labelledby="cookies-title">
+  <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="cookies-overlay"></div>
+  
+  <div class="relative bg-comic-bg-yellow rounded-lg max-w-4xl w-11/12 md:w-3/5 max-h-[80vh] overflow-hidden transform transition-all duration-300 scale-95 opacity-0 comic-card" id="cookies-content">
+    <!-- Close button -->
+    <button id="close-cookies" class="absolute top-4 right-4 comic-icon z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="p-6 md:p-8 overflow-y-auto max-h-[80vh]">
+      <h2 id="cookies-title" class="comic-title text-3xl md:text-4xl text-center mb-2">🍪 Cookie Policy 🍪</h2>
+      <p class="text-sm text-center mb-8">Last updated: January 1, 2025</p>
+      
+      <div class="prose prose-lg max-w-none space-y-8">
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">What Are Cookies</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Cookies are small text files that are placed on your computer or mobile device when you visit our website. They help us provide you with a better experience and enable certain features to function properly.
+          </p>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">How We Use Cookies</h3>
+          <p class="text-gray-700 leading-relaxed mb-3">We use cookies to:</p>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Remember your preferences</li>
+            <li>Analyze how you use our website</li>
+            <li>Improve our services</li>
+            <li>Provide personalized content</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">Types of Cookies We Use</h3>
+          <ul class="list-disc pl-6 space-y-2 text-gray-700">
+            <li>Essential cookies for website functionality</li>
+            <li>Analytics cookies to understand usage</li>
+            <li>Preference cookies to remember your settings</li>
+            <li>Marketing cookies for targeted advertising</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">Managing Cookies</h3>
+          <p class="text-gray-700 leading-relaxed">
+            You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed.
+          </p>
+        </section>
+        
+        <section>
+          <h3 class="text-xl font-semibold text-gray-800 mb-3">Contact Us</h3>
+          <p class="text-gray-700 leading-relaxed">
+            If you have any questions about our Cookie Policy, please contact us at <a href="mailto:privacy@strategicsloth.com" class="text-purple-600 hover:text-purple-800">privacy@strategicsloth.com</a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Modal system
+  const modals = ['disclaimer', 'privacy', 'terms', 'test'];
+  
+  // Open modal function with comic-style animation
+  function openModal(id) {
+    const modal = document.getElementById(`modal-${id}`);
+    const overlay = document.getElementById(`${id}-overlay`);
+    const content = document.getElementById(`${id}-content`);
+    
+    if (modal && overlay && content) {
+      // Show modal
+      modal.classList.remove('hidden');
+      
+      // Add to history state
+      history.pushState({ modal: id }, '', '');
+      
+      // Animate in with comic pop
+      setTimeout(() => {
+        overlay.classList.add('opacity-100');
+        content.classList.remove('scale-95', 'opacity-0');
+        content.classList.add('scale-100', 'opacity-100', 'comic-pop');
+      }, 10);
+      
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  // Close modal function with comic-style animation
+  function closeModal(id) {
+    const modal = document.getElementById(`modal-${id}`);
+    const overlay = document.getElementById(`${id}-overlay`);
+    const content = document.getElementById(`${id}-content`);
+    
+    if (modal && overlay && content) {
+      // Animate out
+      overlay.classList.remove('opacity-100');
+      content.classList.remove('scale-100', 'opacity-100', 'comic-pop');
+      content.classList.add('scale-95', 'opacity-0');
+      
+      // Hide modal after animation
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+  }
+  
+  // Add event listeners for each modal
+  modals.forEach(id => {
+    // Close button
+    document.getElementById(`close-${id}`)?.addEventListener('click', () => {
+      closeModal(id);
+    });
+    
+    // Click outside to close
+    document.getElementById(`${id}-overlay`)?.addEventListener('click', (e) => {
+      if (e.target.id === `${id}-overlay`) {
+        closeModal(id);
+      }
+    });
+  });
+  
+  // ESC key to close any open modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modals.forEach(id => {
+        const modal = document.getElementById(`modal-${id}`);
+        if (modal && !modal.classList.contains('hidden')) {
+          closeModal(id);
+        }
+      });
+    }
+  });
+  
+  // Handle browser back button
+  window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.modal) {
+      closeModal(e.state.modal);
+    } else {
+      // Close any open modal if no state
+      modals.forEach(id => {
+        const modal = document.getElementById(`modal-${id}`);
+        if (modal && !modal.classList.contains('hidden')) {
+          closeModal(id);
+        }
+      });
+    }
+  });
+  
+  // Make openModal function available globally
+  window.openModal = openModal;
+</script>
+
+<style>
+  /* Ensure modals are responsive */
+  @media (max-width: 768px) {
+    #modal-disclaimer, #modal-privacy, #modal-terms, #modal-test {
+      padding: 1rem;
+    }
+  }
+</style> 

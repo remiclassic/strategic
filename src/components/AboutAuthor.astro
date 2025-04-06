@@ -1,0 +1,210 @@
+---
+import BuyButton from './BuyButton.astro';
+
+const achievements = [
+  {
+    icon: "💼",
+    text: "18 years in corporate",
+    color: "var(--comic-primary)"
+  },
+  {
+    icon: "🌴",
+    text: "Now working 2-3 hours daily",
+    color: "var(--comic-success)"
+  },
+  {
+    icon: "💰",
+    text: "Making more than corporate salary",
+    color: "var(--comic-secondary)"
+  }
+];
+
+const milestones = [
+  "Chasing promotions",
+  "Working late nights",
+  "Missing family dinners",
+  "Soul-crushing meetings",
+  "Rush hour traffic"
+];
+---
+
+<section id="about-author" class="relative py-24 bg-comic-bg-light comic-text">
+  <!-- Comic-style top border -->
+  <div class="absolute top-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_0%,5%_100%,10%_0%,15%_100%,20%_0%,25%_100%,30%_0%,35%_100%,40%_0%,45%_100%,50%_0%,55%_100%,60%_0%,65%_100%,70%_0%,75%_100%,80%_0%,85%_100%,90%_0%,95%_100%,100%_0%)]"></div>
+
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+      <!-- Left Column: Story Content -->
+      <div class="flex flex-col justify-center relative">
+        <!-- Comic burst background -->
+        <div class="absolute inset-0 -z-10">
+          <svg class="w-full h-full" viewBox="0 0 200 100">
+            <path d="M20,50 L180,50" stroke="var(--comic-accent)" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle cx="100" cy="50" r="40" fill="var(--comic-primary)" opacity="0.1"/>
+            <path d="M60,30 L140,70" stroke="var(--comic-secondary)" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+        </div>
+
+        <div class="comic-bubble bg-comic-accent inline-block transform -rotate-2 mb-6 self-start">
+          <p class="text-lg font-bold">My Story</p>
+        </div>
+
+        <h2 class="comic-title text-4xl md:text-5xl mb-8 transform rotate-1">
+          From Burnout to Freedom 🦥
+        </h2>
+
+        <!-- Achievement Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          {achievements.map((achievement) => (
+            <div class="comic-card transform hover:scale-105 hover:-rotate-2 transition-all duration-300">
+              <div class="comic-icon w-12 h-12 mx-auto mb-3 flex items-center justify-center text-xl" style={`background: ${achievement.color}`}>
+                {achievement.icon}
+              </div>
+              <p class="text-center text-sm font-bold">{achievement.text}</p>
+            </div>
+          ))}
+        </div>
+        
+        <!-- Story Quote -->
+        <div class="comic-bubble bg-white/50 transform rotate-1 mb-8">
+          <p class="text-xl italic">
+            "After 18 years climbing the corporate ladder, I discovered something shocking: success doesn't have to be exhausting."
+          </p>
+        </div>
+        
+        <!-- Story Content -->
+        <div class="space-y-6 text-lg">
+          <p>
+            Picture this: I was the perfect corporate soldier. What did that mean?
+          </p>
+          
+          <!-- Corporate Life List -->
+          <div class="comic-card bg-white/50 p-6">
+            <ul class="space-y-3">
+              {milestones.map((milestone) => (
+                <li class="flex items-center gap-3">
+                  <div class="comic-icon w-6 h-6 flex-shrink-0 flex items-center justify-center text-xs bg-comic-danger">
+                    ×
+                  </div>
+                  <span>{milestone}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          <p>
+            Then one day, it hit me: I was trading my most precious resource—time—for money. And no amount of money could buy back the moments I was losing.
+          </p>
+          
+          <div class="comic-bubble bg-white text-black transform -rotate-1">
+            <p class="font-bold">
+              Today, I work just 2-3 hours daily, earn more than I did in corporate, and spend my time exactly how I want.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Callout Box -->
+        <div class="mt-8 comic-card transform hover:scale-105 transition-all duration-300">
+          <div class="comic-bubble bg-white text-black">
+            <p class="text-lg font-bold italic">
+              "I used to build brands for Fortune 500s… now I build quiet income streams that pay me while I nap." 😴
+            </p>
+          </div>
+        </div>
+        
+        <!-- FOMO Finisher -->
+        <div class="mt-10 text-center">
+          <div class="comic-bubble bg-comic-accent inline-block transform rotate-1 mb-6">
+            <p class="text-xl font-bold">Ready to Write Your Freedom Story? ✍️</p>
+          </div>
+          
+          <BuyButton
+            href="#pricing"
+            variant="comic-primary"
+            size="lg"
+            text="Join the Freedom Movement →"
+            class="comic-button bg-white text-black hover:bg-comic-accent hover:text-black transform hover:scale-105 hover:-rotate-2 transition-all duration-300"
+          />
+        </div>
+      </div>
+      
+      <!-- Right Column: Visual -->
+      <div class="relative">
+        <div class="comic-card transform hover:-rotate-2 hover:scale-105 transition-all duration-300">
+          <img
+            src="/images/author-relaxing.jpg"
+            alt="Author relaxing in nature with laptop"
+            class="rounded-xl shadow-xl"
+            width="600"
+            height="400"
+            onerror="this.onerror=null; this.src='https://placehold.co/600x400/indigo/white?text=Author+Relaxing';"
+          />
+          
+          <!-- Status Bubble -->
+          <div class="comic-bubble bg-white text-black absolute -bottom-4 -right-4 transform rotate-3">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-black animate-pulse"></div>
+              <p class="text-sm font-bold">Living the Dream Right Now!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute -z-10 inset-0 transform translate-x-4 translate-y-4">
+          <div class="w-full h-full border-4 border-black rounded-xl"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comic-style bottom border -->
+  <div class="absolute bottom-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_100%,5%_0%,10%_100%,15%_0%,20%_100%,25%_0%,30%_100%,35%_0%,40%_100%,45%_0%,50%_100%,55%_0%,60%_100%,65%_0%,70%_100%,75%_0%,80%_100%,85%_0%,90%_100%,95%_0%,100%_100%)]"></div>
+</section>
+
+<style>
+  .comic-card {
+    transition: all 0.3s ease-out;
+  }
+
+  .comic-card:hover .comic-bubble {
+    transform: rotate(2deg) scale(1.05);
+  }
+
+  .comic-card:hover .comic-icon {
+    transform: rotate(-15deg) scale(1.1);
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px) rotate(3deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(3deg); }
+  }
+
+  .status-bubble {
+    animation: float 3s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  // Add smooth scroll-in animation for the section
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('#about-author');
+    const cards = section.querySelectorAll('.comic-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.add('comic-pop');
+          }, index * 150);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    cards.forEach(card => {
+      card.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700');
+      observer.observe(card);
+    });
+  });
+</script> 

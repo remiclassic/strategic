@@ -1,0 +1,163 @@
+---
+// Navigation links
+const navLinks = [
+  { text: "Disclaimer", id: "disclaimer" },
+  { text: "Privacy Policy", id: "privacy" },
+  { text: "Terms of Use", id: "terms" },
+  { text: "Cookie Policy", id: "test" }
+];
+
+// Current year for copyright
+const currentYear = new Date().getFullYear();
+---
+
+<!-- Parallax Footer -->
+<footer class="relative h-[800px] overflow-hidden bg-sky-100">
+    <!-- Fixed background layer -->
+    <div class="absolute inset-0 z-[1]">
+        <img src="/images/ftr/1.png" alt="Beach Background" class="w-full h-full object-cover opacity-70" />
+    </div>
+
+    <!-- Parallax layers container -->
+    <div class="absolute inset-0 z-[2]">
+        <!-- Birds layer -->
+        <div class="absolute top-0 left-0 right-0 will-change-transform z-[1]" data-speed="0.25">
+            <img src="/images/ftr/birds.svg" alt="Birds" class="w-full h-32 object-contain" />
+        </div>
+
+        <!-- Palm trees layer -->
+        <div class="absolute inset-0 will-change-transform z-[2]" data-speed="0.2">
+            <img src="/images/ftr/2.png" alt="Palm Trees" class="w-full h-full object-cover object-top" />
+        </div>
+    </div>
+
+    <!-- Footer content -->
+    <div class="absolute inset-0 flex flex-col items-center justify-end pb-12 z-[10]">
+        <!-- CTA Section -->
+        <div class="text-center mb-12">
+            <p class="text-3xl font-comic mb-6 text-black drop-shadow-lg animate-text-pulse">Ready to start your journey?</p>
+            <a href="#get-started" class="comic-button bg-yellow-400 hover:bg-yellow-500 text-black inline-flex items-center gap-2">
+                GET STARTED
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- Legal Links -->
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
+                {navLinks.map((link) => (
+                    <button 
+                        onclick={`openModal('${link.id}')`}
+                        class="comic-button bg-white/90 text-black hover:bg-white transition-all duration-200 text-sm py-2"
+                    >
+                        {link.text}
+                    </button>
+                ))}
+            </div>
+            
+            <!-- Legal Disclaimer -->
+            <div class="max-w-3xl mx-auto text-center mb-8">
+                <div class="comic-bubble bg-white/90">
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        <span class="font-bold comic-title">Disclaimer:</span> This material is for informational purposes only and not financial, legal, or tax advice. Always consult a professional before making decisions. Results vary based on individual effort and external factors.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Copyright Line -->
+            <div class="text-center">
+                <p class="comic-title text-sm tracking-wider text-white drop-shadow-lg">
+                    © {currentYear} Strategic Sloth LLC. ALL RIGHTS RESERVED
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .comic-button {
+        border: 4px solid black;
+        border-radius: 12px;
+        padding: 1rem 2rem;
+        font-family: 'Bangers', cursive;
+        font-size: 1.25rem;
+        letter-spacing: 0.05em;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .comic-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .comic-bubble {
+        @apply relative rounded-lg p-6;
+        border: 3px solid black;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .comic-bubble:before {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        border: 10px solid transparent;
+        border-top-color: #000;
+    }
+
+    .font-comic {
+        font-family: 'Comic Neue', system-ui, sans-serif;
+    }
+
+    @keyframes text-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    .animate-text-pulse {
+        animation: text-pulse 2s ease-in-out infinite;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const footer = document.querySelector('footer');
+        const parallaxLayers = document.querySelectorAll('[data-speed]');
+        let lastScrollY = window.pageYOffset;
+        let ticking = false;
+        
+        console.log('Parallax layers found:', parallaxLayers.length);
+        
+        function updateParallax() {
+            const footerRect = footer.getBoundingClientRect();
+            const footerTop = footerRect.top;
+            const windowHeight = window.innerHeight;
+            
+            // Only apply parallax when footer is in view
+            if (footerTop < windowHeight && footerTop > -footerRect.height) {
+                parallaxLayers.forEach(layer => {
+                    const speed = parseFloat(layer.getAttribute('data-speed'));
+                    const yPos = (windowHeight - footerTop) * speed;
+                    layer.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                    console.log(`Layer speed: ${speed}, yPos: ${yPos}`);
+                });
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            lastScrollY = window.pageYOffset;
+            
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+        
+        // Initial update
+        updateParallax();
+    });
+</script> 

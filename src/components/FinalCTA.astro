@@ -1,0 +1,688 @@
+---
+import BuyButton from './BuyButton.astro';
+
+// Trust checklist items
+const trustItems = [
+	{
+		icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+		text: 'Self-paced tools. Instant access.',
+	},
+	{
+		icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+		text: '30-Day Money-Back Guarantee',
+	},
+	{
+		icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+		text: 'No coaching, no community, no overwhelm',
+	},
+];
+
+// Community members with initials instead of avatar images
+const communityMembers = [
+	{
+		name: "Alex",
+		initial: "A",
+		color: "#fcd34d"
+	},
+	{
+		name: "Beth",
+		initial: "B",
+		color: "#93c5fd"
+	},
+	{
+		name: "Chris",
+		initial: "C",
+		color: "#86efac"
+	},
+	{
+		name: "Diana",
+		initial: "D",
+		color: "#fca5a5"
+	},
+	{
+		name: "Ethan",
+		initial: "E",
+		color: "#c4b5fd"
+	}
+];
+
+// Testimonial quotes
+const testimonials = [
+    {
+        quote: "I bought it on a Sunday. On Monday, I started thinking differently about my time.",
+        author: "Jess L.",
+        role: "Freelance Artist"
+    },
+    {
+        quote: "This gave me permission to stop trying to do it all. It's simple. It just works.",
+        author: "Malik T.",
+        role: "Developer"
+    },
+    {
+        quote: "No pressure, no hype—just freedom in my inbox.",
+        author: "Dani R.",
+        role: "Solopreneur"
+    },
+    {
+        quote: "Finally found a way to break free from the 9-5 grind. Thank you!",
+        author: "David R.",
+        role: "Former Office Worker"
+    },
+    {
+        quote: "The best investment I've ever made. Period.",
+        author: "Michael T.",
+        role: "Digital Nomad"
+    }
+];
+---
+
+<section class="relative py-24 overflow-hidden">
+    <!-- Background with Parallax Effect -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#fef8c6] via-[#e3f2fd] to-[#C8E8E9] animate-gradient-shift"></div>
+        <div class="absolute inset-0 halftone-overlay opacity-30"></div>
+        
+        <!-- Floating Elements with Parallax -->
+        <div class="absolute top-10 right-10 w-32 h-16 comic-cloud z-5 animate-float-slow parallax-element" data-speed="0.2"></div>
+        <div class="absolute top-20 left-20 w-24 h-12 comic-cloud z-5 animate-float-slow-delayed parallax-element" data-speed="0.3"></div>
+        <div class="absolute bottom-40 right-1/4 w-40 h-20 comic-cloud z-5 animate-float-slow parallax-element" data-speed="0.1"></div>
+        
+        <!-- Decorative Elements with Parallax -->
+        <div class="absolute top-1/4 right-1/4 comic-sparkle animate-sparkle parallax-element" data-speed="0.4">✨</div>
+        <div class="absolute bottom-1/3 left-1/3 comic-sparkle animate-sparkle-delayed parallax-element" data-speed="0.5">⭐</div>
+        <div class="absolute top-1/3 left-1/4 comic-sparkle animate-sparkle parallax-element" data-speed="0.3">✨</div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <!-- Main CTA Section -->
+        <div class="max-w-5xl mx-auto text-center mb-16">
+            <div class="comic-bubble bg-comic-accent inline-block transform -rotate-2 mb-6 relative animate-float-slow">
+                <h2 class="text-5xl font-bold px-6 py-2 animate-text-shadow">
+                    Work Less. Live More.
+                </h2>
+                <div class="absolute -bottom-2 left-0 right-0 h-1 bg-comic-primary"></div>
+                <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 border-2 border-black animate-badge-pulse">
+                    <span class="text-2xl animate-badge-rotate">🚀</span>
+                </div>
+            </div>
+            
+            <div class="comic-bubble bg-white/50 inline-block transform rotate-1 mb-8 animate-float-slow-delayed">
+                <p class="text-2xl px-6 py-2 animate-text-shadow">
+                    No burnout. No busywork. No one watching your hours. Just you, a smart system, and your first steps toward freedom.
+                </p>
+            </div>
+            
+            <!-- Trust Indicators -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                {trustItems.map((item, index) => (
+                    <div class="comic-card bg-white p-6 border-3 border-black rounded-xl shadow-comic transform hover:scale-105 hover:-rotate-2 transition-all duration-300 animate-reveal" style={`animation-delay: ${index * 0.2}s`}>
+                        <div class="comic-bubble bg-comic-accent inline-block mb-4 transform -rotate-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 comic-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+                            </svg>
+                        </div>
+                        <p class="text-lg font-bold animate-text-reveal">{item.text}</p>
+                    </div>
+                ))}
+            </div>
+            
+            <!-- Testimonials Carousel with Improved Transitions -->
+            <div class="relative mb-12 overflow-visible py-4">
+                <div class="testimonial-carousel flex transition-transform duration-500">
+                    {testimonials.map((testimonial, index) => (
+                        <div class="min-w-full px-4 testimonial-slide">
+                            <div class="comic-bubble bg-white/80 p-6 transform hover:scale-105 transition-all duration-300 animate-float-slow">
+                                <p class="text-xl italic mb-4 animate-text-shadow">"{testimonial.quote}"</p>
+                                <div class="flex items-center justify-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-comic-accent flex items-center justify-center text-xl font-bold animate-badge-pulse">
+                                        {testimonial.author.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <p class="font-bold animate-text-shadow">{testimonial.author}</p>
+                                        <p class="text-sm text-gray-600 animate-text-shadow">{testimonial.role}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div class="flex justify-center gap-2 mt-4">
+                    {testimonials.map((_, index) => (
+                        <button 
+                            class="w-3 h-3 rounded-full bg-comic-accent border-2 border-black transform hover:scale-125 transition-all duration-300 testimonial-dot"
+                            data-index={index}
+                            aria-label={`View testimonial ${index + 1}`}
+                        ></button>
+                    ))}
+                </div>
+                <!-- Auto-cycling indicator -->
+                <div class="flex justify-center mt-2">
+                    <div class="auto-cycle-indicator flex items-center gap-1 text-sm text-gray-600">
+                        <span class="animate-pulse">●</span>
+                        <span>Auto-cycling testimonials</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Community Avatars -->
+            <div class="flex justify-center items-center gap-2 mb-8">
+                {communityMembers.map((member, index) => (
+                    <div 
+                        class="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold border-2 border-black transform hover:scale-110 hover:-rotate-6 transition-all duration-300 animate-reveal" 
+                        style={`animation-delay: ${index * 0.1}s; background-color: ${member.color};`}
+                        title={member.name}
+                    >
+                        {member.initial}
+                    </div>
+                ))}
+                <div class="w-12 h-12 rounded-full bg-comic-accent flex items-center justify-center text-xl font-bold border-2 border-black transform hover:scale-110 hover:-rotate-6 transition-all duration-300 animate-badge-pulse">
+                    +2k
+                </div>
+            </div>
+            
+            <!-- Main CTA Button -->
+            <div class="relative inline-block animate-cta-pulse">
+                <span class="absolute -left-16 top-1/2 transform -translate-y-1/2 text-4xl animate-bounce-horizontal">
+                    👉
+                </span>
+                <a 
+                    href="#book-offer" 
+                    class="comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 inline-flex items-center gap-2 animate-button-shine"
+                >
+                    <span class="text-2xl font-black px-8 py-4">Start Your Journey Today</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-arrow-bounce" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- Money-Back Guarantee -->
+            <div class="mt-8 flex items-center justify-center gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">✓</span>
+                    <span class="font-bold">30-Day Money-Back Guarantee</span>
+                </div>
+                <span class="text-gray-400">•</span>
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">📦</span>
+                    <span class="font-bold">Digital, self-paced, instant access</span>
+                </div>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="comic-card bg-white p-4 border-3 border-black rounded-xl shadow-comic transform hover:scale-105 transition-all duration-300">
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">🔒</span>
+                        <span class="font-bold">Secure Checkout</span>
+                    </div>
+                </div>
+                <div class="comic-card bg-white p-4 border-3 border-black rounded-xl shadow-comic transform hover:scale-105 transition-all duration-300">
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">⚡</span>
+                        <span class="font-bold">Instant Access</span>
+                    </div>
+                </div>
+                <div class="comic-card bg-white p-4 border-3 border-black rounded-xl shadow-comic transform hover:scale-105 transition-all duration-300">
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">🛡️</span>
+                        <span class="font-bold">Money-Back Guarantee</span>
+                    </div>
+                </div>
+                <div class="comic-card bg-white p-4 border-3 border-black rounded-xl shadow-comic transform hover:scale-105 transition-all duration-300">
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">💤</span>
+                        <span class="font-bold">Self-Paced Learning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .comic-card {
+        transition: all 0.3s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .comic-card:hover .comic-bubble {
+        transform: rotate(2deg) scale(1.05);
+    }
+
+    .comic-card:hover .comic-icon {
+        transform: rotate(-15deg) scale(1.1);
+    }
+
+    .comic-bubble {
+        border: 3px solid black;
+        border-radius: 12px;
+        box-shadow: 4px 4px 0 black;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .comic-bubble:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .comic-button {
+        border: 3px solid black;
+        border-radius: 12px;
+        box-shadow: 4px 4px 0 black;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+    }
+
+    .comic-button:hover {
+        transform: translateY(-4px) scale(1.05) rotate(-2deg);
+        box-shadow: 8px 8px 0 black;
+    }
+
+    .comic-button:active {
+        transform: translateY(2px) scale(0.98);
+        box-shadow: 2px 2px 0 black;
+    }
+
+    .comic-sparkle {
+        animation: float 3s ease-in-out infinite;
+        transition: transform 0.3s ease;
+    }
+
+    .comic-sparkle:hover {
+        transform: scale(1.2) rotate(15deg);
+    }
+
+    .shadow-comic {
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .border-3 {
+        border-width: 3px;
+    }
+
+    /* Halftone Overlay */
+    .halftone-overlay {
+        background-image: radial-gradient(#4a90e2 1px, transparent 1px);
+        background-size: 20px 20px;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    }
+
+    /* Comic Cloud */
+    .comic-cloud {
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 50px;
+        box-shadow: 3px 3px 0 black;
+        position: relative;
+    }
+
+    .comic-cloud::before,
+    .comic-cloud::after {
+        content: "";
+        position: absolute;
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 50%;
+    }
+
+    .comic-cloud::before {
+        width: 60%;
+        height: 60%;
+        top: -30%;
+        left: 20%;
+    }
+
+    .comic-cloud::after {
+        width: 40%;
+        height: 40%;
+        top: -20%;
+        right: 20%;
+    }
+
+    /* Animation Classes */
+    .animate-float-slow {
+        animation: float-slow 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes float-slow {
+        0% { transform: translateY(0) rotate(-2deg); }
+        100% { transform: translateY(-10px) rotate(0deg); }
+    }
+
+    .animate-float-slow-delayed {
+        animation: float-slow 6s infinite alternate ease-in-out;
+        animation-delay: 1s;
+    }
+
+    .animate-text-shadow {
+        animation: text-shadow 3s infinite alternate;
+    }
+
+    @keyframes text-shadow {
+        0% { text-shadow: 1px 1px 0 rgba(0,0,0,0.1); }
+        100% { text-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
+    }
+
+    .animate-badge-pulse {
+        animation: badge-pulse 3s infinite alternate;
+    }
+
+    @keyframes badge-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+    }
+
+    .animate-badge-rotate {
+        animation: badge-rotate 10s infinite linear;
+    }
+
+    @keyframes badge-rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .animate-bounce-horizontal {
+        animation: bounce-horizontal 1s infinite;
+    }
+
+    @keyframes bounce-horizontal {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(-10px); }
+    }
+
+    .animate-cta-pulse {
+        animation: cta-pulse 3s infinite alternate;
+    }
+
+    @keyframes cta-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
+    }
+
+    .animate-button-shine {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .animate-button-shine::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-100%) rotate(30deg); }
+        100% { transform: translateX(100%) rotate(30deg); }
+    }
+
+    .animate-arrow-bounce {
+        animation: arrow-bounce 1.5s infinite alternate;
+    }
+
+    @keyframes arrow-bounce {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(5px); }
+    }
+
+    .animate-gradient-shift {
+        animation: gradient-shift 15s infinite alternate;
+    }
+
+    @keyframes gradient-shift {
+        0% { opacity: 0.8; }
+        100% { opacity: 1; }
+    }
+
+    .animate-sparkle {
+        animation: sparkle 3s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+    }
+
+    .animate-sparkle-delayed {
+        animation: sparkle 3s ease-in-out infinite;
+        animation-delay: 1.5s;
+    }
+
+    .animate-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: reveal 0.6s forwards;
+    }
+
+    @keyframes reveal {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-text-reveal {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: text-reveal 0.6s forwards;
+    }
+
+    @keyframes text-reveal {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Testimonial carousel specific styles */
+    .testimonial-carousel {
+        position: relative;
+        overflow: visible;
+    }
+
+    .testimonial-carousel > div {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .testimonial-slide {
+        opacity: 0.7;
+        transform: scale(0.98);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .testimonial-slide.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+    
+    .testimonial-dot {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .testimonial-dot:hover {
+        transform: scale(1.3);
+    }
+    
+    .testimonial-dot.bg-black {
+        transform: scale(1.2);
+    }
+    
+    /* Auto-cycling indicator */
+    .auto-cycle-indicator {
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+    
+    .auto-cycle-indicator:hover {
+        opacity: 1;
+    }
+
+    /* Parallax Elements */
+    .parallax-element {
+        will-change: transform;
+        transition: transform 0.1s ease-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .animate-float-slow,
+        .animate-float-slow-delayed,
+        .animate-text-shadow,
+        .animate-badge-pulse,
+        .animate-badge-rotate,
+        .animate-bounce-horizontal,
+        .animate-cta-pulse,
+        .animate-button-shine::after,
+        .animate-arrow-bounce,
+        .animate-gradient-shift,
+        .animate-sparkle,
+        .animate-sparkle-delayed,
+        .animate-reveal,
+        .animate-text-reveal {
+            animation: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+</style>
+
+<script>
+    // Testimonial carousel functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        const carousel = document.querySelector('.testimonial-carousel');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        let currentIndex = 0;
+        let autoRotateInterval;
+        
+        // Get the number of testimonials from the DOM
+        const testimonialCount = document.querySelectorAll('.testimonial-carousel > div').length;
+        
+        // Set initial active dot and slide
+        if (dots.length > 0) {
+            dots[0].classList.add('bg-black');
+        }
+        
+        if (slides.length > 0) {
+            slides[0].classList.add('active');
+        }
+        
+        // Auto-rotate testimonials with a more reliable interval
+        function startAutoRotate() {
+            // Clear any existing interval first
+            if (autoRotateInterval) {
+                clearInterval(autoRotateInterval);
+            }
+            
+            // Set new interval
+            autoRotateInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % testimonialCount;
+                updateCarousel();
+            }, 4000); // Slightly faster rotation for better engagement
+        }
+        
+        // Start auto-rotation
+        startAutoRotate();
+        
+        // Pause auto-rotation when user interacts with dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+                
+                // Reset the auto-rotation timer when user manually changes testimonial
+                clearInterval(autoRotateInterval);
+                startAutoRotate();
+            });
+            
+            // Add hover effect to dots
+            dot.addEventListener('mouseenter', () => {
+                dot.style.transform = 'scale(1.3)';
+            });
+            
+            dot.addEventListener('mouseleave', () => {
+                dot.style.transform = 'scale(1)';
+            });
+        });
+        
+        function updateCarousel() {
+            // Update carousel position with smooth transition
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update active dot with visual feedback
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('bg-black');
+                    dot.style.transform = 'scale(1.2)';
+                } else {
+                    dot.classList.remove('bg-black');
+                    dot.style.transform = 'scale(1)';
+                }
+            });
+            
+            // Update active slide with fade effect
+            slides.forEach((slide, index) => {
+                if (index === currentIndex) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        }
+        
+        // Add hover effect to comic cards
+        document.querySelectorAll('.comic-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05) rotate(-2deg)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+        
+        // Pause auto-rotation when user hovers over carousel
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoRotateInterval);
+        });
+        
+        // Resume auto-rotation when user leaves carousel
+        carousel.addEventListener('mouseleave', () => {
+            startAutoRotate();
+        });
+        
+        // Parallax effect for background elements
+        const parallaxElements = document.querySelectorAll('.parallax-element');
+        
+        window.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+            
+            parallaxElements.forEach(element => {
+                const speed = parseFloat(element.getAttribute('data-speed') || '0.2');
+                const moveX = mouseX * speed * 50;
+                const moveY = mouseY * speed * 50;
+                
+                element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+        
+        // Debug log to verify the script is running
+        console.log('Testimonial carousel initialized with', testimonialCount, 'testimonials');
+    });
+</script> 

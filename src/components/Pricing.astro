@@ -1,0 +1,482 @@
+---
+import BuyButton from './BuyButton.astro';
+
+const tiers = [
+	{
+		name: 'STARTER PACKAGE',
+		id: 'starter-package',
+		href: 'https://your-store.lemonsqueezy.com/checkout/buy/...', // Replace with your actual Lemon Squeezy checkout URL
+		price: { current: '$17', set: '/$27', discount: '37% OFF' },
+		features: [
+			{ text: "Don't Do Anything – PDF Mini Guide", icon: "✅", subtitle: "" },
+			{ text: "Lazy Genius Blueprint – Travel + Freedom Hacks", icon: "✅", subtitle: "" },
+			{ text: "Sell PDFs, Grow to $100K, Live Tax-Free – Starter System", icon: "✅", subtitle: "" },
+		],
+		badge: 'Perfect for beginners!',
+		image: '/images/starterpackage.png',
+		buttonText: '👉 Get Started',
+		delivery: '📦 Digital delivery only',
+		access: '📥 Instant access, yours forever',
+		guarantee: '✅ 30-Day Money-Back Guarantee',
+		note: '💤 Pick your plan, then nap.'
+	},
+	{
+		name: 'BEST VALUE PACKAGE',
+		id: 'best-value-package',
+		href: 'https://your-store.lemonsqueezy.com/checkout/buy/...', // Replace with your actual Lemon Squeezy checkout URL
+		price: { current: '$47', set: '/$97', discount: '52% OFF' },
+		features: [
+			{ text: "Everything in Smart Wealth Accelerator", icon: "✅", subtitle: "" },
+			{ text: "Legal Residence With Minimal Stays – PDF Strategy", icon: "✅", subtitle: "" },
+			{ text: "Offshore Business Operations Guide – Set up + scale on autopilot", icon: "✅", subtitle: "" },
+		],
+		badge: 'Built for builders.',
+		image: '/images/bestvalue.png',
+		isPopular: true,
+		buttonText: '👉 Get Started Now →',
+		delivery: '📦 Digital tools & strategy guides',
+		access: '📥 Instant access, self-paced',
+		guarantee: '✅ 30-Day Money-Back Guarantee'
+	},
+	{
+		name: 'SCALE TO FREEDOM PATH',
+		id: 'ultimate-freedom-package',
+		href: 'https://your-store.lemonsqueezy.com/checkout/buy/...', // Replace with your actual Lemon Squeezy checkout URL
+		price: { current: '$97', set: '/$197', discount: '51% OFF' },
+		features: [
+			{ text: "Everything in Global Freedom Vault", icon: "✅", subtitle: "" },
+			{ text: "High-Risk Banking Solutions – Smart systems for global banking", icon: "✅", subtitle: "" },
+			{ text: "Complete Freedom Blueprint – Advanced step-by-step system", icon: "✅", subtitle: "" },
+		],
+		image: '/images/scaletofreedom.png',
+		buttonText: '👉 Let\'s Go',
+		delivery: '📦 All digital. No calls. No coaching.',
+		access: '📥 Instant lifetime access',
+		guarantee: '✅ 30-Day Money-Back Guarantee',
+		badge: 'For the full-time freedom seeker.'
+	}
+];
+
+// Flash sale countdown timer logic
+const endTime = new Date();
+endTime.setHours(22, 58, 24); // Set to match the time shown in the image
+---
+
+<section class="relative w-full bg-[#FFD600] py-16 px-4">
+	<!-- Background Pattern -->
+	<div class="absolute inset-0 z-0">
+		<img 
+			src="/images/pricingbg.png" 
+			alt="Background Pattern" 
+			class="absolute inset-0 w-full h-full object-cover opacity-50"
+		/>
+	</div>
+
+	<!-- Flash Sale Banner -->
+	<div class="relative z-10 max-w-4xl mx-auto mb-8">
+		<div class="bg-[#FF4D4D] text-white p-4 rounded-xl border-2 border-black flex items-center justify-between">
+			<div class="flex items-center gap-2">
+				<span class="text-2xl">🏠</span>
+				<span class="font-bold">Flash Sale Ends Soon!</span>
+			</div>
+			<div class="font-mono font-bold">22:58:24</div>
+		</div>
+		<p class="text-sm text-center mt-2 text-[#1B1B3D]">Save up to 50% on all packages - Limited time only!</p>
+	</div>
+
+	<!-- Section Header -->
+	<div class="relative z-10 text-center mb-12">
+		<h2 class="text-4xl font-black text-[#1B1B3D] mb-4">PRICING PLANS</h2>
+		<p class="text-xl text-[#1B1B3D]">Choose your path to freedom with our special value packages!</p>
+	</div>
+
+	<!-- Pricing Cards Container -->
+	<div class="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+		<!-- Starter Package -->
+		<div class="relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
+			<!-- Package Label -->
+			<div class="absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
+				<span class="font-bold text-sm">Perfect for beginners</span>
+			</div>
+
+			<!-- Sloth Illustration -->
+			<div class="mb-6 flex justify-center">
+				<img 
+					src="/images/starterpackage.png" 
+					alt="Sloth reading - Starter Package" 
+					class="w-32 h-32 object-contain"
+				/>
+			</div>
+
+			<!-- Package Name -->
+			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">STARTER PACKAGE</h3>
+
+			<!-- Price -->
+			<div class="flex items-baseline gap-1 mb-6">
+				<span class="text-3xl font-black">$17</span>
+				<span class="text-sm line-through text-gray-500">$27</span>
+				<span class="text-sm font-bold text-[#FF4D4D]">37% OFF</span>
+			</div>
+
+			<!-- Features List -->
+			<ul class="space-y-4 mb-8 flex-grow">
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Don't Do Anything – PDF Mini Guide</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Lazy Genius Blueprint – Travel + Freedom Hacks</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Sell PDFs, Grow to $100K, Live Tax-Free – Starter System</span>
+				</li>
+			</ul>
+
+			<!-- Additional Info -->
+			<div class="space-y-2 text-sm mb-6">
+				<div class="flex items-center gap-2">
+					<span>📱</span>
+					<span>Digital delivery only</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span>⚡</span>
+					<span>Instant access, yours forever</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span>🔄</span>
+					<span>30-Day Money-Back Guarantee</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span>💤</span>
+					<span>Pick your plan, then nap</span>
+				</div>
+			</div>
+
+			<!-- CTA Button -->
+			<button class="w-full bg-[#1B1B3D] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#2C2D5D] transition-colors">
+				Get Started
+			</button>
+
+			<!-- Timer -->
+			<p class="text-xs text-center mt-4">Special price ends in 22:58:24</p>
+		</div>
+
+		<!-- Best Value Package -->
+		<div class="relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col transform scale-105">
+			<!-- Package Label -->
+			<div class="absolute -top-3 left-4 bg-[#4D9FFF] px-4 py-1 rounded-full border-2 border-black">
+				<span class="font-bold text-sm text-white">Built for builders</span>
+			</div>
+
+			<!-- Most Popular Badge -->
+			<div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-[#4D9FFF] px-8 py-1 rounded-full border-2 border-black whitespace-nowrap">
+				<span class="font-bold text-sm text-white">Most Popular Choice!</span>
+			</div>
+
+			<!-- Sloth Illustration -->
+			<div class="mb-6 flex justify-center">
+				<img 
+					src="/images/bestvalue.png" 
+					alt="Sloth in chair - Best Value Package" 
+					class="w-32 h-32 object-contain"
+				/>
+			</div>
+
+			<!-- Package Name -->
+			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">BEST VALUE PACKAGE</h3>
+
+			<!-- Price -->
+			<div class="flex items-baseline gap-1 mb-6">
+				<span class="text-3xl font-black">$47</span>
+				<span class="text-sm line-through text-gray-500">$97</span>
+				<span class="text-sm font-bold text-[#FF4D4D]">52% OFF</span>
+			</div>
+
+			<!-- Features List -->
+			<ul class="space-y-4 mb-8 flex-grow">
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Everything in Smart Wealth Accelerator</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Legal Residence With Minimal Stays – PDF Strategy</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Offshore Business Operations Guide – Set up + scale on autopilot</span>
+				</li>
+			</ul>
+
+			<!-- Additional Info -->
+			<div class="space-y-2 text-sm mb-6">
+				<div class="flex items-center gap-2">
+					<span>📚</span>
+					<span>Digital tools & strategy guides</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span>⚡</span>
+					<span>Instant access, self-paced</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span>🔄</span>
+					<span>30-Day Money-Back Guarantee</span>
+				</div>
+			</div>
+
+			<!-- CTA Button -->
+			<button class="w-full bg-[#4D9FFF] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#3D8FEF] transition-colors">
+				🚀 Get Started Now →
+			</button>
+
+			<!-- Timer -->
+			<p class="text-xs text-center mt-4">Special price ends in 22:58:24</p>
+		</div>
+
+		<!-- Scale to Freedom Package -->
+		<div class="relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
+			<!-- Package Label -->
+			<div class="absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
+				<span class="font-bold text-sm">For the full-time freedom seeker</span>
+			</div>
+
+			<!-- Sloth Illustration -->
+			<div class="mb-6 flex justify-center">
+				<img 
+					src="/images/scaletofreedom.png" 
+					alt="Sloth on mountain - Scale to Freedom Package" 
+					class="w-32 h-32 object-contain"
+				/>
+			</div>
+
+			<!-- Package Name -->
+			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">SCALE TO FREEDOM PATH</h3>
+
+			<!-- Price -->
+			<div class="flex items-baseline gap-1 mb-6">
+				<span class="text-3xl font-black">$97</span>
+				<span class="text-sm line-through text-gray-500">$197</span>
+				<span class="text-sm font-bold text-[#FF4D4D]">51% OFF</span>
+			</div>
+
+			<!-- Features List -->
+			<ul class="space-y-4 mb-8 flex-grow">
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Everything in Global Freedom Vault</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>High-Risk Banking Solutions – Smart systems for global banking</span>
+				</li>
+				<li class="flex items-start gap-2">
+					<span class="text-green-500 text-xl">✓</span>
+					<span>Complete Freedom Blueprint – Advanced step-by-step system</span>
+				</li>
+			</ul>
+
+			<!-- Additional Info -->
+			<div class="space-y-2 text-sm mb-6">
+				<div class="flex items-center gap-2">
+					<span>💻</span>
+					<span>All digital. No calls, No coaching.</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span>⚡</span>
+					<span>Instant lifetime access</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span>🔄</span>
+					<span>30-Day Money-Back Guarantee</span>
+				</div>
+			</div>
+
+			<!-- CTA Button -->
+			<button class="w-full bg-[#FFB800] text-[#1B1B3D] font-bold py-3 rounded-xl border-2 border-black hover:bg-[#FFA800] transition-colors">
+				Let's Go
+			</button>
+
+			<!-- Timer -->
+			<p class="text-xs text-center mt-4">Special price ends in 22:58:24</p>
+		</div>
+	</div>
+
+	<!-- Trust Badges -->
+	<div class="relative z-10 max-w-4xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">🔒</span>
+			<span class="font-bold text-sm">Secure Checkout</span>
+		</div>
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">💯</span>
+			<span class="font-bold text-sm">Love It or Get Your Money Back</span>
+		</div>
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">🎁</span>
+			<span class="font-bold text-sm">Keep the Bonuses Even If You Refund</span>
+		</div>
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">👋</span>
+			<span class="font-bold text-sm">No Ongoing Support</span>
+		</div>
+	</div>
+</section>
+
+<style>
+	.bg-halftone {
+		background-image: radial-gradient(circle at center, black 1px, transparent 1px);
+		background-size: 24px 24px;
+		background-position: center;
+	}
+
+	.price-card {
+		position: relative;
+		transition: all 0.3s ease;
+	}
+
+	.price-card:hover {
+		transform: translateY(-4px);
+	}
+
+	.popular-card {
+		background: #FFF3CB;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+	}
+
+	.popular-card::before {
+		content: '';
+		position: absolute;
+		inset: -2px;
+		background: linear-gradient(45deg, #60A5FA, #93C5FD);
+		border-radius: 12px;
+		z-index: -1;
+	}
+
+	.mini-guide-card {
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+	}
+
+	@keyframes bounce-slow {
+		0%, 100% { transform: translateY(0) rotate(6deg); }
+		50% { transform: translateY(-5px) rotate(6deg); }
+	}
+
+	.animate-bounce-slow {
+		animation: bounce-slow 3s infinite;
+	}
+
+	.group:hover .absolute {
+		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+	}
+
+	@keyframes float {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-5px); }
+	}
+
+	.animate-float {
+		animation: float 3s ease-in-out infinite;
+	}
+
+	/* Add new styles for enhanced features */
+	.countdown-timer {
+		background: rgba(0, 0, 0, 0.2);
+		padding: 0.25rem 0.75rem;
+		border-radius: 0.5rem;
+	}
+
+	@keyframes pulse-border {
+		0%, 100% { border-color: black; }
+		50% { border-color: #EF4444; }
+	}
+
+	.pulse-border {
+		animation: pulse-border 2s infinite;
+	}
+
+	/* Add any additional styles here */
+	.pricing-card {
+		transition: transform 0.3s ease;
+	}
+
+	.pricing-card:hover {
+		transform: translateY(-5px);
+	}
+</style>
+
+<script>
+	// Add hover effect for price cards
+	document.querySelectorAll('.price-card').forEach(card => {
+		card.addEventListener('mousemove', (e) => {
+			const rect = card.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			
+			const xPercent = x / rect.width;
+			const yPercent = y / rect.height;
+			
+			const rotateX = (yPercent - 0.5) * 10;
+			const rotateY = (xPercent - 0.5) * 10;
+			
+			card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+		});
+
+		card.addEventListener('mouseleave', () => {
+			card.style.transform = '';
+		});
+	});
+
+	// Intersection Observer for reveal animations
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('visible');
+			}
+		});
+	}, { threshold: 0.1 });
+
+	document.querySelectorAll('.reveal-on-scroll').forEach(element => {
+		observer.observe(element);
+	});
+
+	// Countdown Timer Logic
+	function updateCountdown() {
+		const countdownElement = document.getElementById('pricing-countdown');
+		const priceCardTimers = document.querySelectorAll('.price-card-timer');
+		if (!countdownElement && priceCardTimers.length === 0) return;
+
+		let time = 24 * 60 * 60; // 24 hours in seconds
+
+		const timer = setInterval(() => {
+			const hours = Math.floor(time / 3600);
+			const minutes = Math.floor((time % 3600) / 60);
+			const seconds = time % 60;
+			const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+			if (countdownElement) {
+				countdownElement.textContent = formattedTime;
+			}
+			
+			// Update all price card timers
+			priceCardTimers.forEach(timerElement => {
+				timerElement.textContent = formattedTime;
+			});
+
+			if (time <= 0) {
+				clearInterval(timer);
+				if (countdownElement) {
+					countdownElement.textContent = "00:00:00";
+				}
+				priceCardTimers.forEach(timerElement => {
+					timerElement.textContent = "00:00:00";
+				});
+			}
+			time--;
+		}, 1000);
+	}
+
+	// Initialize countdown when the page loads
+	document.addEventListener('DOMContentLoaded', updateCountdown);
+</script> 

@@ -1,0 +1,96 @@
+---
+// Navigation links
+const navLinks = [
+  { text: "Disclaimer", id: "disclaimer" },
+  { text: "Privacy Policy", id: "privacy" },
+  { text: "Terms of Use", id: "terms" },
+  { text: "Cookie Policy", id: "test" }
+];
+
+// Current year for copyright
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="relative bg-comic-bg-blue py-12 md:py-16 comic-text">
+  <!-- Comic-style top border -->
+  <div class="absolute top-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_0%,5%_100%,10%_0%,15%_100%,20%_0%,25%_100%,30%_0%,35%_100%,40%_0%,45%_100%,50%_0%,55%_100%,60%_0%,65%_100%,70%_0%,75%_100%,80%_0%,85%_100%,90%_0%,95%_100%,100%_0%)]"></div>
+
+  <div class="container mx-auto px-4">
+    <!-- Top Navigation Links -->
+    <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-8">
+      {navLinks.map((link) => (
+        <button 
+          onclick={`openModal('${link.id}')`}
+          class="comic-button bg-white text-black hover:bg-comic-accent transition-all duration-200"
+        >
+          {link.text}
+        </button>
+      ))}
+    </div>
+    
+    <!-- Center Visual - Sloth in Hammock -->
+    <div class="flex justify-center mb-8">
+      <div class="relative w-40 h-40 md:w-48 md:h-48 comic-card transform rotate-2">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <img 
+            src="/images/sloth-hammock.svg" 
+            alt="A sloth relaxing in a hammock between tropical plants" 
+            class="w-full h-full object-contain comic-pop"
+            onerror="this.innerHTML='<div class=\'text-6xl comic-pop\'>🦥</div>'"
+          />
+        </div>
+      </div>
+    </div>
+    
+    <!-- Legal Disclaimer -->
+    <div class="max-w-3xl mx-auto text-center mb-8">
+      <div class="comic-bubble bg-white">
+        <p class="text-sm text-gray-600 leading-relaxed">
+          <span class="font-bold comic-title">Disclaimer:</span> This material is for informational purposes only and not financial, legal, or tax advice. Always consult a professional before making decisions. Results vary based on individual effort and external factors. We are not responsible for any outcomes.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Copyright Line -->
+    <div class="text-center">
+      <p class="comic-title text-sm tracking-wider">
+        © {currentYear} Strategic Sloth LLC. ALL RIGHTS RESERVED
+      </p>
+    </div>
+    
+    <!-- Social Icons -->
+    <div class="absolute bottom-4 right-4 flex space-x-4">
+      <a href="#" class="comic-icon hover:scale-110 transition-transform duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </a>
+      <a href="#" class="comic-icon hover:scale-110 transition-transform duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Comic-style bottom border -->
+  <div class="absolute bottom-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_100%,5%_0%,10%_100%,15%_0%,20%_100%,25%_0%,30%_100%,35%_0%,40%_100%,45%_0%,50%_100%,55%_0%,60%_100%,65%_0%,70%_100%,75%_0%,80%_100%,85%_0%,90%_100%,95%_0%,100%_100%)]"></div>
+</footer>
+
+<script>
+  // Add comic-style pop animation for the footer
+  document.addEventListener('DOMContentLoaded', () => {
+    const footer = document.querySelector('footer');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'comic-pop');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    footer.classList.add('opacity-0');
+    observer.observe(footer);
+  });
+</script> 

@@ -1,0 +1,621 @@
+---
+import BuyButton from './BuyButton.astro';
+
+const phases = [
+    {
+        icon: "🎯",
+        title: "FOUNDATION",
+        week: "WEEK 1-2",
+        steps: [
+            "Read \"Mindset Reset\" chapter",
+            "Complete lifestyle audit",
+            "Set 90-day freedom goals"
+        ]
+    },
+    {
+        icon: "🗺️",
+        title: "STRATEGY",
+        week: "WEEK 3-4",
+        steps: [
+            "Choose your freedom path",
+            "Study success stories",
+            "Plan your escape route"
+        ]
+    },
+    {
+        icon: "🛠️",
+        title: "ACTION",
+        week: "WEEK 5-8",
+        steps: [
+            "Apply core strategies",
+            "Build your system",
+            "Track your progress"
+        ]
+    },
+    {
+        icon: "🦋",
+        title: "FREEDOM",
+        week: "WEEK 9+",
+        steps: [
+            "Optimize your system",
+            "Scale your success",
+            "Live your dream life"
+        ]
+    }
+];
+
+const bundles = [
+    {
+        icon: "📘",
+        title: "BASIC BUNDLE",
+        tag: "BEST FOR BEGINNERS",
+        description: "Focus on Phases 1-2. Self-paced, with community support."
+    },
+    {
+        icon: "🚀",
+        title: "PREMIUM BUNDLE",
+        tag: "ALL ACCESS",
+        description: "Includes all 4 phases with case studies, templates, and advanced strategies."
+    },
+    {
+        icon: "👑",
+        title: "VIP BUNDLE",
+        tag: "MENTORSHIP INCLUDED",
+        description: "Accelerated results through all phases with direct 1-on-1 mentorship."
+    }
+];
+
+const lifestyleCards = [
+    {
+        title: "YOUR BEACHFRONT OFFICE",
+        description: "Trade your cubicle for a hammock. Your new office has a better view — and zero fluorescent lights.",
+        badge: "✈️",
+        badgeColor: "#4A90E2",
+        image: "/images/lfs/BeachToon.png",
+        hoverImage: "/images/lfs/BeachR.png"
+    },
+    {
+        title: "FREEDOM TO ROAM",
+        description: "Work from anywhere, live everywhere. Your income follows you — not the other way around.",
+        badge: "🌍",
+        badgeColor: "#2ECC71",
+        image: "/images/lfs/FlyToon.png",
+        hoverImage: "/images/lfs/FlyR.png"
+    },
+    {
+        title: "LIVE YOUR ADVENTURES",
+        description: "Turn 'Someday' dreams into 'this Wednesday' reality. Adventure does not wait retirement.",
+        badge: "🎯",
+        badgeColor: "#FF4D4D",
+        image: "/images/lfs/SnowToon.png",
+        hoverImage: "/images/lfs/SnowR.png"
+    }
+];
+---
+
+<!-- Background with Parallax and Interactive Effects -->
+<section class="relative min-h-screen overflow-hidden">
+    <!-- Static Background -->
+    <div class="absolute inset-0">
+        <img 
+            src="/images/lifestylebg.png" 
+            alt="Background" 
+            class="w-full h-full object-cover animate-subtle-pulse"
+        >
+        <!-- Overlay with Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30 mix-blend-overlay animate-gradient-shift"></div>
+        
+        <!-- Animated Particles -->
+        <div class="absolute inset-0 particles-container">
+            {Array(10).fill().map((_, i) => (
+                <div 
+                    class="absolute w-3 h-3 bg-white rounded-full opacity-50 floating-particle"
+                    style={`animation-delay: ${i * 0.5}s; left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;`}
+                ></div>
+            ))}
+        </div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 container mx-auto px-4 py-24">
+        <!-- Header -->
+        <div class="text-center mb-16 relative" data-scroll-animation="fade-up">
+            <div class="inline-block transform -rotate-2 animate-float-slow">
+                <div class="comic-bubble bg-white inline-block mb-4 animate-pulse-subtle">
+                    <h2 class="text-4xl md:text-5xl font-bold animate-text-shadow">LIFESTYLE SHOWCASE</h2>
+                </div>
+            </div>
+            
+            <div class="comic-bubble bg-white inline-block transform rotate-1 ml-4 mb-8 animate-float-slow-delayed">
+                <p class="text-xl font-comic animate-text-shadow">These photos? Just my average Tuesday.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <p class="text-2xl font-comic text-center animate-text-shadow">
+                    This is not a dream — it's your new reality. Join thousands already living this lifestyle.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" data-scroll-animation="fade-up" data-stagger>
+            {lifestyleCards.map((card, index) => (
+                <div class="comic-panel group hover:scale-102 transition-all duration-300" data-stagger-child style={`animation-delay: ${index * 0.2}s`}>
+                    <!-- Image Container -->
+                    <div class="relative overflow-hidden">
+                        <img 
+                            src={card.image} 
+                            alt={card.title}
+                            class="w-full h-64 object-cover transition-all duration-500 ease-in-out base-image animate-subtle-zoom"
+                        />
+                        <img 
+                            src={card.hoverImage} 
+                            alt={`${card.title} - Real`}
+                            class="absolute inset-0 w-full h-64 object-cover opacity-0 scale-110 transition-all duration-500 ease-in-out real-image group-hover:opacity-100 group-hover:scale-100 animate-subtle-zoom-delayed"
+                        />
+                        <!-- Badge -->
+                        <div 
+                            class="absolute -top-3 -right-3 w-12 h-12 rounded-full border-4 border-black flex items-center justify-center text-xl bg-white transform rotate-12 shadow-comic-sm animate-badge-pulse"
+                            style={`background: ${card.badgeColor}`}
+                        >
+                            <span class="animate-badge-rotate">{card.badge}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="bg-white p-6 border-t-4 border-black">
+                        <div class="comic-speech-bubble group-hover:transform group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-300 animate-speech-bubble">
+                            {card.title}
+                        </div>
+                        <p class="text-lg font-comic animate-text-reveal">{card.description}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center" data-scroll-animation="fade-up">
+            <div class="comic-bubble-large inline-block mb-8 animate-float-slow">
+                <p class="text-2xl font-bold animate-text-shadow">Start Your Journey Today</p>
+            </div>
+            
+            <div class="comic-bubble-large inline-block mb-8 animate-float-slow-delayed">
+                <p class="text-xl animate-text-shadow">Join 5,000+ members already living their dream lifestyle</p>
+            </div>
+            
+            <div class="relative inline-block animate-cta-pulse">
+                <span class="absolute -left-16 top-1/2 transform -translate-y-1/2 text-4xl animate-bounce-horizontal">
+                    👉
+                </span>
+                <a 
+                    href="#get-started" 
+                    class="comic-button bg-[#FFF4CC] hover:bg-[#FFE5A3] text-black transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-2 animate-button-shine"
+                >
+                    BEGIN YOUR ADVENTURE
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-arrow-bounce" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap');
+
+    .font-comic {
+        font-family: 'Comic Neue', cursive;
+    }
+
+    .comic-panel {
+        border: 4px solid black;
+        border-radius: 16px;
+        background: white;
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .comic-bubble {
+        border: 4px solid black;
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .comic-bubble-large {
+        border: 4px solid black;
+        border-radius: 24px;
+        padding: 2rem 3rem;
+        background: white;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .comic-speech-bubble {
+        display: inline-block;
+        background: white;
+        border: 4px solid black;
+        border-radius: 18px;
+        padding: 0.75rem 1.5rem;
+        font-family: 'Bangers', cursive;
+        font-size: 1.75rem;
+        letter-spacing: 0.06em;
+        position: relative;
+        margin-bottom: 1.5rem;
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .comic-speech-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -16px;
+        left: 24px;
+        width: 0;
+        height: 0;
+        border-left: 16px solid transparent;
+        border-right: 16px solid transparent;
+        border-top: 16px solid black;
+    }
+
+    .comic-button {
+        border: 4px solid black;
+        border-radius: 12px;
+        padding: 1rem 2rem;
+        font-weight: bold;
+        font-size: 1.25rem;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .bg-halftone {
+        background-image: radial-gradient(circle at center, black 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+
+    .shadow-comic-sm {
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    }
+
+    .floating-particle {
+        will-change: transform;
+        filter: blur(1px);
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(var(--x), var(--y)); }
+    }
+
+    .animate-bounce-horizontal {
+        animation: bounce-horizontal 1s infinite;
+    }
+
+    @keyframes bounce-horizontal {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(-10px); }
+    }
+
+    /* New Micro-Animations */
+    .animate-subtle-pulse {
+        animation: subtle-pulse 8s infinite alternate;
+    }
+
+    @keyframes subtle-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.02); }
+    }
+
+    .animate-gradient-shift {
+        animation: gradient-shift 15s infinite alternate;
+    }
+
+    @keyframes gradient-shift {
+        0% { opacity: 0.8; }
+        100% { opacity: 1; }
+    }
+
+    .animate-float-slow {
+        animation: float-slow 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes float-slow {
+        0% { transform: translateY(0) rotate(-2deg); }
+        100% { transform: translateY(-10px) rotate(0deg); }
+    }
+
+    .animate-float-slow-delayed {
+        animation: float-slow 6s infinite alternate ease-in-out;
+        animation-delay: 1s;
+    }
+
+    .animate-pulse-subtle {
+        animation: pulse-subtle 3s infinite alternate;
+    }
+
+    @keyframes pulse-subtle {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.03); }
+    }
+
+    .animate-text-shadow {
+        animation: text-shadow 3s infinite alternate;
+    }
+
+    @keyframes text-shadow {
+        0% { text-shadow: 1px 1px 0 rgba(0,0,0,0.1); }
+        100% { text-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
+    }
+
+    .animate-subtle-zoom {
+        animation: subtle-zoom 20s infinite alternate;
+    }
+
+    @keyframes subtle-zoom {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
+    }
+
+    .animate-subtle-zoom-delayed {
+        animation: subtle-zoom 20s infinite alternate;
+        animation-delay: 10s;
+    }
+
+    .animate-badge-pulse {
+        animation: badge-pulse 3s infinite alternate;
+    }
+
+    @keyframes badge-pulse {
+        0% { transform: rotate(12deg) scale(1); }
+        100% { transform: rotate(12deg) scale(1.1); }
+    }
+
+    .animate-badge-rotate {
+        animation: badge-rotate 10s infinite linear;
+    }
+
+    @keyframes badge-rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .animate-speech-bubble {
+        animation: speech-bubble 5s infinite alternate;
+    }
+
+    @keyframes speech-bubble {
+        0% { transform: scale(1) rotate(0deg); }
+        100% { transform: scale(1.02) rotate(-1deg); }
+    }
+
+    .animate-text-reveal {
+        animation: text-reveal 1s ease-out forwards;
+    }
+
+    @keyframes text-reveal {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-cta-pulse {
+        animation: cta-pulse 3s infinite alternate;
+    }
+
+    @keyframes cta-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
+    }
+
+    .animate-button-shine {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .animate-button-shine::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-100%) rotate(30deg); }
+        100% { transform: translateX(100%) rotate(30deg); }
+    }
+
+    .animate-arrow-bounce {
+        animation: arrow-bounce 1.5s infinite alternate;
+    }
+
+    @keyframes arrow-bounce {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(5px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .floating-particle,
+        .animate-bounce-horizontal,
+        .animate-subtle-pulse,
+        .animate-gradient-shift,
+        .animate-float-slow,
+        .animate-float-slow-delayed,
+        .animate-pulse-subtle,
+        .animate-text-shadow,
+        .animate-subtle-zoom,
+        .animate-subtle-zoom-delayed,
+        .animate-badge-pulse,
+        .animate-badge-rotate,
+        .animate-speech-bubble,
+        .animate-text-reveal,
+        .animate-cta-pulse,
+        .animate-button-shine::after,
+        .animate-arrow-bounce {
+            animation: none;
+            transform: none;
+        }
+    }
+
+    .scale-102 {
+        scale: 1.02;
+    }
+
+    /* Mobile-first image transition styles */
+    @media (max-width: 768px) {
+        .comic-panel .base-image {
+            opacity: 1;
+        }
+        
+        .comic-panel .real-image {
+            opacity: 0;
+            transform: scale(1.1);
+        }
+        
+        .comic-panel.show-real .base-image {
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        
+        .comic-panel.show-real .real-image {
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.6s ease-in-out;
+        }
+    }
+
+    /* Preserve hover effects for desktop */
+    @media (min-width: 769px) {
+        .comic-panel {
+            transform: translateY(0);
+        }
+        
+        .comic-panel:hover {
+            transform: translateY(-5px);
+        }
+        
+        .comic-panel:hover .base-image {
+            opacity: 0;
+        }
+        
+        .comic-panel:hover .real-image {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Ensure smooth transitions */
+    .base-image,
+    .real-image {
+        transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+        will-change: opacity, transform;
+    }
+</style>
+
+<script>
+    // Check if we're on mobile/small viewport
+    const isMobileView = () => window.innerWidth <= 768;
+
+    // Initialize Intersection Observer for mobile devices
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && isMobileView()) {
+                entry.target.classList.add('show-real');
+                
+                // Add a slight delay for a cascade effect
+                const textElements = entry.target.querySelectorAll('.animate-text-reveal');
+                textElements.forEach((el, i) => {
+                    el.style.animationDelay = `${i * 0.2 + 0.3}s`;
+                });
+            } else if (!entry.isIntersecting && isMobileView()) {
+                entry.target.classList.remove('show-real');
+            }
+        });
+    }, { 
+        threshold: 0.3, // Reduced threshold for earlier triggering
+        rootMargin: '0px 0px -10% 0px'
+    });
+
+    // Observe all comic panels
+    document.querySelectorAll('.comic-panel').forEach(panel => {
+        observer.observe(panel);
+    });
+
+    // Handle resize events
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const panels = document.querySelectorAll('.comic-panel');
+            if (!isMobileView()) {
+                panels.forEach(panel => panel.classList.remove('show-real'));
+            }
+        }, 250);
+    });
+
+    // Clean up observer when the component unmounts
+    document.addEventListener('astro:before-swap', () => {
+        observer.disconnect();
+    });
+
+    // Respect user's motion preferences
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.comic-panel').forEach(panel => {
+            panel.style.transition = 'none';
+            panel.querySelectorAll('img').forEach(img => {
+                img.style.transition = 'none';
+            });
+        });
+    }
+</script>
+
+<!-- Create palm trees SVG -->
+<script>
+    // Create palm trees SVG if it doesn't exist
+    const createPalmTreesSVG = async () => {
+        const svgContent = `
+        <svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(50,180) scale(0.8)" fill="#000000">
+                <path d="M20,0 C30,-40 40,-60 60,-40 C40,-60 50,-80 80,-60 C60,-80 65,-100 90,-80 C70,-100 70,-120 100,-100 L90,-90 L80,-70 L70,-50 L60,-30 L50,-10 L40,0 Z"/>
+                <rect x="35" y="0" width="10" height="20"/>
+            </g>
+            <g transform="translate(200,180) scale(0.8)" fill="#000000">
+                <path d="M20,0 C30,-40 40,-60 60,-40 C40,-60 50,-80 80,-60 C60,-80 65,-100 90,-80 C70,-100 70,-120 100,-100 L90,-90 L80,-70 L70,-50 L60,-30 L50,-10 L40,0 Z"/>
+                <rect x="35" y="0" width="10" height="20"/>
+            </g>
+            <g transform="translate(350,180) scale(0.8)" fill="#000000">
+                <path d="M20,0 C30,-40 40,-60 60,-40 C40,-60 50,-80 80,-60 C60,-80 65,-100 90,-80 C70,-100 70,-120 100,-100 L90,-90 L80,-70 L70,-50 L60,-30 L50,-10 L40,0 Z"/>
+                <rect x="35" y="0" width="10" height="20"/>
+            </g>
+        </svg>`;
+
+        try {
+            const response = await fetch('/images/palm-trees.svg');
+            if (!response.ok) {
+                const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+                const formData = new FormData();
+                formData.append('file', blob, 'palm-trees.svg');
+                
+                // Note: In a real environment, you'd need server-side code to handle this
+                // This is just to illustrate the concept
+                console.log('SVG would be saved as /images/palm-trees.svg');
+            }
+        } catch (error) {
+            console.error('Error creating palm trees SVG:', error);
+        }
+    };
+
+    createPalmTreesSVG();
+</script> 

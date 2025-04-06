@@ -1,0 +1,682 @@
+---
+const bookDetails = {
+    title: "Don't Do Anything",
+    subtitle: "The Art of Earning Money by Doing Nothing",
+    subheading: "Mini Starter Guide — Your first step toward smart, lazy income.",
+    description: "A short and powerful digital guide (PDF) that teaches you how to stop trading time for money—and start building income the lazy way.",
+    tagline: "Lazy Genius - Master the art of pure lazing and turn minimal effort into maximum income.",
+    rating: "4.5/5",
+    currentPrice: 5,
+    regularPrice: 15,
+    discount: 67,
+    features: [
+        "Learn the mindset",
+        "See the strategy",
+        "Take your first steps toward passive income",
+        "No fluff, no stress, no gatekeeping"
+    ],
+    cta: "👀 Want the full system?",
+    ctaLink: "#pricing",
+    ctaText: "View the Freedom Kits →"
+};
+---
+
+<section id="book-offer" class="relative py-24 overflow-hidden book-offer-section">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0">
+        <img 
+            src="/images/5bucksbg.png" 
+            alt="Book Offer Background" 
+            class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60"></div>
+    </div>
+
+    <!-- Comic-style Background Elements -->
+    <div class="absolute inset-0 z-1">
+        <!-- Comic Sparkles with Animation -->
+        <div class="absolute top-1/4 right-1/4 comic-sparkle animate-sparkle">✨</div>
+        <div class="absolute bottom-1/3 left-1/3 comic-sparkle animate-sparkle-delayed">⭐</div>
+        <div class="absolute top-1/3 left-1/4 comic-sparkle animate-sparkle">✨</div>
+        
+        <!-- Comic Clouds -->
+        <div class="absolute top-10 right-10 w-32 h-16 comic-cloud animate-float-slow"></div>
+        <div class="absolute bottom-20 left-20 w-24 h-12 comic-cloud animate-float-slow-delayed"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header with Timer -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-12 mt-8">
+                <div class="comic-bubble-pointed bg-[#fcd34d] text-black transform -rotate-2 animate-pulse">
+                    <span class="text-2xl font-bold px-8 py-4">⏰ LIMITED-TIME OFFER</span>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Column - Content -->
+                <div class="space-y-8">
+                    <!-- Title with Comic Style -->
+                    <div class="space-y-4">
+                        <h1 class="text-7xl md:text-8xl font-black leading-tight text-white transform -rotate-1 mb-2">
+                            {bookDetails.title}
+                        </h1>
+                        <p class="comic-subtitle text-3xl font-bold text-yellow-300 transform rotate-1 animate-text-shadow">
+                            {bookDetails.subtitle}
+                        </p>
+                        <p class="text-xl font-medium text-white transform -rotate-1 animate-text-shadow">
+                            {bookDetails.subheading}
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-lg font-medium comic-text-shadow text-white animate-text-reveal">
+                        {bookDetails.description}
+                    </p>
+
+                    <!-- Features List with Enhanced Styling -->
+                    <ul class="space-y-4">
+                        {bookDetails.features.map((feature, index) => (
+                            <li class="flex items-start gap-3 text-white animate-reveal" style={`animation-delay: ${index * 0.2}s`}>
+                                <div class="comic-checkmark text-2xl text-yellow-300 transform rotate-12 animate-badge-pulse">
+                                    ✅
+                                </div>
+                                <span class="font-bold text-lg leading-tight">{feature}</span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <!-- Rating Stars with Enhanced Styling -->
+                    <div class="flex items-center gap-3 transform -rotate-1 animate-badge-pulse">
+                        <div class="flex text-yellow-300 text-3xl">★★★★½</div>
+                        <div class="rating-bubble bg-white/20 px-4 py-2 text-xl font-bold text-white">
+                            {bookDetails.rating}
+                        </div>
+                    </div>
+
+                    <!-- Price Tag with Enhanced Styling -->
+                    <div class="relative">
+                        <div class="flex items-start gap-4 mb-16">
+                            <!-- Main Price Tag -->
+                            <div class="price-bubble bg-[#fcd34d] text-black transform -rotate-2">
+                                <div class="flex flex-col items-center p-6">
+                                    <div class="text-center">
+                                        <div class="text-4xl font-black mb-2">ONLY</div>
+                                        <div class="text-7xl font-black mb-2">$5</div>
+                                        <div class="text-xl font-bold opacity-80">(Digital Guide)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Discount Badge -->
+                            <div class="discount-bubble bg-[#7e22ce] text-white transform rotate-2 px-6 py-3">
+                                <div class="flex flex-col items-center">
+                                    <div class="text-2xl font-bold mb-1">⭐</div>
+                                    <div class="text-4xl font-black mb-1">67% OFF</div>
+                                    <div class="text-xl">Limited-Time Offer</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timer Bar -->
+                        <div class="comic-bubble bg-[#FFD700] text-black p-6 relative rounded-tr-[100px]">
+                            <!-- Sloth Image -->
+                            <div class="absolute -right-16 -top-[137px] w-64 h-64">
+                                <img src="/images/latteasloth.png" alt="Sloth with Speech Bubble" class="w-full h-full object-contain" />
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="text-3xl">🕒</div>
+                                <div class="flex-1">
+                                    <div class="flex items-baseline gap-3">
+                                        <span class="text-2xl font-bold">Offer Ends In:</span>
+                                        <span class="font-mono font-black text-3xl" id="book-offer-countdown">12:34:42</span>
+                                    </div>
+                                    <div class="text-lg font-medium mt-1">(Then it's nap-time pricing again)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Digital Download Note -->
+                        <div class="text-center mt-3">
+                            <span class="text-white text-sm font-medium">💾 Digital download. Yours forever.</span>
+                        </div>
+                    </div>
+
+                    <!-- Tagline with Enhanced Styling -->
+                    <p class="text-xl font-bold comic-text-shadow text-white animate-text-shadow">{bookDetails.tagline}</p>
+
+                    <!-- CTA Button with Enhanced Styling -->
+                    <div class="space-y-4">
+                        <a href="#buy-now" class="comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 inline-flex items-center gap-2 animate-button-shine">
+                            <span class="text-2xl font-black px-8 py-4">CLAIM YOUR COPY NOW</span>
+                            <span class="text-2xl animate-bounce-horizontal">👉</span>
+                        </a>
+                        
+                        <!-- Guarantee Badge with Enhanced Styling -->
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl font-bold text-white">✓</span>
+                            <span class="font-bold text-white text-lg animate-text-shadow">30-Day Money-Back Guarantee</span>
+                        </div>
+                        
+                        <!-- Additional CTA with Enhanced Styling -->
+                        <div class="mt-6 text-center">
+                            <p class="font-bold text-white text-xl mb-3 animate-text-shadow">{bookDetails.cta}</p>
+                            <a href={bookDetails.ctaLink} class="inline-flex flex-col items-center text-yellow-300 hover:text-yellow-200 transition-colors">
+                                <span class="text-4xl animate-bounce">⬇️</span>
+                                <span class="text-lg font-bold">View Pricing</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Book Image with Enhanced Styling -->
+                <div class="relative transform hover:scale-105 transition-all duration-500">
+                    <div class="comic-book-container">
+                        <img 
+                            src="/images/bookpdf.png" 
+                            alt="Don't Do Anything Book Cover" 
+                            class="w-full max-w-md mx-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] transform rotate-6 hover:rotate-3 transition-transform duration-300 animate-float-slow"
+                        />
+                    </div>
+                    <!-- Comic Decorative Elements -->
+                    <div class="absolute -top-6 -right-6 comic-sparkle text-4xl animate-sparkle">✨</div>
+                    <div class="absolute -bottom-4 -left-4 comic-sparkle text-4xl animate-sparkle-delayed">⭐</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .comic-bubble {
+        border: 3px solid black;
+        border-radius: 12px;
+        border-top-right-radius: 100px;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: #FFD700;
+    }
+
+    .comic-bubble:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .comic-bubble-pointed {
+        border: 3px solid black;
+        border-radius: 12px;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .comic-bubble-pointed:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .comic-bubble-pointed::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 24px;
+        width: 20px;
+        height: 20px;
+        background: #fcd34d;
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;
+        transform: rotate(45deg);
+    }
+
+    .comic-button {
+        border: 3px solid black;
+        border-radius: 12px;
+        box-shadow: 4px 4px 0 black;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+    }
+
+    .comic-button:hover {
+        transform: translateY(-4px) scale(1.05) rotate(-2deg);
+        box-shadow: 8px 8px 0 black;
+    }
+
+    .comic-button:active {
+        transform: translateY(2px) scale(0.98);
+        box-shadow: 2px 2px 0 black;
+    }
+
+    .comic-price-tag {
+        border: 3px solid black;
+        border-radius: 16px;
+        box-shadow: 
+            8px 8px 0 rgba(0, 0, 0, 0.25),
+            inset 0 0 20px rgba(255, 255, 255, 0.5);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .comic-price-tag::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+        animation: shine-rotate 4s linear infinite;
+    }
+
+    @keyframes shine-rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .comic-title-container {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+
+    .comic-title {
+        position: relative;
+        z-index: 2;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        -webkit-text-stroke: 2px black;
+        text-shadow: 
+            4px 4px 0 rgba(0, 0, 0, 0.5),
+            -2px -2px 0 rgba(255, 255, 255, 0.3);
+        transform: rotate(-1deg);
+        animation: title-pulse 3s infinite alternate;
+    }
+
+    .comic-title-highlight {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        background: linear-gradient(135deg, rgba(252, 211, 77, 0.3), rgba(255, 255, 255, 0.1));
+        z-index: 1;
+        border-radius: 8px;
+        transform: rotate(-1deg);
+    }
+
+    .comic-title-shadow {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 0;
+        border-radius: 8px;
+        transform: rotate(-1deg);
+    }
+
+    .comic-title-badge {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 60px;
+        height: 60px;
+        background: #fcd34d;
+        border: 3px solid black;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+        z-index: 3;
+        animation: badge-bounce 2s infinite alternate;
+    }
+
+    @keyframes title-pulse {
+        0% { transform: rotate(-1deg) scale(1); }
+        100% { transform: rotate(-1deg) scale(1.02); }
+    }
+
+    @keyframes badge-bounce {
+        0% { transform: translateY(0) rotate(-5deg); }
+        100% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    .comic-subtitle {
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .comic-text-shadow {
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .comic-sparkle {
+        animation: float 3s ease-in-out infinite;
+        transition: transform 0.3s ease;
+    }
+
+    .comic-sparkle:hover {
+        transform: scale(1.2) rotate(15deg);
+    }
+
+    .comic-cloud {
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 50px;
+        box-shadow: 3px 3px 0 black;
+        position: relative;
+    }
+
+    .comic-cloud::before,
+    .comic-cloud::after {
+        content: "";
+        position: absolute;
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 50%;
+    }
+
+    .comic-cloud::before {
+        width: 60%;
+        height: 60%;
+        top: -30%;
+        left: 20%;
+    }
+
+    .comic-cloud::after {
+        width: 40%;
+        height: 40%;
+        top: -20%;
+        right: 20%;
+    }
+
+    .comic-speech-bubble {
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 50%;
+        box-shadow: 3px 3px 0 black;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .comic-speech-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid white;
+    }
+
+    .comic-book-container {
+        position: relative;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    /* Animation Classes */
+    .animate-float-slow {
+        animation: float-slow 6s infinite alternate ease-in-out;
+    }
+
+    @keyframes float-slow {
+        0% { transform: translateY(0) rotate(-2deg); }
+        100% { transform: translateY(-10px) rotate(0deg); }
+    }
+
+    .animate-float-slow-delayed {
+        animation: float-slow 6s infinite alternate ease-in-out;
+        animation-delay: 1s;
+    }
+
+    .animate-text-shadow {
+        animation: text-shadow 3s infinite alternate;
+    }
+
+    @keyframes text-shadow {
+        0% { text-shadow: 1px 1px 0 rgba(0,0,0,0.1); }
+        100% { text-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
+    }
+
+    .animate-badge-pulse {
+        animation: badge-pulse 3s infinite alternate;
+    }
+
+    @keyframes badge-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+    }
+
+    .animate-bounce-horizontal {
+        animation: bounce-horizontal 1s infinite;
+    }
+
+    @keyframes bounce-horizontal {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(-10px); }
+    }
+
+    .animate-cta-pulse {
+        animation: cta-pulse 3s infinite alternate;
+    }
+
+    @keyframes cta-pulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.05); }
+    }
+
+    .animate-button-shine {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .animate-button-shine::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-100%) rotate(30deg); }
+        100% { transform: translateX(100%) rotate(30deg); }
+    }
+
+    .animate-arrow-bounce {
+        animation: arrow-bounce 1.5s infinite alternate;
+    }
+
+    @keyframes arrow-bounce {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(5px); }
+    }
+
+    .animate-sparkle {
+        animation: sparkle 3s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+    }
+
+    .animate-sparkle-delayed {
+        animation: sparkle 3s ease-in-out infinite;
+        animation-delay: 1.5s;
+    }
+
+    .animate-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: reveal 0.6s forwards;
+    }
+
+    @keyframes reveal {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-text-reveal {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: text-reveal 0.6s forwards;
+    }
+
+    @keyframes text-reveal {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .animate-float-slow,
+        .animate-float-slow-delayed,
+        .animate-text-shadow,
+        .animate-badge-pulse,
+        .animate-bounce-horizontal,
+        .animate-cta-pulse,
+        .animate-button-shine::after,
+        .animate-arrow-bounce,
+        .animate-sparkle,
+        .animate-sparkle-delayed,
+        .animate-reveal,
+        .animate-text-reveal {
+            animation: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    .comic-checkmark {
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+        display: inline-block;
+        transform-origin: center;
+    }
+
+    .rating-bubble {
+        border: 3px solid black;
+        border-radius: 12px;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 1;
+    }
+
+    .price-bubble {
+        border: 3px solid black;
+        border-radius: 12px;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 1;
+    }
+
+    .discount-bubble {
+        border: 3px solid black;
+        border-radius: 12px;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 1;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Add hover effects to comic elements
+        document.querySelectorAll('.comic-bubble, .comic-bubble-pointed, .comic-button, .comic-price-tag').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                element.style.transform = 'translateY(-4px) scale(1.05)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = '';
+            });
+        });
+        
+        // Add parallax effect to book image
+        const bookContainer = document.querySelector('.comic-book-container');
+        if (bookContainer) {
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX / window.innerWidth - 0.5;
+                const mouseY = e.clientY / window.innerHeight - 0.5;
+                
+                bookContainer.style.transform = `rotateY(${mouseX * 10}deg) rotateX(${-mouseY * 10}deg)`;
+            });
+        }
+
+        // Add smooth scroll behavior for the pricing arrow
+        const pricingArrow = document.querySelector('a[href="#pricing"]');
+        if (pricingArrow) {
+            pricingArrow.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Find all elements with id="pricing"
+                const pricingElements = document.querySelectorAll('[id="pricing"]');
+                
+                // If we found any pricing elements, scroll to the first one
+                if (pricingElements.length > 0) {
+                    // Get the position of the pricing element
+                    const pricingPosition = pricingElements[0].getBoundingClientRect().top + window.scrollY;
+                    
+                    // Scroll to that position with smooth behavior
+                    window.scrollTo({
+                        top: pricingPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+        
+        // Countdown Timer Logic
+        function updateCountdown() {
+            const countdownElement = document.getElementById('book-offer-countdown');
+            if (!countdownElement) return;
+            
+            let time = 24 * 60 * 60; // 24 hours in seconds
+            
+            const timer = setInterval(() => {
+                const hours = Math.floor(time / 3600);
+                const minutes = Math.floor((time % 3600) / 60);
+                const seconds = time % 60;
+                
+                countdownElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                
+                if (time <= 0) {
+                    clearInterval(timer);
+                    countdownElement.textContent = "00:00:00";
+                }
+                time--;
+            }, 1000);
+        }
+        
+        // Initialize countdown when the page loads
+        updateCountdown();
+    });
+</script> 

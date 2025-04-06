@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440" height="200" viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Birds scattered across the sky with varying heights and positions -->
+  <g transform="translate(50,30)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(180,60)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1.2s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(320,40)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="0.9s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(450,70)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1.1s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(580,50)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(720,80)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1.3s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(850,40)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="0.8s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(980,60)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1.2s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(1100,30)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(1250,70)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="1.1s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+  <g transform="translate(1380,50)">
+    <path fill="none" stroke="#000" stroke-width="2" d="M0,0 C10,-10 20,-10 30,0">
+      <animate
+        attributeName="d"
+        values="M0,0 C10,-10 20,-10 30,0;M0,0 C10,10 20,10 30,0;M0,0 C10,-10 20,-10 30,0"
+        dur="0.9s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </g>
+</svg> 

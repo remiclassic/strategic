@@ -1,0 +1,353 @@
+---
+// Audience data
+const audienceCards = [
+  {
+    icon: "✈️",
+    title: "FREELANCERS & DIGITAL NOMADS",
+    description: "Want to work less and earn more? This guide shows you how to shift from active income to passive streams—so you can travel, explore, and actually enjoy life without chasing clients 24/7.",
+    iconBg: "#FF4D4D",
+    bulletColor: "#FF4D4D",
+    features: ["Work from anywhere", "Travel while earning", "Automate client work"]
+  },
+  {
+    icon: "🌿",
+    title: "ENTREPRENEURS & SIDE HUSTLERS",
+    description: "Burnt out from the 9-to-5 or juggling too many gigs? Learn how to build automated income systems that run while you live your life—on your schedule, not someone else's.",
+    iconBg: "#4A90E2",
+    bulletColor: "#4A90E2",
+    features: ["Escape the 9-5", "Build passive income", "Scale without burnout"]
+  },
+  {
+    icon: "☀️",
+    title: "ASPIRING ONLINE BUSINESS OWNERS",
+    description: "No experience? No problem. This blueprint gives you step-by-step systems to start earning online—whether it's digital products, automation, or optimizing for freedom and profit.",
+    iconBg: "#FFD700",
+    bulletColor: "#FFD700",
+    features: ["Start from scratch", "Follow proven steps", "Learn while earning"]
+  }
+];
+---
+
+<section class="relative py-24 overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 z-0">
+        <!-- Base background image -->
+        <img 
+            src="/images/isthisyou2.png" 
+            alt="Background Pattern" 
+            class="w-full h-full object-cover"
+        />
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-100/80 via-purple-50/80 to-white/80 mix-blend-overlay"></div>
+        <!-- Halftone pattern -->
+        <div class="absolute inset-0 bg-halftone opacity-5 pointer-events-none animate-subtle-rotate"></div>
+    </div>
+    
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-10">
+        <!-- Sloth Image -->
+        <img 
+            src="/images/feelseen.png" 
+            alt="Sloth" 
+            class="absolute bottom-0 left-0 w-64 h-64 object-contain"
+        />
+        <div class="absolute top-10 left-10 text-6xl animate-float-slow">💭</div>
+        <div class="absolute bottom-10 right-10 text-6xl animate-float-slow" style="animation-delay: 1s">✨</div>
+        <div class="absolute top-1/2 left-1/4 text-6xl animate-float-slow" style="animation-delay: 0.5s">🎯</div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <!-- Section Title -->
+        <div class="text-center mb-16 reveal-on-scroll">
+            <h2 class="text-5xl font-bangers mb-4 text-shadow-comic transform hover:scale-105 transition-all duration-300">
+                IS THIS YOU?
+            </h2>
+            <p class="text-xl font-comic max-w-2xl mx-auto hover:text-purple-700 transition-colors duration-300">
+                If any of these sound familiar, you're in the right place...
+            </p>
+        </div>
+
+        <!-- Audience Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-16">
+            {audienceCards.map((card, index) => (
+                <div class="comic-card bg-white transform hover:scale-105 hover:-rotate-2 transition-all duration-300 relative">
+                    <!-- Icon -->
+                    <div class="comic-icon w-24 h-24 mx-auto -mt-8 mb-6 flex items-center justify-center text-4xl border-4 border-black rounded-full" style={`background: ${card.iconBg}`}>
+                        {card.icon}
+                    </div>
+                    
+                    <!-- Title -->
+                    <h3 class="comic-title text-2xl mb-6 text-center px-4">
+                        {card.title}
+                    </h3>
+                    
+                    <!-- Description -->
+                    <div class="comic-bubble bg-white mb-8 mx-4">
+                        <p class="text-lg">
+                            {card.description}
+                        </p>
+                    </div>
+
+                    <!-- Features -->
+                    <ul class="space-y-4 px-6 pb-6">
+                        {card.features.map((feature) => (
+                            <li class="flex items-center gap-3">
+                                <div class="w-6 h-6 flex-shrink-0 rounded-full border-2 border-black flex items-center justify-center" style={`background: ${card.bulletColor}`}>
+                                    <span class="text-white font-bold text-sm">✓</span>
+                                </div>
+                                <span class="font-comic text-lg">{feature}</span>
+                            </li>
+                        ))}
+                    </ul>
+                    
+                    <!-- Sloth Images for specific panels -->
+                    {index === 0 && (
+                        <img 
+                            src="/images/freelancer.png" 
+                            alt="Freelancer Sloth" 
+                            class="absolute bottom-0 right-0 w-32 h-32 object-contain transform translate-x-4 translate-y-4"
+                        />
+                    )}
+                    {index === 1 && (
+                        <img 
+                            src="/images/sidehustlers.png" 
+                            alt="Side Hustler Sloth" 
+                            class="absolute bottom-0 right-0 w-32 h-32 object-contain transform translate-x-4 translate-y-4"
+                        />
+                    )}
+                    {index === 2 && (
+                        <img 
+                            src="/images/business.png" 
+                            alt="Business Sloth" 
+                            class="absolute bottom-0 right-0 w-32 h-32 object-contain transform translate-x-4 translate-y-4"
+                        />
+                    )}
+                </div>
+            ))}
+        </div>
+
+        <!-- Dream Life Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dream Card 1 -->
+            <div class="dream-card group">
+                <div class="relative p-6 bg-white rounded-xl border-4 border-black shadow-comic hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="absolute -top-3 -right-3 bg-yellow-400 px-4 py-1 rounded-full border-2 border-black transform rotate-6 group-hover:rotate-12 transition-all duration-300">
+                        DREAM
+                    </div>
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="text-4xl animate-bounce-slow">🏖️</span>
+                        <h3 class="font-bangers text-2xl group-hover:text-purple-600 transition-colors duration-300">
+                            Work From Paradise
+                        </h3>
+                    </div>
+                    <p class="font-comic text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+                        Imagine working from any beach, mountain, or café in the world, while your income grows automatically.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dream Card 2 -->
+            <div class="dream-card group" style="animation-delay: 0.2s">
+                <div class="relative p-6 bg-white rounded-xl border-4 border-black shadow-comic hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="absolute -top-3 -right-3 bg-blue-400 px-4 py-1 rounded-full border-2 border-black transform rotate-6 group-hover:rotate-12 transition-all duration-300">
+                        FREEDOM
+                    </div>
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="text-4xl animate-bounce-slow" style="animation-delay: 0.1s">⏰</span>
+                        <h3 class="font-bangers text-2xl group-hover:text-blue-600 transition-colors duration-300">
+                            Time Freedom
+                        </h3>
+                    </div>
+                    <p class="font-comic text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+                        Wake up when you want, work when you're inspired, and take time off without asking permission.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dream Card 3 -->
+            <div class="dream-card group" style="animation-delay: 0.4s">
+                <div class="relative p-6 bg-white rounded-xl border-4 border-black shadow-comic hover:transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="absolute -top-3 -right-3 bg-green-400 px-4 py-1 rounded-full border-2 border-black transform rotate-6 group-hover:rotate-12 transition-all duration-300">
+                        WEALTH
+                    </div>
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="text-4xl animate-bounce-slow" style="animation-delay: 0.2s">💰</span>
+                        <h3 class="font-bangers text-2xl group-hover:text-green-600 transition-colors duration-300">
+                            Financial Freedom
+                        </h3>
+                    </div>
+                    <p class="font-comic text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+                        Build multiple income streams that work while you sleep, creating true financial independence.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="text-center relative mt-12">
+            <div class="comic-bubble bg-white text-black inline-block transform rotate-1 mb-8 animate-bubble-pulse">
+                <p class="text-2xl font-bold">Sound Like You? Let's Do This! 🚀</p>
+                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white"></div>
+            </div>
+            
+            <a 
+                href="#get-started" 
+                class="comic-button bg-black text-white hover:bg-comic-accent transform hover:scale-105 hover:-rotate-2 transition-all duration-300 inline-flex items-center gap-2 animate-bounce-subtle"
+            >
+                SHOW ME HOW TO START
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-arrow-bounce" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .comic-card {
+        border: 4px solid black;
+        border-radius: 16px;
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    .comic-card:hover {
+        box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .comic-bubble {
+        border: 4px solid black;
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .bg-halftone {
+        background-image: radial-gradient(circle at center, black 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+
+    .shadow-comic {
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .text-shadow-comic {
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .animate-float-slow {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-bounce-slow {
+        animation: bounce 3s ease-in-out infinite;
+    }
+
+    .animate-subtle-rotate {
+        animation: subtle-rotate 30s linear infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0); }
+        50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes subtle-rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dream-card {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: card-reveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes card-reveal {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .animate-float-slow,
+        .animate-bounce-slow,
+        .animate-subtle-rotate,
+        .reveal-on-scroll,
+        .dream-card {
+            animation: none;
+            transition: none;
+        }
+    }
+
+    .animate-bubble-pulse {
+        animation: bubble-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes bubble-pulse {
+        0%, 100% { transform: scale(1) rotate(1deg); }
+        50% { transform: scale(1.05) rotate(1deg); }
+    }
+
+    .animate-arrow-bounce {
+        animation: arrow-bounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes arrow-bounce {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(4px); }
+    }
+
+    .animate-bounce-subtle {
+        animation: bounce-subtle 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce-subtle {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer for reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px'
+        });
+
+        // Observe all elements with reveal-on-scroll class
+        document.querySelectorAll('.reveal-on-scroll').forEach((element, index) => {
+            element.style.animationDelay = `${index * 200}ms`;
+            observer.observe(element);
+        });
+
+        // Add staggered animation delays to dream cards
+        document.querySelectorAll('.dream-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 200}ms`;
+        });
+    });
+</script> 

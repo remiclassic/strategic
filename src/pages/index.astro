@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TargetAudience from '../components/TargetAudience.astro';
+import LifestyleShowcase from '../components/LifestyleShowcase.astro';
+import SuccessStories from '../components/SuccessStories.astro';
+import Pricing from '../components/Pricing.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import FAQ from '../components/FAQ.astro';
+import ExitIntentPopup from '../components/ExitIntentPopup.astro';
+import ColleaguesGone from '../components/ColleaguesGone.astro';
+import BurnoutToFreedom from '../components/BurnoutToFreedom.astro';
+import JourneySteps from '../components/JourneySteps.astro';
+import BookOffer from '../components/BookOffer.astro';
+---
+
+<Layout title="Digital Product Landing Page">
+	<main class="min-h-screen">
+		<Hero />
+		<section id="the-problem">
+			<ColleaguesGone />
+		</section>
+		<section id="about-me">
+			<BurnoutToFreedom />
+		</section>
+		<section id="journey">
+			<JourneySteps />
+		</section>
+		<section id="dream-life">
+			<TargetAudience />
+		</section>
+		<section id="success-stories">
+			<SuccessStories />
+		</section>
+		<LifestyleShowcase />
+		<BookOffer />
+		<section id="get-started">
+			<Pricing />
+		</section>
+		<FAQ />
+		<FinalCTA />
+		<ExitIntentPopup />
+	</main>
+</Layout> 

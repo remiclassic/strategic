@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Responsive Typography */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply overflow-x-hidden bg-[#0A0A0A] text-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+/* Responsive Container */
+@layer components {
+  .container-custom {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Responsive Text Classes */
+  .text-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .text-responsive-sm {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+  }
+
+  /* Responsive Grid Classes */
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 gap-6 sm:grid-cols-2;
+  }
+
+  .grid-responsive-3 {
+    @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .grid-responsive-4 {
+    @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-[#0A0A0A] sm:text-base;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border border-gray-600 bg-transparent px-6 py-3 text-sm font-semibold text-white transition-all hover:border-gray-500 hover:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-[#0A0A0A] sm:text-base;
+  }
+
+  /* Card Styles */
+  .card-primary {
+    @apply rounded-2xl bg-[#1A1A1A]/80 p-6 backdrop-blur-sm transition-all hover:bg-[#1A1A1A]/90 sm:p-8;
+  }
+
+  /* Mobile Optimizations */
+  @media (max-width: 640px) {
+    .btn-primary,
+    .btn-secondary {
+      @apply w-full;
+    }
+
+    .card-primary {
+      @apply p-4;
+    }
+  }
+}
+
+/* Improved Touch Targets */
+@media (max-width: 640px) {
+  button,
+  a {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  input,
+  select,
+  textarea {
+    @apply min-h-[44px];
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide Scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide Scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} 

@@ -1,0 +1,131 @@
+---
+// BackToTop.astro - Animated sloth back-to-top button
+---
+
+<button
+  id="back-to-top"
+  class="fixed bottom-5 right-5 z-50 p-4 rounded-full opacity-0 invisible transition-all duration-300 transform translate-y-full bg-comic-accent hover:bg-comic-accent/80 border-2 border-[#1C1C5B] shadow-pop group"
+  aria-label="Back to top"
+>
+  <div class="relative w-10 h-10 flex items-center justify-center">
+    <!-- Vine/Branch -->
+    <div class="absolute top-0 left-1/2 w-1 h-full bg-[#1C1C5B] transform -translate-x-1/2 rounded-full"></div>
+    
+    <!-- Sloth -->
+    <div class="sloth-container relative w-8 h-8 transform group-hover:wave">
+      <div class="relative z-10">
+        🦥
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tooltip -->
+  <span class="tooltip absolute bottom-full right-0 mb-2 px-3 py-1 text-sm font-bold bg-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+    Back to the top, lazy legend 🦥
+  </span>
+</button>
+
+<style>
+  /* Float shadow effect */
+  .shadow-pop {
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .shadow-pop:hover {
+    box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+
+  /* Sloth animations */
+  .sloth-container {
+    animation: idle 10s ease-in-out infinite;
+    font-size: 1.5rem;
+  }
+
+  @keyframes idle {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-2px) rotate(-5deg); }
+    75% { transform: translateY(2px) rotate(5deg); }
+  }
+
+  .wave {
+    animation: wave 1s ease-in-out;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
+  }
+
+  /* Tooltip arrow */
+  .tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: 20px;
+    border-width: 4px 4px 0 4px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+
+  /* Show button styles */
+  #back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const backToTop = document.getElementById('back-to-top');
+  let isAnimating = false;
+
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY;
+    const clientHeight = document.documentElement.clientHeight;
+    
+    // Show button when scrolled 30% down
+    if (scrollTop > (scrollHeight - clientHeight) * 0.3) {
+      backToTop?.classList.add('show');
+    } else {
+      backToTop?.classList.remove('show');
+    }
+  });
+
+  // Smooth scroll to top
+  backToTop?.addEventListener('click', () => {
+    if (!isAnimating) {
+      isAnimating = true;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Reset animation state after scroll
+      setTimeout(() => {
+        isAnimating = false;
+      }, 1000);
+
+      // Add wave animation
+      const sloth = backToTop.querySelector('.sloth-container');
+      sloth?.classList.add('wave');
+      
+      // Remove wave class after animation
+      setTimeout(() => {
+        sloth?.classList.remove('wave');
+      }, 1000);
+    }
+  });
+
+  // Add idle animation every 10 seconds
+  setInterval(() => {
+    if (!isAnimating) {
+      const sloth = backToTop?.querySelector('.sloth-container');
+      sloth?.classList.add('wave');
+      setTimeout(() => {
+        sloth?.classList.remove('wave');
+      }, 1000);
+    }
+  }, 10000);
+</script> 

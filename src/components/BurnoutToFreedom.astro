@@ -1,0 +1,380 @@
+---
+// Define the story panels data
+const storyPanels = [
+  {
+    id: "corporate-trap",
+    title: "CHASING PROMOTIONS",
+    caption: "Working late. Living small. Always 'on.'",
+    image: "/images/corporatesloth.png",
+    soundEffect: "BEEP... ZOOM CALL IN 5!",
+    theme: "corporate",
+    style: "grayscale",
+    emoji: "⏰"
+  },
+  {
+    id: "realization",
+    title: "THEN IT HIT ME:",
+    caption: "I was trading time for money. And no amount of money could buy back the moments I was losing.",
+    image: "/images/realizationmoment.png",
+    soundEffect: "BEEPP...",
+    theme: "realization",
+    style: "bright",
+    emoji: "💡"
+  },
+  {
+    id: "freedom",
+    title: "SLAYING... GENTLY.",
+    caption: "Now I work 2-3 hours a day, make more than I did in corporate, and nap whenever I want.",
+    image: "/images/livingthedream.png",
+    soundEffect: "NAP MODE",
+    theme: "freedom",
+    style: "vibrant",
+    emoji: "🌴"
+  }
+];
+
+const burnoutChecklist = [
+  "Chasing promotions",
+  "Working late nights",
+  "Missing family dinners",
+  "Soul-crushing meetings",
+  "Rush hour traffic"
+];
+---
+
+<section class="bg-yellow-100 py-24 relative overflow-hidden">
+  <!-- Background Image with Parallax -->
+  <div class="absolute inset-0 pointer-events-none opacity-20 parallax-bg">
+    <img src="/images/leafs.png" alt="Leaf Pattern" class="w-full h-full object-cover object-center" />
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 relative z-10">
+    <!-- Header with Enhanced Animation -->
+    <div class="text-center mb-16" data-scroll-animation="fade-up">
+      <h2 class="text-6xl font-comic uppercase mb-6 tracking-wide text-shadow-comic transform -rotate-2 hover:rotate-0 transition-all duration-300">
+        FROM BURNOUT TO FREEDOM
+      </h2>
+      <p class="text-2xl font-comic mb-4 hover:scale-105 transition-transform duration-300">
+        After 18 years climbing the corporate ladder, I discovered something shocking:
+      </p>
+      <div class="relative inline-block group">
+        <p class="text-4xl font-comic uppercase mb-8 highlight-text transform rotate-1 transition-all duration-300 group-hover:rotate-0">
+          SUCCESS DOESN'T HAVE TO BE EXHAUSTING.
+        </p>
+        <!-- Animated Speech Bubble -->
+        <div class="absolute -right-16 -top-12 transform rotate-12 hover:rotate-6 transition-all duration-300">
+          <div class="bg-white border-4 border-black rounded-lg px-6 py-3 speech-bubble pulse-animation">
+            <span class="text-3xl font-comic">BEEPP...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Comic Strip -->
+    <div class="grid grid-cols-1 gap-16 max-w-4xl mx-auto mb-16" data-scroll-animation="fade-up" data-stagger>
+      {storyPanels.map((panel, index) => (
+        <div class="comic-panel-container" style={`animation-delay: ${index * 200}ms`} data-stagger-child>
+          <div class={`comic-panel ${panel.theme} transform hover:scale-105 transition-all duration-500 cursor-pointer`}>
+            <!-- Enhanced Sound Effect Bubble -->
+            <div class="absolute -right-4 -top-6 z-10 hover:scale-110 transition-transform duration-300">
+              <div class="bg-white border-4 border-black rounded-full px-6 py-3 transform rotate-2 speech-bubble hover:-rotate-2">
+                <span class="text-2xl font-comic flex items-center gap-2">
+                  {panel.soundEffect}
+                  <span class="panel-emoji">{panel.emoji}</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Panel Content with Enhanced Interactions -->
+            <div class="bg-white border-4 border-black rounded-lg overflow-hidden panel-content">
+              <div class="bg-yellow-300 p-4 border-b-4 border-black hover:bg-yellow-400 transition-colors duration-300">
+                <h3 class="text-3xl font-comic uppercase text-left">{panel.title}</h3>
+              </div>
+              
+              <div class="relative overflow-hidden group">
+                <div class="aspect-video relative overflow-hidden">
+                  <img 
+                    src={panel.image} 
+                    alt={panel.title}
+                    class={`w-full h-full object-cover ${panel.style} transform group-hover:scale-110 transition-transform duration-700`}
+                  />
+                  
+                  {panel.theme === 'corporate' && (
+                    <div class="absolute inset-0 bg-gradient-to-b from-gray-900/20 to-gray-900/40 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-50"></div>
+                  )}
+                  {panel.theme === 'realization' && (
+                    <div class="absolute inset-0 bg-gradient-radial from-yellow-400/30 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-70"></div>
+                  )}
+                  {panel.theme === 'freedom' && (
+                    <div class="absolute inset-0 bg-gradient-to-t from-green-400/10 to-transparent transition-opacity duration-300 group-hover:opacity-70"></div>
+                  )}
+                </div>
+                
+                <div class="bg-white p-6 border-t-4 border-black group-hover:bg-yellow-50 transition-colors duration-300">
+                  <p class="text-xl font-comic transform group-hover:scale-105 transition-transform duration-300">{panel.caption}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Enhanced Burnout Checklist -->
+    <div class="max-w-xl mx-auto" data-scroll-animation="fade-up">
+      <div class="bg-red-100 border-4 border-black rounded-lg p-8 transform -rotate-2 hover:rotate-0 transition-all duration-500 relative checklist-container">
+        <div class="bg-white border-2 border-black rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
+          <h4 class="text-2xl font-comic mb-6 uppercase">The Corporate Hamster Wheel:</h4>
+          <ul class="space-y-4">
+            {burnoutChecklist.map((item, index) => (
+              <li class="flex items-center space-x-4 text-xl font-comic checklist-item" style={`animation-delay: ${index * 100}ms`}>
+                <span class="text-red-500 font-bold text-2xl transform hover:scale-125 transition-transform duration-300">❌</span>
+                <span class="hover:translate-x-2 transition-transform duration-300">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="absolute -bottom-6 right-8 bg-white border-2 border-black rounded-full px-4 py-2 transform rotate-3 hover:rotate-6 transition-all duration-300 hover:scale-110">
+          <p class="text-lg font-comic">
+            Corporate Soldier ➡️ Strategic Sloth
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced CTA -->
+    <div class="text-center mt-20" data-scroll-animation="fade-up">
+      <div class="inline-block bg-yellow-300 border-4 border-black rounded-lg p-6 transform hover:scale-105 transition-all duration-300 cta-container">
+        <h3 class="text-3xl font-comic mb-2 hover:skew-x-2 transition-transform duration-300">READY TO WRITE YOUR FREEDOM STORY?</h3>
+        <a href="#get-started" class="inline-block bg-white border-4 border-black text-2xl font-comic px-8 py-4 rounded-lg shadow-comic hover:shadow-comic-lg transition-all duration-300 relative overflow-hidden shine-effect">
+          GET THE BLUEPRINT
+          <span class="ml-2 inline-block transform transition-all duration-300 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+  .font-comic {
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+
+  .text-shadow-comic {
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .highlight-text {
+    background: linear-gradient(transparent 50%, #FFD700 50%);
+    display: inline;
+    padding: 0.2em 0.5em;
+  }
+
+  .speech-bubble {
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .comic-panel-container {
+    position: relative;
+  }
+
+  .comic-panel {
+    position: relative;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .comic-panel.corporate img {
+    filter: grayscale(100%) contrast(110%);
+  }
+
+  .comic-panel.realization img {
+    filter: brightness(110%) contrast(105%);
+  }
+
+  .comic-panel.freedom img {
+    filter: saturate(110%) brightness(105%);
+  }
+
+  .shadow-comic {
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .shadow-comic-lg {
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* Background gradients */
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-via) 50%, var(--tw-gradient-to) 100%);
+  }
+
+  /* Hover effects */
+  .comic-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  /* Animation for the checklist items */
+  .checklist-item {
+    transition: all 0.3s ease;
+  }
+
+  .checklist-item:hover {
+    transform: translateX(10px);
+  }
+
+  .parallax-bg {
+    transform: translateZ(-1px) scale(1.5);
+    transition: transform 0.3s ease-out;
+  }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .reveal-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .pulse-animation {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  .panel-emoji {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .panel-emoji:hover {
+    transform: scale(1.2) rotate(15deg);
+  }
+
+  .checklist-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.5s ease forwards;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine-effect::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transform: translateX(-100%) rotate(45deg);
+    transition: transform 0.6s;
+  }
+
+  .shine-effect:hover::after {
+    transform: translateX(100%) rotate(45deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-bg,
+    .reveal-on-scroll,
+    .pulse-animation,
+    .panel-emoji,
+    .checklist-item,
+    .shine-effect::after {
+      animation: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Intersection Observer for reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // For mobile devices, trigger hover effects on comic panels
+          if (window.innerWidth < 768 && entry.target.classList.contains('comic-panel-container')) {
+            const panel = entry.target;
+            const emoji = panel.querySelector('.panel-emoji');
+            
+            // Trigger emoji animation
+            if (emoji) {
+              emoji.style.transform = 'scale(1.2) rotate(15deg)';
+              setTimeout(() => {
+                emoji.style.transform = 'scale(1) rotate(0)';
+              }, 500);
+            }
+          }
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
+
+    // Observe all elements with reveal-on-scroll class
+    document.querySelectorAll('.reveal-on-scroll').forEach(element => {
+      observer.observe(element);
+    });
+    
+    // Also observe comic panel containers
+    document.querySelectorAll('.comic-panel-container').forEach(element => {
+      observer.observe(element);
+    });
+
+    // Parallax effect on scroll
+    const parallaxBg = document.querySelector('.parallax-bg');
+    if (parallaxBg) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        parallaxBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+      });
+    }
+
+    // Panel hover effects for desktop
+    document.querySelectorAll('.comic-panel').forEach(panel => {
+      panel.addEventListener('mouseenter', () => {
+        const emoji = panel.querySelector('.panel-emoji');
+        if (emoji) {
+          emoji.style.transform = 'scale(1.2) rotate(15deg)';
+        }
+      });
+
+      panel.addEventListener('mouseleave', () => {
+        const emoji = panel.querySelector('.panel-emoji');
+        if (emoji) {
+          emoji.style.transform = 'scale(1) rotate(0)';
+        }
+      });
+    });
+  });
+</script> 

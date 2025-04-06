@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BuyButton from '../components/BuyButton.astro';
+
+// Replace these with your actual Lemon Squeezy checkout URLs
+const starterKitUrl = 'https://your-store.lemonsqueezy.com/checkout/buy/...';
+const bundleUrl = 'https://your-store.lemonsqueezy.com/checkout/buy/...';
+---
+
+<Layout title="Buy Buttons - The Lazy Genius">
+	<main class="min-h-screen bg-white py-16">
+		<div class="mx-auto max-w-7xl px-6 lg:px-8">
+			<div class="mx-auto max-w-2xl text-center">
+				<h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+					Buy Button Examples
+				</h1>
+				<p class="mt-4 text-lg text-gray-600">
+					Here are examples of how to use the BuyButton component in your site.
+				</p>
+			</div>
+
+			<div class="mt-16">
+				<h2 class="text-xl font-semibold text-gray-900">The Lazy Genius Starter Kit ($19)</h2>
+				<div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Primary Button</h3>
+						<div class="mt-4">
+							<BuyButton href={starterKitUrl} variant="primary" text="Buy Starter Kit" />
+						</div>
+					</div>
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Secondary Button</h3>
+						<div class="mt-4">
+							<BuyButton href={starterKitUrl} variant="secondary" text="Buy Starter Kit" />
+						</div>
+					</div>
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Outline Button</h3>
+						<div class="mt-4">
+							<BuyButton href={starterKitUrl} variant="outline" text="Buy Starter Kit" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-16">
+				<h2 class="text-xl font-semibold text-gray-900">The Lazy Genius Bundle ($29)</h2>
+				<div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Primary Button</h3>
+						<div class="mt-4">
+							<BuyButton href={bundleUrl} variant="primary" text="Buy Bundle" />
+						</div>
+					</div>
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Secondary Button</h3>
+						<div class="mt-4">
+							<BuyButton href={bundleUrl} variant="secondary" text="Buy Bundle" />
+						</div>
+					</div>
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Outline Button</h3>
+						<div class="mt-4">
+							<BuyButton href={bundleUrl} variant="outline" text="Buy Bundle" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-16">
+				<h2 class="text-xl font-semibold text-gray-900">Button Sizes</h2>
+				<div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Small</h3>
+						<div class="mt-4">
+							<BuyButton href={starterKitUrl} size="sm" text="Small Button" />
+						</div>
+					</div>
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Medium</h3>
+						<div class="mt-4">
+							<BuyButton href={starterKitUrl} size="md" text="Medium Button" />
+						</div>
+					</div>
+					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
+						<h3 class="text-sm font-medium text-gray-900">Large</h3>
+						<div class="mt-4">
+							<BuyButton href={starterKitUrl} size="lg" text="Large Button" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-16">
+				<h2 class="text-xl font-semibold text-gray-900">Code Example</h2>
+				<div class="mt-4 rounded-lg bg-gray-900 p-4">
+					<pre class="text-sm text-gray-100 overflow-x-auto">
+<code>&lt;BuyButton 
+  href="https://your-store.lemonsqueezy.com/checkout/buy/..." 
+  variant="primary" 
+  size="md" 
+  text="Buy Now" 
+/&gt;</code></pre>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout> 

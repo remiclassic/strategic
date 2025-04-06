@@ -1,0 +1,157 @@
+---
+// ExitIntentPopup.astro
+const specialOffer = {
+    title: "Leaving already? 😴",
+    description: "You do not need to commit to everything right now. Start small, see how it feels, and if it's not for you? Refund it. No questions, no pressure.",
+    subtext: "You've got 30 days. That's plenty of time for a test nap.",
+    cta: "Grab the $5 Guide",
+    ctaSecondary: "View all Freedom Kits →",
+    checkbox: "No thanks, I'm too energetic for this."
+};
+---
+
+<div id="exit-popup" class="fixed inset-0 bg-black/30 z-50 hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xl p-6">
+        <div class="comic-card bg-[#FFF3CB] p-8 relative">
+            <!-- Comic-style top border -->
+            <div class="absolute top-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_0%,5%_100%,10%_0%,15%_100%,20%_0%,25%_100%,30%_0%,35%_100%,40%_0%,45%_100%,50%_0%,55%_100%,60%_0%,65%_100%,70%_0%,75%_100%,80%_0%,85%_100%,90%_0%,95%_100%,100%_0%)]"></div>
+
+            <!-- Close button -->
+            <button 
+                id="close-popup"
+                class="absolute top-4 right-4 text-2xl hover:scale-110 transition-transform comic-icon w-8 h-8 flex items-center justify-center"
+                style="background: var(--comic-accent)"
+            >
+                ×
+            </button>
+
+            <!-- Sloth Image -->
+            <div class="absolute -top-12 left-1/2 transform -translate-x-1/2">
+                <div class="comic-icon w-24 h-24 flex items-center justify-center text-5xl animate-bounce-slow" style="background: var(--comic-primary)">
+                    🦥
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="text-center mb-8 mt-16">
+                <div class="comic-bubble bg-white inline-block transform -rotate-2 mb-4">
+                    <p class="text-2xl font-bold">{specialOffer.title}</p>
+                </div>
+                
+                <div class="comic-bubble bg-white/80 text-black inline-block transform rotate-1 mb-4">
+                    <p class="text-lg leading-relaxed">{specialOffer.description}</p>
+                </div>
+
+                <div class="comic-bubble bg-white/80 text-black inline-block transform -rotate-1">
+                    <p class="text-lg font-medium">{specialOffer.subtext}</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center space-y-4">
+                <a 
+                    href="#book-offer" 
+                    class="comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 inline-flex items-center gap-2 text-xl py-4 px-8"
+                >
+                    {specialOffer.cta}
+                    <span class="text-2xl animate-bounce-horizontal">👉</span>
+                </a>
+                
+                <div class="mt-2">
+                    <a 
+                        href="#pricing" 
+                        class="text-sm text-gray-600 hover:text-black transition-colors"
+                    >
+                        {specialOffer.ctaSecondary}
+                    </a>
+                </div>
+                
+                <!-- Fun Checkbox -->
+                <div class="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
+                    <input type="checkbox" id="no-thanks" class="w-4 h-4 rounded border-gray-300">
+                    <label for="no-thanks">{specialOffer.checkbox}</label>
+                </div>
+            </div>
+
+            <!-- Comic-style bottom border -->
+            <div class="absolute bottom-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_100%,5%_0%,10%_100%,15%_0%,20%_100%,25%_0%,30%_100%,35%_0%,40%_100%,45%_0%,50%_100%,55%_0%,60%_100%,65%_0%,70%_100%,75%_0%,80%_100%,85%_0%,90%_100%,95%_0%,100%_100%)]"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let popupShown = false;
+
+    function showPopup() {
+        if (!popupShown) {
+            const popup = document.getElementById('exit-popup');
+            popup.classList.remove('hidden');
+            popup.classList.add('comic-pop');
+            popupShown = true;
+        }
+    }
+
+    function hidePopup() {
+        const popup = document.getElementById('exit-popup');
+        popup.classList.add('hidden');
+        popup.classList.remove('comic-pop');
+    }
+
+    // Show popup when mouse leaves the viewport
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 0 && !popupShown) {
+            showPopup();
+        }
+    });
+
+    // Close popup when clicking the close button
+    document.getElementById('close-popup').addEventListener('click', hidePopup);
+
+    // Close popup when clicking outside
+    document.getElementById('exit-popup').addEventListener('click', (e) => {
+        if (e.target.id === 'exit-popup') {
+            hidePopup();
+        }
+    });
+    
+    // Close popup when checking the "no thanks" checkbox
+    document.getElementById('no-thanks').addEventListener('change', (e) => {
+        if (e.target.checked) {
+            hidePopup();
+        }
+    });
+</script>
+
+<style>
+    .comic-card {
+        transition: all 0.3s ease-out;
+        border: 3px solid black;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .comic-card:hover .comic-bubble {
+        transform: rotate(2deg) scale(1.05);
+    }
+
+    .comic-card:hover .comic-icon {
+        transform: rotate(-15deg) scale(1.1);
+    }
+    
+    @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    
+    .animate-bounce-slow {
+        animation: bounce-slow 3s ease-in-out infinite;
+    }
+    
+    @keyframes bounce-horizontal {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(5px); }
+    }
+    
+    .animate-bounce-horizontal {
+        animation: bounce-horizontal 1.5s ease-in-out infinite;
+    }
+</style> 

@@ -1,0 +1,507 @@
+---
+import BuyButton from './BuyButton.astro';
+import BackgroundCircles from './BackgroundCircles.astro';
+
+const testimonials = [
+	{
+		name: "Marcus T.",
+		role: "Former Project Manager",
+		quote: "I bought it during lunch. By Friday, I had quit my job."
+	},
+	{
+		name: "Sarah K.",
+		role: "Digital Nomad",
+		quote: "Made $2,497 in my first week. This is actually insane!"
+	},
+	{
+		name: "David R.",
+		role: "Ex-Software Engineer",
+		quote: "Finally escaped the 9-5 grind. Best decision ever!"
+	}
+];
+---
+
+<section class="relative min-h-[100dvh] lg:min-h-[100dvh] min-h-[140dvh] w-full overflow-hidden bg-[#FFD600]">
+	<!-- Floating Zzz Background -->
+	<div class="absolute inset-0 pointer-events-none overflow-hidden">
+		<span class="floating-z absolute top-[20%] left-[15%] text-4xl">Z</span>
+		<span class="floating-z delay-1 absolute top-[30%] right-[25%] text-5xl">Z</span>
+		<span class="floating-z delay-2 absolute top-[15%] right-[40%] text-3xl">Z</span>
+		<span class="floating-z delay-3 absolute top-[40%] left-[35%] text-4xl">Z</span>
+	</div>
+
+	<!-- Background Plants and Sloth -->
+	<div class="absolute inset-0 overflow-hidden pointer-events-none">
+		<!-- Background Plants -->
+		<img 
+			src="/images/plants.png" 
+			alt="Decorative Plants" 
+			class="absolute bottom-0 -right-[15%] w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway"
+			style="max-height: 100vh;"
+		/>
+		<!-- Sloth Image -->
+		<img 
+			src="/images/slothloungehero.png" 
+			alt="Strategic Sloth" 
+			class="absolute bottom-0 -right-[5%] w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10"
+			style="max-height: 95vh;"
+		/>
+	</div>
+
+	<div class="container-custom relative z-10 mx-auto flex min-h-[100dvh] flex-col lg:flex-row items-start lg:items-center justify-between gap-8 px-4 py-16 sm:px-6 lg:px-8">
+		<!-- Left Column with Book Cover -->
+		<div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+			<!-- Sale Badge -->
+			<div class="relative bg-[#E3F2FF] rounded-2xl p-4 border-2 border-black inline-block transform -rotate-6">
+				<span class="font-black text-xl text-[#1B1B3D]">SAVE 52% TODAY!</span>
+				<div class="absolute -bottom-4 left-8 w-4 h-4 bg-[#E3F2FF] border-r-2 border-b-2 border-black transform rotate-45"></div>
+			</div>
+
+			<!-- Main Title -->
+			<h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-[#1B1B3D] italic leading-tight" style="font-family: 'Inter', sans-serif;">
+				Earn Money While<br />Doing Nothing
+			</h1>
+			
+			<!-- Subtitle -->
+			<p class="text-xl md:text-2xl text-[#1B1B3D] font-bold">
+				This isn't just a book.<br/>
+				<span class="italic">It's your escape plan from the 9-to-5.</span>
+			</p>
+
+			<!-- Book Image - Now Clickable -->
+			<button class="relative w-full max-w-[300px] mx-auto lg:mx-0 group transition-transform hover:scale-105 cursor-pointer">
+				<div class="absolute inset-0 bg-black translate-x-2 translate-y-2 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></div>
+				<img 
+					src="/images/bookpdf.png" 
+					alt="Don't Do Anything - The Book" 
+					class="relative w-full h-auto rounded-lg border-2 border-black"
+				/>
+				<!-- Glow effect on hover -->
+				<div class="absolute inset-0 bg-white/0 group-hover:bg-white/10 rounded-lg transition-all duration-300"></div>
+			</button>
+
+			<!-- Trust Element -->
+			<div class="space-y-4 text-lg max-w-md">
+				<p class="font-bold text-[#1B1B3D]">Join 5,000+ creators building lazy income streams with this step-by-step blueprint.</p>
+			</div>
+
+			<!-- CTA Section -->
+			<div class="w-full max-w-md space-y-4">
+				<!-- Main CTA Button with Paw -->
+				<div class="relative">
+					<div class="absolute inset-0 bg-black translate-x-2 translate-y-2 rounded-xl"></div>
+					<button class="relative w-full bg-[#2C2D5D] text-white px-8 py-6 rounded-xl font-black text-2xl border-2 border-black hover:translate-x-1 hover:translate-y-1 transition-transform cta-button">
+						<div class="cta-particles"></div>
+						✅ GET THE BOOK NOW – SAVE 52%
+					</button>
+					<!-- Animated Paw Print -->
+					<img 
+						src="/images/paw.png" 
+						alt="Sloth Paw Print" 
+						class="absolute -left-16 -top-8 w-24 h-24 object-contain animate-paw-float z-20"
+					/>
+				</div>
+
+				<!-- Trust Badges -->
+				<div class="flex justify-center lg:justify-start gap-4 flex-wrap">
+					<div class="flex items-center gap-2 bg-white/90 backdrop-blur rounded-full px-4 py-2 border-2 border-black">
+						<span>⚡</span>
+						<span class="font-medium">Instant Access</span>
+					</div>
+					<div class="flex items-center gap-2 bg-white/90 backdrop-blur rounded-full px-4 py-2 border-2 border-black">
+						<span>🔒</span>
+						<span class="font-medium">Secure Payment</span>
+					</div>
+					<div class="flex items-center gap-2 bg-white/90 backdrop-blur rounded-full px-4 py-2 border-2 border-black">
+						<span>✨</span>
+						<span class="font-medium">30-Day Guarantee</span>
+					</div>
+				</div>
+
+				<!-- Featured Testimonial -->
+				<div class="italic text-[#1B1B3D] bg-white/80 backdrop-blur p-4 rounded-xl border-2 border-black">
+					"I finally escaped the grind. This book changed everything."
+					<br />
+					<span class="font-bold not-italic">– David R.</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Right Column - Empty now as sloth is in background -->
+		<div class="w-full lg:w-1/2"></div>
+	</div>
+
+	<!-- Scroll Indicator -->
+	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-center z-20">
+		<p class="text-[#1B1B3D] font-bold mb-2">🔍 Scroll to preview the blueprint</p>
+		<div class="animate-bounce">↓</div>
+	</div>
+</section>
+
+<script>
+	let currentTestimonial = 0;
+	const testimonials = document.querySelectorAll('.testimonial-item');
+	const dots = document.querySelectorAll('.testimonial-dot');
+	const totalTestimonials = testimonials.length;
+
+	function showTestimonial(index) {
+		testimonials.forEach((testimonial, i) => {
+			testimonial.style.opacity = i === index ? '1' : '0';
+		});
+
+		dots.forEach((dot, i) => {
+			dot.style.opacity = i === index ? '1' : '0.3';
+		});
+	}
+
+	// Auto cycle testimonials
+	setInterval(() => {
+		currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+		showTestimonial(currentTestimonial);
+	}, 5000);
+
+	// Click handlers for dots
+	dots.forEach((dot, index) => {
+		dot.addEventListener('click', () => {
+			currentTestimonial = index;
+			showTestimonial(currentTestimonial);
+		});
+	});
+
+	// Show first testimonial initially
+	showTestimonial(0);
+
+	// Smooth scroll for the scroll indicator
+	document.querySelector('.animate-bounce-slow').addEventListener('click', () => {
+		const nextSection = document.querySelector('section:nth-of-type(2)');
+		if (nextSection) {
+			nextSection.scrollIntoView({ behavior: 'smooth' });
+		}
+	});
+
+	// Initialize social proof counters
+	const counters = document.querySelectorAll('.counter');
+	counters.forEach(counter => {
+		const target = parseInt(counter.getAttribute('data-target'));
+		const increment = target / 50;
+		let current = 0;
+
+		const updateCounter = () => {
+			if (current < target) {
+				current += increment;
+				counter.textContent = Math.ceil(current);
+				requestAnimationFrame(updateCounter);
+			} else {
+				counter.textContent = target;
+			}
+		};
+
+		updateCounter();
+	});
+</script>
+
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+
+	section {
+		background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C32 5 34 7 34 9C34 11 32 13 30 13C28 13 26 11 26 9C26 7 28 5 30 5ZM22 14C24 14 26 16 26 18C26 20 24 22 22 22C20 22 18 20 18 18C18 16 20 14 22 14ZM38 14C40 14 42 16 42 18C42 20 40 22 38 22C36 22 34 20 34 18C34 16 36 14 38 14ZM30 23C35 23 39 27 39 32C39 37 35 41 30 41C25 41 21 37 21 32C21 27 25 23 30 23Z' fill='%23FFB800' fill-opacity='0.1'/%3E%3C/svg%3E");
+	}
+
+	button {
+		text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+	}
+
+	.comic-button {
+		border: 4px solid #1C1C5B;
+		box-shadow: 4px 4px 0 #1C1C5B;
+		transition: all 0.2s ease;
+	}
+
+	.comic-button:hover {
+		box-shadow: 2px 2px 0 #1C1C5B;
+		transform: translate(2px, 2px);
+	}
+
+	.comic-banner {
+		border: 4px solid #1C1C5B;
+		box-shadow: 4px 4px 0 #1C1C5B;
+		padding: 0.75rem 2rem;
+	}
+
+	.comic-card {
+		border: 3px solid #1C1C5B;
+		box-shadow: 3px 3px 0 #1C1C5B;
+		background: white;
+		padding: 4px;
+		position: relative;
+	}
+
+	.comic-icon {
+		border: 3px solid black;
+		box-shadow: 2px 2px 0 #000;
+	}
+
+	@keyframes slight-bounce {
+		0%, 100% { transform: translateY(0) rotate(12deg); }
+		50% { transform: translateY(-5px) rotate(12deg); }
+	}
+
+	@keyframes float {
+		0%, 100% { transform: translate(0, 0) rotate(-2deg); }
+		50% { transform: translate(3px, -3px) rotate(1deg); }
+	}
+
+	.animate-slight-bounce {
+		animation: slight-bounce 2s ease-in-out infinite;
+	}
+
+	.animate-float {
+		animation: float 3s ease-in-out infinite;
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 768px) {
+		.comic-banner {
+			border-width: 3px;
+			padding: 0.5rem 1.5rem;
+		}
+		
+		.comic-button {
+			border-width: 3px;
+			box-shadow: 3px 3px 0 #1C1C5B;
+		}
+
+		.comic-card {
+			border-width: 2px;
+			box-shadow: 2px 2px 0 #1C1C5B;
+		}
+	}
+
+	.testimonial-dot {
+		transition: opacity 0.3s ease;
+	}
+
+	.testimonial-dot:hover {
+		opacity: 0.7;
+		cursor: pointer;
+	}
+
+	.testimonial-item {
+		pointer-events: none;
+	}
+
+	@keyframes sloth-float {
+		0%, 100% { transform: translate(0, 0); }
+		50% { transform: translate(0, -10px); }
+	}
+
+	.animate-sloth-float {
+		animation: sloth-float 6s ease-in-out infinite;
+	}
+
+	@keyframes tap-button {
+		0% {
+			transform: translate(0, -20px) rotate(12deg);
+		}
+		10% {
+			transform: translate(0, -10px) rotate(12deg);
+		}
+		30% {
+			transform: translate(0, 0) rotate(12deg);
+		}
+		35% {
+			transform: translate(0, 8px) rotate(25deg) scale(0.95);
+		}
+		40% {
+			transform: translate(0, 0) rotate(12deg);
+		}
+		45% {
+			transform: translate(0, 4px) rotate(18deg) scale(0.98);
+		}
+		50% {
+			transform: translate(0, 0) rotate(12deg);
+		}
+		85% {
+			transform: translate(0, 0) rotate(12deg);
+		}
+		100% {
+			transform: translate(0, -20px) rotate(12deg);
+		}
+	}
+
+	.animate-tap-button {
+		animation: tap-button 3s ease-in-out infinite;
+		animation-delay: 1s;
+	}
+
+	@keyframes plantSway {
+		0% { transform: translateX(-3px) rotate(-1deg); }
+		50% { transform: translateX(3px) rotate(1deg); }
+		100% { transform: translateX(-3px) rotate(-1deg); }
+	}
+
+	.animate-plant-sway {
+		animation: plantSway 8s ease-in-out infinite;
+	}
+
+	/* Enhanced CTA Button Styles */
+	.cta-button {
+		position: relative;
+		overflow: hidden;
+		transition: all 0.3s ease;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	}
+
+	.cta-button::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: linear-gradient(
+			45deg,
+			transparent,
+			rgba(255,255,255,0.1),
+			transparent
+		);
+		transform: rotate(45deg);
+		animation: shine 3s infinite;
+	}
+
+	.cta-particles {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.cta-button:hover .cta-particles::before,
+	.cta-button:hover .cta-particles::after {
+		content: '✨';
+		position: absolute;
+		animation: particle 1s ease-in-out infinite;
+	}
+
+	.cta-button:hover .cta-particles::before {
+		left: 10%;
+		animation-delay: 0.2s;
+	}
+
+	.cta-button:hover .cta-particles::after {
+		right: 10%;
+		animation-delay: 0.4s;
+	}
+
+	@keyframes shine {
+		0% { transform: translateX(-100%) rotate(45deg); }
+		100% { transform: translateX(100%) rotate(45deg); }
+	}
+
+	@keyframes particle {
+		0% { transform: translateY(0) scale(1); opacity: 1; }
+		100% { transform: translateY(-20px) scale(0.5); opacity: 0; }
+	}
+
+	/* Scroll Animation */
+	.animate-bounce-slow {
+		animation: bounce-slow 2s infinite;
+	}
+
+	@keyframes bounce-slow {
+		0%, 100% { transform: translateY(0) translateX(-50%); }
+		50% { transform: translateY(-10px) translateX(-50%); }
+	}
+
+	/* New Background Animation Styles */
+	.floating-z {
+		font-family: 'Comic Sans MS', cursive;
+		font-weight: bold;
+		animation: floatZ 8s ease-in-out infinite;
+		color: #2C2D5D;
+	}
+
+	.delay-1 {
+		animation-delay: 2s;
+	}
+
+	.delay-2 {
+		animation-delay: 4s;
+	}
+
+	.delay-3 {
+		animation-delay: 6s;
+	}
+
+	@keyframes floatZ {
+		0%, 100% {
+			transform: translate(0, 0) rotate(0deg);
+			opacity: 0.05;
+		}
+		50% {
+			transform: translate(0, -30px) rotate(5deg);
+			opacity: 0.1;
+		}
+	}
+
+	.circle-large {
+		animation: pulse 15s ease-in-out infinite;
+	}
+
+	.circle-medium {
+		animation: pulse 12s ease-in-out infinite reverse;
+	}
+
+	.circle-small {
+		animation: pulse 10s ease-in-out infinite;
+	}
+
+	.circle-tiny {
+		animation: pulse 8s ease-in-out infinite reverse;
+	}
+
+	@keyframes pulse {
+		0%, 100% {
+			transform: scale(1) translate(0, 0);
+		}
+		50% {
+			transform: scale(1.1) translate(20px, -20px);
+		}
+	}
+
+	@keyframes paw-float {
+		0%, 100% { transform: translate(0, 0) rotate(0deg); }
+		25% { transform: translate(5px, -5px) rotate(5deg); }
+		50% { transform: translate(0, -10px) rotate(0deg); }
+		75% { transform: translate(-5px, -5px) rotate(-5deg); }
+	}
+
+	.animate-paw-float {
+		animation: paw-float 8s ease-in-out infinite;
+		opacity: 0.9;
+	}
+
+	@keyframes paw-tap {
+		0%, 100% { transform: translate(0, 0) rotate(0deg); }
+		15% { transform: translate(0, 0) rotate(0deg); }
+		20% { transform: translate(0, 8px) rotate(5deg); }
+		25% { transform: translate(0, 0) rotate(0deg); }
+		30% { transform: translate(0, 0) rotate(0deg); }
+		35% { transform: translate(0, 8px) rotate(5deg); }
+		40% { transform: translate(0, 0) rotate(0deg); }
+		60% { transform: translate(0, 0) rotate(0deg); }
+		65% { transform: translate(0, 8px) rotate(5deg); }
+		70% { transform: translate(0, 0) rotate(0deg); }
+		75% { transform: translate(0, 0) rotate(0deg); }
+		80% { transform: translate(0, 8px) rotate(5deg); }
+		85% { transform: translate(0, 0) rotate(0deg); }
+	}
+
+	.animate-paw-float {
+		animation: paw-tap 4s ease-in-out infinite;
+		opacity: 1;
+	}
+</style> 

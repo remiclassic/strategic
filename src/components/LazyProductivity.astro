@@ -1,0 +1,184 @@
+---
+const productivityHacks = [
+    {
+        icon: "🛋️",
+        title: "Work Less, Earn More",
+        description: "Stop trading time for money. Our lazy systems work 24/7 so you don't have to.",
+        tips: [
+            "Automate your income streams",
+            "Set up passive funnels",
+            "Let systems do the heavy lifting"
+        ],
+        color: "var(--comic-primary)"
+    },
+    {
+        icon: "🤖",
+        title: "Automation is Your Friend",
+        description: "Why do something repeatedly when a robot can do it for you? Work smart, not hard!",
+        tips: [
+            "Email marketing on autopilot",
+            "Automated customer support",
+            "Self-running sales systems"
+        ],
+        color: "var(--comic-secondary)"
+    },
+    {
+        icon: "🎯",
+        title: "Maximum Impact, Minimum Effort",
+        description: "Focus only on the 20% of actions that bring 80% of results. Ignore the rest!",
+        tips: [
+            "Strategic laziness",
+            "High-leverage activities",
+            "Outsource the boring stuff"
+        ],
+        color: "var(--comic-accent)"
+    }
+];
+
+const lazyStats = [
+    { number: "2-3", unit: "hrs/day", label: "Average Work Time" },
+    { number: "80%", unit: "↑", label: "More Free Time" },
+    { number: "3x", unit: "↑", label: "Income Growth" }
+];
+---
+
+<section class="relative py-24 bg-comic-bg-light comic-text">
+    <!-- Comic-style top border -->
+    <div class="absolute top-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_0%,5%_100%,10%_0%,15%_100%,20%_0%,25%_100%,30%_0%,35%_100%,40%_0%,45%_100%,50%_0%,55%_100%,60%_0%,65%_100%,70%_0%,75%_100%,80%_0%,85%_100%,90%_0%,95%_100%,100%_0%)]"></div>
+
+    <div class="container mx-auto px-4">
+        <!-- Header Section -->
+        <div class="text-center mb-16 relative">
+            <!-- Comic burst background -->
+            <div class="absolute inset-0 -z-10">
+                <svg class="w-full h-full" viewBox="0 0 200 100">
+                    <path d="M20,50 L180,50" stroke="var(--comic-accent)" stroke-width="2" stroke-dasharray="4 4"/>
+                    <circle cx="100" cy="50" r="40" fill="var(--comic-primary)" opacity="0.1"/>
+                    <path d="M60,30 L140,70" stroke="var(--comic-secondary)" stroke-width="2" stroke-dasharray="4 4"/>
+                </svg>
+            </div>
+
+            <div class="comic-bubble bg-comic-accent inline-block transform -rotate-2 mb-6">
+                <p class="text-lg font-bold">WORK SMARTER, NOT HARDER 🧠</p>
+            </div>
+            
+            <h2 class="comic-title text-4xl md:text-5xl mb-6 max-w-4xl mx-auto transform rotate-1">
+                The Lazy Way to Productivity
+            </h2>
+            
+            <div class="comic-bubble bg-white/50 inline-block transform -rotate-1 mb-8">
+                <p class="text-xl">
+                    Being lazy isn't a flaw - it's your secret superpower for building automated income! 
+                </p>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-16">
+                {lazyStats.map((stat) => (
+                    <div class="comic-card transform hover:scale-105 hover:-rotate-2 transition-all duration-300">
+                        <div class="comic-bubble bg-white text-black">
+                            <p class="comic-title text-3xl">{stat.number}</p>
+                            <p class="text-sm font-bold">{stat.unit}</p>
+                        </div>
+                        <p class="mt-3 font-medium">{stat.label}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-16">
+            {productivityHacks.map((hack) => (
+                <div class="comic-card transform hover:scale-105 hover:-rotate-2 transition-all duration-300">
+                    <!-- Icon -->
+                    <div class="comic-icon w-20 h-20 mx-auto mb-6 flex items-center justify-center text-3xl" style={`background: ${hack.color}`}>
+                        {hack.icon}
+                    </div>
+
+                    <!-- Title -->
+                    <h3 class="comic-title text-2xl mb-4 text-center">
+                        {hack.title}
+                    </h3>
+
+                    <!-- Description -->
+                    <div class="comic-bubble bg-white/50 mb-6">
+                        <p class="text-lg">
+                            {hack.description}
+                        </p>
+                    </div>
+
+                    <!-- Tips -->
+                    <ul class="space-y-3">
+                        {hack.tips.map((tip) => (
+                            <li class="flex items-center gap-3">
+                                <div class="comic-icon w-6 h-6 flex-shrink-0 flex items-center justify-center text-xs" style={`background: ${hack.color}`}>
+                                    ✓
+                                </div>
+                                <span class="font-medium">{tip}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </div>
+
+        <!-- Bottom Quote -->
+        <div class="text-center max-w-3xl mx-auto">
+            <div class="comic-bubble bg-comic-success inline-block transform rotate-1 mb-8">
+                <p class="text-2xl font-bold italic">
+                    "The best productivity hack? Let systems do the work while you take a nap!" 😴
+                </p>
+            </div>
+
+            <a 
+                href="#pricing" 
+                class="comic-button bg-white text-black hover:bg-comic-accent hover:text-black transform hover:scale-105 hover:-rotate-2 transition-all duration-300 inline-flex items-center gap-2"
+            >
+                Show Me the Lazy Way
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Comic-style bottom border -->
+    <div class="absolute bottom-0 left-0 right-0 h-4 bg-black [clip-path:polygon(0%_100%,5%_0%,10%_100%,15%_0%,20%_100%,25%_0%,30%_100%,35%_0%,40%_100%,45%_0%,50%_100%,55%_0%,60%_100%,65%_0%,70%_100%,75%_0%,80%_100%,85%_0%,90%_100%,95%_0%,100%_100%)]"></div>
+</section>
+
+<style>
+    .comic-card {
+        transition: all 0.3s ease-out;
+    }
+
+    .comic-card:hover .comic-bubble {
+        transform: rotate(2deg) scale(1.05);
+    }
+
+    .comic-card:hover .comic-icon {
+        transform: rotate(-15deg) scale(1.1);
+    }
+</style>
+
+<script>
+    // Add smooth scroll-in animation for cards on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.grid > div');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.add('comic-pop');
+                    }, index * 150);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        cards.forEach(card => {
+            card.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700');
+            observer.observe(card);
+        });
+    });
+</script> 

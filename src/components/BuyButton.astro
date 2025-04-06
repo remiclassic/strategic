@@ -1,0 +1,37 @@
+---
+interface Props {
+	href: string;
+	variant?: 'primary' | 'secondary' | 'outline' | 'white-on-blue';
+	size?: 'sm' | 'md' | 'lg';
+	text?: string;
+}
+
+const { 
+	href, 
+	variant = 'primary', 
+	size = 'md',
+	text = 'Buy Now'
+} = Astro.props;
+
+const variantClasses = {
+	primary: 'bg-white text-black hover:bg-comic-accent focus-visible:outline-white',
+	secondary: 'bg-white text-black hover:bg-comic-accent focus-visible:outline-white',
+	outline: 'bg-transparent border border-black text-black hover:bg-comic-accent focus-visible:outline-black',
+	'white-on-blue': 'bg-white text-black hover:bg-comic-accent focus-visible:outline-white'
+};
+
+const sizeClasses = {
+	sm: 'px-2.5 py-1.5 text-xs',
+	md: 'px-3.5 py-2.5 text-sm',
+	lg: 'px-4 py-3 text-base'
+};
+---
+
+<a
+	href={href}
+	class={`rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${variantClasses[variant]} ${sizeClasses[size]}`}
+	target="_blank"
+	rel="noopener noreferrer"
+>
+	{text}
+</a> 

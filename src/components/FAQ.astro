@@ -1,0 +1,231 @@
+---
+const faqs = [
+    {
+        question: "How can I really make money while being lazy? 🤔",
+        answer: "Our system is built on automation and passive income streams. You'll learn to set up systems that work for you 24/7, requiring minimal maintenance. Think of it as training your money to make more money while you nap! 💤"
+    },
+    {
+        question: "Do I need technical skills or experience? 💻",
+        answer: "Nope! Our step-by-step system is designed for complete beginners. If you can follow simple instructions and click buttons, you're qualified. We've had successful students who could barely turn on their computers when they started!"
+    },
+    {
+        question: "How much time do I really need to invest? ⏰",
+        answer: "Just 2 hours per day during setup (about 2 weeks), then as little as 30 minutes daily for maintenance. Many of our successful students spend less time working than it takes to watch a Netflix episode!"
+    },
+    {
+        question: "Is this actually legal? 🤨",
+        answer: "Absolutely! While we use creative strategies, everything in our system is 100% legal. We simply leverage existing business and tax laws in a smart (and lazy) way. Our methods are used by many successful digital entrepreneurs."
+    },
+    {
+        question: "What's the catch with the money-back guarantee? 💰",
+        answer: "No catch! If you're not happy within 30 days, we'll refund every penny. We believe in our system so much that we take all the risk. You don't even need to explain why - just ask and you'll get your money back!"
+    },
+    {
+        question: "How soon can I start making money? 🚀",
+        answer: "Many students start seeing their first sales within 2-4 weeks of implementing our system. However, results vary based on effort and market conditions. Our focus is on building sustainable, long-term income streams, not get-rich-quick schemes."
+    },
+    {
+        question: "How do I know which option to choose? 🤔",
+        answer: "Just pick the one that fits where you're at. Everything is self-paced and built to work on its own."
+    },
+    {
+        question: "What will this teach me? 📚",
+        answer: "You will learn a simple, step-by-step system you can follow at your own pace—no fluff, no filler. It gives you real strategies, helpful tools, and a smarter way to build online income without the grind. It is built for people who want results without sacrificing their time or sanity."
+    },
+    {
+        question: "How long do I keep this? ⏳",
+        answer: "Forever. You get lifetime access to all materials and future updates—no strings attached."
+    },
+    {
+        question: "What if I want a refund? 🤝",
+        answer: "You get 30 days to try it risk-free. If it's not for you, we will refund you—no questions asked."
+    }
+];
+---
+
+<section class="py-24 bg-[#FFF3CB] relative overflow-hidden">
+	<!-- Background Pattern -->
+	<div class="absolute inset-0 bg-halftone opacity-10"></div>
+	
+	<div class="container mx-auto px-4 relative z-10">
+		<!-- Header -->
+		<div class="text-center mb-16">
+			<div class="inline-block bg-white border-4 border-black rounded-xl px-8 py-2 mb-6">
+				<h2 class="text-4xl font-bold">Frequently Asked Questions 🤓</h2>
+			</div>
+			
+			<p class="text-2xl font-comic">
+				❓ Got questions? We've got answers! If you don't find what you're looking for, reach out to our lazy support team!
+			</p>
+		</div>
+
+		<!-- FAQ Accordion -->
+		<div class="max-w-3xl mx-auto space-y-6">
+			{faqs.map((faq, index) => (
+				<div class="comic-card faq-item overflow-hidden hover:translate-y-[-2px] transition-all duration-300" data-index={index}>
+					<div class="comic-label absolute -top-2 left-4 bg-white px-3 py-1 border-2 border-black rounded-full text-sm font-bold">
+						Q&A #{index + 1}
+					</div>
+					<button
+						class="w-full text-left px-6 py-4 flex items-center justify-between gap-4 hover:bg-comic-bg-light transition-colors duration-200"
+						aria-expanded="false"
+						aria-controls={`faq-answer-${index}`}
+					>
+						<span class="font-bold text-lg">{faq.question}</span>
+						<span class="faq-icon comic-icon w-8 h-8 flex-shrink-0 flex items-center justify-center bg-white text-black border-2 border-black rounded-full">
+							+
+						</span>
+					</button>
+					<div
+						id={`faq-answer-${index}`}
+						class="faq-answer px-6 py-4 bg-white/50 hidden"
+					>
+						<p class="text-lg">{faq.answer}</p>
+					</div>
+				</div>
+			))}
+		</div>
+
+		<!-- Still Have Questions -->
+		<div class="mt-16 text-center">
+			<div class="comic-bubble bg-comic-accent inline-block relative hover:translate-y-[-2px] transition-all duration-300">
+				<p class="text-xl font-bold px-6 py-2">
+					🦥 Still a little fuzzy?
+				</p>
+				<div class="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 border-2 border-black">
+					<span class="text-2xl">💤</span>
+				</div>
+			</div>
+			<div class="mt-6">
+				<p class="text-lg text-gray-800 max-w-2xl mx-auto">
+					You do not need to decide everything right now. Grab it, skim it, nap on it. You have 30 days to change your mind.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.bg-halftone {
+		background-image: radial-gradient(circle at center, black 1px, transparent 1px);
+		background-size: 24px 24px;
+		background-position: center;
+	}
+
+	.comic-bubble {
+		border: 3px solid black;
+		border-radius: 12px;
+		box-shadow: 4px 4px 0 black;
+		position: relative;
+		z-index: 1;
+	}
+
+	.comic-bubble:hover {
+		box-shadow: 6px 6px 0 black;
+	}
+
+	.comic-label {
+		z-index: 2;
+		box-shadow: 2px 2px 0 black;
+	}
+
+	.faq-answer {
+		transition: max-height 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
+		max-height: 0;
+		opacity: 0;
+		transform: translateY(-10px);
+		border-top: 2px dashed #ccc;
+	}
+
+	.faq-item {
+		transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+		border: 3px solid black;
+		border-radius: 12px;
+		box-shadow: 4px 4px 0 black;
+		background-color: #fffde7;
+		position: relative;
+	}
+
+	.faq-item:hover {
+		transform: translateY(-2px);
+		box-shadow: 6px 6px 0 black;
+	}
+
+	.faq-icon {
+		transition: transform 0.3s ease-out, background-color 0.3s ease-out;
+	}
+
+	[aria-expanded="true"] .faq-icon {
+		transform: scale(1.1);
+		background-color: #f0f0f0;
+	}
+</style>
+
+<script>
+	// FAQ Accordion functionality
+	document.addEventListener('DOMContentLoaded', () => {
+		const faqItems = document.querySelectorAll('.faq-item');
+
+		faqItems.forEach(item => {
+			const button = item.querySelector('button');
+			const answer = item.querySelector('.faq-answer');
+			const icon = item.querySelector('.faq-icon');
+
+			button.addEventListener('click', () => {
+				const isExpanded = button.getAttribute('aria-expanded') === 'true';
+				
+				// Close all other FAQs with animation
+				faqItems.forEach(otherItem => {
+					if (otherItem !== item) {
+						const otherButton = otherItem.querySelector('button');
+						const otherAnswer = otherItem.querySelector('.faq-answer');
+						const otherIcon = otherItem.querySelector('.faq-icon');
+						
+						if (otherButton.getAttribute('aria-expanded') === 'true') {
+							// Animate closing
+							otherAnswer.style.maxHeight = '0';
+							otherAnswer.style.opacity = '0';
+							otherAnswer.style.transform = 'translateY(-10px)';
+							
+							// Wait for animation to complete before hiding
+							setTimeout(() => {
+								otherButton.setAttribute('aria-expanded', 'false');
+								otherAnswer.classList.add('hidden');
+								otherIcon.textContent = '+';
+								otherAnswer.style.maxHeight = null;
+								otherAnswer.style.opacity = null;
+								otherAnswer.style.transform = null;
+							}, 300);
+						}
+					}
+				});
+
+				// Toggle current FAQ with animation
+				if (!isExpanded) {
+					// Opening animation
+					button.setAttribute('aria-expanded', 'true');
+					answer.classList.remove('hidden');
+					icon.textContent = '−';
+					answer.style.maxHeight = answer.scrollHeight + 'px';
+					answer.style.opacity = '1';
+					answer.style.transform = 'translateY(0)';
+				} else {
+					// Closing animation
+					answer.style.maxHeight = '0';
+					answer.style.opacity = '0';
+					answer.style.transform = 'translateY(-10px)';
+					
+					// Wait for animation to complete before hiding
+					setTimeout(() => {
+						button.setAttribute('aria-expanded', 'false');
+						answer.classList.add('hidden');
+						icon.textContent = '+';
+						answer.style.maxHeight = null;
+						answer.style.opacity = null;
+						answer.style.transform = null;
+					}, 300);
+				}
+			});
+		});
+	});
+</script> 

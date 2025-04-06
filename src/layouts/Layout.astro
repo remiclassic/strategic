@@ -1,0 +1,237 @@
+---
+import Navbar from '../components/Navbar.astro';
+import PurchaseNotification from '../components/PurchaseNotification.astro';
+import LegalModals from '../components/LegalModals.astro';
+import BackToTop from '../components/BackToTop.astro';
+import MinimalCTA from '../components/MinimalCTA.astro';
+import ParallaxFooter from '../components/ParallaxFooter.astro';
+import '../styles/animations.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Strategic Sloth - Your guide to lazy wealth building" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+		<title>{title}</title>
+	</head>
+	<body class="min-h-screen bg-white overflow-x-hidden">
+		<Navbar />
+		<main class="w-full max-w-[100vw]">
+			<slot />
+		</main>
+		<ParallaxFooter />
+		<PurchaseNotification />
+		<LegalModals />
+		<MinimalCTA />
+		<BackToTop />
+	</body>
+</html>
+
+<script>
+	import { initSectionAnimations, respectMotionPreferences } from '../utils/scrollAnimations';
+
+	// Initialize animations for all sections
+	document.querySelectorAll('section').forEach(section => {
+		initSectionAnimations(section);
+		respectMotionPreferences(section);
+	});
+</script>
+
+<style is:global>
+	:root {
+		/* Comic Theme Colors */
+		--comic-primary: #FF4D4D;
+		--comic-secondary: #4A90E2;
+		--comic-accent: #FFD600;
+		--comic-success: #2ECC71;
+		--comic-warning: #F39C12;
+		--comic-danger: #E74C3C;
+		--comic-info: #3498DB;
+		
+		/* Background Colors */
+		--comic-bg-light: #F8FAFC;
+		--comic-bg-yellow: #FFF9C4;
+		--comic-bg-blue: #E3F2FD;
+		--comic-bg-green: #E8F5E9;
+		
+		/* Comic Gradients */
+		--comic-gradient-primary: linear-gradient(135deg, var(--comic-primary), #FF8A80);
+		--comic-gradient-secondary: linear-gradient(135deg, var(--comic-secondary), #82B1FF);
+		
+		/* Comic Shadows */
+		--comic-shadow-sm: 2px 2px 0 rgba(0,0,0,0.1);
+		--comic-shadow-md: 4px 4px 0 rgba(0,0,0,0.1);
+		--comic-shadow-lg: 8px 8px 0 rgba(0,0,0,0.1);
+		
+		/* Comic Border */
+		--comic-border: 3px solid #000;
+	}
+
+	/* Comic Typography */
+	.comic-title {
+		font-family: 'Bangers', cursive;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+
+	.comic-text {
+		font-family: 'Comic Neue', cursive;
+	}
+
+	/* Comic Buttons */
+	.comic-button {
+		@apply relative inline-flex items-center justify-center px-6 py-3;
+		@apply font-bold text-center uppercase tracking-wider;
+		@apply transition-transform duration-200 ease-in-out;
+		border: 4px solid #1C1C5B;
+		box-shadow: 4px 4px 0 #1C1C5B;
+	}
+
+	.comic-button:hover {
+		box-shadow: 2px 2px 0 #1C1C5B;
+		transform: translate(2px, 2px);
+	}
+
+	/* Comic Cards */
+	.comic-card {
+		@apply relative bg-white p-6 rounded-lg;
+		border: var(--comic-border);
+		box-shadow: var(--comic-shadow-md);
+	}
+
+	/* Comic Speech Bubbles */
+	.comic-bubble {
+		@apply relative bg-white p-6 rounded-lg;
+		border: var(--comic-border);
+		box-shadow: var(--comic-shadow-sm);
+	}
+
+	.comic-bubble:before {
+		content: '';
+		position: absolute;
+		bottom: -20px;
+		left: 20px;
+		border: 10px solid transparent;
+		border-top-color: #000;
+	}
+
+	/* Comic Section Dividers */
+	.comic-divider {
+		position: relative;
+		height: 3rem;
+		background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 L50 100 L100 0 Z' fill='%23fff'/%3E%3C/svg%3E") no-repeat;
+		background-size: 100% 100%;
+	}
+
+	/* Comic Animations */
+	@keyframes comicPop {
+		0% { transform: scale(1); }
+		50% { transform: scale(1.05); }
+		100% { transform: scale(1); }
+	}
+
+	.comic-pop {
+		animation: comicPop 0.3s ease-in-out;
+	}
+
+	/* Comic Icons */
+	.comic-icon {
+		@apply inline-flex items-center justify-center;
+		@apply w-12 h-12 rounded-full;
+		border: var(--comic-border);
+		background: var(--comic-accent);
+		box-shadow: var(--comic-shadow-sm);
+	}
+
+	/* Utility Classes */
+	.comic-outline {
+		text-shadow: 
+			2px 2px 0 #000,
+			-2px -2px 0 #000,
+			2px -2px 0 #000,
+			-2px 2px 0 #000;
+	}
+
+	/* Responsive utility classes */
+	.container-custom {
+		@apply w-full mx-auto px-4 sm:px-6 lg:px-8;
+		max-width: min(100%, 1440px);
+	}
+
+	.text-responsive {
+		@apply text-base sm:text-lg md:text-xl lg:text-2xl;
+	}
+
+	.heading-responsive {
+		@apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+	}
+
+	.section-padding {
+		@apply py-12 sm:py-16 md:py-20 lg:py-24;
+	}
+
+	.card-padding {
+		@apply p-4 sm:p-6 md:p-8;
+	}
+
+	/* Responsive grid layouts */
+	.grid-responsive-2 {
+		@apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8;
+	}
+
+	.grid-responsive-3 {
+		@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8;
+	}
+
+	.grid-responsive-4 {
+		@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8;
+	}
+
+	/* Responsive spacing */
+	.space-responsive {
+		@apply space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10;
+	}
+
+	/* Responsive component styles */
+	@media (max-width: 640px) {
+		.comic-button {
+			@apply px-4 py-2 text-sm;
+			border-width: 3px;
+			box-shadow: 3px 3px 0 #1C1C5B;
+		}
+
+		.comic-card {
+			@apply p-4;
+			border-width: 2px;
+		}
+
+		.comic-bubble {
+			@apply p-4;
+			border-width: 2px;
+		}
+
+		.comic-icon {
+			@apply w-10 h-10;
+			border-width: 2px;
+		}
+	}
+
+	/* Improved touch targets for mobile */
+	@media (hover: none) {
+		.interactive-element {
+			@apply min-h-[44px] min-w-[44px];
+		}
+	}
+</style> 

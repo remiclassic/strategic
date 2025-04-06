@@ -13,5 +13,14 @@ export default defineConfig({
   build: {
     assets: '_assets',
     format: 'directory'
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: undefined
+        }
+      }
+    }
   }
 });

@@ -2,7 +2,7 @@
   "name": "strategic-landing",
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": ".vercel/output/static",
+  "outputDirectory": "dist",
   "framework": "astro",
   "cleanUrls": true,
   "headers": [
@@ -24,5 +24,8 @@
     "enabled": true,
     "silent": true
   },
-  "alias": ["strategic-landing.vercel.app"]
+  "alias": ["strategic-landing.vercel.app"],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 } 

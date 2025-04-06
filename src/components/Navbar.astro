@@ -29,6 +29,7 @@ const navItems = [
 ---
 
 <header class="fixed top-0 z-50 w-full bg-[#FFF7E6] border-b-2 border-black">
+  <div id="scroll-progress" class="absolute bottom-0 left-0 h-1 bg-[#FF4D4D] transition-all duration-100"></div>
   <nav class="container-custom mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
     <!-- Logo -->
     <a href="/" class="flex items-center space-x-3">
@@ -52,7 +53,7 @@ const navItems = [
             {item.text}
             <div class="absolute -bottom-1 left-0 h-[3px] w-full bg-[#FF4D4D] transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100"></div>
           </span>
-          <div class="absolute left-0 top-full z-50 mt-2 hidden w-64 rounded-lg border-2 border-black bg-white p-4 shadow-lg group-hover:block">
+          <div class="dropdown-menu absolute left-0 top-full z-50 mt-2 w-64 rounded-lg p-4">
             <p class="mb-1 font-bold">{item.preview}</p>
             <p class="text-sm text-gray-600">{item.description}</p>
           </div>
@@ -222,6 +223,23 @@ const navItems = [
     transform: scale(1) translateY(-24px);
   }
 
+  /* Dropdown menu styles */
+  .nav-link .dropdown-menu {
+    background-color: white;
+    border: 2px solid black;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+  }
+
+  .nav-link:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
   /* Pulse animation for CTA button */
   @keyframes pulse {
     0% {
@@ -313,7 +331,13 @@ const navItems = [
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const closeMobileMenuButton = document.getElementById('close-mobile-menu');
   const mobileMenu = document.getElementById('mobile-menu');
+  const navbar = document.querySelector('header');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section');
+  const scrollProgress = document.querySelector('#scroll-progress');
+  let lastScroll = 0;
 
+  // Mobile menu toggle
   mobileMenuButton?.addEventListener('click', () => {
     mobileMenu?.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -342,21 +366,12 @@ const navItems = [
       scrollProgress.style.width = scrolled + '%';
     }
 
-    // Navbar show/hide on scroll
+    // Navbar shadow on scroll
     if (winScroll <= 0) {
       navbar?.classList.remove('shadow-lg');
     } else {
-      if (winScroll > lastScroll) {
-        // Scrolling down
-        navbar?.classList.add('-translate-y-full', 'transform', 'transition-transform', 'duration-300');
-        navbar?.classList.remove('shadow-lg');
-      } else {
-        // Scrolling up
-        navbar?.classList.remove('-translate-y-full');
-        navbar?.classList.add('shadow-lg');
-      }
+      navbar?.classList.add('shadow-lg');
     }
-    lastScroll = winScroll;
 
     // Update active section
     const scrollPosition = winScroll + 100; // Offset for better detection

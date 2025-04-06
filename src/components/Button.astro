@@ -1,0 +1,85 @@
+---
+interface Props {
+    href?: string;
+    class?: string;
+    variant?: 'primary' | 'secondary';
+}
+
+const { 
+    href, 
+    class: className,
+    variant = 'primary'
+} = Astro.props;
+
+const baseStyles = "inline-flex items-center justify-center min-h-[60px] px-8 py-4 text-2xl font-bold rounded-lg border-4 border-black transition-all relative overflow-hidden";
+const variantStyles = {
+    primary: "bg-yellow-400 text-black hover:scale-105 animate-button-shine",
+    secondary: "bg-white text-black hover:bg-gray-50 animate-button-shine"
+};
+---
+
+{
+    href ? (
+        <a 
+            href={href} 
+            class:list={[
+                baseStyles,
+                variantStyles[variant],
+                className
+            ]}
+        >
+            <slot />
+            <div class="absolute inset-0 pointer-events-none shine-effect"></div>
+        </a>
+    ) : (
+        <button 
+            class:list={[
+                baseStyles,
+                variantStyles[variant],
+                className
+            ]}
+        >
+            <slot />
+            <div class="absolute inset-0 pointer-events-none shine-effect"></div>
+        </button>
+    )
+}
+
+<style>
+    /* Mobile optimizations */
+    @media (max-width: 640px) {
+        a, button {
+            width: 100%;
+            min-height: 56px;
+            font-size: 1.25rem;
+            padding: 1rem;
+        }
+    }
+
+    /* Shimmer effect */
+    .shine-effect {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-100%) rotate(30deg); }
+        100% { transform: translateX(100%) rotate(30deg); }
+    }
+
+    /* Hover effects */
+    a:hover .shine-effect, button:hover .shine-effect {
+        animation: shine 2s infinite;
+    }
+</style> 

@@ -1,42 +1,42 @@
 ---
-const journeySteps = [
+const steps = [
     {
+        id: 0,
         title: "STOP THE GRIND",
+        emoji: "💥",
+        soundEffect: "POW!",
         badge: "ESCAPE",
-        bgColor: "bg-red-500",
-        icon: "💥",
-        soundFx: "POW!",
-        progress: 0,
+        color: "red",
         items: [
-            { text: "NO MORE soul-crushing 9-5 prison!", isNegative: true, action: "Break free from corporate chains" },
-            { text: "DITCH the endless Zoom calls!", isNegative: true, action: "Reclaim your time" },
-            { text: "FORGET corporate politics!", isNegative: true, action: "Choose freedom" }
+            { text: "NO MORE soul-crushing 9-5 prison!", id: "grind-1" },
+            { text: "DITCH the endless Zoom calls!", id: "grind-2" },
+            { text: "FORGET corporate politics!", id: "grind-3" }
         ]
     },
     {
+        id: 1,
         title: "START SMART",
+        emoji: "⚡",
+        soundEffect: "BOOM!",
         badge: "LEVEL UP",
-        bgColor: "bg-blue-500",
-        icon: "⚡",
-        soundFx: "BOOM!",
-        progress: 0,
+        color: "blue",
         items: [
-            { text: "AUTOPILOT lead generation!", isNegative: false, action: "Set up automation" },
-            { text: "HIGH-TICKET clients only!", isNegative: false, action: "Target premium clients" },
-            { text: "2025's SECRET WEAPON!", isNegative: false, action: "Master new strategies" }
+            { text: "AUTOPILOT lead generation!", id: "smart-1" },
+            { text: "HIGH-TICKET clients only!", id: "smart-2" },
+            { text: "2025's SECRET WEAPON!", id: "smart-3" }
         ]
     },
     {
+        id: 2,
         title: "SCALE TO FREEDOM",
+        emoji: "🚀",
+        soundEffect: "BAM!",
         badge: "FREEDOM",
-        bgColor: "bg-green-500",
-        icon: "🚀",
-        soundFx: "BAM!",
-        progress: 0,
+        color: "green",
         items: [
-            { text: "24/7 MONEY MACHINE!", isNegative: false, action: "Launch passive income" },
-            { text: "WORK FROM ANYWHERE!", isNegative: false, action: "Achieve location freedom" },
-            { text: "LIVE LIFE ON YOUR TERMS!", isNegative: false, action: "Design your lifestyle" }
+            { text: "24/7 MONEY MACHINE!", id: "scale-1" },
+            { text: "WORK FROM ANYWHERE!", id: "scale-2" },
+            { text: "LIVE LIFE ON YOUR TERMS!", id: "scale-3" }
         ]
     }
 ];
@@ -49,24 +49,6 @@ const journeySteps = [
     <!-- Enhanced Sloth Paw Print Trail -->
     <div class="absolute inset-0 bg-paw-prints opacity-10 pointer-events-none"></div>
 
-    <!-- Interactive Timeline -->
-    <div class="absolute left-0 right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
-        <div class="container mx-auto px-4">
-            <div class="relative h-2 bg-black/20 rounded-full overflow-hidden timeline-track">
-                <div class="absolute left-0 top-0 bottom-0 bg-[#2C2D5D] rounded-full transition-all duration-500 timeline-progress" style="width: 0%"></div>
-                
-                <!-- Timeline Markers -->
-                <div class="absolute inset-0 flex justify-between">
-                    {journeySteps.map((_, index) => (
-                        <div class="relative">
-                            <div class={`absolute top-1/2 transform -translate-y-1/2 w-6 h-6 rounded-full border-4 border-black bg-white timeline-marker ${index === 0 ? 'active' : ''}`} data-step={index}></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container mx-auto px-4 relative z-10">
         <!-- Section Title -->
         <div class="text-center mb-16" data-scroll-animation="fade-up">
@@ -77,70 +59,84 @@ const journeySteps = [
         </div>
 
         <!-- Journey Steps Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-scroll-animation="fade-up" data-stagger>
-            {journeySteps.map((step, index) => (
-                <div class="comic-panel-wrapper relative journey-step" data-step={index} data-stagger-child style={`animation-delay: ${index * 200}ms`}>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" data-scroll-animation="fade-up" data-stagger>
+            {steps.map((step) => (
+                <div class="comic-panel-wrapper relative journey-step" data-step={step.id} data-stagger-child style={`animation-delay: ${step.id * 200}ms`}>
                     <!-- Sound Effect -->
-                    <div class="absolute -top-8 -right-8 z-20 transform-gpu">
+                    <div class="absolute top-0 -right-2 sm:top-4 sm:-right-2 z-20 transform-gpu">
                         <div class="comic-burst group-hover:scale-110 transition-transform duration-300">
-                            <p class="font-bangers text-2xl flex items-center gap-2">
-                                {step.soundFx}
-                                <span class="icon-bounce">{step.icon}</span>
+                            <p class="font-bangers text-base sm:text-lg flex items-center gap-1">
+                                {step.soundEffect}
+                                <span class="icon-bounce">{step.emoji}</span>
                             </p>
                         </div>
                     </div>
 
                     <div class="comic-panel group reveal-on-scroll">
-                        <!-- Colored Header -->
-                        <div class={`${step.bgColor} p-6 relative overflow-hidden`}>
-                            <div class="flex items-center justify-between relative z-10">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-3xl icon-float">{step.icon}</span>
-                                    <h3 class="font-bangers text-2xl text-white tracking-wide group-hover:scale-105 transition-transform duration-300">{step.title}</h3>
-                                </div>
-                                <div class="comic-badge bg-white transform group-hover:rotate-6 transition-all duration-300">
-                                    {step.badge}
-                                </div>
-                            </div>
-                            <!-- Shine Effect -->
-                            <div class="shine-overlay"></div>
-                        </div>
-
-                        <!-- Checklist -->
-                        <div class="bg-white p-6">
-                            <ul class="space-y-4">
-                                {step.items.map((item, itemIndex) => (
-                                    <li class="flex items-start gap-3 checklist-item" style={`animation-delay: ${itemIndex * 100}ms`}>
-                                        <button 
-                                            class={`mt-1 flex-shrink-0 w-6 h-6 rounded-full ${item.isNegative ? 'bg-red-400' : 'bg-yellow-400'} flex items-center justify-center border-2 border-black transform hover:scale-110 transition-transform duration-300 checkbox-item cursor-pointer`}
-                                            data-step={index}
-                                            data-item={itemIndex}
-                                            aria-label={item.action}
-                                        >
-                                            {item.isNegative ? '×' : '✓'}
-                                        </button>
-                                        <span class="font-comic text-lg leading-tight hover:translate-x-2 transition-transform duration-300">
-                                            {item.text}
-                                        </span>
+                        <!-- Comic Panel Content -->
+                        <div class="p-6 relative overflow-hidden bg-white comic-edges">
+                            <!-- Checklist -->
+                            <ul class="space-y-4 mb-4">
+                                {step.items.map((item, index) => (
+                                    <li class="journey-checklist-item group/item relative cursor-pointer" style={`animation-delay: ${index * 100}ms`} data-step={step.id} data-item={index}>
+                                        <div class="w-full flex items-center gap-3">
+                                            <div class="journey-checkbox flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-black relative">
+                                                <div class="absolute inset-0.5 rounded-full bg-green-500 transform scale-0 transition-transform duration-300 journey-check-fill"></div>
+                                            </div>
+                                            <span class="font-comic text-base sm:text-lg leading-tight">
+                                                {item.text}
+                                            </span>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                    </div>
 
-                    <!-- Progress Indicator - Moved to bottom -->
-                    <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 z-20">
-                        <div class="bg-white rounded-full px-6 py-2 border-4 border-black shadow-pop">
-                            <div class="flex items-center gap-3">
-                                <div class="w-32 h-3 bg-gray-200 rounded-full overflow-hidden">
+                            <!-- Bottom Progress Bar -->
+                            <div class="progress-indicator flex items-center gap-2 border-t-2 border-black/10 pt-4">
+                                <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                                     <div class="h-full bg-green-500 transition-all duration-300 progress-bar" style="width: 0%"></div>
                                 </div>
-                                <span class="font-bold progress-text">0%</span>
+                                <span class="font-bold progress-text text-sm whitespace-nowrap">0%</span>
                             </div>
                         </div>
                     </div>
                 </div>
             ))}
+        </div>
+
+        <!-- New Bottom Timeline -->
+        <div class="relative max-w-4xl mx-auto px-8">
+            <!-- Progress Bar Track -->
+            <div class="h-4 bg-black/10 rounded-full relative overflow-hidden progress-bar-track">
+                <div class="absolute left-0 top-0 bottom-0 bg-[#FFE169] rounded-full transition-all duration-700 ease-out track-fill" style="width: 0%"></div>
+                <div class="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-green-500 via-green-400 to-green-500 rounded-full transition-all duration-700 ease-out timeline-progress" style="width: 0%"></div>
+                <div class="absolute inset-0 progress-shine"></div>
+            </div>
+
+            <!-- Timeline Icons -->
+            <div class="absolute -top-6 left-0 right-0 flex justify-between">
+                <div class="timeline-icon flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-white border-4 border-black p-2 relative z-10 transition-transform duration-300">
+                        <div class="w-full h-full rounded-full bg-green-500 transform scale-0 transition-transform duration-300 absolute inset-0"></div>
+                        <span class="absolute inset-0 flex items-center justify-center text-xl">💥</span>
+                    </div>
+                    <span class="font-bangers mt-2 text-sm">START</span>
+                </div>
+                <div class="timeline-icon flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-white border-4 border-black p-2 relative z-10 transition-transform duration-300">
+                        <div class="w-full h-full rounded-full bg-green-500 transform scale-0 transition-transform duration-300 absolute inset-0"></div>
+                        <span class="absolute inset-0 flex items-center justify-center text-xl">⚡</span>
+                    </div>
+                    <span class="font-bangers mt-2 text-sm">LEVEL UP</span>
+                </div>
+                <div class="timeline-icon flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full bg-white border-4 border-black p-2 relative z-10 transition-transform duration-300">
+                        <div class="w-full h-full rounded-full bg-green-500 transform scale-0 transition-transform duration-300 absolute inset-0"></div>
+                        <span class="absolute inset-0 flex items-center justify-center text-xl">🚀</span>
+                    </div>
+                    <span class="font-bangers mt-2 text-sm">FREEDOM</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -149,8 +145,15 @@ const journeySteps = [
     @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
     .comic-panel-wrapper {
-        padding: 12px;
-        margin: -12px;
+        padding: 8px;
+        margin: -8px;
+    }
+
+    @media (min-width: 640px) {
+        .comic-panel-wrapper {
+            padding: 12px;
+            margin: -12px;
+        }
     }
 
     .comic-panel {
@@ -160,9 +163,12 @@ const journeySteps = [
         box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
         position: relative;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 0;
-        transform: translateY(20px);
         overflow: hidden;
+    }
+
+    .comic-panel.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .comic-panel > div:first-child {
@@ -181,247 +187,334 @@ const journeySteps = [
     }
 
     .comic-panel:hover {
-        transform: translateY(-8px) scale(1.02);
+        transform: translateY(-4px);
         box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.15);
     }
 
     .comic-burst {
-        background: #FFD700;
-        padding: 0.5rem 1.5rem;
-        border: 3px solid black;
+        position: absolute;
+        background: white;
+        padding: 0.375rem 0.75rem;
+        border: 2px solid black;
         border-radius: 999px;
-        position: relative;
-        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        transform-origin: center center;
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+        transform: rotate(8deg);
+        z-index: 10;
+    }
+
+    @media (min-width: 640px) {
+        .comic-burst {
+            padding: 0.5rem 1rem;
+            border-width: 3px;
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+            transform: rotate(12deg);
+        }
     }
 
     .comic-burst::before {
         content: '';
         position: absolute;
-        inset: -8px;
-        border: 3px solid black;
+        inset: -4px;
+        border: 2px solid black;
         border-radius: 999px;
-        transform: rotate(-15deg);
+        transform: rotate(-6deg);
         z-index: -1;
-        transition: transform 0.3s ease;
-        transform-origin: center center;
     }
 
-    .comic-burst:hover::before {
-        transform: rotate(-25deg);
+    @media (min-width: 640px) {
+        .comic-burst::before {
+            inset: -6px;
+            border-width: 3px;
+            transform: rotate(-8deg);
+        }
     }
 
     .shine-overlay {
         position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.2),
-            transparent
+            45deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            transparent 100%
         );
-        transition: 0.5s;
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
     }
 
     .comic-panel:hover .shine-overlay {
-        left: 100%;
+        transform: translateX(100%);
     }
 
     .icon-bounce {
+        animation: icon-bounce 1s ease infinite;
         display: inline-block;
-        animation: icon-bounce 2s infinite;
     }
 
     .icon-float {
-        display: inline-block;
         animation: icon-float 3s ease-in-out infinite;
     }
 
     @keyframes icon-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-4px); }
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
     }
 
     @keyframes icon-float {
-        0%, 100% { transform: translateY(0) rotate(0); }
-        50% { transform: translateY(-6px) rotate(8deg); }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
     }
 
     .text-shadow-comic {
         text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
     }
 
-    .checklist-item {
-        opacity: 0;
-        transform: translateX(-20px);
-        animation: slide-in 0.5s ease forwards;
-    }
-
-    @keyframes slide-in {
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    .animate-spin-slow {
-        animation: spin 8s linear infinite;
-    }
-
-    .animate-bounce-slow {
-        animation: bounce 3s ease-in-out infinite;
-    }
-
-    .animate-float {
-        animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(0); }
-        50% { transform: translateY(-10px) rotate(5deg); }
-    }
-
-    .reveal-on-scroll {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .reveal-on-scroll.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .animate-spin-slow,
-        .animate-bounce-slow,
-        .animate-float,
-        .icon-bounce,
-        .icon-float,
-        .shine-overlay,
-        .reveal-on-scroll {
-            animation: none;
-            transition: none;
-        }
-    }
-
-    .comic-badge {
-        padding: 0.25rem 1rem;
-        border: 3px solid black;
-        border-radius: 8px;
-        font-family: 'Bangers', cursive;
-        font-size: 1rem;
-        letter-spacing: 0.05em;
-        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .bg-paw-prints {
-        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C32 5 34 7 34 9C34 11 32 13 30 13C28 13 26 11 26 9C26 7 28 5 30 5ZM22 14C24 14 26 16 26 18C26 20 24 22 22 22C20 22 18 20 18 18C18 16 20 14 22 14ZM38 14C40 14 42 16 42 18C42 20 40 22 38 22C36 22 34 20 34 18C34 16 36 14 38 14ZM30 23C35 23 39 27 39 32C39 37 35 41 30 41C25 41 21 37 21 32C21 27 25 23 30 23Z' fill='black'/%3E%3C/svg%3E");
-        background-size: 60px 60px;
-        transform: rotate(45deg);
-    }
-
-    .animate-pulse-slow {
-        animation: pulse-slow 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-slow {
-        0%, 100% { transform: scale(1) rotate(12deg); }
-        50% { transform: scale(1.05) rotate(12deg); }
-    }
-
-    .font-bangers {
-        font-family: 'Bangers', cursive;
-    }
-
-    .font-comic {
-        font-family: 'Comic Neue', system-ui, sans-serif;
-    }
-
-    .comic-panel [class*="bg-"] {
+    .journey-checklist-item {
         position: relative;
-        overflow: hidden;
+        transition: opacity 0.3s ease;
+        padding: 0.5rem;
+        margin: -0.5rem;
+        border-radius: 0.5rem;
     }
 
-    /* Timeline Styles */
-    .timeline-track {
-        height: 8px;
+    .journey-checklist-item:hover {
+        background-color: rgba(0, 0, 0, 0.03);
     }
 
-    .timeline-marker {
-        width: 24px;
-        height: 24px;
-        transition: all 0.3s ease;
-        opacity: 0.5;
-        transform: scale(0.8) translateY(-50%);
+    .journey-checklist-item:hover .journey-checkbox {
+        transform: scale(1.1);
     }
 
-    .timeline-marker.active {
-        opacity: 1;
-        transform: scale(1) translateY(-50%);
-        background: #2C2D5D;
+    .journey-checkbox {
+        background: white;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .timeline-marker.completed {
-        opacity: 1;
-        transform: scale(1) translateY(-50%);
+    .journey-checkbox.checked {
         background: #22C55E;
+        border-color: #22C55E;
     }
 
-    /* Progress Bar Animation */
-    @keyframes progress-fill {
-        from { width: 0%; }
-        to { width: var(--progress); }
+    .journey-checkbox.checked::after {
+        content: '✓';
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: bold;
     }
 
-    .shadow-pop {
-        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    .journey-highlight-effect {
+        position: absolute;
+        inset: -2px;
+        background: #FFE156;
+        opacity: 0;
+        transform-origin: left;
+        transform: scaleX(0) rotate(-1deg);
+        transition: transform 0.4s cubic-bezier(0.22, 0.68, 0.43, 1.55),
+                    opacity 0.3s ease;
+        z-index: 0;
+        border-radius: 4px;
     }
 
-    /* Enhanced Micro-animations */
-    .comic-panel {
-        transform-style: preserve-3d;
-        perspective: 1000px;
+    .journey-checklist-item.checked .journey-highlight-effect {
+        opacity: 0.5;
+        transform: scaleX(1) rotate(-1deg);
     }
 
-    .comic-panel:hover {
-        transform: translateY(-8px) scale(1.02) rotateX(5deg);
-    }
-
-    .checkbox-item {
+    .checklist-item span {
         position: relative;
-        overflow: hidden;
+        z-index: 1;
     }
 
-    .checkbox-item::after {
+    /* Confetti styles */
+    .confetti-container {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 50;
+    }
+
+    .confetti-particle {
+        position: absolute;
+        pointer-events: none;
+        z-index: 50;
+        will-change: transform, opacity;
+    }
+
+    @keyframes confetti-fall {
+        0% {
+            transform: translate(0, 0) rotate(0);
+        }
+        100% {
+            transform: translate(calc(var(--end-x) - 50%), var(--end-y)) rotate(var(--rotation));
+        }
+    }
+
+    @keyframes confetti-fade {
+        0% { opacity: 1; }
+        60% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    /* Sound Effect Positioning */
+    .comic-burst {
+        position: absolute;
+        top: -1rem;
+        right: -1rem;
+        transform: rotate(12deg);
+        z-index: 10;
+        padding: 0.5rem 1rem;
+        background: white;
+        border: 3px solid black;
+        border-radius: 999px;
+        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .comic-burst::before {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
-        transform: rotate(45deg);
-        animation: shine-effect 3s infinite;
+        inset: -6px;
+        border: 3px solid black;
+        border-radius: 999px;
+        transform: rotate(-8deg);
+        z-index: -1;
     }
 
-    @keyframes shine-effect {
-        0% { transform: translateX(-100%) rotate(45deg); }
-        100% { transform: translateX(100%) rotate(45deg); }
+    /* Progress Indicator */
+    .progress-indicator {
+        width: 100%;
+        margin-top: auto;
+    }
+
+    /* Remove unnecessary styles */
+    .comic-badge,
+    .comic-burst-small {
+        display: none;
+    }
+
+    .comic-edges {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .comic-edges::before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        bottom: -3px;
+        left: -3px;
+        background: white;
+        border: 3px solid black;
+        border-radius: 12px;
+        transform: rotate(-1deg);
+        z-index: -1;
+    }
+
+    .comic-edges::after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        bottom: -3px;
+        left: -3px;
+        background: white;
+        border: 3px solid black;
+        border-radius: 12px;
+        transform: rotate(1deg);
+        z-index: -2;
+    }
+
+    /* Timeline Icons Animation */
+    .timeline-icon {
+        opacity: 0.5;
+        transform: scale(0.9);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .timeline-icon.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .timeline-icon.completed .w-12 {
+        border-color: #22C55E;
+    }
+
+    .timeline-icon.completed .bg-green-500 {
+        transform: scale(1);
+    }
+
+    /* Add comic style to progress bar */
+    .timeline-progress {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .timeline-progress::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3));
+        transform: translateX(100%);
+        animation: shine 2s ease-in-out infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-100%); }
+        60%, 100% { transform: translateX(100%); }
+    }
+
+    /* Progress Bar Track Styles */
+    .progress-bar-track {
+        border: 2px solid black;
+        box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+        background: repeating-linear-gradient(
+            -45deg,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1) 10px,
+            rgba(0, 0, 0, 0.05) 10px,
+            rgba(0, 0, 0, 0.05) 20px
+        );
+    }
+
+    .progress-bar-fill {
+        background-size: 200% 200%;
+        animation: gradient-shift 3s ease infinite;
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .progress-shine {
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+        );
+        transform: translateX(-100%);
+        animation: shine-progress 2s ease-in-out infinite;
+        z-index: 3;
+    }
+
+    .timeline-progress {
+        background-size: 200% 100%;
+        animation: gradient-shift 3s ease infinite;
+        z-index: 2;
+    }
+
+    @keyframes gradient-shift {
+        0% { background-position: 100% 50%; }
+        50% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
     }
 </style>
 
@@ -433,90 +526,193 @@ const journeySteps = [
     const progressBars = document.querySelectorAll('.progress-bar');
     const progressTexts = document.querySelectorAll('.progress-text');
     const timelineProgress = document.querySelector('.timeline-progress');
-    const timelineMarkers = document.querySelectorAll('.timeline-marker');
-    const checkboxItems = document.querySelectorAll('.checkbox-item');
+    const timelineIcons = document.querySelectorAll('.timeline-icon');
+    const checkboxItems = document.querySelectorAll('.journey-checkbox');
 
-    // Update progress for a step
+    function createConfettiEffect(container, x, y) {
+        const emojis = ['✨', '⭐', '🌟', '💫', '🎉', '🎨', '🎪', '🌈'];
+        const totalParticles = 20; // Increased number of particles
+
+        for (let i = 0; i < totalParticles; i++) {
+            const emoji = document.createElement('span');
+            emoji.className = 'confetti-particle';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+            // Calculate random positions for the explosion effect
+            const angle = (i / totalParticles) * 360 + (Math.random() * 30 - 15);
+            const radius = 80 + Math.random() * 60; // Increased radius
+            const endX = Math.cos(angle * Math.PI / 180) * radius;
+            const endY = Math.sin(angle * Math.PI / 180) * radius;
+            const rotation = Math.random() * 720 - 360;
+            const duration = 0.8 + Math.random() * 0.6; // Longer duration
+
+            emoji.style.cssText = `
+                position: absolute;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: ${1.2 + Math.random()}rem;
+                --end-x: ${endX}px;
+                --end-y: ${endY}px;
+                --rotation: ${rotation}deg;
+                animation: 
+                    confetti-fall ${duration}s cubic-bezier(0.22, 0.68, 0.43, 1.55) forwards,
+                    confetti-fade ${duration}s ease-out forwards;
+                z-index: 100;
+            `;
+
+            container.appendChild(emoji);
+            setTimeout(() => emoji.remove(), duration * 1000);
+        }
+    }
+
     function updateStepProgress(stepIndex) {
-        const totalItems = 3; // Each step has 3 items
-        const completedItems = document.querySelectorAll(`.checkbox-item[data-step="${stepIndex}"].completed`).length;
+        const totalItems = 3;
+        const completedItems = document.querySelectorAll(`.journey-checklist-item[data-step="${stepIndex}"].checked`).length;
         const progress = Math.round((completedItems / totalItems) * 100);
         
         stepProgress[stepIndex] = progress;
 
-        // Update progress bar and text
+        // Update individual panel progress
         progressBars[stepIndex].style.width = `${progress}%`;
         progressTexts[stepIndex].textContent = `${progress}%`;
 
-        // Update timeline
-        updateTimeline();
+        // Calculate progress for the bottom timeline
+        let timelineWidth = 0;
+        let lastCompletedStep = -1;
 
-        // Add completion effects
-        if (progress === 100) {
-            timelineMarkers[stepIndex].classList.add('completed');
-            if (stepIndex < 2) {
-                timelineMarkers[stepIndex + 1].classList.add('active');
-                currentStep = stepIndex + 1;
+        // Check each step's completion
+        stepProgress.forEach((progress, index) => {
+            if (progress === 100) {
+                lastCompletedStep = index;
+                timelineWidth = (index + 1) * 33.33;
             }
+        });
+
+        // Update both progress bars
+        document.querySelector('.timeline-progress').style.width = `${timelineWidth}%`;
+        document.querySelector('.track-fill').style.width = `${timelineWidth}%`;
+
+        // Update icons based on completed steps
+        timelineIcons.forEach((icon, index) => {
+            // Reset classes first
+            icon.classList.remove('active', 'completed');
+            
+            if (index <= lastCompletedStep) {
+                // Previous steps are completed
+                icon.classList.add('active', 'completed');
+            } else if (index === lastCompletedStep + 1) {
+                // Next step is active but not completed
+                icon.classList.add('active');
+            }
+        });
+
+        // Add completion effects for individual panels
+        if (progress === 100 && !timelineIcons[stepIndex].classList.contains('completed')) {
+            // Trigger confetti for the completed panel's icon
+            const icon = timelineIcons[stepIndex];
+            const rect = icon.getBoundingClientRect();
+            createConfettiEffect(icon, 
+                rect.left + rect.width / 2,
+                rect.top + rect.height / 2
+            );
+        }
+
+        // Add final completion animation
+        if (lastCompletedStep === 2) {
+            timelineIcons.forEach(icon => {
+                icon.classList.add('completed');
+            });
         }
     }
 
-    // Update timeline progress
-    function updateTimeline() {
-        const totalProgress = stepProgress.reduce((acc, curr) => acc + curr, 0) / 3;
-        timelineProgress.style.width = `${totalProgress}%`;
-    }
+    // Update click handler
+    document.querySelectorAll('.journey-checklist-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            const stepIndex = parseInt(item.dataset.step);
+            const wasChecked = item.classList.contains('checked');
+            const checkbox = item.querySelector('.journey-checkbox');
 
-    // Handle checkbox clicks
-    checkboxItems.forEach(checkbox => {
-        checkbox.addEventListener('click', () => {
-            checkbox.classList.toggle('completed');
-            const stepIndex = parseInt(checkbox.getAttribute('data-step'));
+            // Toggle checked state
+            item.classList.toggle('checked');
+            checkbox.classList.toggle('checked');
+
+            // Create highlight effect if not already present
+            if (!item.querySelector('.journey-highlight-effect')) {
+                const highlight = document.createElement('div');
+                highlight.className = 'journey-highlight-effect';
+                item.insertBefore(highlight, item.firstChild);
+            }
+
+            // Add confetti effect when checking
+            if (!wasChecked) {
+                const rect = checkbox.getBoundingClientRect();
+                const x = rect.right;
+                const y = rect.top + rect.height / 2;
+                createConfettiEffect(item, x, y);
+            }
+
+            // Update progress immediately after state change
             updateStepProgress(stepIndex);
 
-            // Add click effect
-            checkbox.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                checkbox.style.transform = '';
-            }, 200);
+            // Store state in localStorage
+            const itemId = `journey-steps-${stepIndex}-${item.dataset.item}`;
+            localStorage.setItem(itemId, !wasChecked);
         });
+
+        // Restore saved state and update progress
+        const stepIndex = parseInt(item.dataset.step);
+        const itemIndex = parseInt(item.dataset.item);
+        const savedState = localStorage.getItem(`journey-steps-${stepIndex}-${itemIndex}`);
+        
+        if (savedState === 'true') {
+            item.classList.add('checked');
+            const checkbox = item.querySelector('.journey-checkbox');
+            checkbox.classList.add('checked');
+            
+            // Add highlight effect
+            if (!item.querySelector('.journey-highlight-effect')) {
+                const highlight = document.createElement('div');
+                highlight.className = 'journey-highlight-effect';
+                item.insertBefore(highlight, item.firstChild);
+            }
+
+            // Update progress for restored items
+            updateStepProgress(stepIndex);
+        }
     });
 
-    // Intersection Observer for animations
+    // Update Intersection Observer for animations
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                // Make sure we're adding visible class to the comic panel
+                const panel = entry.target.querySelector('.comic-panel');
+                if (panel) {
+                    panel.classList.add('visible');
+                }
                 
                 // For mobile devices, trigger hover effects on journey steps
                 if (window.innerWidth < 768 && entry.target.classList.contains('journey-step')) {
                     const step = entry.target;
                     const icon = step.querySelector('.icon-bounce');
-                    const panel = step.querySelector('.comic-panel');
                     
                     // Trigger icon animation
                     if (icon) {
                         icon.style.animation = 'icon-bounce 1s';
                     }
-                    
-                    // Add hover effect to panel
-                    if (panel) {
-                        panel.style.transform = 'translateY(-8px) scale(1.02)';
-                        setTimeout(() => {
-                            panel.style.transform = 'translateY(0) scale(1)';
-                        }, 1000);
-                    }
                 }
-                
-                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.3 });
 
+    // Observe the journey steps
     document.querySelectorAll('.journey-step').forEach(step => {
         observer.observe(step);
     });
 
-    // Initialize first step
-    timelineMarkers[0].classList.add('active');
+    // Initialize first icon and restore progress on load
+    document.querySelector('.timeline-icon').classList.add('active');
+    [0, 1, 2].forEach(stepIndex => {
+        updateStepProgress(stepIndex);
+    });
 </script> 

@@ -477,22 +477,23 @@ const lifestyleCards = [
     @media (max-width: 768px) {
         .comic-panel .base-image {
             opacity: 1;
+            transition: opacity 0.6s ease-in-out;
         }
         
         .comic-panel .real-image {
             opacity: 0;
             transform: scale(1.1);
+            transition: opacity 0.6s ease-in-out 0.8s, transform 0.6s ease-in-out 0.8s;
         }
         
         .comic-panel.show-real .base-image {
             opacity: 0;
-            transition: opacity 0.6s ease-in-out;
+            transition: opacity 0.6s ease-in-out 0.5s;
         }
         
         .comic-panel.show-real .real-image {
             opacity: 1;
             transform: scale(1);
-            transition: all 0.6s ease-in-out;
         }
     }
 
@@ -508,18 +509,19 @@ const lifestyleCards = [
         
         .comic-panel:hover .base-image {
             opacity: 0;
+            transition: opacity 0.6s ease-in-out;
         }
         
         .comic-panel:hover .real-image {
             opacity: 1;
             transform: scale(1);
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
         }
     }
 
     /* Ensure smooth transitions */
     .base-image,
     .real-image {
-        transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
         will-change: opacity, transform;
     }
 </style>
@@ -532,19 +534,22 @@ const lifestyleCards = [
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && isMobileView()) {
-                entry.target.classList.add('show-real');
+                // Add a delay before adding the show-real class
+                setTimeout(() => {
+                    entry.target.classList.add('show-real');
+                }, 800); // Delay showing the real image
                 
                 // Add a slight delay for a cascade effect
                 const textElements = entry.target.querySelectorAll('.animate-text-reveal');
                 textElements.forEach((el, i) => {
-                    el.style.animationDelay = `${i * 0.2 + 0.3}s`;
+                    el.style.animationDelay = `${i * 0.2 + 1.2}s`; // Start text animations after image transition
                 });
             } else if (!entry.isIntersecting && isMobileView()) {
                 entry.target.classList.remove('show-real');
             }
         });
     }, { 
-        threshold: 0.3, // Reduced threshold for earlier triggering
+        threshold: 0.3,
         rootMargin: '0px 0px -10% 0px'
     });
 

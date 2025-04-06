@@ -1,65 +1,86 @@
 ---
 import BuyButton from './BuyButton.astro';
 
-const tiers = [
+const pricingTiers = [
 	{
 		name: 'STARTER PACKAGE',
-		id: 'starter-package',
-		href: 'https://your-store.lemonsqueezy.com/checkout/buy/...', // Replace with your actual Lemon Squeezy checkout URL
-		price: { current: '$17', set: '/$27', discount: '37% OFF' },
+		id: 'starter',
+		href: '#',
+		price: {
+			current: 49,
+			set: 99,
+			discount: 50
+		},
 		features: [
-			{ text: "Don't Do Anything – PDF Mini Guide", icon: "✅", subtitle: "" },
-			{ text: "Lazy Genius Blueprint – Travel + Freedom Hacks", icon: "✅", subtitle: "" },
-			{ text: "Sell PDFs, Grow to $100K, Live Tax-Free – Starter System", icon: "✅", subtitle: "" },
+			{ text: 'Complete "Don\'t Do Anything" Guide', icon: '📚' },
+			{ text: 'Step-by-Step Implementation Plan', icon: '📋' },
+			{ text: 'Basic Email Templates', icon: '✉️' },
+			{ text: '30-Day Money-Back Guarantee', icon: '✅' }
 		],
-		badge: 'Perfect for beginners!',
-		image: '/images/starterpackage.png',
-		buttonText: '👉 Get Started',
-		delivery: '📦 Digital delivery only',
-		access: '📥 Instant access, yours forever',
-		guarantee: '✅ 30-Day Money-Back Guarantee',
-		note: '💤 Pick your plan, then nap.'
+		badge: null,
+		image: '/images/guide-cover.png',
+		buttonText: 'GET STARTED',
+		delivery: 'Instant Digital Delivery',
+		access: 'Lifetime Access',
+		guarantee: '30-Day Money-Back Guarantee',
+		notes: 'Perfect for beginners'
 	},
 	{
 		name: 'BEST VALUE PACKAGE',
-		id: 'best-value-package',
-		href: 'https://your-store.lemonsqueezy.com/checkout/buy/...', // Replace with your actual Lemon Squeezy checkout URL
-		price: { current: '$47', set: '/$97', discount: '52% OFF' },
+		id: 'best-value',
+		href: '#',
+		price: {
+			current: 99,
+			set: 199,
+			discount: 50
+		},
 		features: [
-			{ text: "Everything in Smart Wealth Accelerator", icon: "✅", subtitle: "" },
-			{ text: "Legal Residence With Minimal Stays – PDF Strategy", icon: "✅", subtitle: "" },
-			{ text: "Offshore Business Operations Guide – Set up + scale on autopilot", icon: "✅", subtitle: "" },
+			{ text: 'Everything in Starter Package', icon: '📦' },
+			{ text: 'Advanced Email Templates', icon: '📧' },
+			{ text: 'Priority Email Support', icon: '📬' },
+			{ text: '60-Day Money-Back Guarantee', icon: '✅' }
 		],
-		badge: 'Built for builders.',
-		image: '/images/bestvalue.png',
-		isPopular: true,
-		buttonText: '👉 Get Started Now →',
-		delivery: '📦 Digital tools & strategy guides',
-		access: '📥 Instant access, self-paced',
-		guarantee: '✅ 30-Day Money-Back Guarantee'
+		badge: 'MOST POPULAR',
+		image: '/images/guide-cover.png',
+		buttonText: 'GET BEST VALUE',
+		delivery: 'Instant Digital Delivery',
+		access: 'Lifetime Access',
+		guarantee: '60-Day Money-Back Guarantee',
+		notes: 'Most popular choice'
 	},
 	{
 		name: 'SCALE TO FREEDOM PATH',
-		id: 'ultimate-freedom-package',
-		href: 'https://your-store.lemonsqueezy.com/checkout/buy/...', // Replace with your actual Lemon Squeezy checkout URL
-		price: { current: '$97', set: '/$197', discount: '51% OFF' },
+		id: 'scale-freedom',
+		href: '#',
+		price: {
+			current: 199,
+			set: 399,
+			discount: 50
+		},
 		features: [
-			{ text: "Everything in Global Freedom Vault", icon: "✅", subtitle: "" },
-			{ text: "High-Risk Banking Solutions – Smart systems for global banking", icon: "✅", subtitle: "" },
-			{ text: "Complete Freedom Blueprint – Advanced step-by-step system", icon: "✅", subtitle: "" },
+			{ text: 'Everything in Best Value Package', icon: '📦' },
+			{ text: '1-on-1 Strategy Session', icon: '🎯' },
+			{ text: 'Custom Email Templates', icon: '��' },
+			{ text: '90-Day Money-Back Guarantee', icon: '✅' }
 		],
-		image: '/images/scaletofreedom.png',
-		buttonText: '👉 Let\'s Go',
-		delivery: '📦 All digital. No calls. No coaching.',
-		access: '📥 Instant lifetime access',
-		guarantee: '✅ 30-Day Money-Back Guarantee',
-		badge: 'For the full-time freedom seeker.'
+		badge: 'PREMIUM',
+		image: '/images/guide-cover.png',
+		buttonText: 'GET PREMIUM',
+		delivery: 'Instant Digital Delivery',
+		access: 'Lifetime Access',
+		guarantee: '90-Day Money-Back Guarantee',
+		notes: 'For serious entrepreneurs'
 	}
 ];
 
 // Flash sale countdown timer logic
 const endTime = new Date();
 endTime.setHours(22, 58, 24); // Set to match the time shown in the image
+
+// If the end time is in the past, set it to 24 hours from now
+if (endTime < new Date()) {
+	endTime.setDate(endTime.getDate() + 1);
+}
 ---
 
 <section class="relative w-full bg-[#FFD600] py-16 px-4">
@@ -74,12 +95,12 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 
 	<!-- Flash Sale Banner -->
 	<div class="relative z-10 max-w-4xl mx-auto mb-8">
-		<div class="bg-[#FF4D4D] text-white p-4 rounded-xl border-2 border-black flex items-center justify-between">
+		<div class="flash-sale-banner bg-[#FF4D4D] text-white p-4 rounded-xl border-2 border-black flex items-center justify-between">
 			<div class="flex items-center gap-2">
 				<span class="text-2xl">🏠</span>
 				<span class="font-bold">Flash Sale Ends Soon!</span>
 			</div>
-			<div class="font-mono font-bold">22:58:24</div>
+			<div class="font-mono font-bold" id="flash-sale-timer">22:58:24</div>
 		</div>
 		<p class="text-sm text-center mt-2 text-[#1B1B3D]">Save up to 50% on all packages - Limited time only!</p>
 	</div>
@@ -93,9 +114,9 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 	<!-- Pricing Cards Container -->
 	<div class="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 		<!-- Starter Package -->
-		<div class="relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
+		<div class="pricing-card relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
 			<!-- Package Label -->
-			<div class="absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
+			<div class="package-label absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
 				<span class="font-bold text-sm">Perfect for beginners</span>
 			</div>
 
@@ -104,7 +125,7 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 				<img 
 					src="/images/starterpackage.png" 
 					alt="Sloth reading - Starter Package" 
-					class="w-32 h-32 object-contain"
+					class="sloth-image w-32 h-32 object-contain"
 				/>
 			</div>
 
@@ -112,67 +133,63 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">STARTER PACKAGE</h3>
 
 			<!-- Price -->
-			<div class="flex items-baseline gap-1 mb-6">
-				<span class="text-3xl font-black">$17</span>
-				<span class="text-sm line-through text-gray-500">$27</span>
-				<span class="text-sm font-bold text-[#FF4D4D]">37% OFF</span>
+			<div class="price-tag flex items-baseline gap-1 mb-6">
+				<span class="current-price text-3xl font-black">$49</span>
+				<span class="text-sm line-through text-gray-500">$99</span>
+				<span class="text-sm font-bold text-[#FF4D4D]">50% OFF</span>
 			</div>
 
 			<!-- Features List -->
 			<ul class="space-y-4 mb-8 flex-grow">
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Don't Do Anything – PDF Mini Guide</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Complete "Don't Do Anything" Guide</span>
 				</li>
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Lazy Genius Blueprint – Travel + Freedom Hacks</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Step-by-Step Implementation Plan</span>
 				</li>
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Sell PDFs, Grow to $100K, Live Tax-Free – Starter System</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Basic Email Templates</span>
 				</li>
 			</ul>
 
 			<!-- Additional Info -->
 			<div class="space-y-2 text-sm mb-6">
 				<div class="flex items-center gap-2">
-					<span>📱</span>
-					<span>Digital delivery only</span>
+					<span>��</span>
+					<span>Instant Digital Delivery</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<span>⚡</span>
-					<span>Instant access, yours forever</span>
+					<span>Lifetime Access</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<span>🔄</span>
 					<span>30-Day Money-Back Guarantee</span>
 				</div>
-				<div class="flex items-center gap-2">
-					<span>💤</span>
-					<span>Pick your plan, then nap</span>
-				</div>
 			</div>
 
 			<!-- CTA Button -->
-			<button class="w-full bg-[#1B1B3D] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#2C2D5D] transition-colors">
+			<button class="cta-button w-full bg-[#1B1B3D] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#2C2D5D] transition-colors">
 				Get Started
 			</button>
 
 			<!-- Timer -->
-			<p class="text-xs text-center mt-4">Special price ends in 22:58:24</p>
+			<p class="timer-text text-xs text-center mt-4" id="timer-1">Special price ends in 22:58:24</p>
 		</div>
 
 		<!-- Best Value Package -->
-		<div class="relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col transform scale-105">
+		<div class="pricing-card popular relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
 			<!-- Package Label -->
-			<div class="absolute -top-3 left-4 bg-[#4D9FFF] px-4 py-1 rounded-full border-2 border-black">
-				<span class="font-bold text-sm text-white">Built for builders</span>
+			<div class="package-label absolute -top-3 left-4 bg-[#4D9FFF] px-4 py-1 rounded-full border-2 border-black">
+				<span class="font-bold text-sm text-white">Most popular choice</span>
 			</div>
 
 			<!-- Most Popular Badge -->
 			<div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-[#4D9FFF] px-8 py-1 rounded-full border-2 border-black whitespace-nowrap">
-				<span class="font-bold text-sm text-white">Most Popular Choice!</span>
+				<span class="font-bold text-sm text-white">MOST POPULAR</span>
 			</div>
 
 			<!-- Sloth Illustration -->
@@ -180,7 +197,7 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 				<img 
 					src="/images/bestvalue.png" 
 					alt="Sloth in chair - Best Value Package" 
-					class="w-32 h-32 object-contain"
+					class="sloth-image w-32 h-32 object-contain"
 				/>
 			</div>
 
@@ -188,25 +205,25 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">BEST VALUE PACKAGE</h3>
 
 			<!-- Price -->
-			<div class="flex items-baseline gap-1 mb-6">
-				<span class="text-3xl font-black">$47</span>
-				<span class="text-sm line-through text-gray-500">$97</span>
-				<span class="text-sm font-bold text-[#FF4D4D]">52% OFF</span>
+			<div class="price-tag flex items-baseline gap-1 mb-6">
+				<span class="current-price text-3xl font-black">$99</span>
+				<span class="text-sm line-through text-gray-500">$199</span>
+				<span class="text-sm font-bold text-[#FF4D4D]">50% OFF</span>
 			</div>
 
 			<!-- Features List -->
 			<ul class="space-y-4 mb-8 flex-grow">
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Everything in Smart Wealth Accelerator</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Everything in Starter Package</span>
 				</li>
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Legal Residence With Minimal Stays – PDF Strategy</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Advanced Email Templates</span>
 				</li>
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Offshore Business Operations Guide – Set up + scale on autopilot</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Priority Email Support</span>
 				</li>
 			</ul>
 
@@ -214,32 +231,32 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 			<div class="space-y-2 text-sm mb-6">
 				<div class="flex items-center gap-2">
 					<span>📚</span>
-					<span>Digital tools & strategy guides</span>
+					<span>Instant Digital Delivery</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<span>⚡</span>
-					<span>Instant access, self-paced</span>
+					<span>Lifetime Access</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<span>🔄</span>
-					<span>30-Day Money-Back Guarantee</span>
+					<span>60-Day Money-Back Guarantee</span>
 				</div>
 			</div>
 
 			<!-- CTA Button -->
-			<button class="w-full bg-[#4D9FFF] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#3D8FEF] transition-colors">
-				🚀 Get Started Now →
+			<button class="cta-button w-full bg-[#4D9FFF] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#3D8FEF] transition-colors">
+				🚀 Get Best Value
 			</button>
 
 			<!-- Timer -->
-			<p class="text-xs text-center mt-4">Special price ends in 22:58:24</p>
+			<p class="timer-text text-xs text-center mt-4" id="timer-2">Special price ends in 22:58:24</p>
 		</div>
 
 		<!-- Scale to Freedom Package -->
-		<div class="relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
+		<div class="pricing-card relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
 			<!-- Package Label -->
-			<div class="absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
-				<span class="font-bold text-sm">For the full-time freedom seeker</span>
+			<div class="package-label absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
+				<span class="font-bold text-sm">For serious entrepreneurs</span>
 			</div>
 
 			<!-- Sloth Illustration -->
@@ -247,7 +264,7 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 				<img 
 					src="/images/scaletofreedom.png" 
 					alt="Sloth on mountain - Scale to Freedom Package" 
-					class="w-32 h-32 object-contain"
+					class="sloth-image w-32 h-32 object-contain"
 				/>
 			</div>
 
@@ -255,25 +272,25 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">SCALE TO FREEDOM PATH</h3>
 
 			<!-- Price -->
-			<div class="flex items-baseline gap-1 mb-6">
-				<span class="text-3xl font-black">$97</span>
-				<span class="text-sm line-through text-gray-500">$197</span>
-				<span class="text-sm font-bold text-[#FF4D4D]">51% OFF</span>
+			<div class="price-tag flex items-baseline gap-1 mb-6">
+				<span class="current-price text-3xl font-black">$199</span>
+				<span class="text-sm line-through text-gray-500">$399</span>
+				<span class="text-sm font-bold text-[#FF4D4D]">50% OFF</span>
 			</div>
 
 			<!-- Features List -->
 			<ul class="space-y-4 mb-8 flex-grow">
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Everything in Global Freedom Vault</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Everything in Best Value Package</span>
 				</li>
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>High-Risk Banking Solutions – Smart systems for global banking</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>1-on-1 Strategy Session</span>
 				</li>
-				<li class="flex items-start gap-2">
-					<span class="text-green-500 text-xl">✓</span>
-					<span>Complete Freedom Blueprint – Advanced step-by-step system</span>
+				<li class="feature-item flex items-start gap-2">
+					<span class="feature-check text-green-500 text-xl">✓</span>
+					<span>Custom Email Templates</span>
 				</li>
 			</ul>
 
@@ -281,25 +298,25 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 			<div class="space-y-2 text-sm mb-6">
 				<div class="flex items-center gap-2">
 					<span>💻</span>
-					<span>All digital. No calls, No coaching.</span>
+					<span>Instant Digital Delivery</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<span>⚡</span>
-					<span>Instant lifetime access</span>
+					<span>Lifetime Access</span>
 				</div>
 				<div class="flex items-center gap-2">
-					<span>🔄</span>
-					<span>30-Day Money-Back Guarantee</span>
+					<span>��</span>
+					<span>90-Day Money-Back Guarantee</span>
 				</div>
 			</div>
 
 			<!-- CTA Button -->
-			<button class="w-full bg-[#FFB800] text-[#1B1B3D] font-bold py-3 rounded-xl border-2 border-black hover:bg-[#FFA800] transition-colors">
-				Let's Go
+			<button class="cta-button w-full bg-[#FFB800] text-[#1B1B3D] font-bold py-3 rounded-xl border-2 border-black hover:bg-[#FFA800] transition-colors">
+				Get Premium
 			</button>
 
 			<!-- Timer -->
-			<p class="text-xs text-center mt-4">Special price ends in 22:58:24</p>
+			<p class="timer-text text-xs text-center mt-4" id="timer-3">Special price ends in 22:58:24</p>
 		</div>
 	</div>
 
@@ -325,158 +342,236 @@ endTime.setHours(22, 58, 24); // Set to match the time shown in the image
 </section>
 
 <style>
-	.bg-halftone {
-		background-image: radial-gradient(circle at center, black 1px, transparent 1px);
-		background-size: 24px 24px;
-		background-position: center;
-	}
-
-	.price-card {
-		position: relative;
-		transition: all 0.3s ease;
-	}
-
-	.price-card:hover {
-		transform: translateY(-4px);
-	}
-
-	.popular-card {
-		background: #FFF3CB;
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-	}
-
-	.popular-card::before {
-		content: '';
-		position: absolute;
-		inset: -2px;
-		background: linear-gradient(45deg, #60A5FA, #93C5FD);
-		border-radius: 12px;
-		z-index: -1;
-	}
-
+	/* Remove duplicate styles */
+	.price-card,
+	.popular-card,
 	.mini-guide-card {
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+		display: none; /* These are old unused classes */
 	}
 
-	@keyframes bounce-slow {
-		0%, 100% { transform: translateY(0) rotate(6deg); }
-		50% { transform: translateY(-5px) rotate(6deg); }
-	}
-
-	.animate-bounce-slow {
-		animation: bounce-slow 3s infinite;
-	}
-
-	.group:hover .absolute {
-		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-	}
-
-	@keyframes float {
-		0%, 100% { transform: translateY(0); }
-		50% { transform: translateY(-5px); }
-	}
-
-	.animate-float {
-		animation: float 3s ease-in-out infinite;
-	}
-
-	/* Add new styles for enhanced features */
-	.countdown-timer {
-		background: rgba(0, 0, 0, 0.2);
-		padding: 0.25rem 0.75rem;
-		border-radius: 0.5rem;
-	}
-
-	@keyframes pulse-border {
-		0%, 100% { border-color: black; }
-		50% { border-color: #EF4444; }
-	}
-
-	.pulse-border {
-		animation: pulse-border 2s infinite;
-	}
-
-	/* Add any additional styles here */
+	/* Keep only the new animation styles */
 	.pricing-card {
-		transition: transform 0.3s ease;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		transform-style: preserve-3d;
+		perspective: 1000px;
+		position: relative;
 	}
 
 	.pricing-card:hover {
-		transform: translateY(-5px);
+		transform: translateY(-8px);
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+	}
+
+	.pricing-card.popular {
+		animation: subtle-bounce 6s ease-in-out infinite;
+	}
+
+	.package-label {
+		transition: all 0.3s ease;
+	}
+
+	.pricing-card:hover .package-label {
+		transform: translateY(-2px) scale(1.05);
+	}
+
+	.sloth-image {
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.pricing-card:hover .sloth-image {
+		transform: scale(1.1) rotate(5deg);
+	}
+
+	.price-tag {
+		transition: all 0.3s ease;
+	}
+
+	.pricing-card:hover .price-tag {
+		transform: scale(1.05);
+	}
+
+	.pricing-card:hover .price-tag .current-price {
+		animation: price-pop 0.3s ease-out;
+	}
+
+	.feature-item {
+		transition: all 0.3s ease;
+		transform-origin: left;
+	}
+
+	.pricing-card:hover .feature-item {
+		transform: translateX(4px);
+	}
+
+	.feature-check {
+		transition: all 0.3s ease;
+	}
+
+	.pricing-card:hover .feature-check {
+		transform: scale(1.2);
+		color: #22C55E;
+	}
+
+	.cta-button {
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.cta-button::after {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: linear-gradient(
+			to right,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 0.3) 50%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		transform: rotate(30deg);
+		animation: button-shine 3s infinite;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.pricing-card:hover .cta-button::after {
+		opacity: 1;
+	}
+
+	.flash-sale-banner {
+		animation: banner-pulse 2s infinite;
+	}
+
+	.timer-text {
+		animation: timer-blink 1s infinite;
+	}
+
+	@keyframes subtle-bounce {
+		0%, 100% { transform: translateY(0) scale(1.05); }
+		50% { transform: translateY(-5px) scale(1.05); }
+	}
+
+	@keyframes price-pop {
+		0% { transform: scale(1); }
+		50% { transform: scale(1.1); }
+		100% { transform: scale(1); }
+	}
+
+	@keyframes button-shine {
+		0% { transform: translateX(-100%) rotate(30deg); }
+		100% { transform: translateX(100%) rotate(30deg); }
+	}
+
+	@keyframes banner-pulse {
+		0%, 100% { transform: scale(1); }
+		50% { transform: scale(1.02); }
+	}
+
+	@keyframes timer-blink {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.7; }
 	}
 </style>
 
 <script>
-	// Add hover effect for price cards
-	document.querySelectorAll('.price-card').forEach(card => {
-		card.addEventListener('mousemove', (e) => {
-			const rect = card.getBoundingClientRect();
-			const x = e.clientX - rect.left;
-			const y = e.clientY - rect.top;
-			
-			const xPercent = x / rect.width;
-			const yPercent = y / rect.height;
-			
-			const rotateX = (yPercent - 0.5) * 10;
-			const rotateY = (xPercent - 0.5) * 10;
-			
-			card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-		});
-
-		card.addEventListener('mouseleave', () => {
-			card.style.transform = '';
-		});
-	});
-
-	// Intersection Observer for reveal animations
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				entry.target.classList.add('visible');
-			}
-		});
-	}, { threshold: 0.1 });
-
-	document.querySelectorAll('.reveal-on-scroll').forEach(element => {
-		observer.observe(element);
-	});
-
-	// Countdown Timer Logic
-	function updateCountdown() {
-		const countdownElement = document.getElementById('pricing-countdown');
-		const priceCardTimers = document.querySelectorAll('.price-card-timer');
-		if (!countdownElement && priceCardTimers.length === 0) return;
-
-		let time = 24 * 60 * 60; // 24 hours in seconds
-
-		const timer = setInterval(() => {
-			const hours = Math.floor(time / 3600);
-			const minutes = Math.floor((time % 3600) / 60);
-			const seconds = time % 60;
-			const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-
-			if (countdownElement) {
-				countdownElement.textContent = formattedTime;
-			}
-			
-			// Update all price card timers
-			priceCardTimers.forEach(timerElement => {
-				timerElement.textContent = formattedTime;
+	document.addEventListener('DOMContentLoaded', () => {
+		// Add 3D tilt effect to pricing cards
+		const cards = document.querySelectorAll('.pricing-card');
+		
+		cards.forEach(card => {
+			card.addEventListener('mousemove', (e) => {
+				const rect = card.getBoundingClientRect();
+				const x = e.clientX - rect.left;
+				const y = e.clientY - rect.top;
+				
+				const centerX = rect.width / 2;
+				const centerY = rect.height / 2;
+				
+				const rotateX = (y - centerY) / 20;
+				const rotateY = (centerX - x) / 20;
+				
+				card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
 			});
+			
+			card.addEventListener('mouseleave', () => {
+				card.style.transform = card.classList.contains('popular') ? 'scale(1.05)' : '';
+			});
+		});
 
-			if (time <= 0) {
-				clearInterval(timer);
-				if (countdownElement) {
-					countdownElement.textContent = "00:00:00";
+		// Add hover effect for feature items
+		const features = document.querySelectorAll('.feature-item');
+		features.forEach(feature => {
+			feature.addEventListener('mouseenter', () => {
+				const check = feature.querySelector('.feature-check');
+				if (check) {
+					check.style.transform = 'scale(1.2) rotate(5deg)';
 				}
-				priceCardTimers.forEach(timerElement => {
-					timerElement.textContent = "00:00:00";
-				});
-			}
-			time--;
-		}, 1000);
-	}
+			});
+			
+			feature.addEventListener('mouseleave', () => {
+				const check = feature.querySelector('.feature-check');
+				if (check) {
+					check.style.transform = '';
+				}
+			});
+		});
 
-	// Initialize countdown when the page loads
-	document.addEventListener('DOMContentLoaded', updateCountdown);
+		// Countdown Timer Logic
+		function initializeCountdown() {
+			// Set end time to 24 hours from now
+			const endTime = new Date();
+			endTime.setHours(endTime.getHours() + 24);
+
+			function updateTimers() {
+				const now = new Date();
+				const timeRemaining = Math.max(0, Math.floor((endTime - now) / 1000));
+
+				const hours = Math.floor(timeRemaining / 3600);
+				const minutes = Math.floor((timeRemaining % 3600) / 60);
+				const seconds = timeRemaining % 60;
+
+				const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+				// Update flash sale timer
+				const flashSaleTimer = document.getElementById('flash-sale-timer');
+				if (flashSaleTimer) {
+					flashSaleTimer.textContent = timeString;
+				}
+
+				// Update all pricing card timers
+				const timerElements = document.querySelectorAll('.timer-text');
+				timerElements.forEach(timer => {
+					timer.textContent = `Special price ends in ${timeString}`;
+				});
+
+				if (timeRemaining <= 0) {
+					clearInterval(countdownInterval);
+					if (flashSaleTimer) {
+						flashSaleTimer.textContent = '00:00:00';
+					}
+					timerElements.forEach(timer => {
+						timer.textContent = 'Special price ended';
+					});
+				}
+
+				return timeRemaining;
+			}
+
+			// Update immediately
+			if (updateTimers() > 0) {
+				// Set interval to update every second
+				const countdownInterval = setInterval(() => {
+					if (updateTimers() <= 0) {
+						clearInterval(countdownInterval);
+					}
+				}, 1000);
+			}
+		}
+
+		// Start the countdown
+		initializeCountdown();
+	});
 </script> 

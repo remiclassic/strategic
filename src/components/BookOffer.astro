@@ -54,85 +54,85 @@ const bookDetails = {
             </div>
 
             <!-- Main Content Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <!-- Left Column - Content -->
-                <div class="space-y-8">
+                <div class="space-y-6">
                     <!-- Title with Comic Style -->
                     <div class="space-y-4">
-                        <h1 class="text-7xl md:text-8xl font-black leading-tight text-white transform -rotate-1 mb-2">
+                        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight text-white transform -rotate-1 mb-2">
                             {bookDetails.title}
                         </h1>
-                        <p class="comic-subtitle text-3xl font-bold text-yellow-300 transform rotate-1 animate-text-shadow">
+                        <p class="comic-subtitle text-2xl sm:text-3xl font-bold text-yellow-300 transform rotate-1 animate-text-shadow">
                             {bookDetails.subtitle}
                         </p>
-                        <p class="text-xl font-medium text-white transform -rotate-1 animate-text-shadow">
+                        <p class="text-lg sm:text-xl font-medium text-white transform -rotate-1 animate-text-shadow">
                             {bookDetails.subheading}
                         </p>
                     </div>
 
                     <!-- Description -->
-                    <p class="text-lg font-medium comic-text-shadow text-white animate-text-reveal">
+                    <p class="text-base sm:text-lg font-medium comic-text-shadow text-white animate-text-reveal">
                         {bookDetails.description}
                     </p>
 
                     <!-- Features List with Enhanced Styling -->
-                    <ul class="space-y-4">
+                    <ul class="space-y-3">
                         {bookDetails.features.map((feature, index) => (
                             <li class="flex items-start gap-3 text-white animate-reveal" style={`animation-delay: ${index * 0.2}s`}>
-                                <div class="comic-checkmark text-2xl text-yellow-300 transform rotate-12 animate-badge-pulse">
+                                <div class="comic-checkmark text-xl sm:text-2xl text-yellow-300 transform rotate-12 animate-badge-pulse flex-shrink-0">
                                     ✅
                                 </div>
-                                <span class="font-bold text-lg leading-tight">{feature}</span>
+                                <span class="font-bold text-base sm:text-lg leading-tight">{feature}</span>
                             </li>
                         ))}
                     </ul>
 
                     <!-- Rating Stars with Enhanced Styling -->
-                    <div class="flex items-center gap-3 transform -rotate-1 animate-badge-pulse">
-                        <div class="flex text-yellow-300 text-3xl">★★★★½</div>
-                        <div class="rating-bubble bg-white/20 px-4 py-2 text-xl font-bold text-white">
+                    <div class="flex items-center gap-3 transform -rotate-1 animate-badge-pulse justify-center sm:justify-start">
+                        <div class="flex text-yellow-300 text-2xl sm:text-3xl">★★★★½</div>
+                        <div class="rating-bubble bg-white/20 px-3 py-1 sm:px-4 sm:py-2 text-lg sm:text-xl font-bold text-white">
                             {bookDetails.rating}
                         </div>
                     </div>
 
                     <!-- Price Tag with Enhanced Styling -->
                     <div class="relative">
-                        <div class="flex items-start gap-4 mb-16">
+                        <div class="flex flex-col sm:flex-row items-center gap-4 mb-8 sm:mb-16">
                             <!-- Main Price Tag -->
-                            <div class="price-bubble bg-[#fcd34d] text-black transform -rotate-2">
-                                <div class="flex flex-col items-center p-6">
+                            <div class="price-bubble bg-[#fcd34d] text-black transform -rotate-2 w-full sm:w-auto">
+                                <div class="flex flex-col items-center p-4 sm:p-6">
                                     <div class="text-center">
-                                        <div class="text-4xl font-black mb-2">ONLY</div>
-                                        <div class="text-7xl font-black mb-2">$5</div>
-                                        <div class="text-xl font-bold opacity-80">(Digital Guide)</div>
+                                        <div class="text-3xl sm:text-4xl font-black mb-1 sm:mb-2">ONLY</div>
+                                        <div class="text-5xl sm:text-7xl font-black mb-1 sm:mb-2">$5</div>
+                                        <div class="text-lg sm:text-xl font-bold opacity-80">(Digital Guide)</div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Discount Badge -->
-                            <div class="discount-bubble bg-[#7e22ce] text-white transform rotate-2 px-6 py-3">
+                            <div class="discount-bubble bg-[#7e22ce] text-white transform rotate-2 px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto">
                                 <div class="flex flex-col items-center">
-                                    <div class="text-2xl font-bold mb-1">⭐</div>
-                                    <div class="text-4xl font-black mb-1">67% OFF</div>
-                                    <div class="text-xl">Limited-Time Offer</div>
+                                    <div class="text-xl sm:text-2xl font-bold mb-1">⭐</div>
+                                    <div class="text-3xl sm:text-4xl font-black mb-1">67% OFF</div>
+                                    <div class="text-base sm:text-xl">Limited-Time Offer</div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Timer Bar -->
-                        <div class="comic-bubble bg-[#FFD700] text-black p-6 relative rounded-tr-[100px]">
-                            <!-- Sloth Image -->
-                            <div class="absolute -right-16 -top-[137px] w-64 h-64">
+                        <div class="comic-bubble bg-[#FFD700] text-black p-4 sm:p-6 relative rounded-tr-[50px] sm:rounded-tr-[100px]">
+                            <!-- Sloth Image - Repositioned for mobile -->
+                            <div class="absolute -right-3 -top-16 sm:-right-16 sm:-top-[137px] w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 transform rotate-12 sm:rotate-0">
                                 <img src="/images/latteasloth.png" alt="Sloth with Speech Bubble" class="w-full h-full object-contain" />
                             </div>
                             <div class="flex items-start gap-4">
-                                <div class="text-3xl">🕒</div>
+                                <div class="text-2xl sm:text-3xl flex-shrink-0">🕒</div>
                                 <div class="flex-1">
-                                    <div class="flex items-baseline gap-3">
-                                        <span class="text-2xl font-bold">Offer Ends In:</span>
-                                        <span class="font-mono font-black text-3xl" id="book-offer-countdown">12:34:42</span>
+                                    <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3">
+                                        <span class="text-xl sm:text-2xl font-bold">Offer Ends In:</span>
+                                        <span class="font-mono font-black text-2xl sm:text-3xl" id="book-offer-countdown">12:34:42</span>
                                     </div>
-                                    <div class="text-lg font-medium mt-1">(Then it's nap-time pricing again)</div>
+                                    <div class="text-base sm:text-lg font-medium mt-1">(Then it's nap-time pricing again)</div>
                                 </div>
                             </div>
                         </div>
@@ -146,17 +146,17 @@ const bookDetails = {
                     <!-- Tagline with Enhanced Styling -->
                     <p class="text-xl font-bold comic-text-shadow text-white animate-text-shadow">{bookDetails.tagline}</p>
 
-                    <!-- CTA Button with Enhanced Styling -->
+                    <!-- CTA Section -->
                     <div class="space-y-4">
-                        <a href="#buy-now" class="comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 inline-flex items-center gap-2 animate-button-shine">
-                            <span class="text-2xl font-black px-8 py-4">CLAIM YOUR COPY NOW</span>
-                            <span class="text-2xl animate-bounce-horizontal">👉</span>
+                        <a href="#buy-now" class="comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 animate-button-shine">
+                            <span class="text-xl sm:text-2xl font-black px-6 sm:px-8 py-3 sm:py-4">CLAIM YOUR COPY NOW</span>
+                            <span class="text-xl sm:text-2xl animate-bounce-horizontal">👉</span>
                         </a>
                         
-                        <!-- Guarantee Badge with Enhanced Styling -->
-                        <div class="flex items-center gap-3">
+                        <!-- Guarantee Badge -->
+                        <div class="flex items-center justify-center gap-3">
                             <span class="text-xl font-bold text-white">✓</span>
-                            <span class="font-bold text-white text-lg animate-text-shadow">30-Day Money-Back Guarantee</span>
+                            <span class="font-bold text-white text-base sm:text-lg animate-text-shadow">30-Day Money-Back Guarantee</span>
                         </div>
                         
                         <!-- Additional CTA with Enhanced Styling -->
@@ -170,13 +170,13 @@ const bookDetails = {
                     </div>
                 </div>
 
-                <!-- Right Column - Book Image with Enhanced Styling -->
-                <div class="relative transform hover:scale-105 transition-all duration-500">
+                <!-- Right Column - Book Image -->
+                <div class="relative transform hover:scale-105 transition-all duration-500 mt-8 lg:mt-0">
                     <div class="comic-book-container">
                         <img 
                             src="/images/bookpdf.png" 
                             alt="Don't Do Anything Book Cover" 
-                            class="w-full max-w-md mx-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] transform rotate-6 hover:rotate-3 transition-transform duration-300 animate-float-slow"
+                            class="w-full max-w-[280px] sm:max-w-md mx-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] transform rotate-6 hover:rotate-3 transition-transform duration-300 animate-float-slow"
                         />
                     </div>
                     <!-- Comic Decorative Elements -->
@@ -596,6 +596,37 @@ const bookDetails = {
         box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
         position: relative;
         z-index: 1;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .price-bubble:hover {
+        transform: translateY(-8px) rotate(-4deg) scale(1.02);
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .price-bubble .text-center > div {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .price-bubble:hover .text-center > div:nth-child(1) {
+        transform: translateY(-2px) scale(1.05);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .price-bubble:hover .text-center > div:nth-child(2) {
+        transform: translateY(-4px) scale(1.1);
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+        animation: price-bounce 0.6s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+
+    .price-bubble:hover .text-center > div:nth-child(3) {
+        transform: translateY(-2px);
+        opacity: 1;
+    }
+
+    @keyframes price-bounce {
+        0% { transform: translateY(-4px) scale(1.1); }
+        100% { transform: translateY(-8px) scale(1.1); }
     }
 
     .discount-bubble {
@@ -604,6 +635,23 @@ const bookDetails = {
         box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
         position: relative;
         z-index: 1;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .discount-bubble:hover {
+        transform: translateY(-25px) rotate(4deg) scale(1.05);
+        box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    @media (min-width: 640px) {
+        .discount-bubble {
+            transform: translateY(-20px) rotate(2deg);
+        }
+        
+        .discount-bubble:hover {
+            transform: translateY(-28px) rotate(4deg) scale(1.05);
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
+        }
     }
 </style>
 

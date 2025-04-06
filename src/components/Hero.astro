@@ -24,10 +24,22 @@ const testimonials = [
 <section class="relative min-h-[100dvh] lg:min-h-[100dvh] min-h-[140dvh] w-full overflow-hidden bg-[#FFD600]">
 	<!-- Floating Zzz Background -->
 	<div class="absolute inset-0 pointer-events-none overflow-hidden">
-		<span class="floating-z absolute top-[20%] left-[15%] text-4xl">Z</span>
-		<span class="floating-z delay-1 absolute top-[30%] right-[25%] text-5xl">Z</span>
-		<span class="floating-z delay-2 absolute top-[15%] right-[40%] text-3xl">Z</span>
-		<span class="floating-z delay-3 absolute top-[40%] left-[35%] text-4xl">Z</span>
+		<!-- Large Z -->
+		<svg class="floating-z absolute top-[20%] left-[15%] w-12 h-12" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+		<!-- Extra Large Z -->
+		<svg class="floating-z delay-1 absolute top-[30%] right-[25%] w-14 h-14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+		<!-- Small Z -->
+		<svg class="floating-z delay-2 absolute top-[15%] right-[40%] w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+		<!-- Medium Z -->
+		<svg class="floating-z delay-3 absolute top-[40%] left-[35%] w-12 h-12" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
 	</div>
 
 	<!-- Background Plants and Sloth -->
@@ -36,14 +48,14 @@ const testimonials = [
 		<img 
 			src="/images/plants.png" 
 			alt="Decorative Plants" 
-			class="absolute bottom-0 -right-[15%] w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway"
+			class="absolute bottom-0 -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway"
 			style="max-height: 100vh;"
 		/>
 		<!-- Sloth Image -->
 		<img 
 			src="/images/slothloungehero.png" 
 			alt="Strategic Sloth" 
-			class="absolute bottom-0 -right-[5%] w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10"
+			class="absolute bottom-0 -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10"
 			style="max-height: 95vh;"
 		/>
 	</div>
@@ -54,7 +66,8 @@ const testimonials = [
 			<!-- Sale Badge -->
 			<div class="relative bg-[#E3F2FF] rounded-2xl p-4 border-2 border-black inline-block transform -rotate-6">
 				<span class="font-black text-xl text-[#1B1B3D]">SAVE 52% TODAY!</span>
-				<div class="absolute -bottom-4 left-8 w-4 h-4 bg-[#E3F2FF] border-r-2 border-b-2 border-black transform rotate-45"></div>
+				<div class="absolute -bottom-[8.5px] left-1/2 transform -translate-x-1/2 rotate-45 w-4 h-4 bg-[#E3F2FF]"></div>
+				<div class="absolute -bottom-[9.5px] left-1/2 transform -translate-x-1/2 rotate-45 w-4 h-4 border-r-2 border-b-2 border-black"></div>
 			</div>
 
 			<!-- Main Title -->
@@ -132,9 +145,9 @@ const testimonials = [
 	</div>
 
 	<!-- Scroll Indicator -->
-	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-center z-20">
-		<p class="text-[#1B1B3D] font-bold mb-2">🔍 Scroll to preview the blueprint</p>
-		<div class="animate-bounce">↓</div>
+	<div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-center z-20">
+		<div class="animate-bounce text-white text-xl mb-1">↓</div>
+		<p class="text-white font-bold text-base">🔍 Scroll to preview the blueprint</p>
 	</div>
 </section>
 
@@ -407,21 +420,19 @@ const testimonials = [
 	}
 
 	/* Scroll Animation */
-	.animate-bounce-slow {
+	.animate-bounce {
 		animation: bounce-slow 2s infinite;
 	}
 
 	@keyframes bounce-slow {
-		0%, 100% { transform: translateY(0) translateX(-50%); }
-		50% { transform: translateY(-10px) translateX(-50%); }
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-6px); }
 	}
 
 	/* New Background Animation Styles */
 	.floating-z {
-		font-family: 'Comic Sans MS', cursive;
-		font-weight: bold;
 		animation: floatZ 8s ease-in-out infinite;
-		color: #2C2D5D;
+		opacity: 0.1;
 	}
 
 	.delay-1 {

@@ -51,6 +51,13 @@ const burnoutChecklist = [
   <div class="max-w-6xl mx-auto px-4 relative z-10">
     <!-- Header with Enhanced Animation -->
     <div class="text-center mb-16" data-scroll-animation="fade-up">
+      <!-- Animated Speech Bubble - Moved above the heading -->
+      <div class="absolute left-1/2 -translate-x-1/2 -top-24 md:left-auto md:translate-x-0 md:-right-16 md:-top-12 transform -rotate-12 hover:-rotate-6 transition-all duration-300">
+        <div class="bg-white border-4 border-black rounded-lg px-6 py-3 speech-bubble pulse-animation">
+          <span class="text-3xl font-comic">BEEPP...</span>
+        </div>
+      </div>
+
       <h2 class="text-6xl font-comic uppercase mb-6 tracking-wide text-shadow-comic transform -rotate-2 hover:rotate-0 transition-all duration-300">
         FROM BURNOUT TO FREEDOM
       </h2>
@@ -61,12 +68,6 @@ const burnoutChecklist = [
         <p class="text-4xl font-comic uppercase mb-8 highlight-text transform rotate-1 transition-all duration-300 group-hover:rotate-0">
           SUCCESS DOESN'T HAVE TO BE EXHAUSTING.
         </p>
-        <!-- Animated Speech Bubble -->
-        <div class="absolute -right-16 -top-12 transform rotate-12 hover:rotate-6 transition-all duration-300">
-          <div class="bg-white border-4 border-black rounded-lg px-6 py-3 speech-bubble pulse-animation">
-            <span class="text-3xl font-comic">BEEPP...</span>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -76,7 +77,7 @@ const burnoutChecklist = [
         <div class="comic-panel-container" style={`animation-delay: ${index * 200}ms`} data-stagger-child>
           <div class={`comic-panel ${panel.theme} transform hover:scale-105 transition-all duration-500 cursor-pointer`}>
             <!-- Enhanced Sound Effect Bubble -->
-            <div class="absolute -right-4 -top-6 z-10 hover:scale-110 transition-transform duration-300">
+            <div class="absolute -right-4 -top-6 md:-top-6 -top-8 z-10 hover:scale-110 transition-transform duration-300">
               <div class="bg-white border-4 border-black rounded-full px-6 py-3 transform rotate-2 speech-bubble hover:-rotate-2">
                 <span class="text-2xl font-comic flex items-center gap-2">
                   {panel.soundEffect}

@@ -21,7 +21,7 @@ const testimonials = [
 ];
 ---
 
-<section class="relative min-h-[100dvh] lg:min-h-[100dvh] min-h-[140dvh] w-full overflow-hidden bg-[#FFD600]">
+<section class="relative min-h-[100dvh] w-full overflow-hidden bg-[#FFD600]" id="hero-section">
 	<!-- Floating Zzz Background -->
 	<div class="absolute inset-0 pointer-events-none overflow-hidden">
 		<!-- Large Z -->
@@ -48,19 +48,19 @@ const testimonials = [
 		<img 
 			src="/images/plants.png" 
 			alt="Decorative Plants" 
-			class="absolute bottom-0 -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway"
+			class="absolute bottom-0 -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway mobile-static"
 			style="max-height: 100vh;"
 		/>
 		<!-- Sloth Image -->
 		<img 
 			src="/images/slothloungehero.png" 
 			alt="Strategic Sloth" 
-			class="absolute bottom-0 -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10"
+			class="absolute bottom-0 -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10 mobile-static"
 			style="max-height: 95vh;"
 		/>
 	</div>
 
-	<div class="container-custom relative z-10 mx-auto flex min-h-[100dvh] flex-col lg:flex-row items-start lg:items-center justify-between gap-8 px-4 py-16 sm:px-6 lg:px-8">
+	<div class="container-custom relative z-10 mx-auto flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-between gap-8 px-4 py-16 sm:px-6 lg:px-8">
 		<!-- Left Column with Book Cover -->
 		<div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
 			<!-- Sale Badge -->
@@ -145,8 +145,10 @@ const testimonials = [
 	</div>
 
 	<!-- Scroll Indicator -->
-	<div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-center z-20">
-		<div class="animate-bounce text-white text-xl mb-1">↓</div>
+	<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-slow cursor-pointer z-20">
+		<div class="w-8 h-12 border-2 border-white rounded-full flex items-start justify-center p-1">
+			<div class="w-1 h-3 bg-white rounded-full animate-scroll-down"></div>
+		</div>
 		<p class="text-white font-bold text-base">🔍 Scroll to preview the blueprint</p>
 	</div>
 </section>
@@ -211,6 +213,54 @@ const testimonials = [
 
 		updateCounter();
 	});
+
+	// Device and viewport detection
+	function detectViewportType() {
+		const heroSection = document.getElementById('hero-section');
+		if (!heroSection) return;
+
+		// Check if it's an actual mobile device
+		const isMobileDevice = () => {
+			// Check touch capability
+			if ('maxTouchPoints' in navigator) {
+				if (navigator.maxTouchPoints > 0) {
+					const ua = navigator.userAgent.toLowerCase();
+					return /android|iphone|ipad|ipod|mobile/.test(ua);
+				}
+			}
+			return false;
+		};
+
+		// Check viewport width for responsive mode
+		const isNarrowViewport = () => window.innerWidth <= 768;
+
+		// Apply appropriate classes
+		const updateClasses = () => {
+			if (isMobileDevice()) {
+				heroSection.classList.add('is-mobile-device');
+				heroSection.classList.remove('is-responsive-mode');
+			} else if (isNarrowViewport()) {
+				heroSection.classList.add('is-responsive-mode');
+				heroSection.classList.remove('is-mobile-device');
+			} else {
+				heroSection.classList.remove('is-mobile-device', 'is-responsive-mode');
+			}
+		};
+
+		// Initial check
+		updateClasses();
+
+		// Update on resize
+		window.addEventListener('resize', updateClasses);
+
+		// Update on orientation change
+		window.addEventListener('orientationchange', () => {
+			setTimeout(updateClasses, 100);
+		});
+	}
+
+	// Initialize detection
+	detectViewportType();
 </script>
 
 <style>
@@ -514,5 +564,96 @@ const testimonials = [
 	.animate-paw-float {
 		animation: paw-tap 4s ease-in-out infinite;
 		opacity: 1;
+	}
+
+	/* Desktop Animations */
+	@media (hover: hover) {
+		@keyframes sloth-float {
+			0%, 100% { transform: translate(0, 0); }
+			50% { transform: translate(0, -10px); }
+		}
+
+		.animate-sloth-float {
+			animation: sloth-float 6s ease-in-out infinite;
+		}
+
+		@keyframes plantSway {
+			0% { transform: translateX(-3px) rotate(-1deg); }
+			50% { transform: translateX(3px) rotate(1deg); }
+			100% { transform: translateX(-3px) rotate(-1deg); }
+		}
+
+		.animate-plant-sway {
+			animation: plantSway 8s ease-in-out infinite;
+		}
+	}
+
+	/* Actual mobile device styles */
+	.is-mobile-device .mobile-static {
+		animation: none !important;
+		transform: none !important;
+		position: absolute !important;
+	}
+
+	.is-mobile-device img[alt="Strategic Sloth"] {
+		height: 65vh !important;
+		max-height: none !important;
+		width: auto !important;
+		right: -5% !important;
+		bottom: 0 !important;
+		object-position: bottom !important;
+	}
+
+	.is-mobile-device img[alt="Decorative Plants"] {
+		height: 55vh !important;
+		max-height: none !important;
+		width: auto !important;
+		right: -15% !important;
+		bottom: 0 !important;
+		object-position: bottom !important;
+	}
+
+	.is-mobile-device.section {
+		min-height: 115dvh;
+		position: relative !important;
+		overflow: hidden !important;
+	}
+
+	.is-mobile-device .container-custom {
+		padding-bottom: 40vh;
+	}
+
+	/* Responsive mode styles (desktop browser resized) */
+	.is-responsive-mode .mobile-static {
+		position: absolute !important;
+	}
+
+	.is-responsive-mode img[alt="Strategic Sloth"] {
+		max-height: 85vh !important;
+		width: auto !important;
+		right: -5% !important;
+		bottom: 0 !important;
+	}
+
+	.is-responsive-mode img[alt="Decorative Plants"] {
+		max-height: 75vh !important;
+		width: auto !important;
+		right: -15% !important;
+		bottom: 0 !important;
+	}
+
+	.is-responsive-mode.section {
+		min-height: 100dvh;
+	}
+
+	.is-responsive-mode .container-custom {
+		padding-bottom: 30vh;
+	}
+
+	/* Ensure scroll indicator stays visible */
+	.is-mobile-device div[class*="absolute bottom"], 
+	.is-responsive-mode div[class*="absolute bottom"] {
+		bottom: 1rem !important;
+		z-index: 30 !important;
 	}
 </style> 

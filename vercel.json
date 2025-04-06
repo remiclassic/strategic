@@ -1,4 +1,6 @@
 {
+  "name": "strategic-landing",
+  "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": ".vercel/output/static",
   "framework": "astro",
@@ -21,5 +23,6 @@
   "github": {
     "enabled": true,
     "silent": true
-  }
+  },
+  "alias": ["strategic-landing.vercel.app"]
 } 

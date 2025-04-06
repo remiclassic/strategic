@@ -9,18 +9,5 @@ export default defineConfig({
     imageService: true,
     devImageService: 'sharp'
   }),
-  integrations: [tailwind()],
-  build: {
-    assets: '_assets',
-    format: 'directory'
-  },
-  vite: {
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: undefined
-        }
-      }
-    }
-  }
+  integrations: [tailwind()]
 });

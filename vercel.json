@@ -23,5 +23,6 @@
   "github": {
     "enabled": true,
     "silent": true
-  }
+  },
+  "alias": ["strategic-landing.vercel.app"]
 } 

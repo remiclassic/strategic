@@ -7,69 +7,73 @@ const pricingTiers = [
 		id: 'starter',
 		href: '#',
 		price: {
-			current: 49,
-			set: 99,
-			discount: 50
+			current: 17,
+			set: 27,
+			discount: 37
 		},
 		features: [
-			{ text: 'Complete "Don\'t Do Anything" Guide', icon: '📚' },
-			{ text: 'Step-by-Step Implementation Plan', icon: '📋' },
-			{ text: 'Basic Email Templates', icon: '✉️' },
-			{ text: '30-Day Money-Back Guarantee', icon: '✅' }
+			{ text: "Don't Do Anything – PDF Mini Guide", icon: '✅' },
+			{ text: 'Lazy Genius Blueprint – Travel + Freedom Hacks', icon: '✅' },
+			{ text: 'Sell PDFs, Grow to $100K, Live Tax-Free – Starter System', icon: '✅' }
+		],
+		additionalInfo: [
+			{ text: 'Digital delivery only', icon: '📦' },
+			{ text: 'Instant access, yours forever', icon: '⚡' },
+			{ text: '30-Day Money-Back Guarantee', icon: '💸' },
+			{ text: 'Pick your plan, then nap.', icon: '😴' }
 		],
 		badge: null,
-		image: '/images/guide-cover.png',
+		image: '/images/starterpackage.png',
 		buttonText: 'GET STARTED',
-		delivery: 'Instant Digital Delivery',
-		access: 'Lifetime Access',
-		guarantee: '30-Day Money-Back Guarantee',
-		notes: 'Perfect for beginners'
+		notes: 'Perfect for beginners!'
 	},
 	{
 		name: 'BEST VALUE PACKAGE',
 		id: 'best-value',
 		href: '#',
 		price: {
-			current: 99,
-			set: 199,
-			discount: 50
+			current: 47,
+			set: 97,
+			discount: 52
 		},
 		features: [
-			{ text: 'Everything in Starter Package', icon: '📦' },
-			{ text: 'Advanced Email Templates', icon: '📧' },
-			{ text: 'Priority Email Support', icon: '📬' },
-			{ text: '60-Day Money-Back Guarantee', icon: '✅' }
+			{ text: 'Everything in Smart Wealth Accelerator', icon: '✅' },
+			{ text: 'Legal Residence With Minimal Stays – PDF Strategy', icon: '✅' },
+			{ text: 'Offshore Business Operations Guide – Set up + scale on autopilot', icon: '✅' }
+		],
+		additionalInfo: [
+			{ text: 'Digital tools & strategy guides', icon: '📦' },
+			{ text: 'Instant access, self-paced', icon: '⚡' },
+			{ text: '30-Day Money-Back Guarantee', icon: '💸' }
 		],
 		badge: 'MOST POPULAR',
-		image: '/images/guide-cover.png',
+		image: '/images/bestvalue.png',
 		buttonText: 'GET BEST VALUE',
-		delivery: 'Instant Digital Delivery',
-		access: 'Lifetime Access',
-		guarantee: '60-Day Money-Back Guarantee',
-		notes: 'Most popular choice'
+		notes: 'Built for builders.'
 	},
 	{
 		name: 'SCALE TO FREEDOM PATH',
 		id: 'scale-freedom',
 		href: '#',
 		price: {
-			current: 199,
-			set: 399,
-			discount: 50
+			current: 97,
+			set: 197,
+			discount: 51
 		},
 		features: [
-			{ text: 'Everything in Best Value Package', icon: '📦' },
-			{ text: '1-on-1 Strategy Session', icon: '🎯' },
-			{ text: 'Custom Email Templates', icon: '��' },
-			{ text: '90-Day Money-Back Guarantee', icon: '✅' }
+			{ text: 'Everything in Global Freedom Vault', icon: '✅' },
+			{ text: 'High-Risk Banking Solutions – Smart systems for global banking', icon: '✅' },
+			{ text: 'Complete Freedom Blueprint – Advanced step-by-step system', icon: '✅' }
+		],
+		additionalInfo: [
+			{ text: 'All digital. No calls. No coaching.', icon: '📦' },
+			{ text: 'Instant lifetime access', icon: '⚡' },
+			{ text: '30-Day Money-Back Guarantee', icon: '💸' }
 		],
 		badge: 'PREMIUM',
-		image: '/images/guide-cover.png',
+		image: '/images/scaletofreedom.png',
 		buttonText: 'GET PREMIUM',
-		delivery: 'Instant Digital Delivery',
-		access: 'Lifetime Access',
-		guarantee: '90-Day Money-Back Guarantee',
-		notes: 'For serious entrepreneurs'
+		notes: 'For the full-time freedom seeker.'
 	}
 ];
 
@@ -113,211 +117,85 @@ if (endTime < new Date()) {
 
 	<!-- Pricing Cards Container -->
 	<div class="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-		<!-- Starter Package -->
-		<div class="pricing-card relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
-			<!-- Package Label -->
-			<div class="package-label absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
-				<span class="font-bold text-sm">Perfect for beginners</span>
-			</div>
-
-			<!-- Sloth Illustration -->
-			<div class="mb-6 flex justify-center">
-				<img 
-					src="/images/starterpackage.png" 
-					alt="Sloth reading - Starter Package" 
-					class="sloth-image w-32 h-32 object-contain"
-				/>
-			</div>
-
-			<!-- Package Name -->
-			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">STARTER PACKAGE</h3>
-
-			<!-- Price -->
-			<div class="price-tag flex items-baseline gap-1 mb-6">
-				<span class="current-price text-3xl font-black">$49</span>
-				<span class="text-sm line-through text-gray-500">$99</span>
-				<span class="text-sm font-bold text-[#FF4D4D]">50% OFF</span>
-			</div>
-
-			<!-- Features List -->
-			<ul class="space-y-4 mb-8 flex-grow">
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Complete "Don't Do Anything" Guide</span>
-				</li>
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Step-by-Step Implementation Plan</span>
-				</li>
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Basic Email Templates</span>
-				</li>
-			</ul>
-
-			<!-- Additional Info -->
-			<div class="space-y-2 text-sm mb-6">
-				<div class="flex items-center gap-2">
-					<span>��</span>
-					<span>Instant Digital Delivery</span>
+		{pricingTiers.map(tier => (
+			<div class={`pricing-card relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col ${tier.id === 'best-value' ? 'popular' : ''}`}>
+				<!-- Package Label -->
+				<div class={`package-label absolute -top-3 left-4 ${tier.id === 'best-value' ? 'bg-[#4D9FFF]' : 'bg-[#FFE55C]'} px-4 py-1 rounded-full border-2 border-black`}>
+					<span class={`font-bold text-sm ${tier.id === 'best-value' ? 'text-white' : ''}`}>{tier.notes}</span>
 				</div>
-				<div class="flex items-center gap-2">
-					<span>⚡</span>
-					<span>Lifetime Access</span>
+
+				{tier.badge && (
+					<!-- Most Popular Badge -->
+					<div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-[#4D9FFF] px-8 py-1 rounded-full border-2 border-black whitespace-nowrap">
+						<span class="font-bold text-sm text-white">{tier.badge}</span>
+					</div>
+				)}
+
+				<!-- Sloth Illustration -->
+				<div class="mb-6 flex justify-center">
+					<img 
+						src={tier.image}
+						alt={`Sloth - ${tier.name}`}
+						class="sloth-image w-32 h-32 object-contain"
+					/>
 				</div>
-				<div class="flex items-center gap-2">
-					<span>🔄</span>
-					<span>30-Day Money-Back Guarantee</span>
+
+				<!-- Package Name -->
+				<h3 class="text-xl font-black text-[#1B1B3D] mb-2">{tier.name}</h3>
+
+				<!-- Price -->
+				<div class="price-tag flex items-baseline gap-1 mb-6">
+					<span class="current-price text-3xl font-black">${tier.price.current}</span>
+					<span class="text-sm line-through text-gray-500">${tier.price.set}</span>
+					<span class="text-sm font-bold text-[#FF4D4D]">{tier.price.discount}% OFF</span>
 				</div>
-			</div>
 
-			<!-- CTA Button -->
-			<button class="cta-button w-full bg-[#1B1B3D] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#2C2D5D] transition-colors">
-				Get Started
-			</button>
+				<!-- Features List -->
+				<ul class="space-y-4 mb-8 flex-grow">
+					{tier.features.map(feature => (
+						<li class="feature-item flex items-start gap-2">
+							<span class="feature-check text-green-500 text-xl">{feature.icon}</span>
+							<span>{feature.text}</span>
+						</li>
+					))}
+				</ul>
 
-			<!-- Timer -->
-			<p class="timer-text text-xs text-center mt-4" id="timer-1">Special price ends in 22:58:24</p>
-		</div>
-
-		<!-- Best Value Package -->
-		<div class="pricing-card popular relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
-			<!-- Package Label -->
-			<div class="package-label absolute -top-3 left-4 bg-[#4D9FFF] px-4 py-1 rounded-full border-2 border-black">
-				<span class="font-bold text-sm text-white">Most popular choice</span>
-			</div>
-
-			<!-- Most Popular Badge -->
-			<div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-[#4D9FFF] px-8 py-1 rounded-full border-2 border-black whitespace-nowrap">
-				<span class="font-bold text-sm text-white">MOST POPULAR</span>
-			</div>
-
-			<!-- Sloth Illustration -->
-			<div class="mb-6 flex justify-center">
-				<img 
-					src="/images/bestvalue.png" 
-					alt="Sloth in chair - Best Value Package" 
-					class="sloth-image w-32 h-32 object-contain"
-				/>
-			</div>
-
-			<!-- Package Name -->
-			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">BEST VALUE PACKAGE</h3>
-
-			<!-- Price -->
-			<div class="price-tag flex items-baseline gap-1 mb-6">
-				<span class="current-price text-3xl font-black">$99</span>
-				<span class="text-sm line-through text-gray-500">$199</span>
-				<span class="text-sm font-bold text-[#FF4D4D]">50% OFF</span>
-			</div>
-
-			<!-- Features List -->
-			<ul class="space-y-4 mb-8 flex-grow">
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Everything in Starter Package</span>
-				</li>
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Advanced Email Templates</span>
-				</li>
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Priority Email Support</span>
-				</li>
-			</ul>
-
-			<!-- Additional Info -->
-			<div class="space-y-2 text-sm mb-6">
-				<div class="flex items-center gap-2">
-					<span>📚</span>
-					<span>Instant Digital Delivery</span>
+				<!-- Additional Info -->
+				<div class="space-y-2 text-sm mb-6">
+					{tier.additionalInfo ? (
+						tier.additionalInfo.map(info => (
+							<div class="flex items-center gap-2">
+								<span>{info.icon}</span>
+								<span>{info.text}</span>
+							</div>
+						))
+					) : (
+						<>
+							<div class="flex items-center gap-2">
+								<span>{tier.delivery?.icon ?? '📦'}</span>
+								<span>{tier.delivery}</span>
+							</div>
+							<div class="flex items-center gap-2">
+								<span>{tier.access?.icon ?? '⚡'}</span>
+								<span>{tier.access}</span>
+							</div>
+							<div class="flex items-center gap-2">
+								<span>{tier.guarantee?.icon ?? '🔄'}</span>
+								<span>{tier.guarantee}</span>
+							</div>
+						</>
+					)}
 				</div>
-				<div class="flex items-center gap-2">
-					<span>⚡</span>
-					<span>Lifetime Access</span>
-				</div>
-				<div class="flex items-center gap-2">
-					<span>🔄</span>
-					<span>60-Day Money-Back Guarantee</span>
-				</div>
+
+				<!-- CTA Button -->
+				<button class={`cta-button w-full ${tier.id === 'best-value' ? 'bg-[#4D9FFF] hover:bg-[#3D8FEF]' : tier.id === 'scale-freedom' ? 'bg-[#FFB800] text-[#1B1B3D] hover:bg-[#FFA800]' : 'bg-[#1B1B3D] text-white hover:bg-[#2C2D5D]'} font-bold py-3 rounded-xl border-2 border-black transition-colors`}>
+					{tier.buttonText}
+				</button>
+
+				<!-- Timer -->
+				<p class="timer-text text-xs text-center mt-4" id={`timer-${tier.id}`}>Special price ends in 22:58:24</p>
 			</div>
-
-			<!-- CTA Button -->
-			<button class="cta-button w-full bg-[#4D9FFF] text-white font-bold py-3 rounded-xl border-2 border-black hover:bg-[#3D8FEF] transition-colors">
-				🚀 Get Best Value
-			</button>
-
-			<!-- Timer -->
-			<p class="timer-text text-xs text-center mt-4" id="timer-2">Special price ends in 22:58:24</p>
-		</div>
-
-		<!-- Scale to Freedom Package -->
-		<div class="pricing-card relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col">
-			<!-- Package Label -->
-			<div class="package-label absolute -top-3 left-4 bg-[#FFE55C] px-4 py-1 rounded-full border-2 border-black">
-				<span class="font-bold text-sm">For serious entrepreneurs</span>
-			</div>
-
-			<!-- Sloth Illustration -->
-			<div class="mb-6 flex justify-center">
-				<img 
-					src="/images/scaletofreedom.png" 
-					alt="Sloth on mountain - Scale to Freedom Package" 
-					class="sloth-image w-32 h-32 object-contain"
-				/>
-			</div>
-
-			<!-- Package Name -->
-			<h3 class="text-xl font-black text-[#1B1B3D] mb-2">SCALE TO FREEDOM PATH</h3>
-
-			<!-- Price -->
-			<div class="price-tag flex items-baseline gap-1 mb-6">
-				<span class="current-price text-3xl font-black">$199</span>
-				<span class="text-sm line-through text-gray-500">$399</span>
-				<span class="text-sm font-bold text-[#FF4D4D]">50% OFF</span>
-			</div>
-
-			<!-- Features List -->
-			<ul class="space-y-4 mb-8 flex-grow">
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Everything in Best Value Package</span>
-				</li>
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>1-on-1 Strategy Session</span>
-				</li>
-				<li class="feature-item flex items-start gap-2">
-					<span class="feature-check text-green-500 text-xl">✓</span>
-					<span>Custom Email Templates</span>
-				</li>
-			</ul>
-
-			<!-- Additional Info -->
-			<div class="space-y-2 text-sm mb-6">
-				<div class="flex items-center gap-2">
-					<span>💻</span>
-					<span>Instant Digital Delivery</span>
-				</div>
-				<div class="flex items-center gap-2">
-					<span>⚡</span>
-					<span>Lifetime Access</span>
-				</div>
-				<div class="flex items-center gap-2">
-					<span>��</span>
-					<span>90-Day Money-Back Guarantee</span>
-				</div>
-			</div>
-
-			<!-- CTA Button -->
-			<button class="cta-button w-full bg-[#FFB800] text-[#1B1B3D] font-bold py-3 rounded-xl border-2 border-black hover:bg-[#FFA800] transition-colors">
-				Get Premium
-			</button>
-
-			<!-- Timer -->
-			<p class="timer-text text-xs text-center mt-4" id="timer-3">Special price ends in 22:58:24</p>
-		</div>
+		))}
 	</div>
 
 	<!-- Trust Badges -->

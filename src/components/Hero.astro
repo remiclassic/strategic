@@ -63,8 +63,8 @@ const testimonials = [
 	<div class="container-custom relative z-10 mx-auto flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-between gap-8 px-4 py-16 sm:px-6 lg:px-8">
 		<!-- Left Column with Book Cover -->
 		<div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
-			<!-- Sale Badge -->
-			<div class="relative bg-[#E3F2FF] rounded-2xl p-4 border-2 border-black inline-block transform -rotate-6">
+			<!-- Sale Badge - Updated positioning -->
+			<div class="relative bg-[#E3F2FF] rounded-2xl p-4 border-2 border-black inline-block transform -rotate-6 mt-8 md:mt-16">
 				<span class="font-black text-xl text-[#1B1B3D]">SAVE 52% TODAY!</span>
 				<div class="absolute -bottom-[8.5px] left-1/2 transform -translate-x-1/2 rotate-45 w-4 h-4 bg-[#E3F2FF]"></div>
 				<div class="absolute -bottom-[9.5px] left-1/2 transform -translate-x-1/2 rotate-45 w-4 h-4 border-r-2 border-b-2 border-black"></div>
@@ -75,6 +75,11 @@ const testimonials = [
 				Earn Money While<br />Doing Nothing
 			</h1>
 			
+			<!-- Core Promise -->
+			<p class="text-xl md:text-2xl text-[#1B1B3D] font-medium mb-4">
+				Learn how to turn your knowledge into simple digital products that sell while you sleep.
+			</p>
+
 			<!-- Subtitle -->
 			<p class="text-xl md:text-2xl text-[#1B1B3D] font-bold">
 				This isn't just a book.<br/>
@@ -96,6 +101,7 @@ const testimonials = [
 			<!-- Trust Element -->
 			<div class="space-y-4 text-lg max-w-md">
 				<p class="font-bold text-[#1B1B3D]">Join 5,000+ creators building lazy income streams with this step-by-step blueprint.</p>
+				<p class="text-[#1B1B3D] italic">Even if you have no audience, no niche, or no idea where to start.</p>
 			</div>
 
 			<!-- CTA Section -->
@@ -105,7 +111,7 @@ const testimonials = [
 					<div class="absolute inset-0 bg-black translate-x-2 translate-y-2 rounded-xl"></div>
 					<a href="#book-offer" class="relative w-full bg-[#2C2D5D] text-white px-8 py-6 rounded-xl font-black text-2xl border-2 border-black hover:translate-x-1 hover:translate-y-1 transition-transform cta-button inline-block text-center">
 						<div class="cta-particles"></div>
-						✅ GET THE BOOK NOW – SAVE 52%
+						✅ SHOW ME HOW TO EARN WHILE I NAP
 					</a>
 					<!-- Animated Paw Print -->
 					<img 
@@ -113,6 +119,15 @@ const testimonials = [
 						alt="Sloth Paw Print" 
 						class="absolute -left-16 -top-8 w-24 h-24 object-contain animate-paw-float z-20"
 					/>
+				</div>
+
+				<!-- $5 Offer CTA -->
+				<div class="bg-white/90 backdrop-blur p-4 rounded-xl border-2 border-black transform hover:scale-102 transition-all duration-300">
+					<p class="text-[#1B1B3D] font-bold mb-2">💸 Want to start smaller?</p>
+					<p class="text-[#1B1B3D] mb-3">Teach me how to sell something digital</p>
+					<a href="#book-offer" class="inline-block w-full bg-[#FFD600] text-[#1B1B3D] px-6 py-3 rounded-lg font-bold text-lg border-2 border-black hover:bg-[#FFE44D] transition-colors text-center">
+						START BUILDING LAZY INCOME →
+					</a>
 				</div>
 
 				<!-- Trust Badges -->

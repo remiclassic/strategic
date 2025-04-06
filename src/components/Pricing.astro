@@ -25,7 +25,8 @@ const pricingTiers = [
 		badge: null,
 		image: '/images/starterpackage.png',
 		buttonText: 'GET STARTED',
-		notes: 'Perfect for beginners!'
+		notes: 'Perfect for beginners!',
+		description: 'Mini guides to help you start selling digital products the lazy way'
 	},
 	{
 		name: 'BEST VALUE PACKAGE',
@@ -49,7 +50,8 @@ const pricingTiers = [
 		badge: 'MOST POPULAR',
 		image: '/images/bestvalue.png',
 		buttonText: 'GET BEST VALUE',
-		notes: 'Built for builders.'
+		notes: 'Built for builders.',
+		description: 'Everything you need to build a passive income system that runs on autopilot'
 	},
 	{
 		name: 'SCALE TO FREEDOM PATH',
@@ -73,7 +75,8 @@ const pricingTiers = [
 		badge: 'PREMIUM',
 		image: '/images/scaletofreedom.png',
 		buttonText: 'GET PREMIUM',
-		notes: 'For the full-time freedom seeker.'
+		notes: 'For the full-time freedom seeker.',
+		description: 'For people ready to go all in on smart, global freedom'
 	}
 ];
 
@@ -112,7 +115,10 @@ if (endTime < new Date()) {
 	<!-- Section Header -->
 	<div class="relative z-10 text-center mb-12">
 		<h2 class="text-4xl font-black text-[#1B1B3D] mb-4">PRICING PLANS</h2>
-		<p class="text-xl text-[#1B1B3D]">Choose your path to freedom with our special value packages!</p>
+		<p class="text-xl text-[#1B1B3D] mb-4">Choose your path to freedom with our special value packages!</p>
+		<p class="text-xl text-[#1B1B3D] max-w-2xl mx-auto">
+			Learn how to turn your knowledge into simple digital products that sell while you sleep.
+		</p>
 	</div>
 
 	<!-- Pricing Cards Container -->
@@ -142,6 +148,7 @@ if (endTime < new Date()) {
 
 				<!-- Package Name -->
 				<h3 class="text-xl font-black text-[#1B1B3D] mb-2">{tier.name}</h3>
+				<p class="text-sm text-gray-600 mb-4">{tier.description}</p>
 
 				<!-- Price -->
 				<div class="price-tag flex items-baseline gap-1 mb-6">
@@ -186,6 +193,9 @@ if (endTime < new Date()) {
 						</>
 					)}
 				</div>
+
+				<!-- Even If Statement -->
+				<p class="text-sm text-gray-600 italic mb-4">Even if you have no audience, no niche, or no idea where to start.</p>
 
 				<!-- CTA Button -->
 				<button class={`cta-button w-full ${tier.id === 'best-value' ? 'bg-[#4D9FFF] hover:bg-[#3D8FEF]' : tier.id === 'scale-freedom' ? 'bg-[#FFB800] text-[#1B1B3D] hover:bg-[#FFA800]' : 'bg-[#1B1B3D] text-white hover:bg-[#2C2D5D]'} font-bold py-3 rounded-xl border-2 border-black transition-colors`}>

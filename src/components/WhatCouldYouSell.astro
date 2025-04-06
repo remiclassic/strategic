@@ -1,0 +1,277 @@
+---
+const productExamples = [
+    {
+        icon: "📘",
+        title: "ANXIETY RELIEF PDF",
+        description: "Shared by a therapist who turned her process into a guide",
+        accent: "bg-blue-100"
+    },
+    {
+        icon: "🍲",
+        title: "WEST AFRICAN RECIPES PDF",
+        description: "Created by a chef sharing traditional dishes",
+        accent: "bg-orange-100"
+    },
+    {
+        icon: "🧳",
+        title: "SOLO TRAVEL CHECKLIST",
+        description: "A traveler's packing guide turned passive income",
+        accent: "bg-green-100"
+    },
+    {
+        icon: "💻",
+        title: "BEGINNER WEB DESIGN GUIDE",
+        description: "A freelancer's starter tips turned into a product",
+        accent: "bg-purple-100"
+    },
+    {
+        icon: "🛍️",
+        title: "CAPSULE WARDROBE PLANNER",
+        description: "A fashion blogger's method in a simple PDF",
+        accent: "bg-pink-100"
+    },
+    {
+        icon: "🗂️",
+        title: "NOTION TEMPLATES",
+        description: "Productivity tools that others can download and use",
+        accent: "bg-yellow-100"
+    }
+];
+
+const features = ["Easy to Create", "Sells While You Sleep", "No Tech Skills Needed"];
+---
+
+<section class="relative py-24 overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-100 via-purple-50 to-white"></div>
+    <div class="absolute inset-0 bg-halftone opacity-5 pointer-events-none mix-blend-multiply animate-subtle-scale"></div>
+    
+    <!-- Enhanced Decorative Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-10 left-10 text-6xl animate-sparkle">✨</div>
+        <div class="absolute bottom-20 right-10 text-6xl animate-sparkle" style="animation-delay: 1s">💡</div>
+        <div class="absolute top-1/3 right-1/4 text-5xl animate-sparkle" style="animation-delay: 0.5s">🎯</div>
+        <div class="absolute bottom-1/3 left-1/4 text-5xl animate-sparkle" style="animation-delay: 1.5s">💫</div>
+        <!-- Added more decorative elements -->
+        <div class="absolute top-1/2 right-10 text-4xl animate-float">💭</div>
+        <div class="absolute bottom-1/4 left-10 text-4xl animate-float" style="animation-delay: 1.2s">💪</div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <!-- Enhanced Header -->
+        <div class="text-center mb-16 reveal-on-scroll">
+            <div class="comic-bubble bg-white inline-block transform -rotate-2 mb-6 hover:rotate-2 transition-all duration-300">
+                <p class="text-xl font-bold relative inline-block">
+                    <span class="relative z-10">📦 What Could You Sell?</span>
+                    <span class="absolute inset-0 bg-purple-200 -rotate-3 z-0"></span>
+                </p>
+            </div>
+            
+            <h2 class="comic-title text-5xl md:text-6xl mb-8 max-w-4xl mx-auto transform hover:scale-105 transition-all duration-300">
+                <span class="relative inline-block">
+                    Turn Your Knowledge Into Products
+                    <div class="absolute bottom-0 left-0 right-0 h-4 bg-[#FFE066] -rotate-1 -z-10 animate-width"></div>
+                </span>
+            </h2>
+            
+            <!-- Added feature badges -->
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                {features.map((feature) => (
+                    <div class="comic-badge bg-white px-4 py-2 transform rotate-2 hover:-rotate-2 transition-all duration-300">
+                        <span class="font-bold">✓ {feature}</span>
+                    </div>
+                ))}
+            </div>
+            
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
+                You do not need a big audience. You do not need to be an expert. You just need an idea—or even just a starting point.
+            </p>
+        </div>
+
+        <!-- Enhanced Product Examples Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {productExamples.map((product, index) => (
+                <div 
+                    class={`product-card comic-card bg-white transform hover:scale-105 hover:-rotate-2 transition-all duration-300 group ${product.accent}`}
+                    style={`animation-delay: ${index * 200}ms`}
+                >
+                    <!-- Added corner decoration -->
+                    <div class="absolute -top-2 -right-2 w-12 h-12 bg-black rounded-full flex items-center justify-center transform rotate-12 border-4 border-white">
+                        <span class="text-white font-bold">#{index + 1}</span>
+                    </div>
+                    
+                    <div class="p-8">
+                        <!-- Enhanced icon presentation -->
+                        <div class="relative mb-6">
+                            <div class="absolute inset-0 bg-black opacity-5 blur-xl transform group-hover:scale-110 transition-transform duration-300"></div>
+                            <div class="text-5xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                                {product.icon}
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-4 comic-title group-hover:text-purple-600 transition-colors duration-300" style="font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+                            {product.title}
+                        </h3>
+                        
+                        <p class="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+                            {product.description}
+                        </p>
+                        
+                        <!-- Added "Learn More" teaser -->
+                        <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="inline-flex items-center text-purple-600 font-bold">
+                                Learn how →
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <!-- Enhanced Bottom Message -->
+        <div class="text-center">
+            <div class="comic-bubble bg-white inline-block transform rotate-1 mb-6 hover:scale-105 transition-transform duration-300">
+                <p class="text-xl font-bold relative">
+                    Got something helpful in your brain?
+                    <br />
+                    Turn it into something that sells—once, then over and over.
+                    <span class="absolute -right-6 -top-6 text-4xl animate-bounce-slow">💡</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .comic-card {
+        border: 4px solid black;
+        border-radius: 16px;
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .comic-card:hover {
+        box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .comic-bubble {
+        border: 4px solid black;
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .comic-badge {
+        border: 3px solid black;
+        border-radius: 8px;
+        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .bg-halftone {
+        background-image: radial-gradient(circle at center, black 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-position: center;
+    }
+
+    @keyframes subtle-scale {
+        0%, 100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 0.05;
+        }
+        50% {
+            transform: scale(1.1) rotate(1deg);
+            opacity: 0.07;
+        }
+    }
+
+    .animate-subtle-scale {
+        animation: subtle-scale 15s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% {
+            transform: scale(1) rotate(0deg);
+            opacity: 0.8;
+        }
+        50% {
+            transform: scale(1.2) rotate(15deg);
+            opacity: 1;
+        }
+    }
+
+    .animate-sparkle {
+        animation: sparkle 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(5deg);
+        }
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes bounce-slow {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .animate-bounce-slow {
+        animation: bounce-slow 2s ease-in-out infinite;
+    }
+
+    @keyframes width {
+        0% {
+            width: 0;
+        }
+        100% {
+            width: 100%;
+        }
+    }
+
+    .animate-width {
+        animation: width 1.5s ease-out forwards;
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<script>
+    // Intersection Observer for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe all cards and headers
+        document.querySelectorAll('.product-card, .reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    });
+</script> 

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import IsThisForYou from '../components/IsThisForYou.astro';
 import TargetAudience from '../components/TargetAudience.astro';
 import LifestyleShowcase from '../components/LifestyleShowcase.astro';
 import SuccessStories from '../components/SuccessStories.astro';
@@ -12,25 +13,36 @@ import ColleaguesGone from '../components/ColleaguesGone.astro';
 import BurnoutToFreedom from '../components/BurnoutToFreedom.astro';
 import JourneySteps from '../components/JourneySteps.astro';
 import BookOffer from '../components/BookOffer.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import WhatCouldYouSell from '../components/WhatCouldYouSell.astro';
+import FeaturedSlothStory from '../components/FeaturedSlothStory.astro';
+import ParallaxFooter from '../components/ParallaxFooter.astro';
 ---
 
 <Layout title="Digital Product Landing Page">
 	<main class="min-h-screen">
 		<Hero />
+		<IsThisForYou />
 		<section id="the-problem">
 			<ColleaguesGone />
 		</section>
 		<section id="about-me">
 			<BurnoutToFreedom />
 		</section>
-		<section id="journey">
-			<JourneySteps />
+		<section id="how-it-works">
+			<HowItWorks />
 		</section>
-		<section id="dream-life">
-			<TargetAudience />
+		<section id="what-could-you-sell">
+			<WhatCouldYouSell />
+		</section>
+		<section id="featured-story">
+			<FeaturedSlothStory />
 		</section>
 		<section id="success-stories">
 			<SuccessStories />
+		</section>
+		<section id="dream-life">
+			<TargetAudience />
 		</section>
 		<LifestyleShowcase />
 		<BookOffer />

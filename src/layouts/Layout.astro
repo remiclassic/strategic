@@ -28,6 +28,26 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 	</head>
 	<body class="min-h-screen bg-white overflow-x-hidden">
 		<Navbar />
+		<!-- Start Here Banner -->
+		<div id="start-here-banner" class="fixed top-16 left-0 right-0 z-40 bg-[#E3F2FF] border-b-2 border-black transform transition-transform duration-300">
+			<div class="container mx-auto px-4 py-2 flex items-center justify-between">
+				<div class="flex items-center gap-3">
+					<span class="text-xl">💡</span>
+					<p class="text-sm md:text-base font-medium">New here? Learn how to turn your ideas into digital products that sell while you sleep.</p>
+				</div>
+				<div class="flex items-center gap-4">
+					<a href="#book-offer" class="hidden md:flex items-center gap-2 text-sm font-bold hover:text-[#4D9FFF] transition-colors">
+						Start with the $5 guide
+						<span class="text-lg">👉</span>
+					</a>
+					<button id="close-banner" class="text-gray-600 hover:text-black transition-colors" aria-label="Close banner">
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
 		<main class="w-full max-w-[100vw]">
 			<slot />
 		</main>
@@ -36,18 +56,55 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 		<LegalModals />
 		<MinimalCTA />
 		<BackToTop />
+
+		<script>
+			import { initSectionAnimations, respectMotionPreferences } from '../utils/scrollAnimations';
+
+			// Initialize animations for all sections
+			document.querySelectorAll('section').forEach(section => {
+				initSectionAnimations(section);
+				respectMotionPreferences(section);
+			});
+
+			// Banner visibility management
+			const banner = document.getElementById('start-here-banner');
+			const closeBanner = document.getElementById('close-banner');
+			let lastScroll = 0;
+
+			if (closeBanner && banner) {
+				closeBanner.addEventListener('click', () => {
+					banner.style.transform = 'translateY(-100%)';
+					// Store the banner state in localStorage
+					localStorage.setItem('bannerClosed', 'true');
+				});
+
+				// Check if banner was previously closed
+				if (localStorage.getItem('bannerClosed') === 'true') {
+					banner.style.transform = 'translateY(-100%)';
+				}
+
+				// Show/hide banner on scroll
+				window.addEventListener('scroll', () => {
+					const currentScroll = window.pageYOffset;
+					
+					if (currentScroll <= 0) {
+						banner.style.transform = 'translateY(0)';
+					}
+					
+					if (currentScroll > lastScroll && currentScroll > 100) {
+						banner.style.transform = 'translateY(-100%)';
+					}
+					
+					if (currentScroll < lastScroll) {
+						banner.style.transform = 'translateY(0)';
+					}
+					
+					lastScroll = currentScroll;
+				});
+			}
+		</script>
 	</body>
 </html>
-
-<script>
-	import { initSectionAnimations, respectMotionPreferences } from '../utils/scrollAnimations';
-
-	// Initialize animations for all sections
-	document.querySelectorAll('section').forEach(section => {
-		initSectionAnimations(section);
-		respectMotionPreferences(section);
-	});
-</script>
 
 <style is:global>
 	:root {

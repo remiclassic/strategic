@@ -1,7 +1,6 @@
 ---
 import BuyButton from './BuyButton.astro';
 import BackgroundCircles from './BackgroundCircles.astro';
-import { getImagePath } from '../utils/imagePath';
 
 const testimonials = [
 	{
@@ -47,14 +46,14 @@ const testimonials = [
 	<div class="absolute inset-0 overflow-hidden pointer-events-none">
 		<!-- Background Plants -->
 		<img 
-			src={getImagePath("/images/plants.png")} 
+			src="/images/plants.png" 
 			alt="Decorative Plants" 
 			class="absolute bottom-[-5%] -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway mobile-static translate-y-8"
 			style="max-height: 100vh;"
 		/>
 		<!-- Sloth Image -->
 		<img 
-			src={getImagePath("/images/slothloungehero.png")} 
+			src="/images/slothloungehero.png" 
 			alt="Strategic Sloth" 
 			class="absolute bottom-[-5%] -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10 mobile-static translate-y-8"
 			style="max-height: 95vh;"
@@ -91,7 +90,7 @@ const testimonials = [
 			<button class="relative w-full max-w-[300px] mx-auto lg:mx-0 group transition-transform hover:scale-105 cursor-pointer">
 				<div class="absolute inset-0 bg-black translate-x-2 translate-y-2 rounded-lg group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></div>
 				<img 
-					src={getImagePath("/images/bookpdf.png")} 
+					src="/images/bookpdf.png" 
 					alt="Don't Do Anything - The Book" 
 					class="relative w-full h-auto rounded-lg border-2 border-black"
 				/>
@@ -116,7 +115,7 @@ const testimonials = [
 					</a>
 					<!-- Animated Paw Print -->
 					<img 
-						src={getImagePath("/images/paw.png")} 
+						src="/images/paw.png" 
 						alt="Sloth Paw Print" 
 						class="absolute -left-16 -top-8 w-24 h-24 object-contain animate-paw-float z-20"
 					/>

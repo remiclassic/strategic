@@ -2,8 +2,7 @@
   "name": "strategic-landing",
   "version": 2,
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "outputDirectory": "dist",
+  "outputDirectory": ".vercel/output/static",
   "framework": "astro",
   "cleanUrls": true,
   "headers": [
@@ -11,8 +10,12 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
         }
       ]
     }
@@ -20,5 +23,6 @@
   "github": {
     "enabled": true,
     "silent": true
-  }
+  },
+  "alias": ["strategic-landing.vercel.app"]
 } 

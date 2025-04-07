@@ -48,15 +48,17 @@ const testimonials = [
 		<img 
 			src="/strategic/images/plants.png" 
 			alt="Decorative Plants" 
-			class="absolute bottom-[-5%] -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway mobile-static translate-y-8"
+			class="fixed bottom-[-5%] -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway mobile-static translate-y-8 transition-all duration-300"
 			style="max-height: 100vh;"
+			id="plants-image"
 		/>
 		<!-- Sloth Image -->
 		<img 
 			src="/strategic/images/slothloungehero.png" 
 			alt="Strategic Sloth" 
-			class="absolute bottom-[-5%] -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10 mobile-static translate-y-8"
+			class="fixed bottom-[-5%] -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10 mobile-static translate-y-8 transition-all duration-300"
 			style="max-height: 95vh;"
+			id="sloth-image"
 		/>
 	</div>
 
@@ -276,6 +278,39 @@ const testimonials = [
 
 	// Initialize detection
 	detectViewportType();
+
+	// Add scroll-based position switching
+	document.addEventListener('DOMContentLoaded', () => {
+		const heroSection = document.getElementById('hero-section');
+		const plantsImage = document.getElementById('plants-image');
+		const slothImage = document.getElementById('sloth-image');
+		let isFixed = true;
+
+		function updateImagePositioning() {
+			if (!heroSection || !plantsImage || !slothImage) return;
+
+			const heroRect = heroSection.getBoundingClientRect();
+			const heroBottom = heroRect.bottom;
+			const viewportHeight = window.innerHeight;
+
+			// Switch to absolute positioning when the hero section is about to leave the viewport
+			if (heroBottom <= viewportHeight && isFixed) {
+				plantsImage.style.position = 'absolute';
+				slothImage.style.position = 'absolute';
+				isFixed = false;
+			} else if (heroBottom > viewportHeight && !isFixed) {
+				plantsImage.style.position = 'fixed';
+				slothImage.style.position = 'fixed';
+				isFixed = true;
+			}
+		}
+
+		// Only enable on non-mobile devices
+		if (window.matchMedia('(min-width: 768px)').matches) {
+			window.addEventListener('scroll', updateImagePositioning, { passive: true });
+			window.addEventListener('resize', updateImagePositioning, { passive: true });
+		}
+	});
 </script>
 
 <style>
@@ -671,5 +706,11 @@ const testimonials = [
 	.is-responsive-mode div[class*="absolute bottom"] {
 		bottom: 1rem !important;
 		z-index: 30 !important;
+	}
+
+	@media (max-width: 767px) {
+		.mobile-static {
+			position: absolute !important;
+		}
 	}
 </style> 

@@ -1,11 +1,17 @@
 ---
+// Function to handle image paths
+const getImagePath = (path: string) => {
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
+};
+
 // Define the story panels data
 const storyPanels = [
   {
     id: "corporate-trap",
     title: "CHASING PROMOTIONS",
     caption: "Working late. Living small. Always 'on.'",
-    image: "/images/corporatesloth.png",
+    image: getImagePath('images/corporatesloth.png'),
     soundEffect: "BEEP... ZOOM CALL IN 5!",
     theme: "corporate",
     style: "grayscale",
@@ -15,7 +21,7 @@ const storyPanels = [
     id: "realization",
     title: "THEN IT HIT ME:",
     caption: "I was trading time for money. And no amount of money could buy back the moments I was losing.",
-    image: "/images/realizationmoment.png",
+    image: getImagePath('images/realizationmoment.png'),
     soundEffect: "BEEPP...",
     theme: "realization",
     style: "bright",
@@ -25,7 +31,7 @@ const storyPanels = [
     id: "freedom",
     title: "SLAYING... GENTLY.",
     caption: "Now I work 2-3 hours a day, make more than I did in corporate, and nap whenever I want.",
-    image: "/images/livingthedream.png",
+    image: getImagePath('images/livingthedream.png'),
     soundEffect: "NAP MODE",
     theme: "freedom",
     style: "vibrant",
@@ -45,7 +51,7 @@ const burnoutChecklist = [
 <section class="bg-yellow-100 py-24 relative overflow-hidden">
   <!-- Background Image with Parallax -->
   <div class="absolute inset-0 pointer-events-none opacity-20 parallax-bg">
-    <img src="/images/leafs.png" alt="Leaf Pattern" class="w-full h-full object-cover object-center" />
+    <img src={getImagePath('images/leafs.png')} alt="Leaf Pattern" class="w-full h-full object-cover object-center" />
   </div>
 
   <div class="max-w-6xl mx-auto px-4 relative z-10">

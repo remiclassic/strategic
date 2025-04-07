@@ -7,6 +7,12 @@ const navLinks = [
   { text: "Cookie Policy", id: "test" }
 ];
 
+// Function to handle image paths
+const getImagePath = (path: string) => {
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
+};
+
 // Current year for copyright
 const currentYear = new Date().getFullYear();
 ---
@@ -33,7 +39,7 @@ const currentYear = new Date().getFullYear();
       <div class="relative w-40 h-40 md:w-48 md:h-48 comic-card transform rotate-2">
         <div class="absolute inset-0 flex items-center justify-center">
           <img 
-            src="/images/sloth-hammock.svg" 
+            src={getImagePath('images/sloth-hammock.svg')} 
             alt="A sloth relaxing in a hammock between tropical plants" 
             class="w-full h-full object-contain comic-pop"
             onerror="this.innerHTML='<div class=\'text-6xl comic-pop\'>🦥</div>'"

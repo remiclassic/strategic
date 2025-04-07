@@ -11,6 +11,12 @@ const specialOffer = {
     ctaLink: "#book-offer",
     noThanks: "No thanks, I'm too energetic for this. (That's fair.)"
 };
+
+// Function to handle image paths
+const getImagePath = (path: string) => {
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
+};
 ---
 
 <div id="exit-popup" class="fixed inset-0 bg-black/30 z-50 hidden">
@@ -35,7 +41,7 @@ const specialOffer = {
                 <!-- Book Cover -->
                 <div class="w-[160px] sm:w-[200px] mx-auto sm:mx-0 flex-shrink-0">
                     <img 
-                        src="/images/bookpdf.png" 
+                        src={getImagePath('images/bookpdf.png')} 
                         alt="Don't Do Anything - The Art of Earning Money by Doing Nothing" 
                         class="w-full h-auto"
                     />

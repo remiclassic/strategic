@@ -91,6 +91,31 @@ const lifestyleCards = [
         hoverImage: "/images/lfs/SnowR.png"
     }
 ];
+
+// Function to handle image paths
+const getImagePath = (path: string) => {
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
+};
+
+// Define lifestyle features
+const lifestyleFeatures = [
+  {
+    title: "Work From Anywhere",
+    description: "Set up your laptop on a beach, in a café, or from your home office. The world is your workspace.",
+    icon: "🌴"
+  },
+  {
+    title: "Flexible Schedule",
+    description: "Work when you're most productive. Take breaks when you need them. Your time, your rules.",
+    icon: "⏰"
+  },
+  {
+    title: "Passive Income",
+    description: "Build systems that generate income while you sleep. True financial freedom starts here.",
+    icon: "💰"
+  }
+];
 ---
 
 <!-- Background with Parallax and Interactive Effects -->
@@ -98,7 +123,7 @@ const lifestyleCards = [
     <!-- Static Background -->
     <div class="absolute inset-0">
         <img 
-            src="/images/lifestylebg.png" 
+            src={getImagePath('images/lifestylebg.png')} 
             alt="Background" 
             class="w-full h-full object-cover animate-subtle-pulse"
         >

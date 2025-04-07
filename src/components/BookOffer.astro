@@ -19,19 +19,13 @@ const bookDetails = {
     ctaLink: "#pricing",
     ctaText: "View the Freedom Kits →"
 };
-
-// Function to handle image paths
-const getImagePath = (path: string) => {
-    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-    return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
-};
 ---
 
 <section id="book-offer" class="relative py-24 overflow-hidden book-offer-section">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0">
         <img 
-            src={getImagePath('images/5bucksbg.png')}
+            src="/images/5bucksbg.png" 
             alt="Book Offer Background" 
             class="w-full h-full object-cover"
         />
@@ -134,7 +128,7 @@ const getImagePath = (path: string) => {
                         <div class="comic-bubble bg-[#FFD700] text-black p-4 sm:p-6 relative rounded-tr-[50px] sm:rounded-tr-[100px]">
                             <!-- Sloth Image - Repositioned for mobile -->
                             <div class="absolute -right-3 -top-16 sm:-right-16 sm:-top-[137px] w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 transform rotate-12 sm:rotate-0">
-                                <img src={getImagePath('images/latteasloth.png')} alt="Sloth with Speech Bubble" class="w-full h-full object-contain" />
+                                <img src="/images/latteasloth.png" alt="Sloth with Speech Bubble" class="w-full h-full object-contain" />
                             </div>
                             <div class="flex items-start gap-4">
                                 <div class="text-2xl sm:text-3xl flex-shrink-0">🕒</div>
@@ -185,7 +179,7 @@ const getImagePath = (path: string) => {
                 <div class="relative transform hover:scale-105 transition-all duration-500 mt-8 lg:mt-0">
                     <div class="comic-book-container">
                         <img 
-                            src={getImagePath('images/bookpdf.png')}
+                            src="/images/bookpdf.png" 
                             alt="Don't Do Anything Book Cover" 
                             class="w-full max-w-[280px] sm:max-w-md mx-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] transform rotate-6 hover:rotate-3 transition-transform duration-300 animate-float-slow"
                         />

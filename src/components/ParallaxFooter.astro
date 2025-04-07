@@ -9,31 +9,25 @@ const navLinks = [
 
 // Current year for copyright
 const currentYear = new Date().getFullYear();
-
-// Function to handle image paths
-const getImagePath = (path: string) => {
-    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-    return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
-};
 ---
 
 <!-- Parallax Footer -->
 <footer class="relative h-[800px] overflow-hidden bg-sky-100">
     <!-- Fixed background layer -->
     <div class="absolute inset-0 z-[1]">
-        <img src={getImagePath('images/ftr/1.png')} alt="Beach Background" class="w-full h-full object-cover opacity-70" />
+        <img src="/images/ftr/1.png" alt="Beach Background" class="w-full h-full object-cover opacity-70" />
     </div>
 
     <!-- Parallax layers container -->
     <div class="absolute inset-0 z-[2]">
         <!-- Birds layer -->
         <div class="absolute top-0 left-0 right-0 will-change-transform z-[1]" data-speed="0.25">
-            <img src={getImagePath('images/ftr/birds.svg')} alt="Birds" class="w-full h-32 object-contain" />
+            <img src="/images/ftr/birds.svg" alt="Birds" class="w-full h-32 object-contain" />
         </div>
 
         <!-- Palm trees layer -->
         <div class="absolute inset-0 will-change-transform z-[2]" data-speed="0.2">
-            <img src={getImagePath('images/ftr/2.png')} alt="Palm Trees" class="w-full h-full object-cover object-top" />
+            <img src="/images/ftr/2.png" alt="Palm Trees" class="w-full h-full object-cover object-top" />
         </div>
     </div>
 

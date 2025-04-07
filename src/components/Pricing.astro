@@ -1,12 +1,6 @@
 ---
 import BuyButton from './BuyButton.astro';
 
-// Function to handle image paths
-const getImagePath = (path: string) => {
-	const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-	return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
-};
-
 const pricingTiers = [
 	{
 		name: 'STARTER PACKAGE',
@@ -96,59 +90,141 @@ if (endTime < new Date()) {
 }
 ---
 
-<section class="relative py-24 overflow-hidden">
-	<!-- Background Image -->
+<section class="relative w-full bg-[#FFD600] py-16 px-4">
+	<!-- Background Pattern -->
 	<div class="absolute inset-0 z-0">
 		<img 
-			src={getImagePath('images/pricingbg.png')} 
+			src="/images/pricingbg.png" 
 			alt="Background Pattern" 
-			class="w-full h-full object-cover opacity-10"
+			class="absolute inset-0 w-full h-full object-cover opacity-50"
 		/>
 	</div>
 
-	<!-- Content -->
-	<div class="container mx-auto px-4 relative z-10">
-		<div class="text-center mb-16">
-			<h2 class="text-4xl md:text-5xl font-bold mb-6">Choose Your Path to Freedom</h2>
-			<p class="text-xl text-gray-600 max-w-2xl mx-auto">
-				Select the package that best fits your goals and start your journey to financial freedom today.
-			</p>
+	<!-- Flash Sale Banner -->
+	<div class="relative z-10 max-w-4xl mx-auto mb-8">
+		<div class="flash-sale-banner bg-[#FF4D4D] text-white p-4 rounded-xl border-2 border-black flex items-center justify-between">
+			<div class="flex items-center gap-2">
+				<span class="text-2xl">🏠</span>
+				<span class="font-bold">Flash Sale Ends Soon!</span>
+			</div>
+			<div class="font-mono font-bold" id="flash-sale-timer">22:58:24</div>
 		</div>
+		<p class="text-sm text-center mt-2 text-[#1B1B3D]">Save up to 50% on all packages - Limited time only!</p>
+	</div>
 
-		<!-- Pricing Cards -->
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-			{pricingTiers.map((tier) => (
-				<div class={`bg-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition-transform duration-300 ${tier.id === 'best-value' ? 'border-2 border-blue-500' : ''}`}>
-					{tier.id === 'best-value' && (
-						<div class="bg-blue-500 text-white text-center py-1 px-4 rounded-full text-sm font-semibold mb-4">
-							Most Popular
-						</div>
-					)}
-					<h3 class="text-2xl font-bold mb-4">{tier.name}</h3>
-					<div class="text-4xl font-bold mb-6">${tier.price.current}</div>
-					<ul class="space-y-4 mb-8">
-						{tier.features.map((feature) => (
-							<li class="flex items-center">
-								<svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-								</svg>
-								{feature.text}
-							</li>
-						))}
-					</ul>
-					<a 
-						href="#get-started" 
-						class={`block text-center py-3 px-6 rounded-full font-semibold transition-colors duration-300 ${
-							tier.id === 'best-value' 
-								? 'bg-blue-500 text-white hover:bg-blue-600' 
-								: tier.id === 'scale-freedom' ? 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-								: 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-						}`}
-					>
-						{tier.buttonText}
-					</a>
+	<!-- Section Header -->
+	<div class="relative z-10 text-center mb-12">
+		<h2 class="text-4xl font-black text-[#1B1B3D] mb-4">PRICING PLANS</h2>
+		<p class="text-xl text-[#1B1B3D] mb-4">Choose your path to freedom with our special value packages!</p>
+		<p class="text-xl text-[#1B1B3D] max-w-2xl mx-auto">
+			Learn how to turn your knowledge into simple digital products that sell while you sleep.
+		</p>
+	</div>
+
+	<!-- Pricing Cards Container -->
+	<div class="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+		{pricingTiers.map(tier => (
+			<div class={`pricing-card relative bg-[#FFFDF7] rounded-2xl border-2 border-black p-6 flex flex-col ${tier.id === 'best-value' ? 'popular' : ''}`}>
+				<!-- Package Label -->
+				<div class={`package-label absolute -top-3 left-4 ${tier.id === 'best-value' ? 'bg-[#4D9FFF]' : 'bg-[#FFE55C]'} px-4 py-1 rounded-full border-2 border-black`}>
+					<span class={`font-bold text-sm ${tier.id === 'best-value' ? 'text-white' : ''}`}>{tier.notes}</span>
 				</div>
-			))}
+
+				{tier.badge && (
+					<!-- Most Popular Badge -->
+					<div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-[#4D9FFF] px-8 py-1 rounded-full border-2 border-black whitespace-nowrap">
+						<span class="font-bold text-sm text-white">{tier.badge}</span>
+					</div>
+				)}
+
+				<!-- Sloth Illustration -->
+				<div class="mb-6 flex justify-center">
+					<img 
+						src={tier.image}
+						alt={`Sloth - ${tier.name}`}
+						class="sloth-image w-32 h-32 object-contain"
+					/>
+				</div>
+
+				<!-- Package Name -->
+				<h3 class="text-xl font-black text-[#1B1B3D] mb-2">{tier.name}</h3>
+				<p class="text-sm text-gray-600 mb-4">{tier.description}</p>
+
+				<!-- Price -->
+				<div class="price-tag flex items-baseline gap-1 mb-6">
+					<span class="current-price text-3xl font-black">${tier.price.current}</span>
+					<span class="text-sm line-through text-gray-500">${tier.price.set}</span>
+					<span class="text-sm font-bold text-[#FF4D4D]">{tier.price.discount}% OFF</span>
+				</div>
+
+				<!-- Features List -->
+				<ul class="space-y-4 mb-8 flex-grow">
+					{tier.features.map(feature => (
+						<li class="feature-item flex items-start gap-2">
+							<span class="feature-check text-green-500 text-xl">{feature.icon}</span>
+							<span>{feature.text}</span>
+						</li>
+					))}
+				</ul>
+
+				<!-- Additional Info -->
+				<div class="space-y-2 text-sm mb-6">
+					{tier.additionalInfo ? (
+						tier.additionalInfo.map(info => (
+							<div class="flex items-center gap-2">
+								<span>{info.icon}</span>
+								<span>{info.text}</span>
+							</div>
+						))
+					) : (
+						<>
+							<div class="flex items-center gap-2">
+								<span>{tier.delivery?.icon ?? '📦'}</span>
+								<span>{tier.delivery}</span>
+							</div>
+							<div class="flex items-center gap-2">
+								<span>{tier.access?.icon ?? '⚡'}</span>
+								<span>{tier.access}</span>
+							</div>
+							<div class="flex items-center gap-2">
+								<span>{tier.guarantee?.icon ?? '🔄'}</span>
+								<span>{tier.guarantee}</span>
+							</div>
+						</>
+					)}
+				</div>
+
+				<!-- Even If Statement -->
+				<p class="text-sm text-gray-600 italic mb-4">Even if you have no audience, no niche, or no idea where to start.</p>
+
+				<!-- CTA Button -->
+				<button class={`cta-button w-full ${tier.id === 'best-value' ? 'bg-[#4D9FFF] hover:bg-[#3D8FEF]' : tier.id === 'scale-freedom' ? 'bg-[#FFB800] text-[#1B1B3D] hover:bg-[#FFA800]' : 'bg-[#1B1B3D] text-white hover:bg-[#2C2D5D]'} font-bold py-3 rounded-xl border-2 border-black transition-colors`}>
+					{tier.buttonText}
+				</button>
+
+				<!-- Timer -->
+				<p class="timer-text text-xs text-center mt-4" id={`timer-${tier.id}`}>Special price ends in 22:58:24</p>
+			</div>
+		))}
+	</div>
+
+	<!-- Trust Badges -->
+	<div class="relative z-10 max-w-4xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">🔒</span>
+			<span class="font-bold text-sm">Secure Checkout</span>
+		</div>
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">💯</span>
+			<span class="font-bold text-sm">Love It or Get Your Money Back</span>
+		</div>
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">🎁</span>
+			<span class="font-bold text-sm">Keep the Bonuses Even If You Refund</span>
+		</div>
+		<div class="bg-[#FFFDF7] p-4 rounded-xl border-2 border-black flex items-center justify-center gap-2">
+			<span class="text-2xl">👋</span>
+			<span class="font-bold text-sm">No Ongoing Support</span>
 		</div>
 	</div>
 </section>

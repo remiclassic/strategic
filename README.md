@@ -1,6 +1,37 @@
-# Digital Product Landing Page
+# Strategic Sloth Landing Page
 
-A modern, responsive landing page built with Astro and Tailwind CSS for selling digital products. The page includes a hero section, features, testimonials, pricing, upsell, and final call-to-action sections.
+A landing page for the Strategic Sloth business, built with Astro and Tailwind CSS.
+
+## Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+## GitHub Pages Deployment
+
+This site is configured to deploy to GitHub Pages at https://remiclassic.github.io/strategic/
+
+The deployment is automated using GitHub Actions. When changes are pushed to the main branch, the site will be automatically built and deployed.
+
+### Manual Deployment
+
+If you need to manually trigger a deployment:
+
+1. Go to the Actions tab in the GitHub repository
+2. Select the "Deploy to GitHub Pages" workflow
+3. Click "Run workflow"
+
+## Project Structure
+
+- `src/components/` - Astro components
+- `src/layouts/` - Layout components
+- `src/pages/` - Page components
+- `public/` - Static assets
 
 ## Features
 
@@ -10,29 +41,6 @@ A modern, responsive landing page built with Astro and Tailwind CSS for selling 
 - 🎨 Clean, modern UI with soft shadows and rounded corners
 - 💳 Integrated with Lemon Squeezy for payments
 - 📦 Static site generation for easy deployment
-
-## Getting Started
-
-1. Clone the repository:
-```bash
-git clone <your-repo-url>
-cd <your-repo-name>
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npm run dev
-```
-
-4. Build for production:
-```bash
-npm run build
-```
 
 ## Configuration
 

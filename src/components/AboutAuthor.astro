@@ -26,25 +26,6 @@ const milestones = [
   "Soul-crushing meetings",
   "Rush hour traffic"
 ];
-
-// Function to handle image paths
-const getImagePath = (path: string) => {
-    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-    return import.meta.env.DEV ? `/${cleanPath}` : `/strategic/${cleanPath}`;
-};
-
-// Author information
-const author = {
-  name: "John Doe",
-  title: "Business Freedom Coach",
-  bio: "After 10 years in corporate America, John discovered the power of passive income and automated business systems. Now he helps others achieve the same freedom he enjoys.",
-  image: getImagePath('images/author-relaxing.jpg'),
-  stats: [
-    { label: "Years Experience", value: "10+" },
-    { label: "Clients Helped", value: "1000+" },
-    { label: "Books Sold", value: "5000+" }
-  ]
-};
 ---
 
 <section id="about-author" class="relative py-24 bg-comic-bg-light comic-text">
@@ -151,8 +132,8 @@ const author = {
       <div class="relative">
         <div class="comic-card transform hover:-rotate-2 hover:scale-105 transition-all duration-300">
           <img
-            src={author.image}
-            alt={author.name}
+            src="/images/author-relaxing.jpg"
+            alt="Author relaxing in nature with laptop"
             class="rounded-xl shadow-xl"
             width="600"
             height="400"

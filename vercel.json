@@ -10,12 +10,8 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }
@@ -23,6 +19,5 @@
   "github": {
     "enabled": true,
     "silent": true
-  },
-  "alias": ["strategic-landing.vercel.app"]
+  }
 } 

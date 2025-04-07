@@ -3,6 +3,8 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://remiclassic.github.io',
+  base: '/strategic',
   output: 'static',
   adapter: {
     name: '@astrojs/vercel',

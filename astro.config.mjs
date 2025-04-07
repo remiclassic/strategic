@@ -4,7 +4,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   output: 'static',
   site: 'https://remiclassic.github.io/strategic/',
-  base: '/strategic/',
+  base: '/strategic',
   integrations: [tailwind()],
   build: {
     assets: '_assets',

@@ -2,40 +2,96 @@
 const productExamples = [
     {
         icon: "📘",
-        title: "ANXIETY RELIEF PDF",
-        description: "Shared by a therapist who turned her process into a guide",
-        accent: "bg-blue-100"
+        title: "Anxiety Relief PDF",
+        story: "Turn your process into peace — like this therapist did.",
+        tag: "🧠 Mental Health",
+        category: "wellness"
     },
     {
         icon: "🍲",
-        title: "WEST AFRICAN RECIPES PDF",
-        description: "Created by a chef sharing traditional dishes",
-        accent: "bg-orange-100"
+        title: "West African Recipes",
+        story: "Created by a chef sharing cultural flavors.",
+        tag: "🌍 Culture & Cooking",
+        category: "creative"
     },
     {
         icon: "🧳",
-        title: "SOLO TRAVEL CHECKLIST",
-        description: "A traveler's packing guide turned passive income",
-        accent: "bg-green-100"
+        title: "Solo Travel Checklist",
+        story: "Packing list to passive income success.",
+        tag: "✈️ Travel",
+        category: "templates"
     },
     {
         icon: "💻",
-        title: "BEGINNER WEB DESIGN GUIDE",
-        description: "A freelancer's starter tips turned into a product",
-        accent: "bg-purple-100"
+        title: "Digital Art Guide",
+        story: "Artist shares her Procreate techniques.",
+        tag: "🎨 Creative",
+        category: "creative"
     },
     {
-        icon: "🛍️",
-        title: "CAPSULE WARDROBE PLANNER",
-        description: "A fashion blogger's method in a simple PDF",
-        accent: "bg-pink-100"
+        icon: "📱",
+        title: "Instagram Templates",
+        story: "Social media manager's secret layouts.",
+        tag: "📸 Content Creation",
+        category: "templates"
     },
     {
-        icon: "🗂️",
-        title: "NOTION TEMPLATES",
-        description: "Productivity tools that others can download and use",
-        accent: "bg-yellow-100"
+        icon: "🧘‍♀️",
+        title: "Morning Routine Guide",
+        story: "Life coach's 5-minute happiness ritual.",
+        tag: "✨ Wellness",
+        category: "wellness"
+    },
+    {
+        icon: "📊",
+        title: "Freelance Calculator",
+        story: "Never undercharge for projects again.",
+        tag: "💼 Freelance",
+        category: "freelance"
+    },
+    {
+        icon: "🏠",
+        title: "Home Office Setup",
+        story: "Remote work expert's productivity space.",
+        tag: "🏡 Remote Work",
+        category: "templates"
+    },
+    {
+        icon: "📝",
+        title: "Blog Post Templates",
+        story: "Writer's framework for viral content.",
+        tag: "✍️ Writing",
+        category: "creative"
+    },
+    {
+        icon: "🎵",
+        title: "Music Production Guide",
+        story: "Producer's home studio secrets.",
+        tag: "🎹 Music",
+        category: "creative"
+    },
+    {
+        icon: "🧠",
+        title: "Focus Framework",
+        story: "ADHD coach's concentration system.",
+        tag: "🎯 Productivity",
+        category: "wellness"
+    },
+    {
+        icon: "💰",
+        title: "Money Tracker Template",
+        story: "Financial planner's budget system.",
+        tag: "💵 Finance",
+        category: "templates"
     }
+];
+
+const filterCategories = [
+    { id: "all", label: "Show All" },
+    { id: "creative", label: "Creative" },
+    { id: "freelance", label: "Freelance" },
+    { id: "wellness", label: "Wellness" },
+    { id: "templates", label: "Templates" }
 ];
 
 const features = ["Easy to Create", "Sells While You Sleep", "No Tech Skills Needed"];
@@ -52,7 +108,6 @@ const features = ["Easy to Create", "Sells While You Sleep", "No Tech Skills Nee
         <div class="absolute bottom-20 right-10 text-6xl animate-sparkle" style="animation-delay: 1s">💡</div>
         <div class="absolute top-1/3 right-1/4 text-5xl animate-sparkle" style="animation-delay: 0.5s">🎯</div>
         <div class="absolute bottom-1/3 left-1/4 text-5xl animate-sparkle" style="animation-delay: 1.5s">💫</div>
-        <!-- Added more decorative elements -->
         <div class="absolute top-1/2 right-10 text-4xl animate-float">💭</div>
         <div class="absolute bottom-1/4 left-10 text-4xl animate-float" style="animation-delay: 1.2s">💪</div>
     </div>
@@ -60,83 +115,144 @@ const features = ["Easy to Create", "Sells While You Sleep", "No Tech Skills Nee
     <div class="container mx-auto px-4 relative z-10">
         <!-- Enhanced Header -->
         <div class="text-center mb-16 reveal-on-scroll">
-            <div class="comic-bubble bg-white inline-block transform -rotate-2 mb-6 hover:rotate-2 transition-all duration-300">
-                <p class="text-xl font-bold relative inline-block">
-                    <span class="relative z-10">📦 What Could You Sell?</span>
-                    <span class="absolute inset-0 bg-purple-200 -rotate-3 z-0"></span>
-                </p>
-            </div>
-            
-            <h2 class="comic-title text-5xl md:text-6xl mb-8 max-w-4xl mx-auto transform hover:scale-105 transition-all duration-300">
-                <span class="relative inline-block">
-                    Turn Your Knowledge Into Products
-                    <div class="absolute bottom-0 left-0 right-0 h-4 bg-[#FFE066] -rotate-1 -z-10 animate-width"></div>
-                </span>
-            </h2>
-            
-            <!-- Added feature badges -->
-            <div class="flex flex-wrap justify-center gap-4 mb-8">
-                {features.map((feature) => (
-                    <div class="comic-badge bg-white px-4 py-2 transform rotate-2 hover:-rotate-2 transition-all duration-300">
-                        <span class="font-bold">✓ {feature}</span>
+            <div class="relative mb-12">
+                <!-- Decorative elements -->
+                <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 rotate-[-15deg]">
+                    <span class="text-6xl animate-float" style="animation-delay: 0.5s">💫</span>
+                </div>
+                <div class="absolute -right-4 top-1/2 transform -translate-y-1/2 rotate-[15deg]">
+                    <span class="text-6xl animate-float" style="animation-delay: 1s">✨</span>
+                </div>
+
+                <!-- Main Title Group -->
+                <div class="relative inline-block">
+                    <div class="comic-bubble bg-white transform -rotate-2 mb-6 hover:rotate-2 transition-all duration-300">
+                        <p class="text-xl font-bold relative inline-block">
+                            <span class="relative z-10">📦 What Could You Sell?</span>
+                            <span class="absolute inset-0 bg-purple-200 -rotate-3 z-0"></span>
+                        </p>
                     </div>
-                ))}
+                    
+                    <h2 class="comic-title text-5xl md:text-6xl mb-6 max-w-4xl mx-auto transform hover:scale-105 transition-all duration-300">
+                        <span class="relative inline-block">
+                            <span class="relative z-10">Work Less.</span>
+                            <div class="absolute bottom-0 left-0 right-0 h-4 bg-[#FFE066] -rotate-1 -z-10 animate-width"></div>
+                        </span>
+                        <br />
+                        <span class="relative inline-block mt-2">
+                            <span class="relative z-10">Live More.</span>
+                            <div class="absolute bottom-0 left-0 right-0 h-4 bg-purple-200 rotate-1 -z-10 animate-width" style="animation-delay: 0.3s"></div>
+                        </span>
+                    </h2>
+                </div>
+
+                <!-- Enhanced Subtitle -->
+                <div class="relative">
+                    <p class="text-2xl text-gray-700 mb-8 max-w-3xl mx-auto transform hover:scale-105 transition-all duration-300">
+                        <span class="inline-block animate-bounce-slow mr-2">🧠</span>
+                        Turn your knowledge into digital products that sell while you nap.
+                    </p>
+                    
+                    <!-- Feature Badges with Enhanced Layout -->
+                    <div class="flex flex-wrap justify-center gap-6 mb-8">
+                        {features.map((feature, index) => (
+                            <div 
+                                class="comic-badge bg-white px-6 py-3 transform hover:scale-110 transition-all duration-300"
+                                style={`animation-delay: ${index * 200}ms; transform: rotate(${index % 2 ? '2deg' : '-2deg'})`}
+                            >
+                                <span class="font-bold flex items-center gap-2">
+                                    <span class="text-purple-600">✓</span>
+                                    {feature}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-8 relative">
+                        <span class="relative inline-block">
+                            You do not need a big audience. You do not need to be an expert.
+                            <br class="hidden md:block" />
+                            You just need an idea—or even just a starting point.
+                            <div class="absolute -bottom-2 left-0 right-0 h-2 bg-[#FFE066] opacity-50"></div>
+                        </span>
+                    </p>
+                </div>
             </div>
-            
-            <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-                You do not need a big audience. You do not need to be an expert. You just need an idea—or even just a starting point.
-            </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            {filterCategories.map((category) => (
+                <button
+                    class="filter-button px-6 py-3 bg-white border-2 border-black rounded-xl font-bold transform hover:scale-105 hover:-rotate-2 transition-all duration-300"
+                    data-category={category.id}
+                >
+                    {category.label}
+                </button>
+            ))}
         </div>
 
         <!-- Enhanced Product Examples Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {productExamples.map((product, index) => (
                 <div 
-                    class={`product-card comic-card bg-white transform hover:scale-105 hover:-rotate-2 transition-all duration-300 group ${product.accent}`}
+                    class={`product-card comic-card bg-white transform hover:scale-105 hover:-rotate-2 transition-all duration-300 group overflow-hidden`}
+                    data-category={product.category}
                     style={`animation-delay: ${index * 200}ms`}
                 >
-                    <!-- Added corner decoration -->
-                    <div class="absolute -top-2 -right-2 w-12 h-12 bg-black rounded-full flex items-center justify-center transform rotate-12 border-4 border-white">
-                        <span class="text-white font-bold">#{index + 1}</span>
-                    </div>
-                    
-                    <div class="p-8">
-                        <!-- Enhanced icon presentation -->
-                        <div class="relative mb-6">
-                            <div class="absolute inset-0 bg-black opacity-5 blur-xl transform group-hover:scale-110 transition-transform duration-300"></div>
-                            <div class="text-5xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                                {product.icon}
-                            </div>
-                        </div>
-                        
-                        <h3 class="text-2xl font-bold mb-4 comic-title group-hover:text-purple-600 transition-colors duration-300" style="font-family: 'Inter', system-ui, -apple-system, sans-serif;">
-                            {product.title}
-                        </h3>
-                        
-                        <p class="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
-                            {product.description}
-                        </p>
-                        
-                        <!-- Added "Learn More" teaser -->
-                        <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <span class="inline-flex items-center text-purple-600 font-bold">
+                    <div class="relative p-8">
+                        <!-- Category Label -->
+                        <div class="absolute top-4 right-4">
+                            <span class="inline-block px-3 py-1 text-sm font-bold bg-black text-white rounded-full">
+                                {product.category}
                             </span>
                         </div>
+
+                        <!-- Icon and Title -->
+                        <div class="flex items-start gap-6 mb-6">
+                            <div class="text-5xl transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">
+                                {product.icon}
+                            </div>
+                            <h3 class="text-2xl font-bold leading-tight pt-1">
+                                {product.title}
+                            </h3>
+                        </div>
+                        
+                        <!-- Story with Quote Style -->
+                        <div class="relative mb-6 pl-6">
+                            <div class="absolute left-0 top-0 text-4xl text-purple-300 leading-none">"</div>
+                            <p class="text-gray-700 italic relative z-10">
+                                {product.story}
+                            </p>
+                            <div class="absolute right-4 bottom-0 text-4xl text-purple-300 leading-none rotate-180">"</div>
+                        </div>
+                        
+                        <!-- Enhanced Tag with Gradient -->
+                        <div class="flex justify-center">
+                            <span class="inline-block px-6 py-2.5 rounded-full text-lg font-bold transform hover:scale-105 transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-500 text-white shadow-lg">
+                                {product.tag}
+                            </span>
+                        </div>
+
+                        <!-- Decorative Corner Elements -->
+                        <div class="absolute top-0 left-0 w-12 h-12 border-t-4 border-l-4 border-purple-200 rounded-tl-xl"></div>
+                        <div class="absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-purple-200 rounded-br-xl"></div>
                     </div>
                 </div>
             ))}
         </div>
 
-        <!-- Enhanced Bottom Message -->
+        <!-- Enhanced Bottom CTA -->
         <div class="text-center">
             <div class="comic-bubble bg-white inline-block transform rotate-1 mb-6 hover:scale-105 transition-transform duration-300">
                 <p class="text-xl font-bold relative">
-                    Got something helpful in your brain?
-                    <br />
-                    Turn it into something that sells—once, then over and over.
+                    Got something in your brain? Package it.
                     <span class="absolute -right-6 -top-6 text-4xl animate-bounce-slow">💡</span>
                 </p>
             </div>
+            <button class="bg-purple-600 text-white px-8 py-4 rounded-xl font-bold text-lg transform hover:scale-105 hover:-rotate-2 transition-all duration-300">
+                Start with One Idea →
+            </button>
         </div>
     </div>
 </section>
@@ -248,29 +364,77 @@ const features = ["Easy to Create", "Sells While You Sleep", "No Tech Skills Nee
         transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .reveal-on-scroll.visible {
-        opacity: 1;
-        transform: translateY(0);
+    /* Filter button active state */
+    .filter-button.active {
+        background-color: #000;
+        color: #fff;
+    }
+
+    /* Product card reveal animation */
+    .product-card {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: card-reveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes card-reveal {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>
 
 <script>
-    // Intersection Observer for scroll animations
+    // Initialize animations for sections
     document.addEventListener('DOMContentLoaded', () => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.1
         });
 
         // Observe all cards and headers
         document.querySelectorAll('.product-card, .reveal-on-scroll').forEach(el => {
             observer.observe(el);
         });
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const productCards = document.querySelectorAll('.product-card');
+
+        // Function to filter cards
+        const filterCards = (category) => {
+            productCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        };
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.category;
+                
+                // Update active button state
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Filter cards
+                filterCards(category);
+            });
+        });
+
+        // Set "Wellness" as active by default and filter cards
+        const wellnessButton = document.querySelector('[data-category="wellness"]');
+        wellnessButton.classList.add('active');
+        filterCards('wellness');
     });
 </script> 

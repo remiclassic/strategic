@@ -3,8 +3,8 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: 'https://remiclassic.github.io/strategic/',
-  base: '/strategic',
+  site: 'https://strategicsloth.com',
+  base: '/',
   integrations: [tailwind()],
   build: {
     assets: '_assets',

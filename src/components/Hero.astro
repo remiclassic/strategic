@@ -22,6 +22,26 @@ const testimonials = [
 ---
 
 <section class="relative min-h-[100dvh] lg:min-h-[100dvh] min-h-[140dvh] w-full overflow-hidden bg-[#FFD600]">
+	<!-- Background Plants and Sloth - Absolute position for contained scroll effect -->
+	<div class="absolute inset-0 overflow-hidden pointer-events-none" id="hero-images-container">
+		<!-- Background Plants -->
+		<img 
+			src="/images/plants.png" 
+			alt="Decorative Plants" 
+			class="absolute bottom-0 -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 transition-transform duration-300 ease-out will-change-transform animate-plant-sway" 
+			style="max-height: 100vh; transform: translateY(-50vh);" 
+			id="hero-plant"
+		/>
+		<!-- Sloth Image -->
+		<img 
+			src="/images/slothloungehero.png" 
+			alt="Strategic Sloth" 
+			class="absolute bottom-0 -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom transition-transform duration-300 ease-out will-change-transform z-10 animate-sloth-float" 
+			style="max-height: 95vh; transform: translateY(-50vh);" 
+			id="hero-sloth"
+		/>
+	</div>
+
 	<!-- Floating Zzz Background -->
 	<div class="absolute inset-0 pointer-events-none overflow-hidden">
 		<!-- Large Z -->
@@ -40,26 +60,6 @@ const testimonials = [
 		<svg class="floating-z delay-3 absolute top-[40%] left-[35%] w-12 h-12" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 		</svg>
-	</div>
-
-	<!-- Background Plants and Sloth -->
-	<div class="absolute inset-0 overflow-hidden pointer-events-none" data-astro-cid-bbe6dxrz>
-		<!-- Background Plants -->
-		<img 
-			src="/images/plants.png" 
-			alt="Decorative Plants" 
-			class="absolute bottom-0 -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 animate-plant-sway" 
-			style="max-height: 100vh;" 
-			data-astro-cid-bbe6dxrz
-		/>
-		<!-- Sloth Image -->
-		<img 
-			src="/images/slothloungehero.png" 
-			alt="Strategic Sloth" 
-			class="absolute bottom-0 -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom animate-sloth-float z-10" 
-			style="max-height: 95vh;" 
-			data-astro-cid-bbe6dxrz
-		/>
 	</div>
 
 	<div class="container-custom relative z-10 mx-auto flex min-h-[100dvh] flex-col lg:flex-row items-start lg:items-center justify-between gap-8 px-4 py-16 sm:px-6 lg:px-8">
@@ -160,14 +160,46 @@ const testimonials = [
 
 	<!-- Scroll Indicator -->
 	<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-slow cursor-pointer z-20">
-		<div class="w-8 h-12 border-2 border-white rounded-full flex items-start justify-center p-1">
-			<div class="w-1 h-3 bg-white rounded-full animate-scroll-down"></div>
+		<div class="flex items-center justify-center">
+			<span class="text-2xl">🦥</span>
+			<span class="text-white text-xl ml-2">↓</span>
 		</div>
-		<p class="text-white font-bold text-base">🔍 Scroll to preview the blueprint</p>
+		<p class="text-white font-bold text-base">Scroll down</p>
 	</div>
 </section>
 
 <script>
+	document.addEventListener('DOMContentLoaded', () => {
+		// Only run on desktop
+		if (window.innerWidth >= 768) {
+			const heroSection = document.querySelector('section.relative');
+			const plantImage = document.getElementById('hero-plant');
+			const slothImage = document.getElementById('hero-sloth');
+			
+			if (heroSection && plantImage && slothImage) {
+				// Set initial positions
+				plantImage.style.transform = 'translateY(-50vh)';
+				slothImage.style.transform = 'translateY(-50vh)';
+
+				// Simple scroll handler
+				window.addEventListener('scroll', () => {
+					const rect = heroSection.getBoundingClientRect();
+					
+					// Calculate scroll progress within the hero section
+					const scrollProgress = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
+					
+					// Calculate parallax effect - images move slower than scroll
+					const translateY = -50 + scrollProgress * 50; // Start at -50vh, move to 0vh
+					
+					// Apply transforms with smooth transition
+					plantImage.style.transform = `translateY(${translateY}vh)`;
+					slothImage.style.transform = `translateY(${translateY}vh)`;
+				});
+			}
+		}
+	});
+
+	// Testimonial carousel code
 	let currentTestimonial = 0;
 	const testimonials = document.querySelectorAll('.testimonial-item');
 	const dots = document.querySelectorAll('.testimonial-dot');
@@ -226,87 +258,6 @@ const testimonials = [
 		};
 
 		updateCounter();
-	});
-
-	// Device and viewport detection
-	function detectViewportType() {
-		const heroSection = document.getElementById('hero-section');
-		if (!heroSection) return;
-
-		// Check if it's an actual mobile device
-		const isMobileDevice = () => {
-			// Check touch capability
-			if ('maxTouchPoints' in navigator) {
-				if (navigator.maxTouchPoints > 0) {
-					const ua = navigator.userAgent.toLowerCase();
-					return /android|iphone|ipad|ipod|mobile/.test(ua);
-				}
-			}
-			return false;
-		};
-
-		// Check viewport width for responsive mode
-		const isNarrowViewport = () => window.innerWidth <= 768;
-
-		// Apply appropriate classes
-		const updateClasses = () => {
-			if (isMobileDevice()) {
-				heroSection.classList.add('is-mobile-device');
-				heroSection.classList.remove('is-responsive-mode');
-			} else if (isNarrowViewport()) {
-				heroSection.classList.add('is-responsive-mode');
-				heroSection.classList.remove('is-mobile-device');
-			} else {
-				heroSection.classList.remove('is-mobile-device', 'is-responsive-mode');
-			}
-		};
-
-		// Initial check
-		updateClasses();
-
-		// Update on resize
-		window.addEventListener('resize', updateClasses);
-
-		// Update on orientation change
-		window.addEventListener('orientationchange', () => {
-			setTimeout(updateClasses, 100);
-		});
-	}
-
-	// Initialize detection
-	detectViewportType();
-
-	// Add scroll-based position switching
-	document.addEventListener('DOMContentLoaded', () => {
-		const heroSection = document.getElementById('hero-section');
-		const plantsImage = document.getElementById('plants-image');
-		const slothImage = document.getElementById('sloth-image');
-		let isFixed = true;
-
-		function updateImagePositioning() {
-			if (!heroSection || !plantsImage || !slothImage) return;
-
-			const heroRect = heroSection.getBoundingClientRect();
-			const heroBottom = heroRect.bottom;
-			const viewportHeight = window.innerHeight;
-
-			// Switch to absolute positioning when the hero section is about to leave the viewport
-			if (heroBottom <= viewportHeight && isFixed) {
-				plantsImage.style.position = 'absolute';
-				slothImage.style.position = 'absolute';
-				isFixed = false;
-			} else if (heroBottom > viewportHeight && !isFixed) {
-				plantsImage.style.position = 'fixed';
-				slothImage.style.position = 'fixed';
-				isFixed = true;
-			}
-		}
-
-		// Only enable on non-mobile devices
-		if (window.matchMedia('(min-width: 768px)').matches) {
-			window.addEventListener('scroll', updateImagePositioning, { passive: true });
-			window.addEventListener('resize', updateImagePositioning, { passive: true });
-		}
 	});
 </script>
 
@@ -661,13 +612,13 @@ const testimonials = [
 	}
 
 	.is-mobile-device.section {
-		min-height: 125dvh;
+		min-height: 140dvh !important;
 		position: relative !important;
 		overflow: hidden !important;
 	}
 
 	.is-mobile-device .container-custom {
-		padding-bottom: 50vh;
+		padding-bottom: 40vh !important;
 	}
 
 	/* Responsive mode styles (desktop browser resized) */
@@ -708,6 +659,23 @@ const testimonials = [
 	@media (max-width: 767px) {
 		.mobile-static {
 			position: absolute !important;
+		}
+		
+		section.relative {
+			min-height: 140dvh !important;
+		}
+		
+		.container-custom {
+			padding-bottom: 40vh !important;
+		}
+	}
+
+	@media (min-width: 768px) {
+		#hero-plant, #hero-sloth {
+			transition: transform 0.1s ease-out;
+			will-change: transform;
+			transform-style: preserve-3d;
+			backface-visibility: hidden;
 		}
 	}
 </style> 

@@ -96,6 +96,10 @@ if (endTime < new Date()) {
 		<img 
 			src="/images/pricingbg.png" 
 			alt="Pricing Background" 
+			width="1536"
+			height="1024"
+			loading="lazy"
+			decoding="async"
 			class="absolute inset-0 w-full h-full object-cover opacity-50"
 		/>
 	</div>
@@ -142,6 +146,8 @@ if (endTime < new Date()) {
 					<img 
 						src={tier.image}
 						alt={`Sloth - ${tier.name}`}
+						loading="lazy"
+						decoding="async"
 						class="sloth-image w-32 h-32 object-contain"
 					/>
 				</div>

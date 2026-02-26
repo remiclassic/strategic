@@ -73,6 +73,8 @@ const navItems = [
       id="mobile-menu-button"
       class="lg:hidden"
       aria-label="Toggle mobile menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <svg
         class="h-6 w-6 text-black"
@@ -93,6 +95,9 @@ const navItems = [
   <!-- Mobile Menu -->
   <div
     id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Navigation menu"
     class="fixed inset-0 z-50 hidden bg-[#FFF7E6] lg:hidden"
   >
     <div class="container-custom mx-auto flex h-full flex-col px-4 py-6">
@@ -338,11 +343,13 @@ const navItems = [
   // Mobile menu toggle
   mobileMenuButton?.addEventListener('click', () => {
     mobileMenu?.classList.remove('hidden');
+    mobileMenuButton.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   });
 
   closeMobileMenuButton?.addEventListener('click', () => {
     mobileMenu?.classList.add('hidden');
+    mobileMenuButton?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   });
 
@@ -350,6 +357,7 @@ const navItems = [
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 1024) {
       mobileMenu?.classList.add('hidden');
+      mobileMenuButton?.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
   });

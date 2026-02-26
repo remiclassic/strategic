@@ -100,6 +100,10 @@ const lifestyleCards = [
         <img 
             src="/images/lifestylebg.png" 
             alt="Background" 
+            width="1536"
+            height="1024"
+            loading="lazy"
+            decoding="async"
             class="w-full h-full object-cover animate-subtle-pulse"
         >
         <!-- Overlay with Gradient -->
@@ -146,11 +150,15 @@ const lifestyleCards = [
                         <img 
                             src={card.image} 
                             alt={card.title}
+                            loading="lazy"
+                            decoding="async"
                             class="w-full h-64 object-cover transition-all duration-500 ease-in-out base-image animate-subtle-zoom"
                         />
                         <img 
                             src={card.hoverImage} 
                             alt={`${card.title} - Real`}
+                            loading="lazy"
+                            decoding="async"
                             class="absolute inset-0 w-full h-64 object-cover opacity-0 scale-110 transition-all duration-500 ease-in-out real-image group-hover:opacity-100 group-hover:scale-100 animate-subtle-zoom-delayed"
                         />
                         <!-- Badge -->

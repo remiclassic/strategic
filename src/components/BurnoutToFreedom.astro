@@ -45,7 +45,7 @@ const burnoutChecklist = [
 <section id="about-me" class="bg-yellow-100 py-24 relative overflow-hidden">
   <!-- Background Image with Parallax -->
   <div class="absolute inset-0 pointer-events-none opacity-20 parallax-bg">
-    <img src="/images/leafs.png" alt="Leaf Pattern" class="w-full h-full object-cover object-center" />
+    <img src="/images/leafs.png" alt="Leaf Pattern" width="1536" height="1024" loading="lazy" decoding="async" class="w-full h-full object-cover object-center" />
   </div>
 
   <div class="max-w-6xl mx-auto px-4 relative z-10">
@@ -97,6 +97,8 @@ const burnoutChecklist = [
                   <img 
                     src={panel.image} 
                     alt={panel.title}
+                    loading="lazy"
+                    decoding="async"
                     class={`w-full h-full object-cover ${panel.style} transform group-hover:scale-110 transition-transform duration-700`}
                   />
                   

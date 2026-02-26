@@ -13,13 +13,14 @@ const specialOffer = {
 };
 ---
 
-<div id="exit-popup" class="fixed inset-0 bg-black/30 z-50 hidden">
+<div id="exit-popup" class="fixed inset-0 bg-black/30 z-50 hidden" role="dialog" aria-modal="true" aria-label="Special offer">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] p-4 sm:p-6">
         <div class="bg-[#FFF8E7] rounded-[32px] p-6 sm:p-8 relative border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <!-- Close button -->
             <button 
                 id="close-popup"
                 class="absolute top-4 right-4 sm:top-5 sm:right-5 w-10 h-10 flex items-center justify-center text-2xl hover:scale-110 transition-transform"
+                aria-label="Close offer"
             >
                 ×
             </button>
@@ -37,6 +38,10 @@ const specialOffer = {
                     <img 
                         src="/images/bookpdf.png" 
                         alt="Don't Do Anything - The Art of Earning Money by Doing Nothing" 
+                        width="1024"
+                        height="1536"
+                        loading="lazy"
+                        decoding="async"
                         class="w-full h-auto"
                     />
                 </div>

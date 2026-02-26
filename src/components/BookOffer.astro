@@ -183,17 +183,17 @@ const bookDetails = {
                 </div>
 
                 <!-- Right Column - Book Image -->
-                <div class="relative transform hover:scale-105 transition-all duration-500 mt-8 lg:mt-0">
-                    <div class="comic-book-container">
+                <div class="relative mt-8 lg:mt-0 lg:self-start" id="book-offer-column">
+                    <div class="comic-book-container will-change-transform" id="book-offer-sticky">
                         <img 
                             src="/images/bookpdf.png" 
                             alt="Book PDF" 
-                            class="w-full max-w-[280px] sm:max-w-md mx-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] transform rotate-6 hover:rotate-3 transition-transform duration-300 animate-float-slow"
+                            class="w-full max-w-[280px] sm:max-w-md mx-auto drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)] transform rotate-6 hover:rotate-3 transition-transform duration-300"
                         />
+                        <!-- Comic Decorative Elements -->
+                        <div class="absolute -top-6 -right-6 comic-sparkle text-4xl animate-sparkle">✨</div>
+                        <div class="absolute -bottom-4 -left-4 comic-sparkle text-4xl animate-sparkle-delayed">⭐</div>
                     </div>
-                    <!-- Comic Decorative Elements -->
-                    <div class="absolute -top-6 -right-6 comic-sparkle text-4xl animate-sparkle">✨</div>
-                    <div class="absolute -bottom-4 -left-4 comic-sparkle text-4xl animate-sparkle-delayed">⭐</div>
                 </div>
             </div>
         </div>
@@ -680,15 +680,36 @@ const bookDetails = {
             });
         });
         
-        // Add parallax effect to book image
-        const bookContainer = document.querySelector('.comic-book-container');
-        if (bookContainer) {
-            document.addEventListener('mousemove', (e) => {
-                const mouseX = e.clientX / window.innerWidth - 0.5;
-                const mouseY = e.clientY / window.innerHeight - 0.5;
-                
-                bookContainer.style.transform = `rotateY(${mouseX * 10}deg) rotateX(${-mouseY * 10}deg)`;
-            });
+        // Sticky-scroll effect for book: follows viewport, stops before clipping
+        const bookSection = document.getElementById('book-offer');
+        const bookColumn = document.getElementById('book-offer-column');
+        const bookSticky = document.getElementById('book-offer-sticky');
+
+        if (bookSection && bookColumn && bookSticky) {
+            const PADDING = 32;
+
+            const handleBookScroll = () => {
+                const sectionRect = bookSection.getBoundingClientRect();
+                const columnRect = bookColumn.getBoundingClientRect();
+                const bookH = bookSticky.offsetHeight;
+
+                const sectionTop = sectionRect.top;
+                const sectionBottom = sectionRect.bottom;
+                const columnTopInSection = columnRect.top - sectionRect.top;
+
+                const maxTranslate = sectionRect.height - columnTopInSection - bookH - PADDING;
+
+                if (sectionTop >= 0) {
+                    bookSticky.style.transform = 'translateY(0)';
+                } else {
+                    const scrolled = -sectionTop;
+                    const clamped = Math.max(0, Math.min(scrolled, maxTranslate));
+                    bookSticky.style.transform = `translateY(${clamped}px)`;
+                }
+            };
+
+            window.addEventListener('scroll', handleBookScroll, { passive: true });
+            handleBookScroll();
         }
 
         // Add smooth scroll behavior for the pricing arrow

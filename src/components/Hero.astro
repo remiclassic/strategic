@@ -21,23 +21,23 @@ const testimonials = [
 ];
 ---
 
-<section class="relative min-h-[100dvh] lg:min-h-[100dvh] min-h-[140dvh] w-full overflow-hidden bg-[#FFD600]">
+<section class="relative min-h-[140dvh] md:min-h-[100dvh] w-full overflow-hidden bg-[#FFD600]">
 	<!-- Background Plants and Sloth - Absolute position for contained scroll effect -->
 	<div class="absolute inset-0 overflow-hidden pointer-events-none" id="hero-images-container">
 		<!-- Background Plants -->
 		<img 
 			src="/images/plants.png" 
 			alt="Decorative Plants" 
-			class="absolute bottom-0 -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 transition-transform duration-300 ease-out will-change-transform animate-plant-sway" 
-			style="max-height: 100vh; transform: translateY(-50vh);" 
+			class="absolute bottom-0 -right-[15%] w-[100%] md:w-[90%] h-auto object-contain object-bottom opacity-80 will-change-transform" 
+			style="max-height: 100vh;" 
 			id="hero-plant"
 		/>
 		<!-- Sloth Image -->
 		<img 
 			src="/images/slothloungehero.png" 
 			alt="Strategic Sloth" 
-			class="absolute bottom-0 -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom transition-transform duration-300 ease-out will-change-transform z-10 animate-sloth-float" 
-			style="max-height: 95vh; transform: translateY(-50vh);" 
+			class="absolute bottom-0 -right-[5%] w-[110%] md:w-[80%] h-auto object-contain object-bottom will-change-transform z-10" 
+			style="max-height: 95vh;" 
 			id="hero-sloth"
 		/>
 	</div>
@@ -170,33 +170,29 @@ const testimonials = [
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
-		// Only run on desktop
-		if (window.innerWidth >= 768) {
-			const heroSection = document.querySelector('section.relative');
-			const plantImage = document.getElementById('hero-plant');
-			const slothImage = document.getElementById('hero-sloth');
-			
-			if (heroSection && plantImage && slothImage) {
-				// Set initial positions
-				plantImage.style.transform = 'translateY(-50vh)';
-				slothImage.style.transform = 'translateY(-50vh)';
+		const heroSection = document.querySelector('section.relative');
+		const plantImage = document.getElementById('hero-plant');
+		const slothImage = document.getElementById('hero-sloth');
 
-				// Simple scroll handler
-				window.addEventListener('scroll', () => {
-					const rect = heroSection.getBoundingClientRect();
-					
-					// Calculate scroll progress within the hero section
-					const scrollProgress = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
-					
-					// Calculate parallax effect - images move slower than scroll
-					const translateY = -50 + scrollProgress * 50; // Start at -50vh, move to 0vh
-					
-					// Apply transforms with smooth transition
-					plantImage.style.transform = `translateY(${translateY}vh)`;
-					slothImage.style.transform = `translateY(${translateY}vh)`;
-				});
-			}
-		}
+		if (!heroSection || !plantImage || !slothImage) return;
+
+		const handleScroll = () => {
+			const rect = heroSection.getBoundingClientRect();
+			const sectionH = rect.height;
+			const viewportH = window.innerHeight;
+			const scrolled = Math.max(0, -rect.top);
+
+			// Images are at bottom:0 (section bottom).
+			// We shift them up so they appear at the viewport bottom,
+			// then release them as user scrolls until they sit naturally.
+			const offset = Math.min(0, scrolled - (sectionH - viewportH));
+
+			plantImage.style.transform = `translateY(${offset}px)`;
+			slothImage.style.transform = `translateY(${offset}px)`;
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		handleScroll();
 	});
 
 	// Testimonial carousel code
@@ -262,8 +258,6 @@ const testimonials = [
 </script>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
-
 	section {
 		background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C32 5 34 7 34 9C34 11 32 13 30 13C28 13 26 11 26 9C26 7 28 5 30 5ZM22 14C24 14 26 16 26 18C26 20 24 22 22 22C20 22 18 20 18 18C18 16 20 14 22 14ZM38 14C40 14 42 16 42 18C42 20 40 22 38 22C36 22 34 20 34 18C34 16 36 14 38 14ZM30 23C35 23 39 27 39 32C39 37 35 41 30 41C25 41 21 37 21 32C21 27 25 23 30 23Z' fill='%23FFB800' fill-opacity='0.1'/%3E%3C/svg%3E");
 	}
@@ -529,18 +523,6 @@ const testimonials = [
 		50% {
 			transform: scale(1.1) translate(20px, -20px);
 		}
-	}
-
-	@keyframes paw-float {
-		0%, 100% { transform: translate(0, 0) rotate(0deg); }
-		25% { transform: translate(5px, -5px) rotate(5deg); }
-		50% { transform: translate(0, -10px) rotate(0deg); }
-		75% { transform: translate(-5px, -5px) rotate(-5deg); }
-	}
-
-	.animate-paw-float {
-		animation: paw-float 8s ease-in-out infinite;
-		opacity: 0.9;
 	}
 
 	@keyframes paw-tap {

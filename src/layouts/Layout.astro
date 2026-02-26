@@ -53,7 +53,7 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 		<title>{title}</title>
 
 		<!-- Open Graph / Social Media Meta Tags -->
@@ -114,37 +114,32 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 			const closeBanner = document.getElementById('close-banner');
 			let lastScroll = 0;
 
-			if (closeBanner && banner) {
-				closeBanner.addEventListener('click', () => {
-					banner.style.transform = 'translateY(-100%)';
-					// Store the banner state in localStorage
-					localStorage.setItem('bannerClosed', 'true');
-				});
+		if (closeBanner && banner) {
+			closeBanner.addEventListener('click', () => {
+				banner.style.transform = 'translateY(-100%)';
+				localStorage.setItem('bannerClosed', 'true');
+			});
 
-				// Check if banner was previously closed
-				if (localStorage.getItem('bannerClosed') === 'true') {
-					banner.style.transform = 'translateY(-100%)';
-				}
-
-				// Show/hide banner on scroll
-				window.addEventListener('scroll', () => {
-					const currentScroll = window.pageYOffset;
-					
-					if (currentScroll <= 0) {
-						banner.style.transform = 'translateY(0)';
-					}
-					
-					if (currentScroll > lastScroll && currentScroll > 100) {
-						banner.style.transform = 'translateY(-100%)';
-					}
-					
-					if (currentScroll < lastScroll) {
-						banner.style.transform = 'translateY(0)';
-					}
-					
-					lastScroll = currentScroll;
-				});
+			if (localStorage.getItem('bannerClosed') === 'true') {
+				banner.style.transform = 'translateY(-100%)';
 			}
+
+			window.addEventListener('scroll', () => {
+				if (localStorage.getItem('bannerClosed') === 'true') return;
+
+				const currentScroll = window.scrollY;
+				
+				if (currentScroll <= 0) {
+					banner.style.transform = 'translateY(0)';
+				} else if (currentScroll > lastScroll && currentScroll > 100) {
+					banner.style.transform = 'translateY(-100%)';
+				} else if (currentScroll < lastScroll) {
+					banner.style.transform = 'translateY(0)';
+				}
+				
+				lastScroll = currentScroll;
+			});
+		}
 		</script>
 	</body>
 </html>

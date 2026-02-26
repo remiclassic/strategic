@@ -91,13 +91,12 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Hide Scrollbar for Chrome, Safari and Opera */
-::-webkit-scrollbar {
+/* Hide main page scrollbar but keep inner scrollable containers usable */
+html::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide Scrollbar for IE, Edge and Firefox */
-* {
+html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 } 

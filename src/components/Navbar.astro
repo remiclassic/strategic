@@ -354,9 +354,9 @@ const navItems = [
     }
   });
 
-  // Combined scroll handler for all scroll-related functionality
+  let navScrollTicking = false;
+
   function handleScroll() {
-    // Update scroll progress
     const winScroll = window.scrollY;
     const height = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = (winScroll / height) * 100;
@@ -364,15 +364,13 @@ const navItems = [
       scrollProgress.style.width = scrolled + '%';
     }
 
-    // Navbar shadow on scroll
     if (winScroll <= 0) {
       navbar?.classList.remove('shadow-lg');
     } else {
       navbar?.classList.add('shadow-lg');
     }
 
-    // Update active section
-    const scrollPosition = winScroll + 100; // Offset for better detection
+    const scrollPosition = winScroll + 100;
     
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 100;
@@ -389,10 +387,16 @@ const navItems = [
         });
       }
     });
+
+    navScrollTicking = false;
   }
 
-  // Add scroll event listener
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', () => {
+    if (!navScrollTicking) {
+      requestAnimationFrame(handleScroll);
+      navScrollTicking = true;
+    }
+  }, { passive: true });
   window.addEventListener('load', handleScroll);
 
   // Smooth scroll enhancement

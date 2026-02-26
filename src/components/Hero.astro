@@ -169,92 +169,46 @@ const testimonials = [
 </section>
 
 <script>
-	document.addEventListener('DOMContentLoaded', () => {
+	{
 		const heroSection = document.querySelector('section.relative');
 		const plantImage = document.getElementById('hero-plant');
 		const slothImage = document.getElementById('hero-sloth');
 
-		if (!heroSection || !plantImage || !slothImage) return;
+		if (heroSection && plantImage && slothImage) {
+			let heroTicking = false;
 
-		const handleScroll = () => {
-			const rect = heroSection.getBoundingClientRect();
-			const sectionH = rect.height;
-			const viewportH = window.innerHeight;
-			const scrolled = Math.max(0, -rect.top);
+			const updateHeroParallax = () => {
+				const rect = heroSection.getBoundingClientRect();
+				const sectionH = rect.height;
+				const viewportH = window.innerHeight;
+				const scrolled = Math.max(0, -rect.top);
+				const offset = Math.min(0, scrolled - (sectionH - viewportH));
 
-			// Images are at bottom:0 (section bottom).
-			// We shift them up so they appear at the viewport bottom,
-			// then release them as user scrolls until they sit naturally.
-			const offset = Math.min(0, scrolled - (sectionH - viewportH));
+				plantImage.style.transform = `translateY(${offset}px)`;
+				slothImage.style.transform = `translateY(${offset}px)`;
+				heroTicking = false;
+			};
 
-			plantImage.style.transform = `translateY(${offset}px)`;
-			slothImage.style.transform = `translateY(${offset}px)`;
-		};
-
-		window.addEventListener('scroll', handleScroll, { passive: true });
-		handleScroll();
-	});
-
-	// Testimonial carousel code
-	let currentTestimonial = 0;
-	const testimonials = document.querySelectorAll('.testimonial-item');
-	const dots = document.querySelectorAll('.testimonial-dot');
-	const totalTestimonials = testimonials.length;
-
-	function showTestimonial(index) {
-		testimonials.forEach((testimonial, i) => {
-			testimonial.style.opacity = i === index ? '1' : '0';
-		});
-
-		dots.forEach((dot, i) => {
-			dot.style.opacity = i === index ? '1' : '0.3';
-		});
+			window.addEventListener('scroll', () => {
+				if (!heroTicking) {
+					requestAnimationFrame(updateHeroParallax);
+					heroTicking = true;
+				}
+			}, { passive: true });
+			updateHeroParallax();
+		}
 	}
 
-	// Auto cycle testimonials
-	setInterval(() => {
-		currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-		showTestimonial(currentTestimonial);
-	}, 5000);
-
-	// Click handlers for dots
-	dots.forEach((dot, index) => {
-		dot.addEventListener('click', () => {
-			currentTestimonial = index;
-			showTestimonial(currentTestimonial);
-		});
-	});
-
-	// Show first testimonial initially
-	showTestimonial(0);
-
 	// Smooth scroll for the scroll indicator
-	document.querySelector('.animate-bounce-slow').addEventListener('click', () => {
-		const nextSection = document.querySelector('section:nth-of-type(2)');
-		if (nextSection) {
-			nextSection.scrollIntoView({ behavior: 'smooth' });
-		}
-	});
-
-	// Initialize social proof counters
-	const counters = document.querySelectorAll('.counter');
-	counters.forEach(counter => {
-		const target = parseInt(counter.getAttribute('data-target'));
-		const increment = target / 50;
-		let current = 0;
-
-		const updateCounter = () => {
-			if (current < target) {
-				current += increment;
-				counter.textContent = Math.ceil(current);
-				requestAnimationFrame(updateCounter);
-			} else {
-				counter.textContent = target;
+	const scrollIndicator = document.querySelector('.animate-bounce-slow');
+	if (scrollIndicator) {
+		scrollIndicator.addEventListener('click', () => {
+			const nextSection = document.querySelector('section:nth-of-type(2)');
+			if (nextSection) {
+				nextSection.scrollIntoView({ behavior: 'smooth' });
 			}
-		};
-
-		updateCounter();
-	});
+		});
+	}
 </script>
 
 <style>
@@ -266,34 +220,10 @@ const testimonials = [
 		text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
 	}
 
-	.comic-button {
-		border: 4px solid #1C1C5B;
-		box-shadow: 4px 4px 0 #1C1C5B;
-		transition: all 0.2s ease;
-	}
-
-	.comic-button:hover {
-		box-shadow: 2px 2px 0 #1C1C5B;
-		transform: translate(2px, 2px);
-	}
-
 	.comic-banner {
 		border: 4px solid #1C1C5B;
 		box-shadow: 4px 4px 0 #1C1C5B;
 		padding: 0.75rem 2rem;
-	}
-
-	.comic-card {
-		border: 3px solid #1C1C5B;
-		box-shadow: 3px 3px 0 #1C1C5B;
-		background: white;
-		padding: 4px;
-		position: relative;
-	}
-
-	.comic-icon {
-		border: 3px solid black;
-		box-shadow: 2px 2px 0 #000;
 	}
 
 	@keyframes slight-bounce {
@@ -314,21 +244,10 @@ const testimonials = [
 		animation: float 3s ease-in-out infinite;
 	}
 
-	/* Responsive adjustments */
 	@media (max-width: 768px) {
 		.comic-banner {
 			border-width: 3px;
 			padding: 0.5rem 1.5rem;
-		}
-		
-		.comic-button {
-			border-width: 3px;
-			box-shadow: 3px 3px 0 #1C1C5B;
-		}
-
-		.comic-card {
-			border-width: 2px;
-			box-shadow: 2px 2px 0 #1C1C5B;
 		}
 	}
 

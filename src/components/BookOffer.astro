@@ -244,26 +244,6 @@ const bookDetails = {
         transform: rotate(45deg);
     }
 
-    .comic-button {
-        border: 3px solid black;
-        border-radius: 12px;
-        box-shadow: 4px 4px 0 black;
-        position: relative;
-        z-index: 1;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-    }
-
-    .comic-button:hover {
-        transform: translateY(-4px) scale(1.05) rotate(-2deg);
-        box-shadow: 8px 8px 0 black;
-    }
-
-    .comic-button:active {
-        transform: translateY(2px) scale(0.98);
-        box-shadow: 2px 2px 0 black;
-    }
-
     .comic-price-tag {
         border: 3px solid black;
         border-radius: 16px;
@@ -680,36 +660,38 @@ const bookDetails = {
             });
         });
         
-        // Sticky-scroll effect for book: follows viewport, stops before clipping
         const bookSection = document.getElementById('book-offer');
         const bookColumn = document.getElementById('book-offer-column');
         const bookSticky = document.getElementById('book-offer-sticky');
 
         if (bookSection && bookColumn && bookSticky) {
             const PADDING = 32;
+            let bookTicking = false;
 
-            const handleBookScroll = () => {
+            const updateBookSticky = () => {
                 const sectionRect = bookSection.getBoundingClientRect();
                 const columnRect = bookColumn.getBoundingClientRect();
                 const bookH = bookSticky.offsetHeight;
-
-                const sectionTop = sectionRect.top;
-                const sectionBottom = sectionRect.bottom;
                 const columnTopInSection = columnRect.top - sectionRect.top;
-
                 const maxTranslate = sectionRect.height - columnTopInSection - bookH - PADDING;
 
-                if (sectionTop >= 0) {
+                if (sectionRect.top >= 0) {
                     bookSticky.style.transform = 'translateY(0)';
                 } else {
-                    const scrolled = -sectionTop;
+                    const scrolled = -sectionRect.top;
                     const clamped = Math.max(0, Math.min(scrolled, maxTranslate));
                     bookSticky.style.transform = `translateY(${clamped}px)`;
                 }
+                bookTicking = false;
             };
 
-            window.addEventListener('scroll', handleBookScroll, { passive: true });
-            handleBookScroll();
+            window.addEventListener('scroll', () => {
+                if (!bookTicking) {
+                    requestAnimationFrame(updateBookSticky);
+                    bookTicking = true;
+                }
+            }, { passive: true });
+            updateBookSticky();
         }
 
         // Add smooth scroll behavior for the pricing arrow
@@ -735,29 +717,38 @@ const bookDetails = {
             });
         }
         
-        // Countdown Timer Logic
-        function updateCountdown() {
+        // Countdown Timer — persists deadline in localStorage
+        function initCountdown() {
             const countdownElement = document.getElementById('book-offer-countdown');
             if (!countdownElement) return;
-            
-            let time = 24 * 60 * 60; // 24 hours in seconds
-            
-            const timer = setInterval(() => {
-                const hours = Math.floor(time / 3600);
-                const minutes = Math.floor((time % 3600) / 60);
-                const seconds = time % 60;
-                
-                countdownElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                
-                if (time <= 0) {
+
+            const STORAGE_KEY = 'book-offer-deadline';
+            let deadline = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+
+            if (!deadline || deadline <= Date.now()) {
+                deadline = Date.now() + 24 * 60 * 60 * 1000;
+                localStorage.setItem(STORAGE_KEY, String(deadline));
+            }
+
+            const tick = () => {
+                const remaining = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+                const hours = Math.floor(remaining / 3600);
+                const minutes = Math.floor((remaining % 3600) / 60);
+                const seconds = remaining % 60;
+
+                countdownElement.textContent =
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                if (remaining <= 0) {
                     clearInterval(timer);
-                    countdownElement.textContent = "00:00:00";
+                    localStorage.removeItem(STORAGE_KEY);
                 }
-                time--;
-            }, 1000);
+            };
+
+            tick();
+            const timer = setInterval(tick, 1000);
         }
-        
-        // Initialize countdown when the page loads
-        updateCountdown();
+
+        initCountdown();
     });
 </script> 

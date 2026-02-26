@@ -13,23 +13,28 @@ interface Props {
 }
 
 const { title, description = "Strategic Sloth - Your guide to lazy wealth building" } = Astro.props;
+
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const fbPixelId = import.meta.env.PUBLIC_FB_PIXEL_ID;
 ---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
 	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+
 		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-WWR13DW58L"></script>
-		<script>
+		<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+		<script is:inline define:vars={{ gaId }}>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
-
-			gtag('config', 'G-WWR13DW58L');
+			gtag('config', gaId);
 		</script>
 
 		<!-- Facebook Pixel Code -->
-		<script>
+		<script is:inline define:vars={{ fbPixelId }}>
 			!function(f,b,e,v,n,t,s)
 			{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 			n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -38,19 +43,17 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 			t.src=v;s=b.getElementsByTagName(e)[0];
 			s.parentNode.insertBefore(t,s)}(window, document,'script',
 			'https://connect.facebook.net/en_US/fbevents.js');
-			fbq('init', '1660710014805289');
+			fbq('init', fbPixelId);
 			fbq('track', 'PageView');
 		</script>
 		<noscript>
 			<img height="1" width="1" style="display:none"
-			src="https://www.facebook.com/tr?id=1660710014805289&ev=PageView&noscript=1"/>
+			src={`https://www.facebook.com/tr?id=${fbPixelId}&ev=PageView&noscript=1`}/>
 		</noscript>
 		<!-- End Facebook Pixel Code -->
 
-		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="keywords" content="strategic sloth, lazy wealth building, passive income, digital products, online business, work smarter not harder, digital nomad lifestyle, business automation, side hustle, remote work, lifestyle design, time management, productivity hacks, financial freedom, online entrepreneurship, work-life balance, business efficiency, digital transformation, strategic planning, lazy productivity, tax free income, tax optimization, tax efficient business, offshore business, international business, tax free digital products" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -91,7 +94,7 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 				</div>
 			</div>
 		</div>
-		<main class="w-full max-w-[100vw]">
+		<main class="w-full min-h-screen max-w-[100vw]">
 			<slot />
 		</main>
 		<ParallaxFooter />
@@ -101,18 +104,17 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 		<BackToTop />
 
 		<script>
-			import { initSectionAnimations, respectMotionPreferences } from '../utils/scrollAnimations';
+			import { initSectionAnimations } from '../utils/scrollAnimations';
 
-			// Initialize animations for all sections
 			document.querySelectorAll('section').forEach(section => {
 				initSectionAnimations(section);
-				respectMotionPreferences(section);
 			});
 
 			// Banner visibility management
 			const banner = document.getElementById('start-here-banner');
 			const closeBanner = document.getElementById('close-banner');
 			let lastScroll = 0;
+			let bannerTicking = false;
 
 		if (closeBanner && banner) {
 			closeBanner.addEventListener('click', () => {
@@ -125,20 +127,25 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 			}
 
 			window.addEventListener('scroll', () => {
-				if (localStorage.getItem('bannerClosed') === 'true') return;
-
-				const currentScroll = window.scrollY;
-				
-				if (currentScroll <= 0) {
-					banner.style.transform = 'translateY(0)';
-				} else if (currentScroll > lastScroll && currentScroll > 100) {
-					banner.style.transform = 'translateY(-100%)';
-				} else if (currentScroll < lastScroll) {
-					banner.style.transform = 'translateY(0)';
-				}
-				
-				lastScroll = currentScroll;
-			});
+				if (bannerTicking) return;
+				bannerTicking = true;
+				requestAnimationFrame(() => {
+					if (localStorage.getItem('bannerClosed') === 'true') {
+						bannerTicking = false;
+						return;
+					}
+					const currentScroll = window.scrollY;
+					if (currentScroll <= 0) {
+						banner.style.transform = 'translateY(0)';
+					} else if (currentScroll > lastScroll && currentScroll > 100) {
+						banner.style.transform = 'translateY(-100%)';
+					} else if (currentScroll < lastScroll) {
+						banner.style.transform = 'translateY(0)';
+					}
+					lastScroll = currentScroll;
+					bannerTicking = false;
+				});
+			}, { passive: true });
 		}
 		</script>
 	</body>
@@ -250,6 +257,12 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 		box-shadow: var(--comic-shadow-sm);
 	}
 
+	/* Project container — wider than Tailwind's max-w-7xl default */
+	.container-custom {
+		@apply w-full mx-auto px-4 sm:px-6 lg:px-8;
+		max-width: min(100%, 1440px);
+	}
+
 	/* Utility Classes */
 	.comic-outline {
 		text-shadow: 
@@ -257,16 +270,6 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 			-2px -2px 0 #000,
 			2px -2px 0 #000,
 			-2px 2px 0 #000;
-	}
-
-	/* Responsive utility classes */
-	.container-custom {
-		@apply w-full mx-auto px-4 sm:px-6 lg:px-8;
-		max-width: min(100%, 1440px);
-	}
-
-	.text-responsive {
-		@apply text-base sm:text-lg md:text-xl lg:text-2xl;
 	}
 
 	.heading-responsive {
@@ -281,20 +284,6 @@ const { title, description = "Strategic Sloth - Your guide to lazy wealth buildi
 		@apply p-4 sm:p-6 md:p-8;
 	}
 
-	/* Responsive grid layouts */
-	.grid-responsive-2 {
-		@apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8;
-	}
-
-	.grid-responsive-3 {
-		@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8;
-	}
-
-	.grid-responsive-4 {
-		@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8;
-	}
-
-	/* Responsive spacing */
 	.space-responsive {
 		@apply space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10;
 	}

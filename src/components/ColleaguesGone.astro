@@ -40,21 +40,21 @@ const panels = [
   {
     title: "Monday Beach Office",
     caption: "Leaving burnout...",
-    image: "/images/beachoffice.png",
+    image: "/images/beachoffice.webp",
     soundEffect: "WHOOSH!",
     emoji: "🏖️"
   },
   {
     title: "Wednesday Home Office",
     caption: "Getting comfortable...",
-    image: "/images/homeoffice.png",
+    image: "/images/homeoffice.webp",
     soundEffect: "YAWN...",
     emoji: "🏡"
   },
   {
     title: "Friday Jungle Vibes",
     caption: "Fully free!",
-    image: "/images/junglevibes.png",
+    image: "/images/junglevibes.webp",
     soundEffect: "NAP MODE",
     emoji: "🌴"
   },
@@ -208,6 +208,8 @@ const panels = [
                   <img 
                     src={panel.image} 
                     alt={panel.title} 
+                    loading="lazy"
+                    decoding="async"
                     class="absolute inset-0 w-full h-full object-cover object-top sm:object-center transform group-hover:scale-110 transition-transform duration-500" 
                   />
                   <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>

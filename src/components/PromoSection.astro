@@ -12,7 +12,7 @@ const promoOffers = [
             "5 proven strategies that work while you sleep",
             "30-day money-back guarantee"
         ],
-        image: "/images/latteasloth.png",
+        image: "/images/latteasloth.webp",
         buttonText: "👉 Grab This Deal",
         id: "lazy-launch-special"
     },
@@ -26,7 +26,7 @@ const promoOffers = [
             "Offshore business setup guide",
             "Lifetime updates"
         ],
-        image: "/images/latteasloth.png",
+        image: "/images/latteasloth.webp",
         buttonText: "👉 Get The Bundle",
         id: "freedom-bundle",
         isPopular: true
@@ -90,6 +90,8 @@ countdownDate.setHours(countdownDate.getHours() + 24); // 24 hours from now
                                 <img 
                                     src={offer.image} 
                                     alt={offer.title} 
+                                    loading="lazy"
+                                    decoding="async"
                                     class="w-full h-auto object-contain"
                                 />
                             </div>

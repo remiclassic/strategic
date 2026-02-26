@@ -50,6 +50,8 @@ const features = [
 							<img 
 								src={feature.image} 
 								alt={feature.title}
+								loading="lazy"
+								decoding="async"
 								class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
 							/>
 							<div class="absolute top-4 right-4 comic-icon w-16 h-16 flex items-center justify-center text-2xl bg-comic-primary/90 rounded-full shadow-lg">

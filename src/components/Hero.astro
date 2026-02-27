@@ -21,9 +21,9 @@ const testimonials = [
 ];
 ---
 
-<section class="relative min-h-[140dvh] md:min-h-[100dvh] w-full overflow-hidden bg-[#FFD600]">
-	<!-- Background Plants and Sloth - Absolute position for contained scroll effect -->
-	<div class="absolute inset-0 overflow-hidden pointer-events-none" id="hero-images-container">
+<section class="relative md:min-h-[100dvh] w-full overflow-hidden bg-[#FFD600]">
+	<!-- Background Plants and Sloth - Absolute position for contained scroll effect (desktop only) -->
+	<div class="absolute inset-0 overflow-hidden pointer-events-none hidden md:block" id="hero-images-container">
 		<!-- Background Plants -->
 		<img 
 			src="/images/plants.webp" 
@@ -72,7 +72,7 @@ const testimonials = [
 		</svg>
 	</div>
 
-	<div class="container-custom relative z-10 mx-auto flex min-h-[100dvh] flex-col lg:flex-row items-start lg:items-center justify-between gap-8 px-4 py-16 sm:px-6 lg:px-8">
+	<div class="container-custom relative z-10 mx-auto flex md:min-h-[100dvh] flex-col lg:flex-row items-start lg:items-center justify-between gap-8 px-4 py-16 sm:px-6 lg:px-8">
 		<!-- Left Column with Book Cover -->
 		<div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
 			<!-- Sale Badge - Updated positioning -->
@@ -169,6 +169,28 @@ const testimonials = [
 
 		<!-- Right Column - Empty now as sloth is in background -->
 		<div class="w-full lg:w-1/2"></div>
+	</div>
+
+	<!-- Mobile-only Sloth (in document flow, not overlapped) -->
+	<div class="block md:hidden relative w-full pointer-events-none">
+		<img 
+			src="/images/plants.webp" 
+			alt="Decorative Plants" 
+			width="1024"
+			height="1024"
+			loading="eager"
+			decoding="async"
+			class="absolute bottom-0 right-0 w-full h-auto object-contain object-bottom opacity-80"
+		/>
+		<img 
+			src="/images/slothloungehero.webp" 
+			alt="Strategic Sloth" 
+			width="954"
+			height="1042"
+			loading="eager"
+			decoding="async"
+			class="relative w-[85%] max-w-[400px] mx-auto h-auto object-contain"
+		/>
 	</div>
 
 	<!-- Scroll Indicator -->
@@ -500,87 +522,9 @@ const testimonials = [
 		}
 	}
 
-	/* Actual mobile device styles */
-	.is-mobile-device .mobile-static {
-		animation: none !important;
-		transform: translateY(2rem) !important;
-		position: absolute !important;
-	}
-
-	.is-mobile-device img[alt="Strategic Sloth"] {
-		height: 65vh !important;
-		max-height: none !important;
-		width: auto !important;
-		right: -5% !important;
-		bottom: -2rem !important;
-		object-position: bottom !important;
-	}
-
-	.is-mobile-device img[alt="Decorative Plants"] {
-		height: 55vh !important;
-		max-height: none !important;
-		width: auto !important;
-		right: -15% !important;
-		bottom: -2rem !important;
-		object-position: bottom !important;
-	}
-
-	.is-mobile-device.section {
-		min-height: 140dvh !important;
-		position: relative !important;
-		overflow: hidden !important;
-	}
-
-	.is-mobile-device .container-custom {
-		padding-bottom: 40vh !important;
-	}
-
-	/* Responsive mode styles (desktop browser resized) */
-	.is-responsive-mode .mobile-static {
-		position: absolute !important;
-		transform: translateY(1rem) !important;
-	}
-
-	.is-responsive-mode img[alt="Strategic Sloth"] {
-		max-height: 85vh !important;
-		width: auto !important;
-		right: -5% !important;
-		bottom: -1rem !important;
-	}
-
-	.is-responsive-mode img[alt="Decorative Plants"] {
-		max-height: 75vh !important;
-		width: auto !important;
-		right: -15% !important;
-		bottom: -1rem !important;
-	}
-
-	.is-responsive-mode.section {
-		min-height: 105dvh;
-	}
-
-	.is-responsive-mode .container-custom {
-		padding-bottom: 30vh;
-	}
-
-	/* Ensure scroll indicator stays visible */
-	.is-mobile-device div[class*="absolute bottom"], 
-	.is-responsive-mode div[class*="absolute bottom"] {
-		bottom: 1rem !important;
-		z-index: 30 !important;
-	}
-
 	@media (max-width: 767px) {
-		.mobile-static {
-			position: absolute !important;
-		}
-		
 		section.relative {
-			min-height: 140dvh !important;
-		}
-		
-		.container-custom {
-			padding-bottom: 40vh !important;
+			min-height: auto !important;
 		}
 	}
 

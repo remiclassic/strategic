@@ -13,7 +13,7 @@ const pricingTiers = [
 		},
 		features: [
 			{ text: "Don't Do Anything – PDF Mini Guide", icon: '✅' },
-			{ text: 'Lazy Genius Blueprint – Travel + Freedom Hacks', icon: '✅' },
+			{ text: 'Design Your Exit – Life Architecture Blueprint', icon: '✅' },
 			{ text: 'Sell PDFs, Grow to $100K, Live Tax-Free – Starter System', icon: '✅' }
 		],
 		additionalInfo: [
@@ -38,9 +38,11 @@ const pricingTiers = [
 			discount: 52
 		},
 		features: [
-			{ text: 'Everything in Smart Wealth Accelerator', icon: '✅' },
-			{ text: 'Legal Residence With Minimal Stays – PDF Strategy', icon: '✅' },
-			{ text: 'Offshore Business Operations Guide – Set up + scale on autopilot', icon: '✅' }
+			{ text: 'Everything in Starter Package', icon: '✅' },
+			{ text: 'The Freedom Blueprint – Your sovereignty architecture', icon: '✅' },
+			{ text: 'Strategic Privacy & Tax Positioning – Anonymity & zero-tax strategy', icon: '✅' },
+			{ text: 'Residency Without Relocation – Legal residence, minimal stays', icon: '✅' },
+			{ text: 'Global Business Jurisdictions Guide – Setup & scale globally', icon: '✅' }
 		],
 		additionalInfo: [
 			{ text: 'Digital tools & strategy guides', icon: '📦' },
@@ -63,9 +65,12 @@ const pricingTiers = [
 			discount: 51
 		},
 		features: [
-			{ text: 'Everything in Global Freedom Vault', icon: '✅' },
-			{ text: 'High-Risk Banking Solutions – Smart systems for global banking', icon: '✅' },
-			{ text: 'Complete Freedom Blueprint – Advanced step-by-step system', icon: '✅' }
+			{ text: 'Everything in Best Value Package', icon: '✅' },
+			{ text: 'Global Banking Systems for Entrepreneurs – Strategic banking layers', icon: '✅' },
+			{ text: 'Advanced Banking Strategies – When traditional banks say no', icon: '✅' },
+			{ text: 'Asset Protection Playbook – Protect wealth across jurisdictions', icon: '✅' },
+			{ text: 'Ancestral & Birthright Citizenship – Second passport through ancestry', icon: '✅' },
+			{ text: 'Investment Citizenship Handbook – Buy a passport, gain a world', icon: '✅' }
 		],
 		additionalInfo: [
 			{ text: 'All digital. No calls. No coaching.', icon: '📦' },
@@ -246,8 +251,6 @@ if (endTime < new Date()) {
 	/* Keep only the new animation styles */
 	.pricing-card {
 		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		transform-style: preserve-3d;
-		perspective: 1000px;
 		position: relative;
 	}
 
@@ -375,25 +378,6 @@ if (endTime < new Date()) {
 		// Add 3D tilt effect to pricing cards
 		const cards = document.querySelectorAll('.pricing-card');
 		
-		cards.forEach(card => {
-			card.addEventListener('mousemove', (e) => {
-				const rect = card.getBoundingClientRect();
-				const x = e.clientX - rect.left;
-				const y = e.clientY - rect.top;
-				
-				const centerX = rect.width / 2;
-				const centerY = rect.height / 2;
-				
-				const rotateX = (y - centerY) / 20;
-				const rotateY = (centerX - x) / 20;
-				
-				card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-			});
-			
-			card.addEventListener('mouseleave', () => {
-				card.style.transform = card.classList.contains('popular') ? 'scale(1.05)' : '';
-			});
-		});
 
 		// Add hover effect for feature items
 		const features = document.querySelectorAll('.feature-item');

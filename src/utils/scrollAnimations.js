@@ -3,8 +3,8 @@ export const isMobileView = () => window.innerWidth <= 768;
 
 // Default observer options
 const defaultOptions = {
-    threshold: 0.3,
-    rootMargin: '0px 0px -10% 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px 0px 0px'
 };
 
 // Animation types

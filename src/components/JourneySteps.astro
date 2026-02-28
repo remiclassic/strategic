@@ -78,7 +78,7 @@ const steps = [
                             <!-- Checklist -->
                             <ul class="space-y-4 mb-4">
                                 {step.items.map((item, index) => (
-                                    <li class="journey-checklist-item group/item relative cursor-pointer" style={`animation-delay: ${index * 100}ms`} data-step={step.id} data-item={index}>
+                                    <li class="journey-checklist-item group/item relative" style={`animation-delay: ${index * 100}ms`} data-step={step.id} data-item={index}>
                                         <div class="w-full flex items-center gap-3">
                                             <div class="journey-checkbox flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-black relative">
                                                 <div class="absolute inset-0.5 rounded-full bg-green-500 transform scale-0 transition-transform duration-300 journey-check-fill"></div>
@@ -273,14 +273,6 @@ const steps = [
         padding: 0.5rem;
         margin: -0.5rem;
         border-radius: 0.5rem;
-    }
-
-    .journey-checklist-item:hover {
-        background-color: rgba(0, 0, 0, 0.03);
-    }
-
-    .journey-checklist-item:hover .journey-checkbox {
-        transform: scale(1.1);
     }
 
     .journey-checkbox {
@@ -517,32 +509,28 @@ const steps = [
 </style>
 
 <script>
-    let stepProgress = [0, 0, 0];
-    let currentStep = 0;
+    const stepProgress = [0, 0, 0];
+    let autoAnimationTriggered = false;
 
-    // Initialize elements
     const progressBars = document.querySelectorAll('.progress-bar');
     const progressTexts = document.querySelectorAll('.progress-text');
-    const timelineProgress = document.querySelector('.timeline-progress');
     const timelineIcons = document.querySelectorAll('.timeline-icon');
-    const checkboxItems = document.querySelectorAll('.journey-checkbox');
 
     function createConfettiEffect(container, x, y) {
         const emojis = ['✨', '⭐', '🌟', '💫', '🎉', '🎨', '🎪', '🌈'];
-        const totalParticles = 20; // Increased number of particles
+        const totalParticles = 20;
 
         for (let i = 0; i < totalParticles; i++) {
             const emoji = document.createElement('span');
             emoji.className = 'confetti-particle';
             emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
 
-            // Calculate random positions for the explosion effect
             const angle = (i / totalParticles) * 360 + (Math.random() * 30 - 15);
-            const radius = 80 + Math.random() * 60; // Increased radius
+            const radius = 80 + Math.random() * 60;
             const endX = Math.cos(angle * Math.PI / 180) * radius;
             const endY = Math.sin(angle * Math.PI / 180) * radius;
             const rotation = Math.random() * 720 - 360;
-            const duration = 0.8 + Math.random() * 0.6; // Longer duration
+            const duration = 0.8 + Math.random() * 0.6;
 
             emoji.style.cssText = `
                 position: absolute;
@@ -567,150 +555,109 @@ const steps = [
         const totalItems = 3;
         const completedItems = document.querySelectorAll(`.journey-checklist-item[data-step="${stepIndex}"].checked`).length;
         const progress = Math.round((completedItems / totalItems) * 100);
-        
+
         stepProgress[stepIndex] = progress;
 
-        // Update individual panel progress
         progressBars[stepIndex].style.width = `${progress}%`;
         progressTexts[stepIndex].textContent = `${progress}%`;
 
-        // Calculate progress for the bottom timeline
         let timelineWidth = 0;
         let lastCompletedStep = -1;
 
-        // Check each step's completion
-        stepProgress.forEach((progress, index) => {
-            if (progress === 100) {
+        stepProgress.forEach((p, index) => {
+            if (p === 100) {
                 lastCompletedStep = index;
                 timelineWidth = (index + 1) * 33.33;
             }
         });
 
-        // Update both progress bars
         document.querySelector('.timeline-progress').style.width = `${timelineWidth}%`;
         document.querySelector('.track-fill').style.width = `${timelineWidth}%`;
 
-        // Update icons based on completed steps
         timelineIcons.forEach((icon, index) => {
-            // Reset classes first
             icon.classList.remove('active', 'completed');
-            
             if (index <= lastCompletedStep) {
-                // Previous steps are completed
                 icon.classList.add('active', 'completed');
             } else if (index === lastCompletedStep + 1) {
-                // Next step is active but not completed
                 icon.classList.add('active');
             }
         });
 
-        // Add completion effects for individual panels
-        if (progress === 100 && !timelineIcons[stepIndex].classList.contains('completed')) {
-            // Trigger confetti for the completed panel's icon
+        if (progress === 100) {
             const icon = timelineIcons[stepIndex];
-            const rect = icon.getBoundingClientRect();
-            createConfettiEffect(icon, 
-                rect.left + rect.width / 2,
-                rect.top + rect.height / 2
-            );
+            if (icon) {
+                const rect = icon.getBoundingClientRect();
+                createConfettiEffect(icon, rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
         }
 
-        // Add final completion animation
         if (lastCompletedStep === 2) {
-            timelineIcons.forEach(icon => {
-                icon.classList.add('completed');
-            });
+            timelineIcons.forEach(icon => icon.classList.add('completed'));
         }
     }
 
-    // Update click handler
-    document.querySelectorAll('.journey-checklist-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-            const stepIndex = parseInt(item.dataset.step);
-            const wasChecked = item.classList.contains('checked');
-            const checkbox = item.querySelector('.journey-checkbox');
-
-            // Toggle checked state
-            item.classList.toggle('checked');
-            checkbox.classList.toggle('checked');
-
-            // Create highlight effect if not already present
-            if (!item.querySelector('.journey-highlight-effect')) {
-                const highlight = document.createElement('div');
-                highlight.className = 'journey-highlight-effect';
-                item.insertBefore(highlight, item.firstChild);
-            }
-
-            // Add confetti effect when checking
-            if (!wasChecked) {
-                const rect = checkbox.getBoundingClientRect();
-                const x = rect.right;
-                const y = rect.top + rect.height / 2;
-                createConfettiEffect(item, x, y);
-            }
-
-            // Update progress immediately after state change
-            updateStepProgress(stepIndex);
-
-            // Store state in localStorage
-            const itemId = `journey-steps-${stepIndex}-${item.dataset.item}`;
-            localStorage.setItem(itemId, !wasChecked);
-        });
-
-        // Restore saved state and update progress
+    function checkItem(item) {
         const stepIndex = parseInt(item.dataset.step);
-        const itemIndex = parseInt(item.dataset.item);
-        const savedState = localStorage.getItem(`journey-steps-${stepIndex}-${itemIndex}`);
-        
-        if (savedState === 'true') {
-            item.classList.add('checked');
-            const checkbox = item.querySelector('.journey-checkbox');
-            checkbox.classList.add('checked');
-            
-            // Add highlight effect
-            if (!item.querySelector('.journey-highlight-effect')) {
-                const highlight = document.createElement('div');
-                highlight.className = 'journey-highlight-effect';
-                item.insertBefore(highlight, item.firstChild);
-            }
+        const checkbox = item.querySelector('.journey-checkbox');
 
-            // Update progress for restored items
-            updateStepProgress(stepIndex);
+        item.classList.add('checked');
+        checkbox.classList.add('checked');
+
+        if (!item.querySelector('.journey-highlight-effect')) {
+            const highlight = document.createElement('div');
+            highlight.className = 'journey-highlight-effect';
+            item.insertBefore(highlight, item.firstChild);
         }
-    });
 
-    // Update Intersection Observer for animations
-    const observer = new IntersectionObserver((entries) => {
+        const rect = checkbox.getBoundingClientRect();
+        createConfettiEffect(item, rect.right, rect.top + rect.height / 2);
+
+        updateStepProgress(stepIndex);
+    }
+
+    function autoAnimateAllSteps() {
+        if (autoAnimationTriggered) return;
+        autoAnimationTriggered = true;
+
+        const ITEM_DELAY = 350;
+        const STEP_PAUSE = 250;
+        let delay = 500;
+
+        for (let step = 0; step < 3; step++) {
+            const items = document.querySelectorAll(`.journey-checklist-item[data-step="${step}"]`);
+            items.forEach((item, idx) => {
+                const d = delay + idx * ITEM_DELAY;
+                setTimeout(() => checkItem(item), d);
+            });
+            delay += items.length * ITEM_DELAY + STEP_PAUSE;
+        }
+    }
+
+    const journeySection = document.getElementById('journey');
+    if (journeySection) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    autoAnimateAllSteps();
+                    sectionObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.25 });
+        sectionObserver.observe(journeySection);
+    }
+
+    const panelObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Make sure we're adding visible class to the comic panel
                 const panel = entry.target.querySelector('.comic-panel');
-                if (panel) {
-                    panel.classList.add('visible');
-                }
-                
-                // For mobile devices, trigger hover effects on journey steps
-                if (window.innerWidth < 768 && entry.target.classList.contains('journey-step')) {
-                    const step = entry.target;
-                    const icon = step.querySelector('.icon-bounce');
-                    
-                    // Trigger icon animation
-                    if (icon) {
-                        icon.style.animation = 'icon-bounce 1s';
-                    }
-                }
+                if (panel) panel.classList.add('visible');
             }
         });
     }, { threshold: 0.3 });
 
-    // Observe the journey steps
     document.querySelectorAll('.journey-step').forEach(step => {
-        observer.observe(step);
+        panelObserver.observe(step);
     });
 
-    // Initialize first icon and restore progress on load
-    document.querySelector('.timeline-icon').classList.add('active');
-    [0, 1, 2].forEach(stepIndex => {
-        updateStepProgress(stepIndex);
-    });
+    document.querySelector('.timeline-icon')?.classList.add('active');
 </script> 

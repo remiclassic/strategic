@@ -1,46 +1,67 @@
 ---
 const faqs = [
     {
-        question: "How does this actually work?",
-        answer: "Our approach is built on simple automation and passive income streams. You'll learn easy-to-follow steps that work for you 24/7, requiring minimal maintenance. Think of it as training your money to make more money while you nap! 💤"
-    },
-    {
-        question: "Do I need experience?",
-        answer: "Nope! Our step-by-step guide is designed for complete beginners. If you can follow simple instructions and click buttons, you're qualified. We've had successful students who could barely turn on their computers when they started!"
-    },
-    {
-        question: "How much time do I really need to invest? ⏰",
-        answer: "Just 2 hours per day during setup (about 2 weeks), then as little as 30 minutes daily for maintenance. Many of our successful students spend less time working than it takes to watch a Netflix episode!"
-    },
-    {
-        question: "Is this legal?",
-        answer: "Absolutely! While we use creative strategies, everything in our method is 100% legal. We simply leverage existing business and tax laws in a smart (and lazy) way. Our approach is used by many successful digital entrepreneurs."
-    },
-    {
-        question: "What's the catch?",
-        answer: "No catch! If you're not happy within 30 days, we'll refund every penny. We believe in our approach so much that we take all the risk. You don't even need to explain why - just ask and you'll get your money back!"
-    },
-    {
-        question: "How fast can I see results?",
-        answer: "Many students start seeing their first sales within 2-4 weeks of following our simple steps. However, results vary based on effort and market conditions. Our focus is on building sustainable, long-term income streams, not get-rich-quick schemes."
-    },
-    {
-        question: "How do I know which option to choose? 🤔",
-        answer: "Just pick the one that fits where you're at. Everything is self-paced and built to work on its own."
-    },
-    {
         question: "What exactly do I get?",
-        answer: "You will learn a simple, step-by-step guide you can follow at your own pace, no fluff, no filler. It gives you real strategies, helpful tools, and a smarter way to build online income without the grind. It is built for people who want results without the complexity."
+        answer: "You get individual PDF books, each one a separate download. The Starter package includes 2 books on building passive digital income and designing your lifestyle. The Builder package adds 4 more on sovereignty, tax strategy, residency, and global business structure. The Scale to Freedom package adds 5 more covering offshore banking, asset protection, and second passports. Every book is written to be actionable, not theoretical."
     },
     {
-        question: "How long do I keep this? ⏳",
+        question: "What format are the books in?",
+        answer: "Each book is a separate PDF. You get individual files, one per book, so you can organize and read them however you like. They work on any device including your phone, tablet, laptop, or e-reader that supports PDF. You can also print them if you prefer paper."
+    },
+    {
+        question: "How do I access the books after purchase?",
+        answer: "Instantly. As soon as your payment goes through, you get download links for each book in your package. No waiting, no drip schedule, no hoops. Every PDF is yours to keep forever."
+    },
+    {
+        question: "Is this a one-time purchase or a subscription?",
+        answer: "One-time purchase. You pay once, you keep everything forever, and you get all future updates to your tier at no extra cost. There are no recurring charges, no hidden fees, and no upsells waiting around the corner."
+    },
+    {
+        question: "Do I need any prior experience?",
+        answer: "No. The Starter books are written for complete beginners with zero background in online business. If you can read and follow step-by-step instructions, you have everything you need. The Builder and Scale tiers get more advanced, but you will be ready for them after finishing the Starter material."
+    },
+    {
+        question: "How much time does this take?",
+        answer: "Each book is a focused read you can finish in a few hours. Most readers work through the Starter tier in a week or two, then start implementing. This is not a 300-hour course. It is a set of concise, practical guides designed to respect your time."
+    },
+    {
+        question: "How do I know which package to choose?",
+        answer: "If you are just starting out and want to build your first online income stream, grab the Starter. If you already earn online and want to structure your business for tax efficiency, privacy, and global flexibility, go with the Builder. If you want the complete toolkit including offshore banking, asset protection, and second passports, the Scale to Freedom package covers everything."
+    },
+    {
+        question: "Can I upgrade to a higher tier later?",
+        answer: "Each package is a standalone purchase at the price you see. If you start with the Starter and want more later, you can grab a higher tier anytime. If you are on the fence, the Builder is the sweet spot for most people."
+    },
+    {
+        question: "Is all of this legal?",
+        answer: "Yes. Every strategy in these books uses existing legal frameworks for tax optimization, business structuring, and residency planning. These are the same approaches used by international entrepreneurs, expats, and legal professionals worldwide. We always recommend consulting a qualified advisor for your specific situation."
+    },
+    {
+        question: "How is this different from free information online?",
+        answer: "Free content gives you scattered pieces. These books give you a complete, ordered system. Every strategy is laid out step by step with real costs, real timelines, and real jurisdiction comparisons. No filler, no fluff, no trying to piece together contradictory blog posts from 2019. You get a single, coherent roadmap you can actually follow."
+    },
+    {
+        question: "How long do I keep the books?",
         answer: "Forever. You get lifetime access to all materials and future updates, no strings attached."
     },
     {
-        question: "What if I want a refund? 🤝",
-        answer: "You get 30 days to try it risk-free. If it's not for you, we will refund you, no questions asked."
+        question: "What if I want a refund?",
+        answer: "You have 30 days to try everything risk-free. If it is not for you, just ask and you get your money back. No forms, no justification, no awkward conversations."
     }
 ];
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+        }
+    }))
+};
 ---
 
 <section class="py-32 bg-[#FFF3CB] relative overflow-hidden">
@@ -51,15 +72,15 @@ const faqs = [
 		<!-- Header -->
 		<div class="text-center mb-16">
 			<div class="inline-block bg-white border-4 border-black rounded-xl px-8 py-2 mb-6">
-				<h2 class="text-4xl font-bold">Frequently Asked Questions 🤓</h2>
+				<h2 class="text-4xl font-bold">Frequently Asked Questions</h2>
 			</div>
 			
 			<p class="text-2xl font-comic mb-4">
-				❓ Got questions? The FAQ has you covered. We're too lazy for a support inbox.
+				Got questions? We're too lazy for a support inbox, so we answered them all here.
 			</p>
 			
 			<p class="text-xl text-[#1B1B3D] max-w-2xl mx-auto">
-				Learn how to turn your knowledge into simple digital products that sell while you sleep.
+				Everything you need to know before you grab your books and get started.
 			</p>
 		</div>
 
@@ -85,7 +106,7 @@ const faqs = [
 						id={`faq-answer-${index}`}
 						role="region"
 						aria-labelledby={`faq-question-${index}`}
-						class="faq-answer px-6 py-4 bg-white/50 hidden"
+						class="faq-answer px-6 py-4 bg-white/50"
 					>
 						<p class="text-lg">{faq.answer}</p>
 					</div>
@@ -97,7 +118,7 @@ const faqs = [
 		<div class="mt-16 text-center">
 			<div class="comic-bubble bg-comic-accent inline-block relative hover:translate-y-[-2px] transition-all duration-300">
 				<p class="text-xl font-bold px-6 py-2">
-					🦥 Still a little fuzzy?
+					Still not sure?
 				</p>
 				<div class="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 border-2 border-black">
 					<span class="text-2xl">💤</span>
@@ -105,12 +126,15 @@ const faqs = [
 			</div>
 			<div class="mt-6">
 				<p class="text-lg text-gray-800 max-w-2xl mx-auto">
-					You do not need to decide everything right now. Grab it, skim it, nap on it. You have 30 days to change your mind.
+					You do not need to decide everything right now. Grab it, read it, try it. You have 30 days to change your mind.
 				</p>
 			</div>
 		</div>
 	</div>
 </section>
+
+<!-- FAQ JSON-LD Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 <style>
 	.bg-halftone {
@@ -137,11 +161,18 @@ const faqs = [
 	}
 
 	.faq-answer {
-		transition: max-height 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
 		max-height: 0;
 		opacity: 0;
+		overflow: hidden;
 		transform: translateY(-10px);
-		border-top: 2px dashed #ccc;
+		transition: max-height 0.3s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out, border-top-color 0.3s ease-out;
+		border-top: 2px dashed transparent;
+	}
+
+	.faq-answer.open {
+		opacity: 1;
+		transform: translateY(0);
+		border-top-color: #ccc;
 	}
 
 	.faq-item {
@@ -169,7 +200,6 @@ const faqs = [
 </style>
 
 <script>
-	// FAQ Accordion functionality
 	document.addEventListener('DOMContentLoaded', () => {
 		const faqItems = document.querySelectorAll('.faq-item');
 
@@ -180,59 +210,34 @@ const faqs = [
 
 			button.addEventListener('click', () => {
 				const isExpanded = button.getAttribute('aria-expanded') === 'true';
-				
-				// Close all other FAQs with animation
+
 				faqItems.forEach(otherItem => {
 					if (otherItem !== item) {
 						const otherButton = otherItem.querySelector('button');
 						const otherAnswer = otherItem.querySelector('.faq-answer');
 						const otherIcon = otherItem.querySelector('.faq-icon');
-						
+
 						if (otherButton.getAttribute('aria-expanded') === 'true') {
-							// Animate closing
+							otherButton.setAttribute('aria-expanded', 'false');
+							otherAnswer.classList.remove('open');
 							otherAnswer.style.maxHeight = '0';
-							otherAnswer.style.opacity = '0';
-							otherAnswer.style.transform = 'translateY(-10px)';
-							
-							// Wait for animation to complete before hiding
-							setTimeout(() => {
-								otherButton.setAttribute('aria-expanded', 'false');
-								otherAnswer.classList.add('hidden');
-								otherIcon.textContent = '+';
-								otherAnswer.style.maxHeight = null;
-								otherAnswer.style.opacity = null;
-								otherAnswer.style.transform = null;
-							}, 300);
+							otherIcon.textContent = '+';
 						}
 					}
 				});
 
-				// Toggle current FAQ with animation
 				if (!isExpanded) {
-					// Opening animation
 					button.setAttribute('aria-expanded', 'true');
-					answer.classList.remove('hidden');
-					icon.textContent = '−';
+					answer.classList.add('open');
 					answer.style.maxHeight = answer.scrollHeight + 'px';
-					answer.style.opacity = '1';
-					answer.style.transform = 'translateY(0)';
+					icon.textContent = '\u2212';
 				} else {
-					// Closing animation
+					button.setAttribute('aria-expanded', 'false');
+					answer.classList.remove('open');
 					answer.style.maxHeight = '0';
-					answer.style.opacity = '0';
-					answer.style.transform = 'translateY(-10px)';
-					
-					// Wait for animation to complete before hiding
-					setTimeout(() => {
-						button.setAttribute('aria-expanded', 'false');
-						answer.classList.add('hidden');
-						icon.textContent = '+';
-						answer.style.maxHeight = null;
-						answer.style.opacity = null;
-						answer.style.transform = null;
-					}, 300);
+					icon.textContent = '+';
 				}
 			});
 		});
 	});
-</script> 
+</script>

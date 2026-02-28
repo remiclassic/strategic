@@ -1,0 +1,89 @@
+---
+import Layout from './Layout.astro';
+import ArticleCTA from '../components/ArticleCTA.astro';
+import ExitIntentPopup from '../components/ExitIntentPopup.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	publishDate: Date;
+	category: 'starter' | 'builder' | 'scale';
+	heroEmoji: string;
+	readTime: number;
+}
+
+const { title, description, publishDate, category, heroEmoji, readTime } = Astro.props;
+
+const categoryStyles = {
+	starter: { bg: 'bg-[#FFE066]', text: '', label: 'STARTER' },
+	builder: { bg: 'bg-[#4D9FFF]', text: 'text-white', label: 'BUILDER' },
+	scale: { bg: 'bg-[#FF4D4D]', text: 'text-white', label: 'SCALE' },
+};
+
+const style = categoryStyles[category];
+const formattedDate = publishDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<Layout title={`${title} | Strategic Sloth Blog`} description={description}>
+
+<article class="bg-white">
+	<!-- Article Header -->
+	<div class="relative py-16 md:py-24 bg-gradient-to-br from-[#FFF7E6] via-[#FFFBF2] to-[#FFF7E6]">
+		<div class="container mx-auto px-4 max-w-3xl">
+			<!-- Breadcrumb -->
+			<nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+				<a href="/" class="hover:text-[#1B1B3D] transition-colors">Home</a>
+				<span>/</span>
+				<a href="/blog" class="hover:text-[#1B1B3D] transition-colors">Blog</a>
+				<span>/</span>
+				<span class="text-gray-400 truncate max-w-[200px]">{title}</span>
+			</nav>
+
+			<div class="flex items-center gap-3 mb-6">
+				<span class={`${style.bg} ${style.text} border-2 border-black rounded-full px-4 py-1 text-xs font-black tracking-wide`}>{style.label}</span>
+				<span class="text-sm text-gray-500">{readTime} min read</span>
+				<span class="text-sm text-gray-400">·</span>
+				<span class="text-sm text-gray-500">{formattedDate}</span>
+			</div>
+
+			<div class="text-6xl mb-6">{heroEmoji}</div>
+
+			<h1 class="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-6" style="font-family:'Inter',system-ui,sans-serif;">
+				{title}
+			</h1>
+
+			<p class="text-lg text-gray-600">{description}</p>
+		</div>
+	</div>
+
+	<!-- Article Body -->
+	<div class="container mx-auto px-4 max-w-3xl py-12 md:py-16">
+		<div class="prose prose-lg max-w-none
+			prose-headings:font-black prose-headings:text-[#1B1B3D]
+			prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-12 prose-h2:mb-4
+			prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+			prose-p:text-gray-700 prose-p:leading-relaxed
+			prose-a:text-[#4D9FFF] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+			prose-strong:text-[#1B1B3D] prose-strong:font-bold
+			prose-blockquote:border-l-4 prose-blockquote:border-[#FFE066] prose-blockquote:bg-amber-50 prose-blockquote:rounded-r-xl prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-[#1B1B3D] prose-blockquote:font-medium
+			prose-li:text-gray-700
+			prose-li:marker:text-[#FF4D4D]
+			prose-hr:border-gray-200
+		" style="font-family:'Inter',system-ui,sans-serif;">
+			<slot />
+		</div>
+
+		<ArticleCTA category={category} />
+
+		<!-- Back to Blog -->
+		<div class="mt-12 pt-8 border-t-2 border-gray-100">
+			<a href="/blog" class="inline-flex items-center gap-2 text-[#1B1B3D] font-bold hover:text-[#4D9FFF] transition-colors">
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+				Back to all articles
+			</a>
+		</div>
+	</div>
+</article>
+
+<ExitIntentPopup />
+</Layout>

@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import ExitIntentPopup from '../../components/ExitIntentPopup.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+---
+
+<Layout title="Blog | Strategic Sloth" description="Articles on passive income, digital products, tax strategy, global business, and building a life of freedom — the lazy way.">
+
+<!-- Hero -->
+<section class="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-[#FFF7E6] via-[#FFFBF2] to-[#FFF7E6]">
+	<div class="absolute inset-0 overflow-hidden pointer-events-none">
+		<div class="absolute top-10 right-10 text-6xl animate-float-slow opacity-60">✍️</div>
+		<div class="absolute bottom-20 left-10 text-6xl animate-float-slow opacity-60" style="animation-delay:1s">🦥</div>
+	</div>
+
+	<div class="container mx-auto px-4 relative z-10 text-center max-w-3xl">
+		<div class="inline-block bg-white border-4 border-black rounded-xl px-6 py-2 shadow-[4px_4px_0_rgba(0,0,0,0.2)] mb-8 transform -rotate-2">
+			<span class="font-bold text-lg">✍️ The Blog</span>
+		</div>
+
+		<h1 class="text-4xl sm:text-5xl md:text-6xl font-black mb-6 leading-tight" style="font-family:'Inter',system-ui,sans-serif;">
+			<span class="relative inline-block">
+				Free Knowledge.
+				<div class="absolute bottom-1 left-0 right-0 h-3 bg-[#FFE066] -rotate-1 -z-10"></div>
+			</span>
+			<br/>Zero Hustle Required.
+		</h1>
+
+		<p class="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
+			Actionable articles on passive income, global business, tax strategy, and building a life you don't need a vacation from.
+		</p>
+	</div>
+</section>
+
+<!-- Filter + Articles -->
+<section class="py-16 bg-white">
+	<div class="container mx-auto px-4 max-w-5xl">
+		<!-- Category Filters -->
+		<div class="flex flex-wrap justify-center gap-3 mb-12">
+			<button data-filter="all" class="filter-btn active px-5 py-2 rounded-full border-2 border-black text-sm font-bold transition-all duration-200 bg-[#1B1B3D] text-white">All</button>
+			<button data-filter="starter" class="filter-btn px-5 py-2 rounded-full border-2 border-black text-sm font-bold transition-all duration-200 hover:bg-[#FFE066]">Starter</button>
+			<button data-filter="builder" class="filter-btn px-5 py-2 rounded-full border-2 border-black text-sm font-bold transition-all duration-200 hover:bg-[#4D9FFF] hover:text-white">Builder</button>
+			<button data-filter="scale" class="filter-btn px-5 py-2 rounded-full border-2 border-black text-sm font-bold transition-all duration-200 hover:bg-[#FF4D4D] hover:text-white">Scale</button>
+		</div>
+
+		<!-- Article Grid -->
+		<div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			{posts.map(post => (
+				<div class="article-item" data-category={post.data.category}>
+					<BlogCard
+						title={post.data.title}
+						description={post.data.description}
+						slug={post.slug}
+						category={post.data.category}
+						heroEmoji={post.data.heroEmoji}
+						readTime={post.data.readTime}
+						publishDate={post.data.publishDate}
+					/>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<!-- Bottom CTA -->
+<section class="py-16 bg-[#1B1B3D]">
+	<div class="container mx-auto px-4 text-center max-w-2xl">
+		<h2 class="text-3xl font-black text-white mb-4" style="font-family:'Inter',system-ui,sans-serif;">Want the full system?</h2>
+		<p class="text-gray-300 mb-8 text-lg">These articles are the appetizer. The books are the meal.</p>
+		<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+			<a href="/reading-guide" class="inline-flex items-center gap-2 bg-[#FFD600] text-[#1B1B3D] font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_rgba(255,255,255,0.2)] hover:shadow-[2px_2px_0_rgba(255,255,255,0.2)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg">
+				📖 See Your Library
+			</a>
+			<a href="/#get-started" class="inline-flex items-center gap-2 text-white font-bold px-8 py-4 rounded-xl border-2 border-white/30 hover:bg-white/10 transition-all duration-200 text-lg">
+				🎯 View Pricing
+			</a>
+		</div>
+	</div>
+</section>
+
+<ExitIntentPopup />
+</Layout>
+
+<style>
+	@keyframes float-slow {
+		0%, 100% { transform: translateY(0) rotate(0deg); }
+		50% { transform: translateY(-15px) rotate(3deg); }
+	}
+
+	.animate-float-slow {
+		animation: float-slow 6s ease-in-out infinite;
+	}
+
+	.filter-btn {
+		cursor: pointer;
+	}
+
+	.filter-btn:hover {
+		transform: translateY(-1px);
+		box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+	}
+
+	.article-item {
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+
+	.article-item.hidden {
+		display: none;
+	}
+</style>
+
+<script>
+	const filterButtons = document.querySelectorAll('.filter-btn');
+	const articleItems = document.querySelectorAll('.article-item');
+
+	const activeStyles: Record<string, { bg: string; text: string }> = {
+		all: { bg: 'bg-[#1B1B3D]', text: 'text-white' },
+		starter: { bg: 'bg-[#FFE066]', text: '' },
+		builder: { bg: 'bg-[#4D9FFF]', text: 'text-white' },
+		scale: { bg: 'bg-[#FF4D4D]', text: 'text-white' },
+	};
+
+	filterButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const filter = (btn as HTMLElement).dataset.filter!;
+
+			filterButtons.forEach(b => {
+				b.classList.remove('active', ...Object.values(activeStyles).flatMap(s => [s.bg, s.text].filter(Boolean)));
+			});
+
+			const style = activeStyles[filter];
+			btn.classList.add('active', style.bg);
+			if (style.text) btn.classList.add(style.text);
+
+			articleItems.forEach(item => {
+				const cat = (item as HTMLElement).dataset.category;
+				if (filter === 'all' || cat === filter) {
+					item.classList.remove('hidden');
+				} else {
+					item.classList.add('hidden');
+				}
+			});
+		});
+	});
+</script>

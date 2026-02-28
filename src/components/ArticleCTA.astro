@@ -1,0 +1,56 @@
+---
+interface Props {
+	category: 'starter' | 'builder' | 'scale';
+}
+
+const { category } = Astro.props;
+
+const ctas = {
+	starter: {
+		emoji: '🌱',
+		heading: 'Want the full playbook?',
+		text: 'This article scratches the surface. The Starter Package gives you the complete system for building digital income that runs on autopilot — plus a life design blueprint to actually enjoy the freedom.',
+		button: 'Get the Starter Package — $17',
+		bg: 'bg-amber-50',
+		buttonBg: 'bg-[#1B1B3D] text-white',
+		badge: 'bg-[#FFE066]',
+		badgeText: 'STARTER',
+	},
+	builder: {
+		emoji: '🏗️',
+		heading: 'Ready to go sovereign?',
+		text: 'This article is the tip of the iceberg. The Best Value Package gives you the full sovereignty architecture — tax positioning, residency strategies, global business structures, and the income engine to fund it all.',
+		button: 'Get the Best Value Package — $47',
+		bg: 'bg-blue-50',
+		buttonBg: 'bg-[#4D9FFF] text-white',
+		badge: 'bg-[#4D9FFF] text-white',
+		badgeText: 'BEST VALUE',
+	},
+	scale: {
+		emoji: '🚀',
+		heading: 'Want the complete global toolkit?',
+		text: 'This article introduces the concepts. The Scale to Freedom Path gives you the full system — banking infrastructure, asset protection, second passports, plus everything in the Starter and Builder tiers.',
+		button: 'Get the Scale to Freedom Path — $97',
+		bg: 'bg-red-50',
+		buttonBg: 'bg-[#FF4D4D] text-white',
+		badge: 'bg-[#FF4D4D] text-white',
+		badgeText: 'PREMIUM',
+	},
+};
+
+const cta = ctas[category];
+---
+
+<div class={`${cta.bg} border-4 border-black rounded-2xl p-8 md:p-10 shadow-[6px_6px_0_rgba(0,0,0,0.15)] mt-12`}>
+	<div class="flex items-start gap-4 mb-4">
+		<span class="text-4xl">{cta.emoji}</span>
+		<div>
+			<div class={`inline-block ${cta.badge} border-2 border-black rounded-full px-3 py-0.5 text-xs font-black tracking-wide mb-2`}>{cta.badgeText}</div>
+			<h3 class="text-2xl font-black" style="font-family:'Inter',system-ui,sans-serif;">{cta.heading}</h3>
+		</div>
+	</div>
+	<p class="text-gray-700 mb-6 text-lg">{cta.text}</p>
+	<a href="/#get-started" class={`inline-flex items-center gap-2 ${cta.buttonBg} font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg`}>
+		{cta.button}
+	</a>
+</div>

@@ -415,7 +415,7 @@ const navItems = [
   }, { passive: true });
   window.addEventListener('load', handleScroll);
 
-  // Smooth scroll enhancement — handles both #hash and /#hash links
+  // Smooth scroll enhancement - handles both #hash and /#hash links
   document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href') || '';

@@ -3,25 +3,25 @@
 const navItems = [
   { 
     text: "Why It Works", 
-    href: "#the-problem", 
+    href: "/#the-problem", 
     description: "The core ideas behind the system",
     preview: "Discover how laziness can be your greatest asset"
   },
   { 
     text: "Your Escape Plan", 
-    href: "#journey", 
+    href: "/#journey", 
     description: "4-phase roadmap to freedom",
     preview: "Step-by-step guide to financial freedom"
   },
   { 
-    text: "Dream Life", 
-    href: "#dream-life", 
-    description: "See your future lifestyle",
-    preview: "Visualize your freedom lifestyle"
+    text: "Your Library", 
+    href: "/reading-guide", 
+    description: "11 books across 3 tiers",
+    preview: "See what's inside every package"
   },
   { 
     text: "Meet the Sloth", 
-    href: "#about-me", 
+    href: "/#about-me", 
     description: "The story behind it all",
     preview: "Learn from the master of strategic laziness"
   }
@@ -60,7 +60,7 @@ const navItems = [
         </a>
       ))}
       <a 
-        href="#get-started" 
+        href="/#get-started" 
         class="flex items-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-2 text-[#1B1B3D] hover:bg-[#1B1B3D] hover:text-white transition-colors duration-200"
       >
         <span>🎯</span>
@@ -148,7 +148,7 @@ const navItems = [
           </div>
         ))}
         <a
-          href="#get-started"
+          href="/#get-started"
           class="mt-4 flex items-center justify-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-3 text-[#1B1B3D] hover:bg-[#1B1B3D] hover:text-white transition-colors duration-200"
           onclick="document.getElementById('mobile-menu').classList.add('hidden')"
         >
@@ -387,7 +387,9 @@ const navItems = [
       
       if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
         navLinks.forEach(link => {
-          if (link.getAttribute('href') === '#' + sectionId) {
+          const linkHref = link.getAttribute('href') || '';
+          const linkHash = linkHref.startsWith('/#') ? linkHref.slice(1) : linkHref;
+          if (linkHash === '#' + sectionId) {
             link.classList.add('active');
           } else {
             link.classList.remove('active');
@@ -407,27 +409,30 @@ const navItems = [
   }, { passive: true });
   window.addEventListener('load', handleScroll);
 
-  // Smooth scroll enhancement
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  // Smooth scroll enhancement — handles both #hash and /#hash links
+  document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href') || '';
+      const isExternalPage = href.startsWith('/') && !href.startsWith('/#');
+      if (isExternalPage) return;
+
+      const hash = href.startsWith('/#') ? href.slice(1) : href;
+      const targetElement = document.querySelector(hash);
+
+      if (!targetElement) return;
+
       e.preventDefault();
-      const targetId = this.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
-      
-      if (targetElement) {
-        const navHeight = document.querySelector('header')?.offsetHeight || 0;
-        const targetPosition = targetElement.offsetTop - navHeight;
-        
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-        
-        // Close mobile menu if open
-        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          document.body.style.overflow = '';
-        }
+      const navHeight = document.querySelector('header')?.offsetHeight || 0;
+      const targetPosition = targetElement.offsetTop - navHeight;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+
+      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        document.body.style.overflow = '';
       }
     });
   });

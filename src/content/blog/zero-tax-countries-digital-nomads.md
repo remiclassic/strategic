@@ -83,6 +83,8 @@ Territorial and zero-tax jurisdictions exist. They're not loopholes. They're pol
 
 **Best for:** High net worth individuals and those structuring significant assets or business operations.
 
+Many of these countries also offer [residency programs with minimal physical presence](/blog/legal-residency-abroad-without-moving) — so you can establish tax residency without fully relocating. The full country-by-country breakdown — exact requirements, minimum stay rules, compliance checklists — lives in *Residency Without Relocation*. The tax positioning strategy that ties it all together is in *Strategic Privacy & Tax Positioning*.
+
 ## Legal vs. Evasion
 
 Let's be clear: we're talking about legal tax positioning. Choosing a jurisdiction that doesn't tax your type of income is not evasion. It's the same thing corporations do when they incorporate in Delaware or Ireland. You're allowed to structure your affairs within the law.
@@ -90,3 +92,5 @@ Let's be clear: we're talking about legal tax positioning. Choosing a jurisdicti
 Evasion is hiding income, lying about residency, or fabricating structures. Don't do that. The countries above have real rules. You need to meet them. Document everything. Get proper advice.
 
 The detailed residency setup processes — which program to use, how to document foreign income, banking setup, compliance calendars — those live in the books. But the map is here. Seven countries. Seven paths. Your move.
+
+> **Keep reading:** [How to Get Legal Residency Abroad Without Actually Moving](/blog/legal-residency-abroad-without-moving) · [The Five Flags Theory Explained](/blog/five-flags-theory-explained)

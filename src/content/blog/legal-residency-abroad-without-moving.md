@@ -43,6 +43,8 @@ The key is choosing a jurisdiction where "residency" for legal purposes equals "
 
 **Georgia.** Remotely-employed individuals can get residency. Territorial tax. One-year visa, renewable. Physical presence: you need to enter the country. After that, structure matters. Georgia has become a popular base for exactly this reason.
 
+Every program above — plus a dozen more, with costs, timelines, and compliance requirements — is mapped out in *Residency Without Relocation*. For the tax strategy that makes these residencies valuable, see *Strategic Privacy & Tax Positioning*. And for the big-picture framework connecting residency, citizenship, banking, business, and assets, start with [The Five Flags Theory Explained](/blog/five-flags-theory-explained).
+
 ## Layering Residencies
 
 Here's where it gets interesting. You can hold multiple residencies. Not multiple citizenships — those are harder — but residencies. A UAE residency plus a Paraguay residency. A Panama residency plus a Portugal NHR. The goal isn't to live in all of them. It's to have options.
@@ -56,3 +58,5 @@ The catch: you need to avoid being a tax resident everywhere. Most countries hav
 Digital entrepreneurs. Remote workers. Anyone with location-independent income who doesn't want to pay 30-40% to a high-tax country they're not even using. You're not evading. You're choosing. Countries are competing for you. Some of them offer a good deal.
 
 The full country breakdowns — which programs are still open, exact document lists, processing times, banking setup, and how to layer without triggering unwanted tax residency — live in *Residency Without Relocation*. But the concept is simple: you don't have to move to get the benefits of moving. You just have to structure.
+
+> **Keep reading:** [7 Countries Where Digital Nomads Pay Zero Income Tax](/blog/zero-tax-countries-digital-nomads) · [The Five Flags Theory Explained](/blog/five-flags-theory-explained) · [Best Countries to Incorporate an Online Business](/blog/best-countries-incorporate-online-business)

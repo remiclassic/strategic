@@ -45,10 +45,12 @@ Think about it: a freelancer who lands a client through hustle has to hustle aga
 
 The anti-hustle approach isn't about doing nothing. It's about investing your effort in things that pay dividends. Build once, benefit repeatedly. That's the math that actually gets you out.
 
+> **Related:** Want to see what "build once, sell forever" looks like in practice? Read [How to Make Money Selling Digital Products (Without an Audience)](/blog/how-to-make-money-selling-digital-products).
+
 ## The Strategic Sloth Mindset
 
 We're not advocating for couch surfing. We're advocating for not confusing motion with progress. Busy is not the same as effective. Exhausted is not a badge of honor.
 
 The strategic approach: figure out what generates results with the least ongoing effort. Build that. Protect your energy. Design your life so you're not grinding into burnout by 35.
 
-The frameworks for doing that — how to audit your time, how to design your ideal day, how to structure your work so it doesn't structure you — those exist. They're not secrets. They're systems. And they beat hustle every time.
+The daily rhythm and life architecture side of this — sleep, energy, focus blocks, eliminating busywork — is what *Design Your Exit* breaks down step by step. The income system is *Don't Do Anything*. The life system is book two. Together, they're the full framework for building leverage instead of burning out.

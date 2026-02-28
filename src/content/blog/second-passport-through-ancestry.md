@@ -33,6 +33,8 @@ Citizenship by Investment (CBI) — paying a country for a passport — gets hea
 
 **Hungary, Czech Republic, Greece.** Each has descent rules. Some are more generous than others. Some require language or residency. The point: Europe is full of countries that grant citizenship by blood. Your ancestry might unlock one of them.
 
+The full genealogy research playbook — how to prove your ancestry, which documents you need, and the exact application process for each country — is in *Ancestral & Birthright Citizenship*. If descent doesn't work, *Investment Citizenship Handbook* covers every CBI program on the planet, with cost comparisons and processing times.
+
 ## Where to Start: Genealogy Research
 
 You can't claim what you can't prove. Step one is building your family tree and identifying which ancestors might create a path.
@@ -54,3 +56,5 @@ You can't claim what you can't prove. Step one is building your family tree and 
 You now know the concept: jus sanguinis, why it matters, which countries are generous, and how to start the genealogy research. What you don't have yet: the full country-by-country guide, exact document requirements for each nation, processing times, common rejection reasons, and the step-by-step application procedures.
 
 That's in the books. The detailed jurisdiction breakdowns, document checklists, and how to avoid the mistakes that cost people years. Check your tree first. You might already be sitting on a six-figure asset.
+
+> **Keep reading:** [The Five Flags Theory Explained](/blog/five-flags-theory-explained) · [Asset Protection 101](/blog/asset-protection-101) · [Offshore Banking for Beginners](/blog/offshore-banking-for-beginners)

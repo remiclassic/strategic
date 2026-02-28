@@ -55,6 +55,8 @@ Does having an audience help? Sure. But it's not the prerequisite everyone claim
 
 The product is the magnet. The platform is the shelf. You just need to put it in the right aisle.
 
+> **Related:** If you're wondering what to charge once your product is live, read [How to Price Digital Products: Stop Undercharging, Start Getting Paid](/blog/how-to-price-digital-products).
+
 ## The Mindset Shift
 
 Most aspiring creators are stuck in "content first, product never" mode. They're afraid to charge. They're afraid they don't know enough. They're afraid nobody will buy.
@@ -62,5 +64,7 @@ Most aspiring creators are stuck in "content first, product never" mode. They're
 The reframe: you don't need to be the world's leading expert. You need to be one step ahead of someone who's stuck. If you figured out how to do something that took you three weeks of trial and error, you can package that into something that saves someone else three weeks. That's worth money.
 
 The exact mechanics of launching — when to build the product, how to structure the offer, what to say on the sales page, how to price it — that's a system. A repeatable one. But the foundation is simple: find a specific problem, create a specific solution, put it somewhere people can pay for it.
+
+The exact mechanics — finding your niche, building the product, writing the sales page, setting up automated marketing that runs while you sleep — is the complete system inside *Don't Do Anything*. This article gives you the concept. That gives you the execution.
 
 No audience required. Just a problem, a product, and the nerve to hit publish.

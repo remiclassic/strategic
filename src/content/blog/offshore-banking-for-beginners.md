@@ -31,6 +31,8 @@ Smart entrepreneurs don't pick one. They use two layers.
 
 The dual-layer approach means you're not paying premium fees for everyday operations, and you're not leaving serious capital in a fintech account that could change its terms or get acquired tomorrow.
 
+The specific bank names, jurisdiction rankings, and account-opening procedures for each tier are in *Global Banking Systems for Entrepreneurs*. If your industry makes bankers nervous — crypto, e-commerce, adult content — *Advanced Banking Strategies* covers the workarounds, including EMIs and stablecoin payment rails.
+
 ## Budget Tiers: From $0 to Premium
 
 **Tier 1: $0.** Fintech only. You can hold multiple currencies, receive international payments, and move money globally. No minimums. No account-opening fees. This is where most people start. It's legitimate, useful, and often enough for early-stage digital entrepreneurs.
@@ -56,3 +58,5 @@ The dual-layer approach means you're not paying premium fees for everyday operat
 This is the intro. You now know why offshore banking matters, the dual-layer strategy, budget tiers, and how to spot bad actors. What you don't have yet: the specific bank names, jurisdiction-by-jurisdiction comparisons, step-by-step account opening procedures, document checklists, and which banks are actually worth your time for your profile.
 
 That's the full playbook. The deep dive lives in the books — where we compare jurisdictions, rank banks by cost and accessibility, and walk you through the actual opening process for each tier. The concept? You've got it. Execution is details. And details are everything.
+
+> **Keep reading:** [Asset Protection 101: How to Make Your Wealth Legally Untouchable](/blog/asset-protection-101) · [The Five Flags Theory Explained](/blog/five-flags-theory-explained)

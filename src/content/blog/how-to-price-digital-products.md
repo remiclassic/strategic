@@ -43,7 +43,7 @@ One price is a yes/no decision. Three prices give people a frame. There's the "b
 
 The tiers aren't arbitrary. Each one serves a purpose. The low tier makes the middle look reasonable. The high tier makes the middle look like a deal. The structure does the selling.
 
-How to set those numbers, what to put in each tier, and how to present them so people choose the right one — that's a system. But the principle holds: structure beats a single number every time.
+How to set those numbers, what to put in each tier, and how to present them so people choose the right one — that's a system. The complete pricing framework, anchoring strategies, and real sales page templates are inside *Don't Do Anything*. But the principle holds: structure beats a single number every time.
 
 ## Perceived Value vs. Cost
 
@@ -56,3 +56,5 @@ Price based on the value delivered, not the effort it took you. That's not greed
 Getting the price right is half the battle. The other half is getting people to the point where they're ready to pay. The sequence matters. The copy matters. The offer structure matters. There are formulas that work — specific ways to present price, handle objections, and close the gap between "interested" and "bought."
 
 Those live in the playbook. But the foundation is this: stop pricing from fear. Start pricing from value. Your work is worth more than you think. The numbers will prove it.
+
+> **Related:** Not sure what to sell yet? Start with [How to Make Money Selling Digital Products (Without an Audience)](/blog/how-to-make-money-selling-digital-products). Already selling and want to stop grinding? Read [The Anti-Hustle Manifesto](/blog/anti-hustle-manifesto).

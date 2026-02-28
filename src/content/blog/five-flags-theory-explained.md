@@ -27,6 +27,8 @@ The theory breaks down into five "flags" — five areas of your life where you c
 
 **Flag 5: Playground.** Where you actually want to live, travel, and enjoy life. This is the fun one. Once the other four flags are sorted, you're free to base yourself wherever makes you happy. Beach town, mountain cabin, city apartment — your choice. The playground isn't about taxes. It's about living.
 
+Each flag has its own deep dive. *Strategic Privacy & Tax Positioning* covers Flag 2 in detail. [Residency programs with minimal physical presence](/blog/legal-residency-abroad-without-moving) are Flag 2 in action. *Global Business Jurisdictions Guide* compares options for Flag 3 — or see the overview in [Best Countries to Incorporate an Online Business](/blog/best-countries-incorporate-online-business). The full framework that ties all five flags together is in *The Freedom Blueprint*.
+
 ## Why Diversification Matters
 
 Putting everything in one country is convenient. It's also risky. Governments change. Regulations shift. Banks get nervous. Currencies fluctuate. A single jurisdiction means a single point of failure.
@@ -52,3 +54,5 @@ The goal isn't to become a "perpetual traveler" in the literal sense — constan
 That's the Five Flags Theory in practice: freedom through diversification. Not paranoia. Not evasion. Just smart geography.
 
 The full customizable framework — country-by-country breakdowns, decision trees, and step-by-step implementation — lives in *The Freedom Blueprint*. But the concept? You've got it. Now it's just execution.
+
+> **Keep reading:** [7 Countries Where Digital Nomads Pay Zero Income Tax](/blog/zero-tax-countries-digital-nomads) · [How to Get a Second Passport Through Your Ancestry](/blog/second-passport-through-ancestry) · [Asset Protection 101](/blog/asset-protection-101)

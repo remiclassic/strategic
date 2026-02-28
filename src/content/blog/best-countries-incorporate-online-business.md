@@ -101,6 +101,8 @@ Let's run through six options.
 
 **Best for:** Asia-focused businesses. Those wanting top-tier banking and credibility. Willing to pay for quality. Revenue that justifies the setup cost.
 
+The full cost comparison — incorporation fees, annual maintenance, registered agents, banking access, and payment processing for each jurisdiction — is the complete breakdown inside *Global Business Jurisdictions Guide*. For the big-picture strategy connecting your business structure to residency and tax positioning, see [The Five Flags Theory Explained](/blog/five-flags-theory-explained).
+
 ## The Framework, Not the Answer
 
 There's no single "best" jurisdiction. A solopreneur selling $50K/year in digital products has different needs than a SaaS doing $2M with a team. A US person has different constraints than a non-US person. Someone who needs US banking has different options than someone who doesn't.
@@ -108,3 +110,5 @@ There's no single "best" jurisdiction. A solopreneur selling $50K/year in digita
 The right approach: map your revenue, your personal tax situation, your banking needs, and your risk tolerance. Then match to a jurisdiction — or a structure with multiple entities — that fits.
 
 The detailed cost breakdowns, multi-entity strategies, and step-by-step incorporation playbooks live in the books. But the decision framework is here. Your business. Your structure. Your move.
+
+> **Keep reading:** [The Five Flags Theory Explained](/blog/five-flags-theory-explained) · [7 Countries Where Digital Nomads Pay Zero Income Tax](/blog/zero-tax-countries-digital-nomads) · [How to Get Legal Residency Abroad Without Moving](/blog/legal-residency-abroad-without-moving)

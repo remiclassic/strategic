@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ExitIntentPopup from '../components/ExitIntentPopup.astro';
 ---
 
 <Layout title="Your Library – What's Inside | Strategic Sloth" description="See every book inside your Strategic Sloth library, organized into three tiers that take you from stuck in the grind to sovereign, location-independent, and financially protected.">
@@ -35,20 +36,56 @@ import Layout from '../layouts/Layout.astro';
 	</div>
 </section>
 
+<!-- Quick Comparison -->
+<section class="relative py-14 bg-white border-b-2 border-black">
+	<div class="container mx-auto px-4 max-w-5xl">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+			<!-- Starter -->
+			<a href="#starter" class="compare-card group relative bg-amber-50 border-4 border-black rounded-2xl p-6 text-center shadow-[4px_4px_0_rgba(0,0,0,0.15)] hover:shadow-[6px_6px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 no-underline">
+				<img src="/images/starterpackage.webp" alt="Starter Package Sloth" width="128" height="128" loading="eager" decoding="async" class="w-20 h-20 object-contain mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
+				<div class="inline-block bg-[#FFE066] border-2 border-black rounded-full px-4 py-1 text-xs font-black tracking-wide mb-3">STARTER</div>
+				<h3 class="text-lg font-black text-[#1B1B3D] mb-1" style="font-family:'Inter',system-ui,sans-serif;">2 Books</h3>
+				<p class="text-sm text-gray-600 mb-3">Income + Life Design</p>
+				<span class="text-2xl font-black text-[#1B1B3D]">$17</span>
+			</a>
+
+			<!-- Builder -->
+			<a href="#builder" class="compare-card group relative bg-blue-50 border-4 border-black rounded-2xl p-6 text-center shadow-[4px_4px_0_rgba(0,0,0,0.15)] hover:shadow-[6px_6px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 no-underline">
+				<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#4D9FFF] text-white text-xs font-black px-4 py-1 rounded-full border-2 border-black">MOST POPULAR</div>
+				<img src="/images/bestvalue.webp" alt="Best Value Package Sloth" width="128" height="128" loading="eager" decoding="async" class="w-20 h-20 object-contain mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
+				<div class="inline-block bg-[#4D9FFF] text-white border-2 border-black rounded-full px-4 py-1 text-xs font-black tracking-wide mb-3">BUILDER</div>
+				<h3 class="text-lg font-black text-[#1B1B3D] mb-1" style="font-family:'Inter',system-ui,sans-serif;">6 Books</h3>
+				<p class="text-sm text-gray-600 mb-3">Income + Sovereignty</p>
+				<span class="text-2xl font-black text-[#1B1B3D]">$47</span>
+			</a>
+
+			<!-- Scale -->
+			<a href="#scale" class="compare-card group relative bg-red-50 border-4 border-black rounded-2xl p-6 text-center shadow-[4px_4px_0_rgba(0,0,0,0.15)] hover:shadow-[6px_6px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 no-underline">
+				<img src="/images/scaletofreedom.webp" alt="Scale to Freedom Package Sloth" width="128" height="128" loading="eager" decoding="async" class="w-20 h-20 object-contain mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
+				<div class="inline-block bg-[#FF4D4D] text-white border-2 border-black rounded-full px-4 py-1 text-xs font-black tracking-wide mb-3">SCALE TO FREEDOM</div>
+				<h3 class="text-lg font-black text-[#1B1B3D] mb-1" style="font-family:'Inter',system-ui,sans-serif;">11 Books</h3>
+				<p class="text-sm text-gray-600 mb-3">The Complete System</p>
+				<span class="text-2xl font-black text-[#1B1B3D]">$97</span>
+			</a>
+		</div>
+	</div>
+</section>
+
 <!-- Tier Navigation -->
-<div class="sticky top-16 z-30 bg-white border-b-2 border-black shadow-sm">
+<div id="tier-nav" class="sticky top-16 z-30 bg-white border-b-2 border-black shadow-sm">
 	<div class="container mx-auto px-4 flex justify-center gap-4 py-3">
-		<a href="#starter" class="tier-nav-link px-4 py-2 rounded-full border-2 border-black text-sm font-bold hover:bg-[#FFE066] transition-colors">🌱 Starter</a>
-		<a href="#builder" class="tier-nav-link px-4 py-2 rounded-full border-2 border-black text-sm font-bold hover:bg-[#4D9FFF] hover:text-white transition-colors">🏗️ Builder</a>
-		<a href="#scale" class="tier-nav-link px-4 py-2 rounded-full border-2 border-black text-sm font-bold hover:bg-[#FF4D4D] hover:text-white transition-colors">🚀 Scale</a>
+		<a href="#starter" data-tier="starter" class="tier-nav-link px-4 py-2 rounded-full border-2 border-black text-sm font-bold transition-all duration-200">🌱 Starter</a>
+		<a href="#builder" data-tier="builder" class="tier-nav-link px-4 py-2 rounded-full border-2 border-black text-sm font-bold transition-all duration-200">🏗️ Builder</a>
+		<a href="#scale" data-tier="scale" class="tier-nav-link px-4 py-2 rounded-full border-2 border-black text-sm font-bold transition-all duration-200">🚀 Scale</a>
 	</div>
 </div>
 
 <!-- STARTER TIER -->
-<section id="starter" class="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-50">
+<section id="starter" class="tier-section relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-yellow-50 via-amber-50 to-yellow-50">
 	<div class="container mx-auto px-4 relative z-10 max-w-5xl">
 		<!-- Tier Header -->
-		<div class="text-center mb-14">
+		<div class="text-center mb-14 reveal-up">
+			<img src="/images/starterpackage.webp" alt="Starter Package Sloth" width="160" height="160" loading="lazy" decoding="async" class="w-28 h-28 object-contain mx-auto mb-6" />
 			<div class="inline-flex items-center gap-2 bg-[#FFE066] border-4 border-black rounded-full px-6 py-2 shadow-[4px_4px_0_rgba(0,0,0,0.2)] mb-6">
 				<span class="text-2xl">🌱</span>
 				<span class="font-black text-lg tracking-wide">TIER 1 — STARTER</span>
@@ -61,8 +98,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<!-- Books -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-			<!-- Book 1 -->
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#FFE066] rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">1</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📕</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Don't Do Anything</h3>
@@ -70,8 +106,7 @@ import Layout from '../layouts/Layout.astro';
 				<p class="text-gray-700">Your income engine. Learn how to build digital products that generate revenue on autopilot — no courses to record, no clients to chase, no audience required first.</p>
 			</div>
 
-			<!-- Book 2 -->
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:100ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#FFE066] rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">2</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📗</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Design Your Exit</h3>
@@ -81,7 +116,7 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 
 		<!-- CTA -->
-		<div class="text-center">
+		<div class="text-center reveal-up">
 			<a href="/#get-started" class="inline-flex items-center gap-2 bg-[#1B1B3D] text-white font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg">
 				🌱 Get the Starter Package — $17
 			</a>
@@ -90,10 +125,11 @@ import Layout from '../layouts/Layout.astro';
 </section>
 
 <!-- BUILDER TIER -->
-<section id="builder" class="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-blue-50 via-sky-50 to-blue-50">
+<section id="builder" class="tier-section relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-blue-50 via-sky-50 to-blue-50">
 	<div class="container mx-auto px-4 relative z-10 max-w-5xl">
 		<!-- Tier Header -->
-		<div class="text-center mb-14">
+		<div class="text-center mb-14 reveal-up">
+			<img src="/images/bestvalue.webp" alt="Best Value Package Sloth" width="160" height="160" loading="lazy" decoding="async" class="w-28 h-28 object-contain mx-auto mb-6" />
 			<div class="inline-flex items-center gap-2 bg-[#4D9FFF] text-white border-4 border-black rounded-full px-6 py-2 shadow-[4px_4px_0_rgba(0,0,0,0.2)] mb-6">
 				<span class="text-2xl">🏗️</span>
 				<span class="font-black text-lg tracking-wide">TIER 2 — BUILDER</span>
@@ -107,7 +143,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<!-- Books -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#4D9FFF] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">3</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🗺️</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">The Freedom Blueprint</h3>
@@ -115,7 +151,7 @@ import Layout from '../layouts/Layout.astro';
 				<p class="text-gray-700">The strategic overview. Understand the Five Flags Theory and how residency, citizenship, banking, business, and asset storage work together as a system.</p>
 			</div>
 
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:100ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#4D9FFF] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">4</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🔒</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Strategic Privacy & Tax Positioning</h3>
@@ -123,7 +159,7 @@ import Layout from '../layouts/Layout.astro';
 				<p class="text-gray-700">Earning money is step one. Keeping it is step two. Legally minimize your tax burden and protect your personal information from exposure.</p>
 			</div>
 
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:200ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#4D9FFF] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">5</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🏠</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Residency Without Relocation</h3>
@@ -131,7 +167,7 @@ import Layout from '../layouts/Layout.astro';
 				<p class="text-gray-700">You don't have to move to Panama to be a tax resident of Panama. Programs worldwide that grant legal residency with minimal physical presence requirements.</p>
 			</div>
 
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:300ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#4D9FFF] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">6</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🌐</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Global Business Jurisdictions Guide</h3>
@@ -141,7 +177,7 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 
 		<!-- CTA -->
-		<div class="text-center">
+		<div class="text-center reveal-up">
 			<a href="/#get-started" class="inline-flex items-center gap-2 bg-[#4D9FFF] text-white font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg">
 				🏗️ Get the Best Value Package — $47
 			</a>
@@ -151,10 +187,11 @@ import Layout from '../layouts/Layout.astro';
 </section>
 
 <!-- SCALE TO FREEDOM TIER -->
-<section id="scale" class="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-red-50">
+<section id="scale" class="tier-section relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-red-50">
 	<div class="container mx-auto px-4 relative z-10 max-w-5xl">
 		<!-- Tier Header -->
-		<div class="text-center mb-14">
+		<div class="text-center mb-14 reveal-up">
+			<img src="/images/scaletofreedom.webp" alt="Scale to Freedom Package Sloth" width="160" height="160" loading="lazy" decoding="async" class="w-28 h-28 object-contain mx-auto mb-6" />
 			<div class="inline-flex items-center gap-2 bg-[#FF4D4D] text-white border-4 border-black rounded-full px-6 py-2 shadow-[4px_4px_0_rgba(0,0,0,0.2)] mb-6">
 				<span class="text-2xl">🚀</span>
 				<span class="font-black text-lg tracking-wide">TIER 3 — SCALE TO FREEDOM</span>
@@ -168,7 +205,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<!-- Books -->
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#FF4D4D] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">7</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🏦</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Global Banking Systems for Entrepreneurs</h3>
@@ -176,7 +213,7 @@ import Layout from '../layouts/Layout.astro';
 				<p class="text-gray-700">You can't operate globally with a single domestic bank account. The entire offshore and fintech banking landscape, from free platforms to Swiss private banks.</p>
 			</div>
 
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:100ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#FF4D4D] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">8</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">💳</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Advanced Banking Strategies</h3>
@@ -184,7 +221,7 @@ import Layout from '../layouts/Layout.astro';
 				<p class="text-gray-700">If you're in crypto, e-commerce, or any industry that makes bankers nervous — payment processors, EMIs, and stablecoin rails that bypass banking friction.</p>
 			</div>
 
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:200ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#FF4D4D] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">9</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🛡️</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Asset Protection Playbook</h3>
@@ -192,7 +229,7 @@ import Layout from '../layouts/Layout.astro';
 				<p class="text-gray-700">Building wealth is the first challenge. Keeping it is the second. The top jurisdictions, legal tools, and multi-jurisdictional strategies that make your wealth virtually untouchable.</p>
 			</div>
 
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:300ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#FF4D4D] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">10</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🌳</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Ancestral & Birthright Citizenship</h3>
@@ -203,7 +240,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<!-- Book 11 - Centered -->
 		<div class="max-w-md mx-auto mb-12">
-			<div class="book-card group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300">
+			<div class="book-card reveal-up group relative bg-white border-4 border-black rounded-2xl p-8 shadow-[6px_6px_0_rgba(0,0,0,0.15)] hover:shadow-[10px_10px_0_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300" style="animation-delay:400ms">
 				<div class="absolute -top-3 -left-3 w-10 h-10 bg-[#FF4D4D] text-white rounded-full border-3 border-black flex items-center justify-center font-black text-lg shadow-[2px_2px_0_rgba(0,0,0,0.2)]">11</div>
 				<div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🛂</div>
 				<h3 class="text-xl font-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Investment Citizenship Handbook</h3>
@@ -213,7 +250,7 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 
 		<!-- CTA -->
-		<div class="text-center">
+		<div class="text-center reveal-up">
 			<a href="/#get-started" class="inline-flex items-center gap-2 bg-[#FF4D4D] text-white font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg">
 				🚀 Get the Scale to Freedom Path — $97
 			</a>
@@ -225,7 +262,7 @@ import Layout from '../layouts/Layout.astro';
 <!-- Reading Guide Teaser -->
 <section class="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-[#FFF7E6] via-[#FFFBF2] to-[#FFF7E6]">
 	<div class="container mx-auto px-4 relative z-10 max-w-3xl text-center">
-		<div class="bg-white border-4 border-black rounded-2xl p-10 md:p-14 shadow-[8px_8px_0_rgba(0,0,0,0.15)]">
+		<div class="bg-white border-4 border-black rounded-2xl p-10 md:p-14 shadow-[8px_8px_0_rgba(0,0,0,0.15)] reveal-up">
 			<div class="text-5xl mb-6">🎁</div>
 			<h2 class="text-2xl sm:text-3xl font-black mb-4" style="font-family:'Inter',system-ui,sans-serif;">
 				Every Purchase Includes a Reading Guide
@@ -268,6 +305,7 @@ import Layout from '../layouts/Layout.astro';
 	</div>
 </section>
 
+<ExitIntentPopup />
 </Layout>
 
 <style>
@@ -293,4 +331,80 @@ import Layout from '../layouts/Layout.astro';
 		transform: translateY(-1px);
 		box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
 	}
+
+	.tier-nav-link.active[data-tier="starter"] {
+		background: #FFE066;
+		box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+	}
+
+	.tier-nav-link.active[data-tier="builder"] {
+		background: #4D9FFF;
+		color: white;
+		box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+	}
+
+	.tier-nav-link.active[data-tier="scale"] {
+		background: #FF4D4D;
+		color: white;
+		box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+	}
+
+	/* Scroll reveal */
+	.reveal-up {
+		opacity: 0;
+		transform: translateY(24px);
+		transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+					transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.reveal-up.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.compare-card {
+		text-decoration: none;
+		color: inherit;
+	}
 </style>
+
+<script>
+	// Scroll-reveal: fade-up book cards and sections as they enter viewport
+	const revealObserver = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const delay = entry.target.style.animationDelay;
+				if (delay) {
+					const ms = parseInt(delay);
+					setTimeout(() => entry.target.classList.add('visible'), ms);
+				} else {
+					entry.target.classList.add('visible');
+				}
+				revealObserver.unobserve(entry.target);
+			}
+		});
+	}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+	document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
+
+	// Active tier nav highlighting
+	const tierSections = document.querySelectorAll('.tier-section');
+	const tierNavLinks = document.querySelectorAll('.tier-nav-link');
+
+	const navObserver = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const id = entry.target.id;
+				tierNavLinks.forEach(link => {
+					if (link.dataset.tier === id) {
+						link.classList.add('active');
+					} else {
+						link.classList.remove('active');
+					}
+				});
+			}
+		});
+	}, { threshold: 0, rootMargin: '-30% 0px -60% 0px' });
+
+	tierSections.forEach(section => navObserver.observe(section));
+</script>

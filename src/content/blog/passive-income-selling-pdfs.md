@@ -33,7 +33,7 @@ PDFs have unfair advantages over other digital product formats.
 
 **Instant delivery.** Customer pays. Customer gets file. No onboarding. No login. No "check your spam folder for your access link." It just works.
 
-**High perceived value.** A well-designed, focused PDF guide feels like a real product. Because it is one. The format doesn't matter — the transformation does. If your 20 pages save someone 40 hours of research, they'll pay happily.
+**High perceived value.** A well-designed, focused PDF guide feels like a real product. Because it is one. The format doesn't matter; the transformation does. If your 20 pages save someone 40 hours of research, they'll pay happily.
 
 **Low creation barrier.** You can write 20 pages in a weekend. Format it in Canva or Google Docs. Export. List it. You're live.
 
@@ -65,8 +65,8 @@ Not all PDFs are equal. The ones that sell share three traits:
 
 ## One Product Is a Start. A Catalog Is Freedom
 
-One PDF generating $2K/month is nice. Five PDFs generating $2K each? That's $10K/month. A catalog of related products creates compounding value — each product can cross-sell the others. Bundles increase average order value. Returning customers buy the new releases.
+One PDF generating $2K/month is nice. Five PDFs generating $2K each? That's $10K/month. A catalog of related products creates compounding value: each product can cross-sell the others. Bundles increase average order value. Returning customers buy the new releases.
 
-The system for going from one product to a full catalog — [pricing strategy](/blog/how-to-price-digital-products), bundling, automated marketing, scaling without burnout — is inside *Don't Do Anything*. But the proof of concept? That's one PDF. Built this weekend.
+The system for going from one product to a full catalog ([pricing strategy](/blog/how-to-price-digital-products), bundling, automated marketing, scaling without burnout) is inside *Don't Do Anything*. But the proof of concept? That's one PDF. Built this weekend.
 
 > **Related:** [10 Digital Products You Can Create This Weekend](/blog/digital-products-you-can-create-this-weekend) · [The Anti-Hustle Manifesto](/blog/anti-hustle-manifesto)

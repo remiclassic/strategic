@@ -21,17 +21,17 @@ What it is not: residency. You don't get to live in Estonia. You don't get a vis
 
 The headline: 0% corporate tax on retained earnings. Only pay tax when you distribute profits.
 
-The fine print: this only helps if you're reinvesting profits into the business. The moment you pay yourself — salary, dividends, distributions — tax kicks in. Salary is taxed. Dividends face a 20% corporate income tax at the distribution level (effectively 20/80 = 25% on the net amount).
+The fine print: this only helps if you're reinvesting profits into the business. The moment you pay yourself (salary, dividends, distributions), tax kicks in. Salary is taxed. Dividends face a 20% corporate income tax at the distribution level (effectively 20/80 = 25% on the net amount).
 
 And here's the part nobody mentions in the blog posts: you're still personally taxed wherever you're a tax resident. If you live in Germany and pay yourself from an Estonian company, Germany taxes that income. Estonia's corporate structure doesn't eliminate your personal tax obligation in your home country.
 
-The 0% retained earnings benefit is real — for businesses that genuinely reinvest profits. SaaS companies scaling their product. E-commerce businesses reinvesting in inventory. Tech companies funding development. If you're a solopreneur who needs to take money out to live, the benefit is smaller than advertised.
+The 0% retained earnings benefit is real, for businesses that genuinely reinvest profits. SaaS companies scaling their product. E-commerce businesses reinvesting in inventory. Tech companies funding development. If you're a solopreneur who needs to take money out to live, the benefit is smaller than advertised.
 
 ## The Banking Problem
 
-This is where the dream meets reality. Estonian banks — particularly LHV, the main bank for e-Residency companies — have significantly tightened requirements. Many e-Residents report rejections, long wait times, and accounts closed without clear explanation.
+This is where the dream meets reality. Estonian banks (particularly LHV, the main bank for e-Residency companies) have significantly tightened requirements. Many e-Residents report rejections, long wait times, and accounts closed without clear explanation.
 
-The workaround: use payment processors and fintech instead. Wise Business, Payoneer, and similar platforms work with Estonian companies. But that means your "EU bank account" is actually a Wise account. Which is fine — but it's not what most people envision.
+The workaround: use payment processors and fintech instead. Wise Business, Payoneer, and similar platforms work with Estonian companies. But that means your "EU bank account" is actually a Wise account. Which is fine, but it's not what most people envision.
 
 For businesses with high transaction volumes, EU clients, or regulatory requirements that need a real IBAN from a licensed bank, this bottleneck matters. It's the single biggest practical issue with e-Residency.
 
@@ -63,12 +63,12 @@ It's not expensive compared to [UAE freezone companies](/blog/uae-freezone-compa
 
 **Anyone who needs reliable traditional banking.** The banking situation has been the program's Achilles heel for years.
 
-**Very small businesses.** If you're making $2K/month selling PDFs, the ongoing accounting costs eat into your margins. A simpler structure — [Wyoming LLC](/blog/best-countries-incorporate-online-business), sole proprietorship, or local entity — might serve you better until revenue justifies the overhead.
+**Very small businesses.** If you're making $2K/month selling PDFs, the ongoing accounting costs eat into your margins. A simpler structure ([Wyoming LLC](/blog/best-countries-incorporate-online-business), sole proprietorship, or local entity) might serve you better until revenue justifies the overhead.
 
 ## The Verdict
 
 Estonia e-Residency is a solid tool for the right situation. EU credibility, digital-first management, tax deferral on reinvested profits. But it's not the frictionless "run a company from anywhere" experience the marketing implies.
 
-The full comparison of Estonia alongside Wyoming, UAE, UK, Singapore, and BVI — with real costs, banking access, and which structure fits which profile — is inside *Global Business Jurisdictions Guide*. For the sovereign strategy that ties your business structure to residency and tax positioning, start with [The Five Flags Theory](/blog/five-flags-theory-explained).
+The full comparison of Estonia alongside Wyoming, UAE, UK, Singapore, and BVI (with real costs, banking access, and which structure fits which profile) is inside *Global Business Jurisdictions Guide*. For the sovereign strategy that ties your business structure to residency and tax positioning, start with [The Five Flags Theory](/blog/five-flags-theory-explained).
 
 > **Keep reading:** [Best Countries to Incorporate an Online Business](/blog/best-countries-incorporate-online-business) · [7 Zero-Tax Countries for Digital Nomads](/blog/zero-tax-countries-digital-nomads)

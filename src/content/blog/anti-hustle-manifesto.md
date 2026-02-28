@@ -1,6 +1,6 @@
 ---
 title: "The Anti-Hustle Manifesto: Why Strategic Laziness Beats Grinding"
-description: "Hustle culture is a trap disguised as ambition. Here's why building systems — not working harder — is how you actually escape the time-for-money trade."
+description: "Hustle culture is a trap disguised as ambition. Here's why building systems, not working harder, is how you actually escape the time-for-money trade."
 publishDate: 2025-02-10
 category: "starter"
 heroEmoji: "🦥"
@@ -31,11 +31,11 @@ The hustler adds hours. The strategist adds leverage.
 
 ## What a 2–3 Hour Workday Looks Like
 
-It sounds like a fantasy. It's not. When your income comes from products and systems instead of hours, your workday shrinks. You're not doing less — you're doing different. You're maintaining, improving, and creating. Not reacting, firefighting, and trading time for dollars.
+It sounds like a fantasy. It's not. When your income comes from products and systems instead of hours, your workday shrinks. You're not doing less; you're doing different. You're maintaining, improving, and creating. Not reacting, firefighting, and trading time for dollars.
 
 The people living this aren't unicorns. They're people who made different choices. They built infrastructure. They automated what could be automated. They created assets instead of just tasks.
 
-What that infrastructure looks like — the frameworks for designing your exit, the biohacking of your energy and focus, the life design principles that make a short workday possible — that's a whole system. But the principle is simple: your job is to build things that work without you, not to become irreplaceable by never leaving.
+What that infrastructure looks like (the frameworks for designing your exit, the biohacking of your energy and focus, the life design principles that make a short workday possible), that's a whole system. But the principle is simple: your job is to build things that work without you, not to become irreplaceable by never leaving.
 
 ## Systems Beat Effort
 
@@ -53,4 +53,4 @@ We're not advocating for couch surfing. We're advocating for not confusing motio
 
 The strategic approach: figure out what generates results with the least ongoing effort. Build that. Protect your energy. Design your life so you're not grinding into burnout by 35.
 
-The daily rhythm and life architecture side of this — sleep, energy, focus blocks, eliminating busywork — is what *Design Your Exit* breaks down step by step. The income system is *Don't Do Anything*. The life system is book two. Together, they're the full framework for building leverage instead of burning out.
+The daily rhythm and life architecture side of this (sleep, energy, focus blocks, eliminating busywork) is what *Design Your Exit* breaks down step by step. The income system is *Don't Do Anything*. The life system is book two. Together, they're the full framework for building leverage instead of burning out.

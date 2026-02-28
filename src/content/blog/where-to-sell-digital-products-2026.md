@@ -19,19 +19,19 @@ This decision trips people up more than it should. They spend weeks comparing pl
 
 **Strengths:** Dead simple. Beautiful checkout. Built-in email marketing. Affiliate program. Handles VAT for international sales. You can be live in 30 minutes.
 
-**Weaknesses:** No built-in discovery. Nobody browses Gumroad looking for products. You bring the traffic. The 10% fee stings at scale — sell $10K/month and you're paying $1,000 in fees.
+**Weaknesses:** No built-in discovery. Nobody browses Gumroad looking for products. You bring the traffic. The 10% fee stings at scale: sell $10K/month and you're paying $1,000 in fees.
 
 **Best for:** Creators who already have an audience (email list, social following, community) and want the simplest possible checkout. Great for getting started.
 
 ## Etsy: The Built-In Marketplace
 
-**What it is:** A marketplace with 90+ million active buyers. Originally for handmade goods, now massive for digital products — templates, printables, planners, design assets.
+**What it is:** A marketplace with 90+ million active buyers. Originally for handmade goods, now massive for digital products: templates, printables, planners, design assets.
 
 **Fees:** $0.20 listing fee per item, 6.5% transaction fee, plus payment processing (~3%). Total: roughly 10-12% per sale. Plus optional advertising costs.
 
 **Strengths:** Built-in traffic. People search Etsy for solutions. Your product can be discovered without you driving every visitor. SEO within the platform matters. Reviews build social proof.
 
-**Weaknesses:** Competitive. Your product sits next to hundreds of similar ones. You're playing Etsy's algorithm game. Limited branding — your store looks like Etsy, not like you. Policy changes can tank your visibility overnight.
+**Weaknesses:** Competitive. Your product sits next to hundreds of similar ones. You're playing Etsy's algorithm game. Limited branding: your store looks like Etsy, not like you. Policy changes can tank your visibility overnight.
 
 **Best for:** Printables, templates, and design assets. Anyone who wants organic discovery without building an audience first. Works especially well for visual products.
 
@@ -39,7 +39,7 @@ This decision trips people up more than it should. They spend weeks comparing pl
 
 **What it is:** Your domain, your design, your rules. Sell through payment processors like Stripe, Lemon Squeezy, or Paddle. Use a simple landing page builder or a full site.
 
-**Fees:** Payment processing only — typically 2.9% + $0.30 per transaction. No platform cut. Some tools (Lemon Squeezy, Paddle) handle VAT and sales tax for a higher fee (~5%).
+**Fees:** Payment processing only, typically 2.9% + $0.30 per transaction. No platform cut. Some tools (Lemon Squeezy, Paddle) handle VAT and sales tax for a higher fee (~5%).
 
 **Strengths:** You own the customer relationship. Full branding. No algorithm changes. You set the rules. Margins are the best of any option. You can build an email list, run retargeting ads, and create a real brand.
 
@@ -73,6 +73,6 @@ Three channels. One product. Each platform working a different angle.
 
 The platform matters less than the product. A great product on the wrong platform still sells. A bad product on the perfect platform still fails.
 
-Pick one. List your product. Start selling. Optimize the channel strategy later. The complete system for building, launching, and scaling a digital product business — including platform strategy, marketing automation, and going from one product to a full catalog — is inside *Don't Do Anything*.
+Pick one. List your product. Start selling. Optimize the channel strategy later. The complete system for building, launching, and scaling a digital product business, including platform strategy, marketing automation, and going from one product to a full catalog, is inside *Don't Do Anything*.
 
 > **Related:** [How to Price Digital Products](/blog/how-to-price-digital-products) · [10 Digital Products You Can Create This Weekend](/blog/digital-products-you-can-create-this-weekend)

@@ -1,6 +1,6 @@
 ---
 title: "How to Quit Your 9-to-5 With a Digital Product Business (Realistic Timeline)"
-description: "Not the fantasy version. The honest timeline from side project to resignation letter — including the financial runway, the mindset shift, and the milestones that matter."
+description: "Not the fantasy version. The honest timeline from side project to resignation letter, including the financial runway, the mindset shift, and the milestones that matter."
 publishDate: 2025-03-15
 category: "starter"
 heroEmoji: "🚪"
@@ -19,7 +19,7 @@ You don't quit first and figure it out later. You build first and quit when the 
 
 Your job is your investor right now. It pays your bills while you build something that will eventually replace it. Don't resent the job. Use it.
 
-**What to do:** Pick a product idea. Validate it by finding people who have the problem. Build a minimum viable version — a [PDF, a template, a toolkit](/blog/digital-products-you-can-create-this-weekend). Launch it on Gumroad or your own site. Get your first sale. That first sale matters more than the next hundred because it proves the concept is real.
+**What to do:** Pick a product idea. Validate it by finding people who have the problem. Build a minimum viable version: a [PDF, a template, a toolkit](/blog/digital-products-you-can-create-this-weekend). Launch it on Gumroad or your own site. Get your first sale. That first sale matters more than the next hundred because it proves the concept is real.
 
 **Target:** One product live. One sale. Proof of concept.
 
@@ -27,15 +27,15 @@ Your job is your investor right now. It pays your bills while you build somethin
 
 First sale happened. Now the question: can you make it happen repeatedly?
 
-**What to do:** Write a sales page that actually converts. Set up basic SEO content — blog posts that target what your customers are searching for. Start an email list from buyers. Improve the product based on early feedback. Consider a second product to cross-sell.
+**What to do:** Write a sales page that actually converts. Set up basic SEO content: blog posts that target what your customers are searching for. Start an email list from buyers. Improve the product based on early feedback. Consider a second product to cross-sell.
 
 **Target:** Consistent daily sales. $500-$1,000/month. An email list growing.
 
 ## Month 5-8: Scale the System
 
-This is where most people are still employed — and that's fine. You're building infrastructure, not sprinting. The goal is a system that runs without you checking it hourly.
+This is where most people are still employed, and that's fine. You're building infrastructure, not sprinting. The goal is a system that runs without you checking it hourly.
 
-**What to do:** Add more products. Build bundles. Create automated email sequences that nurture buyers into repeat customers. Diversify traffic sources — SEO, social, communities, partnerships. [Price your products properly](/blog/how-to-price-digital-products) instead of undercharging out of fear.
+**What to do:** Add more products. Build bundles. Create automated email sequences that nurture buyers into repeat customers. Diversify traffic sources: SEO, social, communities, partnerships. [Price your products properly](/blog/how-to-price-digital-products) instead of undercharging out of fear.
 
 **Target:** $2,000-$5,000/month consistently for 2-3 months. An email list of 500+. Multiple products selling.
 
@@ -59,20 +59,20 @@ When you have:
 
 Then you're ready. Not because you can't fail. Because you've built enough infrastructure that failure would take effort.
 
-Write the letter. Give proper notice. Don't burn bridges — your former colleagues are future customers, referral sources, and safety nets.
+Write the letter. Give proper notice. Don't burn bridges; your former colleagues are future customers, referral sources, and safety nets.
 
 ## Month 13+: Full-Time Freedom
 
 Now your job is growing the business. The hours you spent commuting, sitting in meetings, and pretending to look busy? Those are yours now. Channel them into content, new products, and systems.
 
-Most people find that their income accelerates once they go full-time — not because they're working more hours, but because they're working focused hours on the thing that actually pays them.
+Most people find that their income accelerates once they go full-time, not because they're working more hours, but because they're working focused hours on the thing that actually pays them.
 
 ## The Mindset Shift Nobody Talks About
 
 Quitting a job isn't just a financial decision. It's an identity shift. You go from "person who has a job" to "person who doesn't." That sounds trivial until it happens. The structure disappears. The social circle changes. The question "what do you do?" suddenly requires a real answer.
 
-The people who navigate this well are the ones who've already built a new identity around their product business while still employed. They're not "quitting" — they're transitioning. That's a different emotional experience.
+The people who navigate this well are the ones who've already built a new identity around their product business while still employed. They're not "quitting"; they're transitioning. That's a different emotional experience.
 
-The full framework for designing this transition — the life architecture, the energy management, the daily rhythm that replaces corporate structure with something better — is inside *Design Your Exit*. The income engine is *Don't Do Anything*. Together, they're the complete system for going from employed to free without crashing.
+The full framework for designing this transition (the life architecture, the energy management, the daily rhythm that replaces corporate structure with something better) is inside *Design Your Exit*. The income engine is *Don't Do Anything*. Together, they're the complete system for going from employed to free without crashing.
 
 > **Related:** [The Anti-Hustle Manifesto](/blog/anti-hustle-manifesto) · [How to Make Money Selling Digital Products](/blog/how-to-make-money-selling-digital-products)

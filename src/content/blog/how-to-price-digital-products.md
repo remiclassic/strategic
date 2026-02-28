@@ -1,6 +1,6 @@
 ---
 title: "How to Price Digital Products: Stop Undercharging, Start Getting Paid"
-description: "Most creators price based on feelings, not strategy. Here's the psychology behind why people pay more for structure — and why $0 is the worst price you can set."
+description: "Most creators price based on feelings, not strategy. Here's the psychology behind why people pay more for structure, and why $0 is the worst price you can set."
 publishDate: 2025-02-05
 category: "starter"
 heroEmoji: "🏷️"
@@ -15,7 +15,7 @@ Pricing digital products is one of the most emotional decisions creators make. A
 
 ## Why $0 Is the Worst Price You Can Set
 
-Free has a cost. It signals "this isn't worth paying for." It attracts the wrong people — tire-kickers, hoarders, people who'll never use it. It trains your audience that your work has no value. And it burns you out giving away what took you months to build.
+Free has a cost. It signals "this isn't worth paying for." It attracts the wrong people: tire-kickers, hoarders, people who'll never use it. It trains your audience that your work has no value. And it burns you out giving away what took you months to build.
 
 Free samples can work. Free lead magnets can work. But giving away your main product "to build trust" or "to get exposure" is usually a trap. You're not building trust. You're training people that you don't value your own work. Why should they?
 
@@ -25,7 +25,7 @@ The psychology is simple: people assign value based on price. A $0 product is wo
 
 People don't buy features. They buy outcomes. "Save 20 hours" beats "includes 15 templates." "Launch in 30 days" beats "comprehensive guide." The price needs to feel small compared to the result.
 
-Anchoring matters. If the first number someone sees is $9, everything else feels expensive. If the first number is $197, a $47 tier feels like a steal. You're not manipulating — you're framing. Context shapes perception.
+Anchoring matters. If the first number someone sees is $9, everything else feels expensive. If the first number is $197, a $47 tier feels like a steal. You're not manipulating; you're framing. Context shapes perception.
 
 Structure matters more than content. A messy PDF feels worth $9. The same information in a clear framework, with checklists and a logical flow, feels worth $97. Packaging isn't superficial. It's how people evaluate what they're getting.
 
@@ -39,11 +39,11 @@ Fear. "What if nobody buys?" What if they do, and you're stuck delivering premiu
 
 ## The Power of Three Tiers
 
-One price is a yes/no decision. Three prices give people a frame. There's the "basic" option, the "sweet spot" in the middle, and the "premium" option. Most people pick the middle. It feels safe — not the cheapest, not the most expensive. Strategic.
+One price is a yes/no decision. Three prices give people a frame. There's the "basic" option, the "sweet spot" in the middle, and the "premium" option. Most people pick the middle. It feels safe: not the cheapest, not the most expensive. Strategic.
 
 The tiers aren't arbitrary. Each one serves a purpose. The low tier makes the middle look reasonable. The high tier makes the middle look like a deal. The structure does the selling.
 
-How to set those numbers, what to put in each tier, and how to present them so people choose the right one — that's a system. The complete pricing framework, anchoring strategies, and real sales page templates are inside *Don't Do Anything*. But the principle holds: structure beats a single number every time.
+How to set those numbers, what to put in each tier, and how to present them so people choose the right one, that's a system. The complete pricing framework, anchoring strategies, and real sales page templates are inside *Don't Do Anything*. But the principle holds: structure beats a single number every time.
 
 ## Perceived Value vs. Cost
 
@@ -53,7 +53,7 @@ Price based on the value delivered, not the effort it took you. That's not greed
 
 ## The Conversion Piece
 
-Getting the price right is half the battle. The other half is getting people to the point where they're ready to pay. The sequence matters. The copy matters. The offer structure matters. There are formulas that work — specific ways to present price, handle objections, and close the gap between "interested" and "bought."
+Getting the price right is half the battle. The other half is getting people to the point where they're ready to pay. The sequence matters. The copy matters. The offer structure matters. There are formulas that work: specific ways to present price, handle objections, and close the gap between "interested" and "bought."
 
 Those live in the playbook. But the foundation is this: stop pricing from fear. Start pricing from value. Your work is worth more than you think. The numbers will prove it.
 

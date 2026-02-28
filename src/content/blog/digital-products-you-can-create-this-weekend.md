@@ -1,6 +1,6 @@
 ---
 title: "10 Digital Products You Can Create This Weekend (No Skills Required)"
-description: "You don't need design skills, coding knowledge, or a massive following. Here are 10 digital products real people are selling — and you can build any of them in a weekend."
+description: "You don't need design skills, coding knowledge, or a massive following. Here are 10 digital products real people are selling, and you can build any of them in a weekend."
 publishDate: 2025-03-01
 category: "starter"
 heroEmoji: "⚡"
@@ -15,13 +15,13 @@ Here are ten. Pick one. Build it. Stop thinking and start shipping.
 
 ## 1. A Checklist
 
-The simplest product on earth. Take a process you know — launching a podcast, setting up a home office, onboarding a freelance client — and turn it into a step-by-step checklist. Format it in Canva or Google Docs. Export as PDF. Done.
+The simplest product on earth. Take a process you know (launching a podcast, setting up a home office, onboarding a freelance client) and turn it into a step-by-step checklist. Format it in Canva or Google Docs. Export as PDF. Done.
 
 People pay for checklists because they eliminate the fear of forgetting something. That's worth $5 to $15 every time.
 
 ## 2. A Notion or Google Sheets Template
 
-If you've built a system for yourself — a budget tracker, a content calendar, a project manager, a habit tracker — other people want it. Clean it up. Add instructions. Sell it for $9 to $29.
+If you've built a system for yourself (a budget tracker, a content calendar, a project manager, a habit tracker), other people want it. Clean it up. Add instructions. Sell it for $9 to $29.
 
 Templates sell because people don't want to start from scratch. They want to start from "mostly done."
 
@@ -39,7 +39,7 @@ Short. Specific. Useful. Price: $7 to $19. Build time: a few hours of writing pl
 
 ## 5. A Printable Planner or Worksheet
 
-Daily planners, goal-setting worksheets, meeting agenda templates, meal planning pages. Design them in Canva — there are free templates to start from. Sell as downloadable PDFs that people print at home.
+Daily planners, goal-setting worksheets, meeting agenda templates, meal planning pages. Design them in Canva; there are free templates to start from. Sell as downloadable PDFs that people print at home.
 
 The printable market on Etsy alone is enormous. People buy these weekly.
 
@@ -63,7 +63,7 @@ Technical tutorials sell because they turn a frustrating 3-hour Google search in
 
 ## 9. A Bundle
 
-Take 3 to 5 of the items above and package them together. A "Freelancer Starter Kit" with a contract template, invoice template, project tracker, and client onboarding checklist. Bundles have higher perceived value and justify higher prices — $29 to $49 for items that might sell for $9 each.
+Take 3 to 5 of the items above and package them together. A "Freelancer Starter Kit" with a contract template, invoice template, project tracker, and client onboarding checklist. Bundles have higher perceived value and justify higher prices: $29 to $49 for items that might sell for $9 each.
 
 The bundle strategy is how you go from "I sell a template" to "I sell a toolkit."
 
@@ -75,8 +75,8 @@ Case studies sell because they're proof wrapped in a roadmap. People buy the out
 
 ## The Common Thread
 
-Every product on this list solves a specific problem, can be created with free tools, and takes hours — not months — to build. None of them require you to be an expert. You just need to be one step ahead of someone who's stuck.
+Every product on this list solves a specific problem, can be created with free tools, and takes hours, not months, to build. None of them require you to be an expert. You just need to be one step ahead of someone who's stuck.
 
-The mechanics of choosing which one, validating the idea, [pricing it right](/blog/how-to-price-digital-products), writing a sales page that converts, and building an automated marketing system around it — that's the full playbook inside *Don't Do Anything*. But the starting line is here. Pick one. Build it this weekend. See what happens.
+The mechanics of choosing which one, validating the idea, [pricing it right](/blog/how-to-price-digital-products), writing a sales page that converts, and building an automated marketing system around it: that's the full playbook inside *Don't Do Anything*. But the starting line is here. Pick one. Build it this weekend. See what happens.
 
 > **Related:** [How to Make Money Selling Digital Products Without an Audience](/blog/how-to-make-money-selling-digital-products) · [How to Price Digital Products](/blog/how-to-price-digital-products)

@@ -1,6 +1,6 @@
 ---
 title: "The Lazy Launch Method: Ship a Digital Product in 7 Days"
-description: "Perfectionism is the enemy of profit. Here's a 7-day framework for going from idea to live product — no overthinking, no elaborate funnels, no excuses."
+description: "Perfectionism is the enemy of profit. Here's a 7-day framework for going from idea to live product. No overthinking, no elaborate funnels, no excuses."
 publishDate: 2025-03-20
 category: "starter"
 heroEmoji: "🦥"
@@ -47,7 +47,7 @@ The secret to fast writing: talk out loud, then type what you said. Conversation
 
 ## Day 4: Edit and Format (Thursday)
 
-Now you clean it up. Read through once for clarity. Cut anything that doesn't add value. Fix obvious errors. Don't rewrite — tighten.
+Now you clean it up. Read through once for clarity. Cut anything that doesn't add value. Fix obvious errors. Don't rewrite. Tighten.
 
 Format it. If it's a PDF, use Canva or Google Docs with a clean template. Headers. White space. Maybe a cover page. It should look intentional, not fancy. Professional, not polished to death.
 
@@ -65,7 +65,7 @@ This scares people more than writing the product. It shouldn't. A sales page has
 
 **What's inside:** Bullet points of what they'll get and learn.
 
-**Social proof:** Testimonials if you have them. Skip if you don't — you'll add them later.
+**Social proof:** Testimonials if you have them. Skip if you don't; you'll add them later.
 
 **Price + button:** State the price. Explain why it's worth it (time saved, money saved, pain avoided). Add a buy button.
 
@@ -75,7 +75,7 @@ That's it. One page. You can write this in two hours.
 
 ## Day 6: Set Up and Go Live (Saturday)
 
-Create your account on [your chosen platform](/blog/where-to-sell-digital-products-2026). Upload the product. Set the price. Connect your sales page. Test the purchase flow — buy your own product to make sure it works.
+Create your account on [your chosen platform](/blog/where-to-sell-digital-products-2026). Upload the product. Set the price. Connect your sales page. Test the purchase flow: buy your own product to make sure it works.
 
 If you're using your own site, set up Stripe or Lemon Squeezy. If you're using Gumroad, the whole setup takes 20 minutes.
 
@@ -85,7 +85,7 @@ If you're using your own site, set up Stripe or Lemon Squeezy. If you're using G
 
 The scariest day. But also the simplest. Share it.
 
-Post in communities where your target audience hangs out. Share on your social channels. Email anyone you know who fits the profile. Not "buy my thing" spam — genuine "I made this, it solves X problem, here's the link."
+Post in communities where your target audience hangs out. Share on your social channels. Email anyone you know who fits the profile. Not "buy my thing" spam. Genuine "I made this, it solves X problem, here's the link."
 
 **End of day 7:** Real people have seen your product. Some of them might buy it today. Most won't. That's fine. The product exists. The hardest part is over.
 
@@ -95,7 +95,7 @@ A product that's live and selling at 80% quality beats a product that's "almost 
 
 You can always improve it. Update the content. Redesign the cover. Rewrite the sales page after you see what converts. Version 2 is informed by real customer feedback. Version 1 just needs to exist.
 
-The complete system for refining your product, building a catalog, automating your marketing, and scaling from one product to a full business — that's inside *Don't Do Anything*. But the Lazy Launch Method gets you to the starting line. Everything else is iteration.
+The complete system for refining your product, building a catalog, automating your marketing, and scaling from one product to a full business. That's inside *Don't Do Anything*. But the Lazy Launch Method gets you to the starting line. Everything else is iteration.
 
 Ship it. Learn. Improve. Repeat. That's the entire game.
 

@@ -64,11 +64,6 @@ The site can be deployed to any static hosting service:
 3. Set build command: `npm run build`
 4. Set publish directory: `dist`
 
-### Vercel
-1. Push your code to GitHub
-2. Import your repository in Vercel
-3. Vercel will automatically detect Astro and configure the build settings
-
 ### GitHub Pages
 1. Push your code to GitHub
 2. Enable GitHub Pages in your repository settings

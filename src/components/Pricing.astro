@@ -25,6 +25,7 @@ const pricingTiers = [
 		badge: null,
 		image: '/images/starterpackage.webp',
 		buttonText: 'GET STARTED',
+		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/fd467bf3-1dd0-4e1c-92a5-d0dfcbd8646a?embed=1',
 		notes: 'Perfect for beginners!',
 		description: 'Mini guides to help you start selling digital products the lazy way'
 	},
@@ -52,6 +53,7 @@ const pricingTiers = [
 		badge: 'MOST POPULAR',
 		image: '/images/bestvalue.webp',
 		buttonText: 'GET BEST VALUE',
+		checkoutUrl: null,
 		notes: 'Built for builders.',
 		description: 'Everything you need to build a passive income system that runs on autopilot'
 	},
@@ -80,6 +82,7 @@ const pricingTiers = [
 		badge: 'PREMIUM',
 		image: '/images/scaletofreedom.webp',
 		buttonText: 'GET PREMIUM',
+		checkoutUrl: null,
 		notes: 'For the full-time freedom seeker.',
 		description: 'For people ready to go all in on smart, global freedom'
 	}
@@ -213,9 +216,18 @@ if (endTime < new Date()) {
 				<p class="text-sm text-gray-600 italic mb-4">Even if you have no audience, no niche, or no idea where to start.</p>
 
 				<!-- CTA Button -->
-				<button class={`cta-button w-full ${tier.id === 'best-value' ? 'bg-[#4D9FFF] hover:bg-[#3D8FEF]' : tier.id === 'scale-freedom' ? 'bg-[#FFB800] text-[#1B1B3D] hover:bg-[#FFA800]' : 'bg-[#1B1B3D] text-white hover:bg-[#2C2D5D]'} font-bold py-3 rounded-xl border-2 border-black transition-colors`}>
-					{tier.buttonText}
-				</button>
+				{tier.checkoutUrl ? (
+					<a
+						href={tier.checkoutUrl}
+						class={`lemonsqueezy-button cta-button w-full block text-center bg-[#1B1B3D] text-white hover:bg-[#2C2D5D] font-bold py-3 rounded-xl border-2 border-black transition-colors`}
+					>
+						{tier.buttonText}
+					</a>
+				) : (
+					<button class={`cta-button w-full ${tier.id === 'best-value' ? 'bg-[#4D9FFF] hover:bg-[#3D8FEF]' : tier.id === 'scale-freedom' ? 'bg-[#FFB800] text-[#1B1B3D] hover:bg-[#FFA800]' : 'bg-[#1B1B3D] text-white hover:bg-[#2C2D5D]'} font-bold py-3 rounded-xl border-2 border-black transition-colors`}>
+						{tier.buttonText}
+					</button>
+				)}
 
 				<!-- Timer -->
 				<p class="timer-text text-xs text-center mt-4" id={`timer-${tier.id}`}>Special price ends in 22:58:24</p>

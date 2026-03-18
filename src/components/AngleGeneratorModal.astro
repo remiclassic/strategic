@@ -43,8 +43,9 @@ const sampleTopics = [
 >
   <div
     id="angle-modal-card"
-    class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FFFBF2] border-[3px] border-black rounded-[24px] shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+    class="relative w-full max-w-3xl bg-[#FFFBF2] border-[3px] border-black rounded-[24px] overflow-hidden shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
   >
+  <div class="modal-scroll max-h-[90vh] overflow-y-auto overflow-x-hidden">
     <!-- Close -->
     <button
       id="angle-modal-close"
@@ -236,6 +237,7 @@ const sampleTopics = [
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
 
@@ -577,7 +579,7 @@ function openModal(prefillTopic?: string) {
   card.classList.remove('scale-95');
   card.classList.add('scale-100');
   document.body.style.overflow = 'hidden';
-  card.scrollTop = 0;
+  (card.querySelector('.modal-scroll') as HTMLElement).scrollTop = 0;
 }
 
 function closeModal() {

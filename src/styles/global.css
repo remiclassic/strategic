@@ -74,4 +74,30 @@ html::-webkit-scrollbar {
 html {
   -ms-overflow-style: none;
   scrollbar-width: none;
-} 
+}
+
+/* Themed scrollbar for modal popups */
+.modal-scroll {
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #1B1B3D #F6EFD9;
+}
+
+.modal-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: #F6EFD9;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: #1B1B3D;
+  border: 2px solid #F6EFD9;
+  border-radius: 9999px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #2A2A58;
+}

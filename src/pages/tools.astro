@@ -83,6 +83,7 @@ import SalesPageModal from '../components/SalesPageModal.astro';
           </label>
           <input
             id="waitlist-email"
+            name="email_address"
             type="email"
             placeholder="you@example.com"
             autocomplete="email"
@@ -102,6 +103,16 @@ import SalesPageModal from '../components/SalesPageModal.astro';
           ✉️ Notify Me
         </button>
 
+        <p
+          id="waitlist-submit-error"
+          class="text-center text-xs text-red-600 hidden"
+          style="font-family:'Inter',system-ui,sans-serif;"
+          role="status"
+          aria-live="polite"
+        >
+          Something went wrong. Please try again.
+        </p>
+
         <p class="text-center text-xs text-[#B0B0C8]" style="font-family:'Inter',system-ui,sans-serif;">
           Be first to try it when it launches. No spam, ever.
         </p>
@@ -118,7 +129,7 @@ import SalesPageModal from '../components/SalesPageModal.astro';
         You're on the list!
       </h3>
       <p class="text-sm text-[#5C5C7A] leading-relaxed mb-6" style="font-family:'Inter',system-ui,sans-serif;">
-        We'll reach out as soon as this tool is ready. In the meantime, try the Idea Builder. It's live right now.
+        You're in. Check your email to confirm your subscription.
       </p>
       <a
         href="#idea-builder"
@@ -142,9 +153,13 @@ import SalesPageModal from '../components/SalesPageModal.astro';
     const form = document.getElementById('waitlist-form') as HTMLFormElement;
     const emailInput = document.getElementById('waitlist-email') as HTMLInputElement;
     const emailError = document.getElementById('waitlist-email-error') as HTMLElement;
+    const submitError = document.getElementById('waitlist-submit-error') as HTMLElement;
+    const submitBtn = document.getElementById('waitlist-submit') as HTMLButtonElement;
     const defaultState = document.getElementById('waitlist-modal-default') as HTMLElement;
     const successState = document.getElementById('waitlist-modal-success') as HTMLElement;
     const successCta = document.getElementById('waitlist-success-cta') as HTMLAnchorElement;
+    const submitBtnDefaultText = submitBtn.textContent ?? '✉️ Notify Me';
+    const kitSubscriptionEndpoint = 'https://app.kit.com/forms/9222038/subscriptions';
 
     function openModal(toolName: string, toolDesc: string) {
       // Reset state
@@ -152,6 +167,10 @@ import SalesPageModal from '../components/SalesPageModal.astro';
       successState.classList.add('hidden');
       emailInput.value = '';
       emailError.classList.add('hidden');
+      submitError.classList.add('hidden');
+      submitBtn.disabled = false;
+      submitBtn.setAttribute('aria-busy', 'false');
+      submitBtn.textContent = submitBtnDefaultText;
 
       titleEl.textContent = toolName;
       descEl.textContent = toolDesc;
@@ -186,28 +205,45 @@ import SalesPageModal from '../components/SalesPageModal.astro';
     // Success CTA closes modal before scrolling
     successCta.addEventListener('click', () => closeModal());
 
-    // Form submission (local state only, connect backend here later)
-    form.addEventListener('submit', (e) => {
+    // Submit to Kit in the background while keeping this custom modal UI.
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = emailInput.value.trim();
 
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         emailError.classList.remove('hidden');
+        submitError.classList.add('hidden');
         emailInput.focus();
         return;
       }
 
       emailError.classList.add('hidden');
+      submitError.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.textContent = 'Submitting...';
 
-      // ── INTEGRATION POINT ───────────────────────────────────────────────
-      // Replace this block with your actual email list API call, e.g.:
-      // await fetch('/api/waitlist', { method: 'POST', body: JSON.stringify({ email, tool: titleEl.textContent }) })
-      // ────────────────────────────────────────────────────────────────────
-      console.log('Waitlist signup:', { email, tool: titleEl.textContent });
+      try {
+        const body = new URLSearchParams({ email_address: email }).toString();
+        await fetch(kitSubscriptionEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body,
+          mode: 'no-cors',
+        });
 
-      // Show success
-      defaultState.classList.add('hidden');
-      successState.classList.remove('hidden');
+        emailInput.value = '';
+        defaultState.classList.add('hidden');
+        successState.classList.remove('hidden');
+      } catch {
+        submitError.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.setAttribute('aria-busy', 'false');
+        submitBtn.textContent = submitBtnDefaultText;
+      }
     });
   })();
 </script>

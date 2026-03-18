@@ -1,0 +1,728 @@
+---
+const audienceOptions = [
+  { value: "beginners", label: "Beginners" },
+  { value: "busy_professionals", label: "Busy Professionals" },
+  { value: "freelancers", label: "Freelancers" },
+  { value: "creators", label: "Creators" },
+  { value: "parents", label: "Parents" },
+  { value: "students", label: "Students" },
+  { value: "remote_workers", label: "Remote Workers" },
+];
+
+const vibeOptions = [
+  { value: "clean", label: "Clean" },
+  { value: "premium", label: "Premium" },
+  { value: "playful", label: "Playful" },
+  { value: "minimal", label: "Minimal" },
+  { value: "bold", label: "Bold" },
+  { value: "cozy", label: "Cozy" },
+];
+
+const styleOptions = [
+  { value: "text_first", label: "Text-First" },
+  { value: "icon_based", label: "Icon-Based" },
+  { value: "illustration", label: "Illustration" },
+  { value: "photo_text", label: "Photo + Text" },
+  { value: "abstract", label: "Abstract Shapes" },
+];
+
+const colorMoodOptions = [
+  { value: "warm", label: "Warm" },
+  { value: "cool", label: "Cool" },
+  { value: "neutral", label: "Neutral" },
+  { value: "bright", label: "Bright" },
+  { value: "soft", label: "Soft" },
+];
+---
+
+<!-- Cover Direction Generator Modal -->
+<div
+  id="cover-modal-overlay"
+  class="fixed inset-0 z-[210] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+  aria-modal="true"
+  role="dialog"
+  aria-labelledby="cover-modal-title"
+>
+  <div
+    id="cover-modal-card"
+    class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FFFBF2] border-[3px] border-black rounded-[24px] shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+  >
+    <!-- Close -->
+    <button
+      id="cover-modal-close"
+      type="button"
+      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+
+    <div class="p-7 sm:p-8 clear-both">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-10 h-10 rounded-xl border-2 border-black bg-[#E3F4FF] flex items-center justify-center text-xl shadow-[2px_2px_0_#000]">🎨</div>
+        <div>
+          <div class="flex items-center gap-2 mb-0.5">
+            <h2 id="cover-modal-title" class="text-xl font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Cover Direction Generator</h2>
+            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-2.5 py-0.5 shadow-[2px_2px_0_#000]">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
+              LIVE
+            </span>
+          </div>
+          <p class="text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Get a complete visual direction for your PDF cover, plus a ready-to-paste AI image prompt.</p>
+        </div>
+      </div>
+
+      <div class="h-px bg-black/10 my-6"></div>
+
+      <!-- Form -->
+      <div class="space-y-5">
+        <!-- Topic + audience row -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-topic" style="font-family:'Inter',system-ui,sans-serif;">What is your PDF about?</label>
+            <input
+              id="cover-topic"
+              type="text"
+              placeholder="e.g. budgeting, freelancing, fitness..."
+              class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+              style="font-family:'Inter',system-ui,sans-serif;"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-audience" style="font-family:'Inter',system-ui,sans-serif;">Who is it for?</label>
+            <div class="relative">
+              <select id="cover-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual direction row -->
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-vibe" style="font-family:'Inter',system-ui,sans-serif;">Vibe</label>
+            <div class="relative">
+              <select id="cover-vibe" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {vibeOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-style" style="font-family:'Inter',system-ui,sans-serif;">Visual Style</label>
+            <div class="relative">
+              <select id="cover-style" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {styleOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-color" style="font-family:'Inter',system-ui,sans-serif;">Color Mood</label>
+            <div class="relative">
+              <select id="cover-color" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {colorMoodOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate -->
+        <button
+          id="cover-generate-btn"
+          type="button"
+          class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          <span id="cover-btn-icon">🎨</span>
+          <span id="cover-btn-text">Generate Cover Direction</span>
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      <div id="cover-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+        <span class="text-4xl mb-3">🖼️</span>
+        <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your cover brief will appear here</p>
+        <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above and hit Generate</p>
+      </div>
+
+      <!-- Result -->
+      <div id="cover-result" class="mt-6 hidden">
+        <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+          <!-- Result header -->
+          <div class="bg-[#1B1B3D] px-6 py-4">
+            <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-1" style="font-family:'Inter',system-ui,sans-serif;">Your Cover Direction</p>
+            <h3 id="cover-concept-title" class="text-white text-xl font-black leading-tight" style="font-family:'Inter',system-ui,sans-serif;"></h3>
+          </div>
+
+          <div class="p-6 sm:p-7 space-y-4">
+            <!-- Visual direction -->
+            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Visual Direction</p>
+              <p id="cover-visual-summary" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Color + Typography -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="bg-[#FFF3CD] border-2 border-black rounded-xl p-4">
+                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Color Direction</p>
+                <p id="cover-color-direction" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              </div>
+              <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
+                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Typography</p>
+                <p id="cover-typography" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              </div>
+            </div>
+
+            <!-- Layout + Best for -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
+                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Layout</p>
+                <p id="cover-layout" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              </div>
+              <div class="bg-[#E3F9ED] border-2 border-black rounded-xl p-4">
+                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Best For</p>
+                <p id="cover-best-for" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              </div>
+            </div>
+
+            <!-- AI Image Prompt -->
+            <div class="bg-[#1B1B3D] border-2 border-black rounded-xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <p class="text-xs font-black uppercase tracking-widest text-[#FFD600]" style="font-family:'Inter',system-ui,sans-serif;">AI Image Prompt</p>
+                <button
+                  id="cover-copy-prompt-btn"
+                  type="button"
+                  class="inline-flex items-center gap-1.5 bg-[#FFD600] text-black font-black text-xs px-3 py-1.5 rounded-lg border-2 border-[#FFD600] shadow-[2px_2px_0_rgba(255,214,0,0.3)] hover:shadow-[1px_1px_0_rgba(255,214,0,0.3)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all duration-150"
+                  style="font-family:'Inter',system-ui,sans-serif;"
+                >
+                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                  </svg>
+                  <span id="cover-copy-prompt-text">Copy Prompt</span>
+                </button>
+              </div>
+              <p id="cover-image-prompt" class="text-[#B8B8D4] text-sm leading-relaxed font-mono" style="font-size:0.8rem;"></p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-1">
+              <button
+                id="cover-copy-brief-btn"
+                type="button"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span id="cover-copy-brief-text">Copy Full Creative Brief</span>
+              </button>
+              <button
+                id="cover-regen-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Regenerate
+              </button>
+            </div>
+
+            <p class="text-xs text-[#B0B0C8] text-center pt-1" style="font-family:'Inter',system-ui,sans-serif;">
+              Paste the image prompt into Midjourney, DALL-E, or Canva AI to generate a cover visual.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+// INTEGRATION POINT: replace generateCoverDirection() body with
+// fetch('/api/generate-cover', { topic, audience, vibe, visualStyle, colorMood })
+
+type CoverInputs = { topic: string; audience: string; vibe: string; visualStyle: string; colorMood: string; variant: number; };
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const conceptTitlesByVibeColor: Record<string, Record<string, string[]>> = {
+  clean: {
+    warm:    ["The Clean & Warm {topic} Cover", "Simple Warmth: A {topic} Cover Direction", "Light, Clean, Inviting"],
+    cool:    ["The Clean & Focused {topic} Cover", "Clarity in Cool Tones", "Crisp and Clear: A {topic} Direction"],
+    neutral: ["The Clean & Neutral {topic} Cover", "Balanced Simplicity", "Clean Neutral: A {topic} Direction"],
+    bright:  ["The Clean & Bright {topic} Cover", "Fresh and Airy: A {topic} Direction", "Bright Clarity for {topic}"],
+    soft:    ["The Clean & Soft {topic} Cover", "Gentle Clarity: A {topic} Direction", "Soft and Simple: A {topic} Cover"],
+  },
+  premium: {
+    warm:    ["The Premium Warm {topic} Cover", "Refined and Rich: A {topic} Direction", "Elevated Warmth for {topic}"],
+    cool:    ["The Premium & Refined {topic} Cover", "Cool Sophistication: A {topic} Direction", "Polished and Professional"],
+    neutral: ["The Premium Neutral {topic} Cover", "Understated Excellence", "Refined Neutrals: A {topic} Direction"],
+    bright:  ["The Premium & Vivid {topic} Cover", "High-Impact Premium: A {topic} Direction", "Bold Premium Energy for {topic}"],
+    soft:    ["The Soft Premium {topic} Cover", "Quiet Luxury: A {topic} Direction", "Refined Softness for {topic}"],
+  },
+  playful: {
+    warm:    ["The Playful & Warm {topic} Cover", "Friendly Energy: A {topic} Direction", "Warm and Approachable"],
+    cool:    ["The Playful & Cool {topic} Cover", "Fresh Fun: A {topic} Direction", "Bright and Lighthearted"],
+    neutral: ["The Balanced Playful {topic} Cover", "Fun with Restraint: A {topic} Direction", "Playful but Polished"],
+    bright:  ["The Bright & Playful {topic} Cover", "Bold Fun: A {topic} Direction", "High Energy and Friendly"],
+    soft:    ["The Soft & Playful {topic} Cover", "Gentle Charm: A {topic} Direction", "Friendly and Approachable"],
+  },
+  minimal: {
+    warm:    ["The Minimal Warm {topic} Cover", "Warmth Through Simplicity", "Less Is More: A {topic} Warm Direction"],
+    cool:    ["The Minimal Cool {topic} Cover", "Precision and Calm: A {topic} Direction", "Focused and Quiet"],
+    neutral: ["The Pure Minimal {topic} Cover", "Maximum White Space: A {topic} Direction", "Stripped Back and Strong"],
+    bright:  ["The Minimal & Bright {topic} Cover", "Simple but Striking: A {topic} Direction", "One Color, Full Presence"],
+    soft:    ["The Minimal Soft {topic} Cover", "Barely There Beauty: A {topic} Direction", "Soft Minimalism for {topic}"],
+  },
+  bold: {
+    warm:    ["The Bold & Warm {topic} Cover", "High Contrast Warmth: A {topic} Direction", "Strong and Inviting"],
+    cool:    ["The Bold & Cool {topic} Cover", "Confident and Sharp: A {topic} Direction", "High Impact, Cool Palette"],
+    neutral: ["The Bold & Neutral {topic} Cover", "Strong Type in Neutral Space", "Confident Restraint: A {topic} Direction"],
+    bright:  ["The Maximum Bold {topic} Cover", "Full-Volume Energy: A {topic} Direction", "High Impact, High Color"],
+    soft:    ["The Bold-Soft {topic} Cover", "Strong but Gentle: A {topic} Direction", "Unexpected Softness on a Bold Base"],
+  },
+  cozy: {
+    warm:    ["The Cozy & Warm {topic} Cover", "Feels Like Home: A {topic} Direction", "Warmth You Can Hold"],
+    cool:    ["The Cozy & Calm {topic} Cover", "Quiet and Comfortable: A {topic} Direction", "Cool Comfort: A {topic} Direction"],
+    neutral: ["The Cozy Neutral {topic} Cover", "Understated Warmth: A {topic} Direction", "Calm and Comfortable"],
+    bright:  ["The Bright Cozy {topic} Cover", "Warm Energy and Comfort: A {topic} Direction", "Cheerful and Cozy"],
+    soft:    ["The Soft & Cozy {topic} Cover", "The Warmest Kind of Simple: A {topic} Direction", "Gentle and Welcoming"],
+  },
+};
+
+const visualSummaryByVibeStyle: Record<string, Record<string, string[]>> = {
+  clean: {
+    text_first:   ["A clean, typography-led cover with generous white space and one strong headline. No decorative clutter. The type does all the work.", "Bold, readable title front and center. Clean margins, no distractions. The design gets out of the way of the content."],
+    icon_based:   ["A single clear icon paired with a clean headline. Minimal background, strong contrast. Simple enough to work at any size.", "One central icon, cleanly placed, with the title in a crisp sans-serif below. Nothing competes. Everything is legible."],
+    illustration: ["A clean line illustration as the hero visual, kept simple and purposeful. Title placed clearly below or above. Approachable and professional.", "A minimal line drawing that communicates the topic at a glance, with clean typography and plenty of breathing room around it."],
+    photo_text:   ["A clean, lightly cropped photo behind a white or transparent overlay, with the title sitting clearly above. The photo adds context without overpowering the type.", "A simple photo with a clean text block overlaid at the bottom or top. Strong hierarchy, easy to read at any size."],
+    abstract:     ["Clean geometric shapes as background accents, not the main event. Typography is the hero. Shapes add structure without distraction.", "Minimal abstract geometry. A few clean shapes to frame the title. Nothing loud, nothing decorative for its own sake."],
+  },
+  premium: {
+    text_first:   ["Refined typography with intentional weight contrast. A headline that feels like it belongs in a bookshop. Generous leading, considered spacing.", "A typographic cover that earns attention through craft. High-quality font choices, deliberate spacing, and a sense of restraint that communicates quality."],
+    icon_based:   ["A single premium icon or emblem, centered with precise placement. The kind of icon that looks like it was custom-drawn for this exact product.", "One considered icon that reads as a mark or logo. Clean, premium, and instantly recognizable. Paired with elegant typography."],
+    illustration: ["A detailed, high-quality illustration that anchors the design. The kind of visual that signals craft and care. Paired with polished, premium typography.", "An illustration with clear intention behind every line. Not decorative. Purposeful. Placed to give the title space and elevation."],
+    photo_text:   ["A rich, high-resolution photo that sets the mood immediately. Typography placed with editorial care, using contrast and weight to stay readable.", "A premium editorial layout: full-bleed photo, title in a high-quality serif or well-crafted sans-serif, with considered placement and white space."],
+    abstract:     ["Abstract forms used with restraint and intention. Shapes that feel designed, not random. The overall impression is confident and refined.", "Considered abstract geometry that signals design sophistication. Not loud, not obvious. The shapes reward attention."],
+  },
+  playful: {
+    text_first:   ["A bold, friendly headline font with just a touch of bounce. Color and weight variations in the type itself. Fun to look at, easy to read.", "Playful typography that has energy without being chaotic. A fun font choice with a clear, readable hierarchy."],
+    icon_based:   ["A friendly, expressive icon that makes you want to smile. Paired with a fun, rounded typeface. Warm and approachable from a distance.", "An icon with personality. Rounded shapes, gentle humor, or a clever visual concept. The kind of icon that makes people lean in."],
+    illustration: ["A characterful illustration with energy and warmth. Could be hand-drawn style or loose digital. Full of personality without losing clarity.", "An illustration that communicates a mood or moment, not just a concept. Friendly, warm, and specific enough to feel real."],
+    photo_text:   ["A photo chosen for mood and approachability, paired with a fun, friendly typographic treatment. The text feels at home in the image.", "An inviting, human photo with a headline that has warmth and personality. Not corporate. Not stiff. Just friendly."],
+    abstract:     ["Abstract shapes that feel organic and fun. Rounded, colorful, and a bit unexpected. The kind of cover that makes someone pick it up.", "Loose, flowing shapes with a sense of movement. Playful geometry that does not take itself too seriously."],
+  },
+  minimal: {
+    text_first:   ["Just the title, beautifully set, on a clean background. Maximum restraint. The whole design is the typography.", "One typeface. One size hierarchy. Nothing else. The confidence of saying exactly what is needed and stopping there."],
+    icon_based:   ["A single small icon, perfectly centered, with the title below in fine type. A design that succeeds through precision and quiet.", "One icon, placed with intention. The icon could almost be mistaken for a logo. Simple enough to feel expensive."],
+    illustration: ["A single, small illustration on a large open field. The minimalism makes the illustration feel more significant, not less.", "A delicate illustration used as a visual anchor, surrounded by deliberate white space. Restraint everywhere."],
+    photo_text:   ["A photo reduced to near abstraction by tight cropping or heavy negative space. Type placed with precision. Almost editorial in feel.", "A photo that works as texture or mood rather than subject matter. Clean, spare, and confident."],
+    abstract:     ["One shape, or two at most. The whole composition is built around what is left out.", "A minimal abstract direction where a single geometric element provides all the visual structure needed."],
+  },
+  bold: {
+    text_first:   ["An oversized headline that takes up most of the cover. Maximum weight, maximum presence. The typography is the design.", "Type so big it becomes texture. The title at full volume. A cover that is heard before it is read."],
+    icon_based:   ["A large, high-contrast icon placed boldly on the cover. No apologies, no shrinking. A symbol that demands attention.", "A single icon scaled to fill the space. High contrast, strong silhouette. Instantly recognizable at any distance."],
+    illustration: ["A bold illustration with strong lines and clear shapes. The kind of visual that reads from across a room. High contrast, graphic, and direct.", "An illustration that works like a poster. Strong shapes, clear composition, and an undeniable presence."],
+    photo_text:   ["A high-contrast photo-and-text combination where both compete for attention and somehow both win. Energetic and direct.", "A full-bleed photo with the title in a bold knockout treatment. The kind of cover that stops the scroll."],
+    abstract:     ["Bold abstract shapes that own the space. High contrast, strong geometry, and a composition that communicates energy and confidence.", "Abstract forms used with maximum intention. Big, direct, and unforgettable. Designed to make an impression."],
+  },
+  cozy: {
+    text_first:   ["A warm, slightly rounded typeface that feels welcoming. The kind of cover you want to hold. Comfortable spacing, no hard edges.", "Typography that feels like a handwritten note from a friend, but cleaner. Warm, personal, and easy to read."],
+    icon_based:   ["A cozy, warm icon. Something that feels familiar and safe. A cup, a home, a plant. Paired with a friendly, rounded font.", "A small, warm icon that adds character without noise. Something that makes the cover feel lived-in and real."],
+    illustration: ["A warm, inviting illustration with soft lines and a domestic, human feeling. The kind of image that makes you slow down.", "An illustration that could live in a nice magazine or on a greeting card. Warm, personal, and full of quiet detail."],
+    photo_text:   ["A cozy, warm photo that puts the reader at ease immediately. A kitchen, a workspace, a person in their element. Title set in a warm, readable font.", "A photo that communicates safety, comfort, and calm. Not aspirational. Just real and welcoming."],
+    abstract:     ["Soft, organic abstract shapes that feel hand-made. The kind of design that feels considered and personal, like a pattern in a nice notebook.", "Abstract forms with warmth and softness. Rounded, textured, and human. Not cold geometry."],
+  },
+};
+
+const colorDirections: Record<string, string[]> = {
+  warm: [
+    "Cream or off-white background (#FFFBF2 or similar). Warm amber accents (#F5A623). Deep brown or charcoal for type. The palette feels like morning light, paper, and good coffee.",
+    "Sand and terracotta tones. A warm beige base with burnt orange or rust as the accent color. Type in dark espresso brown. Feels grounded and welcoming.",
+    "Warm white background with golden yellow as the primary accent. Honey tones for secondary elements. Deep navy or charcoal for body type. Bright but never cold.",
+  ],
+  cool: [
+    "Crisp white or pale blue-grey background. Slate or steel blue as the primary accent. Type in near-black charcoal. Clean, focused, and professional.",
+    "Light cool grey background (#F3F4F6). Teal or ocean blue accents. Deep navy for headings. The palette reads as calm, intelligent, and trustworthy.",
+    "White background with icy blue or periwinkle accents. Silver-grey for secondary elements. Type in deep midnight blue. Sharp and composed.",
+  ],
+  neutral: [
+    "White or light stone background. Medium grey as the primary accent. Type in near-black. Add a single warm or cool tone as a subtle pop. Controlled and versatile.",
+    "Warm white with light greige accents. Muted sage or dusty rose as a secondary tone. Type in dark charcoal. Feels balanced and easy to read.",
+    "Off-white base with concrete grey accents. One muted accent color (dusty blue, soft olive, or blush). Type in near-black. Restrained and professional.",
+  ],
+  bright: [
+    "White or light background with a vivid primary accent: bright yellow (#FFD600), electric blue (#4D9FFF), or lime green (#2ECC71). High contrast type in near-black. Energetic and clear.",
+    "A saturated background color as the primary field, with white or light type on top. Bold, direct, and impossible to miss. Pick one strong color and commit to it.",
+    "Bright accent on a neutral base. The accent color does all the work. Keep everything else white and black for maximum punch.",
+  ],
+  soft: [
+    "Blush pink or lavender as the background. Pale sage or dusty blue as the accent. Type in warm grey or soft navy. Gentle, personal, and approachable.",
+    "Soft cream background with muted rose, sage, or powder blue accents. The palette feels like a nice stationery set. Quiet but refined.",
+    "Pale mint or soft peach as the base. One slightly deeper accent in the same family. Type in charcoal or deep plum. Soft, safe, and easy on the eyes.",
+  ],
+};
+
+const typographySuggestions: Record<string, string[]> = {
+  clean:   [
+    "A clean, geometric sans-serif for the title: Inter, DM Sans, or Figtree. A lighter weight version of the same font for the subtitle. No serifs. No script. Just clarity.",
+    "Sora or Plus Jakarta Sans for the headline. Medium weight for the subtitle. The same type family throughout, just varying in weight.",
+  ],
+  premium: [
+    "A refined serif for the title: Playfair Display, Cormorant Garamond, or DM Serif Display. A clean sans-serif like Inter for the subtitle. The serif/sans contrast creates hierarchy and elegance.",
+    "Libre Baskerville or Lora for the headline. A light, precise sans-serif for supporting text. The combination signals quality and taste.",
+  ],
+  playful: [
+    "A friendly, rounded sans-serif: Nunito, Quicksand, or Poppins. The rounded terminals read as warm and approachable. Use bold weight for the headline, regular for everything else.",
+    "Fredoka One or Comfortaa for the headline. A clean, slightly lighter rounded sans for the subtitle. Friendly without being childish.",
+  ],
+  minimal: [
+    "A single, high-quality sans-serif used at very different weights: ultra-light for context text, black or heavy for the title. Helvetica Neue, Neue Haas Grotesk, or Satoshi.",
+    "One typeface, two weights. That is the entire typographic system. Clarity comes from restraint, not variety.",
+  ],
+  bold:    [
+    "A heavy, impactful display font: Anton, Bebas Neue, or Space Grotesk Extra Bold. Large tracking for the title. Clean sans-serif at smaller sizes for legibility.",
+    "Impact-style display type at maximum size. Condensed or wide, but not both. A small, quiet subtitle in a light weight provides contrast.",
+  ],
+  cozy:    [
+    "A warm, slightly humanist sans-serif: Lato, Source Sans, or Rubik. Or a gentle serif like Libre Baskerville. The type should feel like handwriting but still readable.",
+    "A soft, warm serif for the headline (Crimson Pro or Merriweather) paired with a clean, friendly sans for the subtitle. The combination feels personal and readable.",
+  ],
+};
+
+const layoutSuggestions: Record<string, string[]> = {
+  text_first:   [
+    "Title centered at the top, taking up the top third of the cover. Subtitle below in a smaller weight. Author or series name at the bottom in the smallest size. Simple top-down hierarchy.",
+    "Large title text left-aligned with strong baseline. Subtitle to the right at a smaller scale, or directly below. Background is either white or a single flat color.",
+  ],
+  icon_based:   [
+    "Icon centered in the middle third of the cover, with title above and subtitle below. The composition is symmetric and stable. Generous space around the icon.",
+    "Icon at the top, title in the lower half. Or icon very small and used as a supporting mark below the title. Either way, the icon and the type share the space without competing.",
+  ],
+  illustration: [
+    "Illustration fills the bottom two-thirds of the cover. Title sits at the top against a clean sky or background area. The illustration and title do not overlap.",
+    "Illustration placed in a contained panel or box in the center of the cover, with title above and details below. Creates a clear, storybook-style composition.",
+  ],
+  photo_text:   [
+    "Photo fills the full cover. A solid color bar or translucent overlay at the top or bottom provides contrast for the title. The type is always legible against the overlay.",
+    "Photo cropped to the top half of the cover. Title and subtitle in the white or light space below. Clean split-layout that keeps the photo and type clearly separated.",
+  ],
+  abstract:     [
+    "Abstract shapes used as a frame or border around the main content area. Title centered inside the framed space. Shapes anchor the design without crowding the type.",
+    "Geometric shapes placed as large background elements that give rhythm and structure. Title floats over the top, clearly legible. Shapes create depth without adding noise.",
+  ],
+};
+
+const imagePromptsByVibeColorStyle: Record<string, Record<string, Record<string, string[]>>> = {
+  clean: {
+    warm: {
+      text_first:   ["PDF cover design, clean typography layout, warm cream background #FFFBF2, single bold sans-serif title in dark charcoal, small subtitle below, generous white space, golden amber accent line, professional but friendly, A4 portrait ratio, flat design, no photography, vector style"],
+      icon_based:   ["PDF cover design, single clean line icon centered, warm white background, small charcoal title below icon, minimal layout, golden yellow accent, generous padding, professional, A4 portrait, flat vector illustration"],
+      illustration: ["PDF cover design, warm minimal line illustration as hero, cream background, clean sans-serif title above illustration, plenty of white space, amber and warm brown tones, no clutter, A4 portrait, flat illustration style"],
+      photo_text:   ["PDF cover design, warm photography background with light cream overlay at top third, bold clean title over overlay, charcoal text, warm tones, amber accents, editorial layout, A4 portrait"],
+      abstract:     ["PDF cover design, clean abstract geometric shapes in warm amber tones as background accents, cream base, bold charcoal title centered, minimal composition, A4 portrait, flat vector"],
+    },
+    cool: {
+      text_first:   ["PDF cover design, clean typographic layout, white background, bold sans-serif title in deep navy, slate blue accent elements, crisp and professional, generous white space, A4 portrait, flat design"],
+      icon_based:   ["PDF cover design, single clean icon, white or pale blue-grey background, navy title below, teal accent, minimal clean layout, A4 portrait, vector illustration"],
+      illustration: ["PDF cover design, clean line illustration, white background, cool blue-grey palette, navy title, minimal decoration, crisp and clear, A4 portrait, flat illustration"],
+      photo_text:   ["PDF cover design, cool-toned photography, white overlay at top, clean navy title, steel blue accents, editorial clean layout, A4 portrait"],
+      abstract:     ["PDF cover design, cool geometric shapes in slate and teal, white background, clean navy title, minimal and precise, A4 portrait, flat vector style"],
+    },
+    neutral: {
+      text_first:   ["PDF cover design, clean typography on warm white background, near-black title, medium grey accents, one soft accent color, balanced neutral palette, professional and clean, A4 portrait"],
+      icon_based:   ["PDF cover design, clean single icon, neutral warm white background, charcoal type, grey and one muted accent, minimal and balanced, A4 portrait, flat vector"],
+      illustration: ["PDF cover design, minimal line illustration, warm white background, neutral grey and charcoal palette, one soft accent tone, clean and balanced, A4 portrait"],
+      photo_text:   ["PDF cover design, neutral-toned photography, light overlay, clean charcoal title, greige and grey palette, one muted accent, professional layout, A4 portrait"],
+      abstract:     ["PDF cover design, simple geometric shapes in neutral greys and one muted accent color, clean white base, charcoal title, balanced and professional, A4 portrait, flat vector"],
+    },
+    bright: {
+      text_first:   ["PDF cover design, clean typographic layout, white background, bold near-black title, bright yellow or electric blue accent elements, high contrast and energetic, A4 portrait, flat design"],
+      icon_based:   ["PDF cover design, clean icon with bright accent color, white background, bold title, vivid color pop, clean and energetic, A4 portrait, vector illustration"],
+      illustration: ["PDF cover design, clean line illustration with bright accent colors, white background, bold clean title, fresh and clear, A4 portrait, flat illustration"],
+      photo_text:   ["PDF cover design, clean photo with bright accent overlay element, white and vivid tones, bold title, high-contrast clean layout, A4 portrait"],
+      abstract:     ["PDF cover design, clean bright geometric shapes as accents, white background, bold near-black title, one vivid primary color, clean and fresh, A4 portrait, flat vector"],
+    },
+    soft: {
+      text_first:   ["PDF cover design, clean typography on soft cream or blush background, warm charcoal title, pale sage or dusty blue accents, gentle and clean, A4 portrait, flat design"],
+      icon_based:   ["PDF cover design, single soft icon, blush or pale lavender background, gentle charcoal title, muted palette, clean and gentle, A4 portrait, flat vector illustration"],
+      illustration: ["PDF cover design, gentle line illustration, soft pastel background, muted warm palette, clean light type, gentle and approachable, A4 portrait, flat illustration style"],
+      photo_text:   ["PDF cover design, soft warm photography, pale overlay, gentle charcoal title, muted pastel accents, soft and approachable layout, A4 portrait"],
+      abstract:     ["PDF cover design, soft organic shapes in muted pastels, pale cream background, gentle charcoal title, quiet and clean, A4 portrait, flat vector"],
+    },
+  },
+  premium: {
+    warm: {
+      text_first:   ["PDF cover design, premium typographic layout, warm off-white or champagne background, elegant serif title in deep brown, gold accent lines, refined and sophisticated, A4 portrait, high-end editorial style"],
+      icon_based:   ["PDF cover design, premium emblem or icon centered, warm champagne background, elegant serif font below, gold details, refined and exclusive, A4 portrait, high-quality vector"],
+      illustration: ["PDF cover design, detailed premium illustration, warm cream background, rich amber and brown tones, elegant serif title, sophisticated and crafted, A4 portrait"],
+      photo_text:   ["PDF cover design, premium editorial photography in warm tones, elegant serif title with gold accent, rich and sophisticated layout, A4 portrait"],
+      abstract:     ["PDF cover design, premium abstract forms in warm gold and brown, cream background, refined serif or high-quality sans title, sophisticated and intentional, A4 portrait"],
+    },
+    cool: {
+      text_first:   ["PDF cover design, premium typographic layout, crisp white background, elegant serif or refined sans-serif title in deep navy, silver-grey accents, sophisticated and professional, A4 portrait, editorial quality"],
+      icon_based:   ["PDF cover design, premium mark or emblem, white background, deep navy and silver palette, refined type, high-end and minimal, A4 portrait, premium vector style"],
+      illustration: ["PDF cover design, premium detailed illustration, cool white and navy palette, silver accents, elegant type, sophisticated and expensive-looking, A4 portrait"],
+      photo_text:   ["PDF cover design, premium cool-toned editorial photo, crisp overlay, refined serif title in deep navy, silver accent details, high-end layout, A4 portrait"],
+      abstract:     ["PDF cover design, premium cool abstract geometry in navy and silver, white background, refined title, sophisticated and intentional, A4 portrait, premium vector"],
+    },
+    neutral: {
+      text_first:   ["PDF cover design, premium neutral typography, warm white or stone background, high-quality serif title in near-black, refined grey and one muted accent, sophisticated restraint, A4 portrait"],
+      icon_based:   ["PDF cover design, premium minimal icon or mark, neutral warm white, charcoal and grey with one refined accent, elegant type, expensive and understated, A4 portrait"],
+      illustration: ["PDF cover design, premium illustration in neutral tones, refined and detailed, elegant type, restrained palette, crafted feel, A4 portrait"],
+      photo_text:   ["PDF cover design, premium editorial photo in neutral tones, refined text treatment, charcoal and grey palette, one muted accent, sophisticated layout, A4 portrait"],
+      abstract:     ["PDF cover design, premium abstract geometry in neutral refined tones, white and grey, one considered accent, refined title, understated luxury, A4 portrait"],
+    },
+    bright: {
+      text_first:   ["PDF cover design, premium typographic layout with a bold vivid accent, white background, refined heavy display type, high-contrast and confident, A4 portrait, premium editorial"],
+      icon_based:   ["PDF cover design, premium bold icon with one vivid accent color, white background, refined sans-serif title, high-quality and striking, A4 portrait"],
+      illustration: ["PDF cover design, premium bold illustration with vivid accent colors, high quality and detailed, confident layout, premium feel, A4 portrait"],
+      photo_text:   ["PDF cover design, premium editorial photo with bold vivid accent overlay, refined type, high contrast and sophisticated, A4 portrait"],
+      abstract:     ["PDF cover design, premium bold abstract geometry with one vivid accent on white, refined title, confident and sophisticated, A4 portrait"],
+    },
+    soft: {
+      text_first:   ["PDF cover design, premium soft typographic layout, blush or pale champagne background, refined serif title in deep charcoal, muted rose or sage accent, quiet luxury, A4 portrait"],
+      icon_based:   ["PDF cover design, premium delicate icon, soft blush background, elegant serif type, muted refined palette, quiet and expensive, A4 portrait"],
+      illustration: ["PDF cover design, premium soft detailed illustration, pale and refined palette, elegant type, crafted feel, quiet luxury, A4 portrait"],
+      photo_text:   ["PDF cover design, premium soft editorial photo, pale overlay, refined type in charcoal, muted accent, quiet and sophisticated, A4 portrait"],
+      abstract:     ["PDF cover design, premium soft abstract forms, pale and muted refined palette, elegant title, quiet luxury feel, A4 portrait"],
+    },
+  },
+  playful: {
+    warm: {
+      text_first:   ["PDF cover design, playful typography with rounded font, warm orange and yellow palette, white background, fun and approachable, energetic but readable, A4 portrait, flat friendly design"],
+      icon_based:   ["PDF cover design, fun friendly icon with warm colors, rounded sans-serif title, playful warm palette, approachable and engaging, A4 portrait, flat illustration"],
+      illustration: ["PDF cover design, playful warm illustration with friendly character or scene, rounded fun font, warm orange and yellow tones, approachable and joyful, A4 portrait"],
+      photo_text:   ["PDF cover design, warm inviting photography, playful rounded font overlay, warm colors, friendly and fun layout, A4 portrait"],
+      abstract:     ["PDF cover design, playful warm abstract shapes with rounded edges, orange and yellow palette, friendly rounded title font, energetic and approachable, A4 portrait, flat vector"],
+    },
+    cool: {
+      text_first:   ["PDF cover design, playful fresh typography, cool mint and sky blue palette, white background, friendly rounded font, light and fun, A4 portrait, flat design"],
+      icon_based:   ["PDF cover design, playful cool-toned icon, mint or sky blue background, rounded friendly title, fresh and engaging, A4 portrait, flat illustration"],
+      illustration: ["PDF cover design, playful fresh illustration, cool mint and blue tones, fun rounded font, light and joyful, A4 portrait, flat illustration"],
+      photo_text:   ["PDF cover design, cool fresh photography, playful rounded font overlay, mint and sky blue tones, friendly and bright, A4 portrait"],
+      abstract:     ["PDF cover design, playful cool abstract shapes in mint and light blue, white background, friendly rounded title, fresh and engaging, A4 portrait, flat vector"],
+    },
+    neutral: {
+      text_first:   ["PDF cover design, playful typography on neutral background, warm white base, friendly rounded font with one accent color pop, balanced and fun, A4 portrait, flat design"],
+      icon_based:   ["PDF cover design, playful neutral icon with one fun accent color, warm white base, rounded friendly font, balanced and approachable, A4 portrait"],
+      illustration: ["PDF cover design, playful illustration on neutral warm white, one accent color, rounded font, friendly and balanced, A4 portrait, flat illustration"],
+      photo_text:   ["PDF cover design, neutral photography with playful rounded font overlay and one accent color, balanced and friendly, A4 portrait"],
+      abstract:     ["PDF cover design, playful neutral abstract shapes with one fun accent, warm white base, rounded font, balanced and engaging, A4 portrait, flat vector"],
+    },
+    bright: {
+      text_first:   ["PDF cover design, bold playful typography, bright yellow or electric coral background, near-black title, maximum energy and fun, rounded display font, A4 portrait, flat design"],
+      icon_based:   ["PDF cover design, bold playful icon on bright saturated background, rounded friendly font in white or near-black, high energy and fun, A4 portrait, flat illustration"],
+      illustration: ["PDF cover design, bold playful illustration on bright saturated background, white or near-black title, maximum energy and approachability, A4 portrait, flat illustration"],
+      photo_text:   ["PDF cover design, bright playful photo with bold fun text overlay, high energy, rounded font, vivid colors, friendly and engaging, A4 portrait"],
+      abstract:     ["PDF cover design, bold bright abstract shapes on saturated background, near-black rounded title, maximum energy and fun, A4 portrait, flat vector"],
+    },
+    soft: {
+      text_first:   ["PDF cover design, soft playful typography, blush or pale lavender background, friendly rounded font in soft charcoal, gentle and fun, A4 portrait, flat design"],
+      icon_based:   ["PDF cover design, soft playful icon, pale blush or lavender background, rounded font, gentle colors, friendly and warm, A4 portrait, flat illustration"],
+      illustration: ["PDF cover design, soft playful illustration, gentle pastel palette, rounded friendly font, warm and approachable, A4 portrait, flat illustration"],
+      photo_text:   ["PDF cover design, soft playful photography, gentle rounded font overlay, pastel palette, friendly and approachable, A4 portrait"],
+      abstract:     ["PDF cover design, soft playful abstract shapes in pastel tones, pale background, rounded friendly font, gentle and engaging, A4 portrait, flat vector"],
+    },
+  },
+  minimal: {
+    warm:    { text_first: ["PDF cover design, minimal typography only, warm cream background, single bold sans-serif title, nothing else, maximum white space, A4 portrait, ultra-minimal flat design"], icon_based: ["PDF cover design, ultra-minimal, single tiny icon perfectly centered, warm cream background, small title below in fine type, nothing else, A4 portrait"], illustration: ["PDF cover design, minimal, single small line illustration on warm cream background, small title above, everything else is white space, A4 portrait"], photo_text: ["PDF cover design, minimal, warm photo tightly cropped to suggest texture or mood, small precise title in corner, nothing else, A4 portrait"], abstract: ["PDF cover design, minimal, one clean geometric shape in warm tone, cream background, small title, nothing else, maximum white space, A4 portrait"] },
+    cool:    { text_first: ["PDF cover design, minimal typography only, white background, single bold title in deep navy, nothing else, maximum white space, cool and precise, A4 portrait"], icon_based: ["PDF cover design, ultra-minimal, single small icon, white background, cool grey and navy palette, small title, nothing else, precise and quiet, A4 portrait"], illustration: ["PDF cover design, minimal, single delicate line illustration on white, small navy title, cool palette, maximum white space, A4 portrait"], photo_text: ["PDF cover design, minimal, cool-toned photo as subtle texture, small precise title, white space, quiet and considered, A4 portrait"], abstract: ["PDF cover design, minimal, one clean geometric shape in cool grey or navy, white background, small title, nothing else, A4 portrait"] },
+    neutral: { text_first: ["PDF cover design, minimal, one font, two weights, warm white background, near-black title, nothing decorative, A4 portrait, ultra-minimal"], icon_based: ["PDF cover design, ultra-minimal, single mark on neutral background, small precise title, one muted accent if needed, nothing else, A4 portrait"], illustration: ["PDF cover design, minimal neutral illustration as small single element, warm white background, small charcoal title, maximum restraint, A4 portrait"], photo_text: ["PDF cover design, minimal neutral photo as background tone or texture, small precise title, controlled palette, quiet and clean, A4 portrait"], abstract: ["PDF cover design, minimal neutral abstract, one shape, warm white base, small title, one muted accent maximum, A4 portrait"] },
+    bright:  { text_first: ["PDF cover design, minimal, white background, single bold title in one vivid accent color, nothing else, the color is the design, A4 portrait"], icon_based: ["PDF cover design, minimal, single bold icon in one vivid color on white, small title, nothing else, A4 portrait"], illustration: ["PDF cover design, minimal, single illustration element in one bright accent color, white background, small title, A4 portrait"], photo_text: ["PDF cover design, minimal, white background, one bright accent element from a photo, small precise title, maximum simplicity, A4 portrait"], abstract: ["PDF cover design, minimal, one bright shape on white, small title, nothing else, A4 portrait"] },
+    soft:    { text_first: ["PDF cover design, minimal typography, soft pale background, small gentle title in warm charcoal, nothing else, quiet and clean, A4 portrait"], icon_based: ["PDF cover design, ultra-minimal, single delicate icon on soft pale background, gentle title, muted soft palette, A4 portrait"], illustration: ["PDF cover design, minimal soft illustration, pale gentle background, small quiet title, maximum restraint and softness, A4 portrait"], photo_text: ["PDF cover design, minimal soft photo, barely visible, small precise title, pale and quiet, A4 portrait"], abstract: ["PDF cover design, minimal soft shape, one gentle element on pale background, small title, quiet and clean, A4 portrait"] },
+  },
+  bold: {
+    warm:    { text_first: ["PDF cover design, bold oversized typography, warm amber or deep terracotta background, white or cream title at maximum size, high contrast, strong and warm, A4 portrait"], icon_based: ["PDF cover design, large bold icon on warm saturated background, strong contrast, heavy display title, high energy and warm, A4 portrait, flat vector"], illustration: ["PDF cover design, bold graphic illustration with strong warm tones, poster-style composition, heavy title, high contrast, A4 portrait"], photo_text: ["PDF cover design, bold warm photography full-bleed, heavy display type in white or cream, maximum contrast and warmth, A4 portrait"], abstract: ["PDF cover design, bold large abstract shapes in warm amber and terracotta, high contrast, heavy display title, powerful and warm, A4 portrait, flat vector"] },
+    cool:    { text_first: ["PDF cover design, bold oversized typography, deep navy or dark teal background, white or silver title at maximum size, high contrast, confident and cool, A4 portrait"], icon_based: ["PDF cover design, large bold icon on dark navy background, silver or white type, powerful and cool, A4 portrait, flat vector"], illustration: ["PDF cover design, bold graphic illustration in cool dark palette, poster-style, heavy white title, high contrast, A4 portrait"], photo_text: ["PDF cover design, bold cool photography full-bleed, heavy white display type, maximum contrast, powerful and composed, A4 portrait"], abstract: ["PDF cover design, bold large geometric shapes in navy and steel, high contrast, heavy white title, powerful, A4 portrait, flat vector"] },
+    neutral: { text_first: ["PDF cover design, bold heavy typography on neutral dark or light background, near-black or white title depending on base, maximum weight, strong and direct, A4 portrait"], icon_based: ["PDF cover design, large bold icon in high contrast neutral palette, heavy title, strong and direct, A4 portrait"], illustration: ["PDF cover design, bold graphic illustration in high-contrast neutral palette, heavy title, poster-style, A4 portrait"], photo_text: ["PDF cover design, bold high-contrast photography, heavy display type, neutral and powerful, A4 portrait"], abstract: ["PDF cover design, bold large abstract forms in black and white or near-neutral high-contrast palette, heavy title, powerful, A4 portrait, flat vector"] },
+    bright:  { text_first: ["PDF cover design, maximum bold energy, bright saturated background, white or near-black oversized title, electric color, full volume, A4 portrait"], icon_based: ["PDF cover design, massive bold icon on bright saturated background, heavy white or dark title, full energy, A4 portrait, flat vector"], illustration: ["PDF cover design, bold graphic illustration on bright saturated background, maximum energy, heavy title, poster-style, A4 portrait"], photo_text: ["PDF cover design, bold vivid photography or color wash, heavy display type, maximum contrast and energy, A4 portrait"], abstract: ["PDF cover design, maximum bold abstract shapes on bright saturated background, heavy title, full energy and presence, A4 portrait, flat vector"] },
+    soft:    { text_first: ["PDF cover design, bold heavy title on unexpectedly soft pale background, the contrast between bold type and gentle background is the design concept, A4 portrait"], icon_based: ["PDF cover design, bold icon on soft pale background, the weight contrast is the concept, gentle palette, strong form, A4 portrait"], illustration: ["PDF cover design, bold-soft concept, strong graphic illustration softened by pale gentle background, title is heavy but palette is soft, A4 portrait"], photo_text: ["PDF cover design, bold type on soft photography or light background, the tension between heavy text and gentle image, A4 portrait"], abstract: ["PDF cover design, bold abstract shape on soft pale background, one strong form against gentleness, heavy title, A4 portrait, flat vector"] },
+  },
+  cozy: {
+    warm:    { text_first: ["PDF cover design, cozy warm typography, golden warm background, rounded humanist font in deep brown, soft amber accents, welcoming and safe, A4 portrait, flat design"], icon_based: ["PDF cover design, cozy warm icon like a cup or plant, warm golden background, friendly rounded font, feels like home, A4 portrait, flat illustration"], illustration: ["PDF cover design, cozy warm illustration with domestic scene or comforting visual, warm amber and cream palette, soft rounded font, A4 portrait"], photo_text: ["PDF cover design, cozy warm photography of a home or workspace, warm golden overlay, soft readable font, inviting, A4 portrait"], abstract: ["PDF cover design, cozy organic warm shapes, golden and amber tones, soft rounded font, warm and welcoming, A4 portrait, flat vector"] },
+    cool:    { text_first: ["PDF cover design, cozy calm typography, cool sage or pale blue background, warm font in soft charcoal, quiet and comfortable, A4 portrait, flat design"], icon_based: ["PDF cover design, cozy calm icon, cool sage or pale blue background, soft charcoal font, quiet comfort, A4 portrait, flat illustration"], illustration: ["PDF cover design, cozy calm illustration, cool sage and grey palette, soft rounded font, quiet and comfortable, A4 portrait"], photo_text: ["PDF cover design, calm cozy photography in cool tones, soft readable font, quiet and safe, A4 portrait"], abstract: ["PDF cover design, cozy organic shapes in sage and grey, soft background, quiet and comfortable, soft rounded font, A4 portrait, flat vector"] },
+    neutral: { text_first: ["PDF cover design, cozy neutral typography, warm off-white background, soft humanist font, one warm muted accent, safe and grounded, A4 portrait, flat design"], icon_based: ["PDF cover design, cozy neutral icon, warm off-white background, soft charcoal font, one warm accent, grounded and welcoming, A4 portrait"], illustration: ["PDF cover design, cozy neutral illustration, warm off-white palette, soft warm charcoal type, grounded and welcoming, A4 portrait"], photo_text: ["PDF cover design, cozy neutral photography, warm soft overlay, readable charcoal font, grounded and welcoming, A4 portrait"], abstract: ["PDF cover design, cozy organic neutral shapes, warm off-white background, soft charcoal font, safe and grounded, A4 portrait, flat vector"] },
+    bright:  { text_first: ["PDF cover design, cozy bright typography, warm sunshine yellow or cheerful coral background, soft rounded font in deep brown, warm and cheerful, A4 portrait, flat design"], icon_based: ["PDF cover design, cozy warm bright icon, sunny background, rounded friendly font, cheerful and welcoming, A4 portrait, flat illustration"], illustration: ["PDF cover design, cozy bright illustration, warm cheerful palette, sunny and approachable, soft rounded font, A4 portrait"], photo_text: ["PDF cover design, cozy bright warm photography, cheerful layout, soft rounded font, warm and inviting, A4 portrait"], abstract: ["PDF cover design, cozy bright organic shapes in warm cheerful palette, rounded font, welcoming and energetic, A4 portrait, flat vector"] },
+    soft:    { text_first: ["PDF cover design, softest cozy typography, pale blush or oat background, gentle rounded font, whisper-quiet palette, warmth you can feel, A4 portrait, flat design"], icon_based: ["PDF cover design, soft cozy icon, pale oat or blush background, gentle font, the gentlest palette, A4 portrait, flat illustration"], illustration: ["PDF cover design, soft cozy illustration, pale and gentle palette, soft rounded font, the warmest quietest design, A4 portrait"], photo_text: ["PDF cover design, soft cozy photography, pale overlay, gentle readable font, warmest and softest palette, A4 portrait"], abstract: ["PDF cover design, soft cozy organic shapes, pale blush or oat background, gentle charcoal font, the warmest and softest palette possible, A4 portrait, flat vector"] },
+  },
+};
+
+const bestForByVibe: Record<string, string[]> = {
+  clean:   ["A clean direction works especially well for professional or practical products where trust and clarity are the first impression. If your audience is busy or skeptical, clean design reduces friction immediately.", "This direction suits products that need to feel reliable and easy to use. The design does not distract from the content."],
+  premium: ["A premium direction signals that the product is worth the price before anyone opens it. Works well for higher-priced PDFs, expert-led content, or anything targeting professionals who judge quality quickly.", "This direction is best when you want your product to feel like a considered, high-value resource rather than a quick download."],
+  playful: ["A playful direction works well for beginner-friendly products, creative topics, or audiences who are tired of corporate-feeling content. It lowers the barrier and invites people in.", "This direction suits products where warmth and approachability matter more than authority. Good for community-oriented or lifestyle topics."],
+  minimal: ["A minimal direction communicates confidence. You are not trying to impress anyone, and that is impressive. Works well for simple, focused products where less is genuinely more.", "This direction suits audiences who appreciate restraint and design fluency. It says 'we did not need to shout about this.'"],
+  bold:    ["A bold direction demands attention and signals confidence. Works well for products with a strong point of view, high-energy topics, or audiences who respond to directness and energy.", "This direction suits products that need to stop the scroll. If your product makes a strong promise, the cover should match that energy."],
+  cozy:    ["A cozy direction creates an immediate emotional response of safety and warmth. Works especially well for lifestyle, home, parenting, and personal development topics.", "This direction suits audiences who are overwhelmed or stressed. A cozy cover says 'this is manageable and good.'"],
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+
+let coverVariant = 0;
+let lastCoverHash = '';
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function pick<T>(arr: T[], idx: number): T { return arr[idx % arr.length]; }
+function interp(s: string, t: string): string { return s.replace(/\{topic\}/g, t); }
+function cap(s: string): string { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+// ─── GENERATION ──────────────────────────────────────────────────────────────
+
+function generateCoverDirection(inputs: CoverInputs) {
+  const { topic, audience: _audience, vibe, visualStyle, colorMood, variant } = inputs;
+  const t = topic.trim() || 'your topic';
+
+  const titleArr = conceptTitlesByVibeColor[vibe]?.[colorMood] ?? conceptTitlesByVibeColor['clean']['neutral'];
+  const conceptTitle = interp(pick(titleArr, variant), cap(t));
+
+  const summaryArr = visualSummaryByVibeStyle[vibe]?.[visualStyle] ?? visualSummaryByVibeStyle['clean']['text_first'];
+  const visualSummary = pick(summaryArr, variant);
+
+  const colorArr = colorDirections[colorMood] ?? colorDirections['neutral'];
+  const colorDirection = pick(colorArr, variant);
+
+  const typoArr = typographySuggestions[vibe] ?? typographySuggestions['clean'];
+  const typography = pick(typoArr, variant);
+
+  const layoutArr = layoutSuggestions[visualStyle] ?? layoutSuggestions['text_first'];
+  const layout = pick(layoutArr, variant);
+
+  const promptNested = imagePromptsByVibeColorStyle[vibe]?.[colorMood]?.[visualStyle];
+  const promptArr = promptNested ?? imagePromptsByVibeColorStyle['clean']['warm']['text_first'];
+  const rawPrompt = pick(promptArr, variant);
+  const imagePrompt = `${rawPrompt}, about: ${t}, digital PDF product cover`;
+
+  const bestForArr = bestForByVibe[vibe] ?? bestForByVibe['clean'];
+  const bestFor = pick(bestForArr, variant);
+
+  return { conceptTitle, visualSummary, colorDirection, typography, layout, imagePrompt, bestFor };
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+
+function renderCoverDirection(data: ReturnType<typeof generateCoverDirection>) {
+  const empty = document.getElementById('cover-empty-state')!;
+  const result = document.getElementById('cover-result')!;
+
+  (document.getElementById('cover-concept-title') as HTMLElement).textContent = data.conceptTitle;
+  (document.getElementById('cover-visual-summary') as HTMLElement).textContent = data.visualSummary;
+  (document.getElementById('cover-color-direction') as HTMLElement).textContent = data.colorDirection;
+  (document.getElementById('cover-typography') as HTMLElement).textContent = data.typography;
+  (document.getElementById('cover-layout') as HTMLElement).textContent = data.layout;
+  (document.getElementById('cover-image-prompt') as HTMLElement).textContent = data.imagePrompt;
+  (document.getElementById('cover-best-for') as HTMLElement).textContent = data.bestFor;
+
+  empty.classList.add('hidden');
+  result.classList.remove('hidden');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ─── MODAL CONTROL ────────────────────────────────────────────────────────────
+
+const overlay = document.getElementById('cover-modal-overlay') as HTMLElement;
+const card = document.getElementById('cover-modal-card') as HTMLElement;
+const closeBtn = document.getElementById('cover-modal-close') as HTMLButtonElement;
+
+function openModal() {
+  overlay.classList.remove('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-95');
+  card.classList.add('scale-100');
+  document.body.style.overflow = 'hidden';
+  card.scrollTop = 0;
+}
+
+function closeModal() {
+  overlay.classList.add('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+  document.body.style.overflow = '';
+}
+
+(window as any).openCoverDirectionModal = openModal;
+
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// ─── FORM INTERACTIONS ────────────────────────────────────────────────────────
+
+document.getElementById('cover-generate-btn')!.addEventListener('click', () => {
+  const icon = document.getElementById('cover-btn-icon') as HTMLElement;
+  const text = document.getElementById('cover-btn-text') as HTMLElement;
+  const btn = document.getElementById('cover-generate-btn') as HTMLButtonElement;
+  icon.textContent = '⏳'; text.textContent = 'Generating...'; btn.disabled = true;
+
+  setTimeout(() => {
+    const topic = (document.getElementById('cover-topic') as HTMLInputElement).value;
+    const audience = (document.getElementById('cover-audience') as HTMLSelectElement).value;
+    const vibe = (document.getElementById('cover-vibe') as HTMLSelectElement).value;
+    const visualStyle = (document.getElementById('cover-style') as HTMLSelectElement).value;
+    const colorMood = (document.getElementById('cover-color') as HTMLSelectElement).value;
+
+    const hash = `${topic}|${audience}|${vibe}|${visualStyle}|${colorMood}`;
+    if (hash !== lastCoverHash) { coverVariant = 0; lastCoverHash = hash; }
+
+    const data = generateCoverDirection({ topic, audience, vibe, visualStyle, colorMood, variant: coverVariant });
+    renderCoverDirection(data);
+    icon.textContent = '🎨'; text.textContent = 'Generate Cover Direction'; btn.disabled = false;
+  }, 500);
+});
+
+document.getElementById('cover-regen-btn')!.addEventListener('click', () => {
+  const topic = (document.getElementById('cover-topic') as HTMLInputElement).value;
+  const audience = (document.getElementById('cover-audience') as HTMLSelectElement).value;
+  const vibe = (document.getElementById('cover-vibe') as HTMLSelectElement).value;
+  const visualStyle = (document.getElementById('cover-style') as HTMLSelectElement).value;
+  const colorMood = (document.getElementById('cover-color') as HTMLSelectElement).value;
+  coverVariant++;
+  const data = generateCoverDirection({ topic, audience, vibe, visualStyle, colorMood, variant: coverVariant });
+  renderCoverDirection(data);
+});
+
+document.getElementById('cover-copy-prompt-btn')!.addEventListener('click', () => {
+  const prompt = (document.getElementById('cover-image-prompt') as HTMLElement).textContent ?? '';
+  navigator.clipboard.writeText(prompt).then(() => {
+    const el = document.getElementById('cover-copy-prompt-text') as HTMLElement;
+    el.textContent = 'Copied!';
+    setTimeout(() => { el.textContent = 'Copy Prompt'; }, 2000);
+  });
+});
+
+document.getElementById('cover-copy-brief-btn')!.addEventListener('click', () => {
+  const title = (document.getElementById('cover-concept-title') as HTMLElement).textContent ?? '';
+  const visual = (document.getElementById('cover-visual-summary') as HTMLElement).textContent ?? '';
+  const color = (document.getElementById('cover-color-direction') as HTMLElement).textContent ?? '';
+  const typography = (document.getElementById('cover-typography') as HTMLElement).textContent ?? '';
+  const layout = (document.getElementById('cover-layout') as HTMLElement).textContent ?? '';
+  const prompt = (document.getElementById('cover-image-prompt') as HTMLElement).textContent ?? '';
+  const bestFor = (document.getElementById('cover-best-for') as HTMLElement).textContent ?? '';
+  const text = `COVER CREATIVE BRIEF\n\n${title}\n\nVisual Direction:\n${visual}\n\nColor Direction:\n${color}\n\nTypography:\n${typography}\n\nLayout:\n${layout}\n\nBest For:\n${bestFor}\n\nAI Image Prompt:\n${prompt}\n\nGenerated by Strategic Sloth Cover Direction Generator`;
+  navigator.clipboard.writeText(text).then(() => {
+    const el = document.getElementById('cover-copy-brief-text') as HTMLElement;
+    el.textContent = 'Copied!';
+    setTimeout(() => { el.textContent = 'Copy Full Creative Brief'; }, 2000);
+  });
+});
+
+})();
+</script>

@@ -1,0 +1,79 @@
+---
+---
+
+<section class="py-20 bg-[#FFD600] border-t-2 border-black">
+  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto text-center">
+
+      <!-- Headline -->
+      <div class="inline-block mb-6 bg-white border-[3px] border-black rounded-2xl px-5 py-2.5 shadow-[4px_4px_0_#000] -rotate-1">
+        <span class="text-lg font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Got Something in Your Brain?</span>
+      </div>
+
+      <h2 class="text-4xl sm:text-5xl font-black text-[#1B1B3D] leading-tight mb-6" style="font-family:'Inter',system-ui,sans-serif;">
+        Start There.
+      </h2>
+
+      <p class="text-[#3D3D5C] text-lg leading-relaxed mb-10 max-w-xl mx-auto" style="font-family:'Inter',system-ui,sans-serif;">
+        Your first digital product doesn't need to be huge. It just needs to be useful. Start with one idea, shape it into something valuable, and build from there.
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="#idea-builder"
+          class="inline-flex items-center gap-2 bg-[#1B1B3D] text-white font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          <span>⚡</span>
+          Try the Idea Builder
+        </a>
+        <button
+          type="button"
+          id="final-cta-waitlist"
+          class="inline-flex items-center gap-2 bg-white text-[#1B1B3D] font-bold text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          ✉️ Join NarriaFlow Early Access
+        </button>
+      </div>
+
+      <!-- Reassurance -->
+      <div class="mt-8 flex items-center justify-center gap-6 text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          No account needed
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          No credit card
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Free to start
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('final-cta-waitlist');
+    btn?.addEventListener('click', () => {
+      if (typeof (window as any).openWaitlistModal === 'function') {
+        (window as any).openWaitlistModal(
+          'NarriaFlow Early Access',
+          'Be the first to access NarriaFlow when it launches, the full platform for turning ideas into digital products.'
+        );
+      }
+    });
+  });
+</script>

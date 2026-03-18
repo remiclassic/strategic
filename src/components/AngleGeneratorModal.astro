@@ -1,0 +1,665 @@
+---
+const audienceOptions = [
+  { value: "beginners", label: "Beginners" },
+  { value: "busy_professionals", label: "Busy Professionals" },
+  { value: "freelancers", label: "Freelancers" },
+  { value: "creators", label: "Creators" },
+  { value: "parents", label: "Parents" },
+  { value: "students", label: "Students" },
+  { value: "remote_workers", label: "Remote Workers" },
+];
+
+const outcomeOptions = [
+  { value: "save_time", label: "Save Time" },
+  { value: "make_money", label: "Make Money" },
+  { value: "get_organized", label: "Get Organized" },
+  { value: "feel_confident", label: "Feel More Confident" },
+  { value: "learn_faster", label: "Learn Faster" },
+  { value: "avoid_mistakes", label: "Avoid Mistakes" },
+];
+
+const toneOptions = [
+  { value: "simple", label: "Simple" },
+  { value: "practical", label: "Practical" },
+  { value: "premium", label: "Premium" },
+  { value: "beginner_friendly", label: "Beginner-Friendly" },
+  { value: "time_saving", label: "Time-Saving" },
+  { value: "money_focused", label: "Money-Focused" },
+];
+
+const sampleTopics = [
+  "travel", "freelancing", "budgeting", "fitness", "content creation",
+  "home office", "social media", "cooking", "job interviews", "side hustles"
+];
+---
+
+<!-- Product Angle Generator Modal -->
+<div
+  id="angle-modal-overlay"
+  class="fixed inset-0 z-[210] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+  aria-modal="true"
+  role="dialog"
+  aria-labelledby="angle-modal-title"
+>
+  <div
+    id="angle-modal-card"
+    class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FFFBF2] border-[3px] border-black rounded-[24px] shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+  >
+    <!-- Close -->
+    <button
+      id="angle-modal-close"
+      type="button"
+      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+
+    <div class="p-7 sm:p-8 clear-both">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-10 h-10 rounded-xl border-2 border-black bg-[#FFF3CD] flex items-center justify-center text-xl shadow-[2px_2px_0_#000]">🎯</div>
+        <div>
+          <div class="flex items-center gap-2 mb-0.5">
+            <h2 id="angle-modal-title" class="text-xl font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Product Angle Generator</h2>
+            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-2.5 py-0.5 shadow-[2px_2px_0_#000]">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
+              LIVE
+            </span>
+          </div>
+          <p class="text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Find the right hook, promise, and positioning for your product.</p>
+        </div>
+      </div>
+
+      <div class="h-px bg-black/10 my-6"></div>
+
+      <!-- Form -->
+      <div class="space-y-5" id="angle-form">
+        <!-- Topic -->
+        <div>
+          <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-topic" style="font-family:'Inter',system-ui,sans-serif;">
+            What is your product about?
+          </label>
+          <input
+            id="angle-topic"
+            type="text"
+            placeholder="e.g. travel, freelancing, budgeting, fitness..."
+            class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+            style="font-family:'Inter',system-ui,sans-serif;"
+          />
+          <div class="flex flex-wrap gap-2 mt-2.5">
+            {sampleTopics.map(t => (
+              <button
+                type="button"
+                class="angle-topic-chip text-xs font-bold bg-white border-2 border-black rounded-full px-3 py-1 hover:bg-[#FFD600] hover:shadow-[2px_2px_0_#000] transition-all duration-150"
+                data-topic={t}
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >{t}</button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Selects row -->
+        <div class="grid sm:grid-cols-3 gap-4">
+          <!-- Audience -->
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-audience" style="font-family:'Inter',system-ui,sans-serif;">Who is it for?</label>
+            <div class="relative">
+              <select id="angle-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outcome -->
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-outcome" style="font-family:'Inter',system-ui,sans-serif;">Desired outcome</label>
+            <div class="relative">
+              <select id="angle-outcome" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {outcomeOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tone -->
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-tone" style="font-family:'Inter',system-ui,sans-serif;">Angle / tone</label>
+            <div class="relative">
+              <select id="angle-tone" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {toneOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate button -->
+        <button
+          id="angle-generate-btn"
+          type="button"
+          class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          <span id="angle-btn-icon">🎯</span>
+          <span id="angle-btn-text">Generate Angles</span>
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      <div id="angle-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+        <span class="text-4xl mb-3">🎯</span>
+        <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your angles will appear here</p>
+        <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above and hit Generate</p>
+      </div>
+
+      <!-- Result -->
+      <div id="angle-result" class="mt-6 hidden">
+        <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+          <!-- Result header -->
+          <div class="bg-[#1B1B3D] px-6 py-4 flex items-center justify-between gap-3">
+            <div>
+              <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-0.5" style="font-family:'Inter',system-ui,sans-serif;">Your Angles</p>
+              <p id="angle-result-label" class="text-white font-bold text-sm" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+            <span class="shrink-0 inline-flex items-center gap-1 bg-[#FFD600] text-black text-xs font-black border-2 border-black rounded-full px-3 py-1">
+              ✦ Ready
+            </span>
+          </div>
+
+          <div class="p-6 sm:p-7 space-y-5">
+            <!-- Hooks -->
+            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Hook Ideas</p>
+              <ul id="angle-hooks" class="space-y-2.5"></ul>
+            </div>
+
+            <!-- Promises -->
+            <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Promise Angles</p>
+              <ul id="angle-promises" class="space-y-2.5"></ul>
+            </div>
+
+            <!-- Positioning -->
+            <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Positioning Directions</p>
+              <ul id="angle-positions" class="space-y-2.5"></ul>
+            </div>
+
+            <!-- Best pick -->
+            <div class="bg-[#FFD600] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Best Pick for Your Combo</p>
+              <p id="angle-best-pick" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-1">
+              <button
+                id="angle-use-outline"
+                type="button"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                📐 Use This in Outline Builder
+              </button>
+              <button
+                id="angle-copy-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span id="angle-copy-text">Copy All</span>
+              </button>
+              <button
+                id="angle-regen-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Regenerate
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+// INTEGRATION POINT: replace generateAngles() body with
+// fetch('/api/generate-angles', { topic, audience, outcome, tone })
+
+type AngleData = {
+  tone: string; outcome: string; audience: string; topic: string; variant: number;
+};
+
+const hooksByToneOutcome: Record<string, Record<string, string[][]>> = {
+  simple: {
+    save_time:      [["Stop overcomplicating {topic}. Here is a simpler way.", "One simple system. All your {topic} handled.", "You do not need more information about {topic}. You need a cleaner process."],
+                     ["The shortest path through {topic}.", "Simple {topic}, done right the first time.", "Less noise. More done. That is what {topic} should feel like."]],
+    make_money:     [["The simplest way to make money with {topic}.", "One idea. One format. One sale. {topic} does not need to be complicated.", "You already know enough about {topic} to earn from it."],
+                     ["Sell what you know about {topic}. Keep it simple.", "No fancy strategy needed. Just a clear, simple {topic} product.", "The easiest entry point into making money with {topic}."]],
+    get_organized:  [["A clean, simple system for {topic}.", "Get your {topic} in order without a five-step framework.", "Simple structure, less chaos. Works for {topic} every time."],
+                     ["One place for everything {topic}-related.", "Organized {topic}, simple process.", "Clear head. Clear {topic} plan."]],
+    feel_confident: [["A simple way to feel more prepared with {topic}.", "Stop second-guessing your {topic}. This is clear enough to follow.", "Confidence does not need to be complex. Neither does {topic}."],
+                     ["Simple steps. Real confidence. {topic} sorted.", "You know more about {topic} than you think.", "The clear, honest guide to {topic} you wished existed sooner."]],
+    learn_faster:   [["The fastest, clearest introduction to {topic}.", "No background needed. Just the essentials of {topic}.", "Learn {topic} in the most direct way possible."],
+                     ["Cut the confusion. Get to the useful part of {topic}.", "Simple {topic}, taught simply.", "Everything you need to know about {topic}, nothing you do not."]],
+    avoid_mistakes: [["The {topic} mistakes nobody warns you about, laid out simply.", "Avoid the obvious {topic} traps. Simple, clear guidance.", "No complicated framework. Just what to skip in {topic}."],
+                     ["The honest list of what goes wrong with {topic}.", "Simple warning. Big difference. Avoid these {topic} mistakes.", "Learn from others. Skip the hard part of {topic}."]],
+  },
+  practical: {
+    save_time:      [["A practical system for {topic} that fits into a real schedule.", "No theory. Just what actually works for {topic}.", "The practical guide to {topic} for people with limited time."],
+                     ["Real shortcuts for real {topic} results.", "Practical {topic} advice that respects your time.", "Less planning. More doing. A practical take on {topic}."]],
+    make_money:     [["A practical, step-by-step path to earning from {topic}.", "Turn your {topic} knowledge into income. Here is how it works in practice.", "Real-world strategies for making money with {topic}."],
+                     ["Practical {topic} monetization. No fluff.", "From knowledge to income: the practical {topic} roadmap.", "What actually works when selling {topic} products."]],
+    get_organized:  [["A practical {topic} system you will actually stick to.", "Organized {topic} in practice, not just in theory.", "Real structure for real {topic} situations."],
+                     ["Practical {topic} organization, built for real life.", "A system that works for {topic}, not just on paper.", "Get your {topic} together. Here is what works in practice."]],
+    feel_confident: [["Practical preparation for {topic}. Know what you are doing before you do it.", "Real tools for feeling ready with {topic}.", "Practical confidence for {topic}. Built on real knowledge."],
+                     ["Stop guessing with {topic}. Here is the practical foundation.", "Practical {topic} skills that actually build confidence.", "What confident people know about {topic} that you can learn today."]],
+    learn_faster:   [["A practical path to learning {topic} faster.", "Stop reading. Start applying. A practical approach to {topic}.", "Learn {topic} by doing, not by studying."],
+                     ["Practical {topic} skills, built fast.", "The hands-on way to understand {topic}.", "What works when learning {topic} on your own."]],
+    avoid_mistakes: [["Practical {topic} advice built around avoiding the expensive lessons.", "What to watch out for in {topic}, from people who found out the hard way.", "A practical look at what goes wrong with {topic} and how to avoid it."],
+                     ["Practical {topic} damage control. Avoid the common traps.", "The practical mistakes guide for {topic}.", "What real {topic} experience teaches, without the trial and error."]],
+  },
+  premium: {
+    save_time:      [["A refined system for {topic}. Designed for people who value their time.", "The premium {topic} experience. Less effort, better outcomes.", "Professional-grade {topic}, built around your time."],
+                     ["Elevated {topic}. Thoughtfully structured.", "The high-quality {topic} approach for discerning people.", "Done well. Done efficiently. That is what {topic} can look like."]],
+    make_money:     [["A premium {topic} product that commands a real price.", "The high-value approach to monetizing {topic}.", "Charge more for {topic}. This is how."],
+                     ["Elevated {topic} expertise, packaged to sell.", "A premium product built around your {topic} knowledge.", "This is what professional-grade {topic} monetization looks like."]],
+    get_organized:  [["A refined, professional system for {topic}.", "Elevated organization for {topic}. Built with care.", "The premium approach to structuring your {topic}."],
+                     ["Thoughtfully designed {topic} organization.", "High-quality structure for your {topic} work.", "Professional {topic} organization for people who care about the details."]],
+    feel_confident: [["Premium preparation for {topic}. The kind that shows.", "Elevated {topic} confidence, built on solid knowledge.", "The professional's approach to feeling ready with {topic}."],
+                     ["High-quality {topic} guidance for people who take it seriously.", "Confident, prepared, professional. That is {topic} done right.", "Elevated {topic} knowledge, designed to make you stand out."]],
+    learn_faster:   [["A premium learning experience for {topic}. Dense, clear, and well-designed.", "The high-quality path to understanding {topic}.", "Professionally structured {topic} learning."],
+                     ["Elevated {topic} education. No noise, no filler.", "The premium shortcut to real {topic} knowledge.", "Expertly curated {topic} content built for fast, deep learning."]],
+    avoid_mistakes: [["A professional-grade {topic} guide built around protecting your results.", "Elevated {topic} risk management. Know before you pay.", "The high-value {topic} mistakes guide. Worth every second."],
+                     ["Premium protection for your {topic} journey.", "Sophisticated {topic} guidance that prevents the costly kind of learning.", "The refined approach to avoiding {topic} mistakes."]],
+  },
+  beginner_friendly: {
+    save_time:      [["New to {topic}? Here is the fastest way to get up and running.", "No experience needed. This is {topic} for real beginners.", "Start {topic} without wasting months figuring it out."],
+                     ["Your first steps with {topic}, without the overwhelm.", "Beginner {topic}, done in a fraction of the usual time.", "Get started with {topic} today. No background required."]],
+    make_money:     [["You do not need to be an expert to earn from {topic}. Here is how beginners do it.", "First income from {topic}. A beginner's starting point.", "Total beginner? You can still make money with {topic}."],
+                     ["No experience, no audience, no problem. Here is {topic} for beginners.", "Your first {topic} product, from scratch.", "The beginner's roadmap to making money with {topic}."]],
+    get_organized:  [["A beginner-friendly {topic} system. No complicated tools required.", "Getting organized with {topic}, starting from zero.", "Your first real {topic} system. Simple enough for day one."],
+                     ["New to organizing your {topic}? Start here.", "The beginner's guide to getting {topic} under control.", "Simple {topic} organization for people who have never had a system."]],
+    feel_confident: [["New to {topic} and not sure where you stand? This is for you.", "Beginner confidence for {topic}. Build it step by step.", "Start {topic} feeling prepared, not lost."],
+                     ["Your first confident step into {topic}.", "Feeling unsure about {topic}? This will change that.", "Beginner-friendly {topic} guidance that builds real confidence."]],
+    learn_faster:   [["New to {topic}? Learn faster than you thought possible.", "The beginner's fast lane to {topic}.", "No prior knowledge needed. This is {topic} from the beginning."],
+                     ["Start smart with {topic}. Everything a beginner needs to know.", "Learn {topic} faster by starting in the right place.", "Your beginner's roadmap to understanding {topic}."]],
+    avoid_mistakes: [["New to {topic}? Avoid the mistakes every beginner makes.", "The beginner's guide to not messing up {topic}.", "Start {topic} on the right foot. Here is what to skip."],
+                     ["Do not learn {topic} the hard way. A beginner's mistake guide.", "Beginner {topic} mistakes, and how to avoid them from day one.", "Save yourself the trial and error. {topic} for beginners done right."]],
+  },
+  time_saving: {
+    save_time:      [["Everything you need for {topic} in the least amount of time.", "10 minutes of {topic}, done right.", "The fastest {topic} system that actually holds up."],
+                     ["Spend less time on {topic}. Get the same results.", "The {topic} shortcut you have been looking for.", "Fast, effective {topic}. No extra steps."]],
+    make_money:     [["Earn from {topic} without spending all your time on it.", "The fastest path to {topic} income.", "Make money with {topic} in less time than you think."],
+                     ["Time-efficient {topic} monetization.", "The quick path to your first {topic} income.", "Turn {topic} into revenue without it taking over your week."]],
+    get_organized:  [["A {topic} system that takes minutes to set up.", "Get your {topic} organized without a full weekend project.", "Fast {topic} organization. Set it up once."],
+                     ["Organized {topic} in less time than you expect.", "The quick-setup {topic} system.", "Spend less time organizing {topic}. More time using it."]],
+    feel_confident: [["Prepare for {topic} faster. Feel ready sooner.", "Quick-build {topic} confidence.", "Get up to speed on {topic} without losing days to research."],
+                     ["Fast confidence for {topic}. No long courses required.", "Be ready for {topic} in a fraction of the time.", "The time-efficient way to feel prepared with {topic}."]],
+    learn_faster:   [["Learn {topic} in record time.", "The fastest route to understanding {topic}.", "Cut your {topic} learning curve in half."],
+                     ["Speed up your {topic} education.", "Less time learning {topic}, more time using it.", "The quick-study {topic} guide."]],
+    avoid_mistakes: [["Avoid {topic} mistakes quickly. Do not waste time learning the hard way.", "The fast mistake-prevention guide for {topic}.", "Skip the {topic} trial and error. Save weeks."],
+                     ["Quick-scan {topic} mistakes to avoid.", "Fast guidance for clean {topic} results.", "Prevent {topic} problems in minutes, not months."]],
+  },
+  money_focused: {
+    save_time:      [["The time-saving {topic} system built around protecting your income.", "Spend less time on {topic} so you can focus on what pays.", "Efficient {topic} for people who know their time has a price."],
+                     ["{topic} efficiency that pays off.", "Save time on {topic}. Put those hours toward something that earns.", "The income-minded approach to managing {topic}."]],
+    make_money:     [["Turn your {topic} knowledge into real, repeatable income.", "The direct path from {topic} expertise to money in your account.", "This is what earning from {topic} actually looks like."],
+                     ["Make money with {topic}. Clear strategy, real results.", "Your {topic} knowledge is worth more than you think. Here is proof.", "From {topic} knowledge to consistent income."]],
+    get_organized:  [["Organized {topic} that supports your income goals.", "Structure your {topic} so it works for your business.", "Get {topic} in order so nothing slows down your earning."],
+                     ["Income-minded {topic} organization.", "Clear {topic} systems for people who track results.", "Organized {topic} that pays dividends."]],
+    feel_confident: [["Confident enough in {topic} to charge for it.", "Build the {topic} confidence that justifies your price.", "Know your {topic} well enough to back it up with results."],
+                     ["Real {topic} confidence, built for income.", "Feel ready to sell your {topic} expertise.", "The knowledge base that makes {topic} confidence bankable."]],
+    learn_faster:   [["Learn {topic} fast enough to start earning from it.", "Speed up your {topic} learning so you can monetize sooner.", "The income-focused shortcut to {topic} knowledge."],
+                     ["Learn {topic} with one goal: turn it into income.", "Fast-track your {topic} education. Then charge for it.", "The money-focused approach to learning {topic}."]],
+    avoid_mistakes: [["Avoid the {topic} mistakes that cost real money.", "The income-protecting guide to {topic}.", "Do not let avoidable {topic} mistakes cut into your results."],
+                     ["Money-smart {topic} mistake prevention.", "The financial case for getting {topic} right the first time.", "Protect your {topic} investment. Avoid the costly errors."]],
+  },
+};
+
+const promisesByToneAudience: Record<string, Record<string, string[]>> = {
+  simple: {
+    beginners:         ["A simple, honest starting point for {topic}", "Everything a beginner needs, nothing they do not", "The clearest possible introduction to {topic}"],
+    busy_professionals:["A simpler approach to {topic} that respects your schedule", "The no-fuss {topic} system for busy people", "Simple {topic}, done in less time"],
+    freelancers:       ["A simple {topic} system built for independent work", "Clean, simple {topic} guidance for self-employed people", "The simplest {topic} approach that still gets real results"],
+    creators:          ["Simple {topic} that fits into a creative workflow", "A clear, simple {topic} resource for content creators", "The simplest path to better {topic} for creators"],
+    parents:           ["A simple {topic} approach that fits real family life", "Easy {topic} for people with limited free time", "The simplest {topic} system a parent can actually use"],
+    students:          ["A clear, simple introduction to {topic}", "Simple {topic} that fits between classes and deadlines", "The easiest way to learn and use {topic} as a student"],
+    remote_workers:    ["Simple {topic} built for remote and flexible work", "A clean {topic} system for location-independent people", "Simple {topic} that works wherever you work"],
+  },
+  practical: {
+    beginners:         ["Practical {topic} skills, built from zero", "What actually works in {topic}, for people just starting out", "Real {topic} results, without the wasted detours"],
+    busy_professionals:["Practical {topic} that fits a packed day", "Real shortcuts for real {topic} results", "The practical professional's guide to {topic}"],
+    freelancers:       ["Practical {topic} for people running their own show", "Real-world {topic} skills for freelancers", "What works in {topic} when you work for yourself"],
+    creators:          ["Practical {topic} strategies creators actually use", "What works for {topic} in the real creator economy", "Practical {topic} advice that translates to results"],
+    parents:           ["Practical {topic} that works around family life", "Real {topic} solutions for real parent schedules", "Practical {topic} you can actually implement as a parent"],
+    students:          ["Practical {topic} skills for students who want real results", "What actually works for {topic} as a student", "Practical {topic} without the textbook fluff"],
+    remote_workers:    ["Practical {topic} for the modern remote worker", "What actually works for {topic} outside a traditional office", "Practical {topic} for people who work on their own terms"],
+  },
+  premium: {
+    beginners:         ["A premium starting point for {topic}", "High-quality {topic} guidance from day one", "The best possible introduction to {topic}"],
+    busy_professionals:["Premium {topic} built for high-performing professionals", "Elevated {topic} for people who demand results", "The professional-grade {topic} system"],
+    freelancers:       ["Premium {topic} for serious independent professionals", "Elevated {topic} that commands higher rates", "The high-quality {topic} resource for top freelancers"],
+    creators:          ["Premium {topic} for creators who take their work seriously", "Elevated {topic} content for serious creators", "The high-quality {topic} resource your audience will pay for"],
+    parents:           ["A premium {topic} approach designed around family life", "High-quality {topic} guidance for intentional parents", "Elevated {topic} that respects your time and your family"],
+    students:          ["Premium {topic} education for ambitious students", "High-quality {topic} guidance that goes beyond the curriculum", "The elevated {topic} resource for students who want to get ahead"],
+    remote_workers:    ["Premium {topic} for the serious remote professional", "Elevated {topic} built for location-independent excellence", "High-quality {topic} for people who work with intention"],
+  },
+  beginner_friendly: {
+    beginners:         ["Everything a beginner needs to get started with {topic}", "Your first step into {topic}, done right", "The friendliest introduction to {topic} you will find"],
+    busy_professionals:["Beginner-friendly {topic} for professionals who are new to it", "Start {topic} without the learning curve", "The beginner's fast-track for busy professionals"],
+    freelancers:       ["Start your {topic} journey as a freelancer, from zero", "Beginner-friendly {topic} for self-employed people", "The independent professional's first step into {topic}"],
+    creators:          ["A beginner's guide to {topic} for creators", "Start {topic} as a creator without the overwhelm", "The most beginner-friendly {topic} resource for content creators"],
+    parents:           ["Beginner-friendly {topic} for busy parents", "Start {topic} without needing prior experience", "The most accessible {topic} guide for parents who are new to it"],
+    students:          ["Beginner-friendly {topic} for students starting from scratch", "Your first real step into {topic} as a student", "The most accessible introduction to {topic} for students"],
+    remote_workers:    ["Beginner-friendly {topic} for remote workers", "Start {topic} as a remote professional, from the beginning", "The easiest entry point into {topic} for location-independent people"],
+  },
+  time_saving: {
+    beginners:         ["Learn {topic} in the least amount of time possible", "The fastest start to {topic} for beginners", "Get up to speed on {topic} quickly, without skipping what matters"],
+    busy_professionals:["The fastest {topic} system for busy professionals", "Spend less time on {topic}, get the same results", "The time-efficient professional's approach to {topic}"],
+    freelancers:       ["Save time on {topic} so you can focus on your work", "The fastest {topic} process for independent professionals", "Time-saving {topic} built for freelancers"],
+    creators:          ["Fast {topic} for creators who cannot afford to waste time", "The quickest path to useful {topic} results for creators", "Time-efficient {topic} that fits a creator's workflow"],
+    parents:           ["The fastest {topic} system that fits a parent's schedule", "Save time on {topic} so you have more for what matters", "Fast {topic} solutions for time-pressed parents"],
+    students:          ["The fastest path to {topic} results as a student", "Learn {topic} quickly, without sacrificing depth", "Time-efficient {topic} for students with full schedules"],
+    remote_workers:    ["The fastest {topic} system for remote professionals", "Save time on {topic} and use it somewhere better", "Time-efficient {topic} for people who work independently"],
+  },
+  money_focused: {
+    beginners:         ["Your first step toward earning from {topic}", "The income-focused beginner's guide to {topic}", "Start {topic} with earning in mind from day one"],
+    busy_professionals:["Turn your {topic} expertise into income", "The income-focused approach to {topic} for professionals", "Make your {topic} knowledge work for you financially"],
+    freelancers:       ["Turn {topic} into a revenue stream for your freelance business", "The income-focused {topic} guide for self-employed people", "Charge more and earn more with better {topic}"],
+    creators:          ["Monetize your {topic} knowledge as a creator", "The income-focused {topic} guide for content creators", "Turn your {topic} content into a product that earns"],
+    parents:           ["Earn from {topic} without it taking over your family time", "The income-focused {topic} approach for busy parents", "Turn your {topic} knowledge into household income"],
+    students:          ["Start earning from {topic} before you even graduate", "The income-focused student's guide to {topic}", "Turn your {topic} skills into money while you study"],
+    remote_workers:    ["Add {topic} income to your remote work life", "The income-focused {topic} guide for location-independent people", "Turn your {topic} expertise into a remote-friendly revenue stream"],
+  },
+};
+
+const positioningByToneAudience: Record<string, Record<string, string[]>> = {
+  simple: {
+    beginners:         ["The simplest {topic} resource for beginners", "The clear, honest starting point for {topic}", "Simple {topic}. No overwhelm."],
+    busy_professionals:["The no-complexity {topic} system for busy people", "Simple {topic} for professionals who need it done", "The {topic} resource that respects your time"],
+    freelancers:       ["Simple {topic} for the self-employed", "The freelancer's clear guide to {topic}", "No-fuss {topic} for people working on their own"],
+    creators:          ["Simple {topic} built for creators", "The clear creator's resource for {topic}", "Straightforward {topic} for content-focused people"],
+    parents:           ["Simple {topic} that fits family life", "The honest {topic} guide for busy parents", "Clear {topic} for people with full lives"],
+    students:          ["Simple {topic} that fits student life", "The honest student guide to {topic}", "Straightforward {topic} without the academic complexity"],
+    remote_workers:    ["Simple {topic} for remote-first people", "The clear guide to {topic} for independent workers", "Straightforward {topic} for wherever you work"],
+  },
+  practical: {
+    beginners:         ["The practical beginner's resource for {topic}", "Real {topic} results, no experience needed", "Practical {topic} for people just getting started"],
+    busy_professionals:["The practical professional's guide to {topic}", "Real {topic} results for busy people", "Practical {topic} that fits a professional life"],
+    freelancers:       ["The practical freelancer's guide to {topic}", "Real {topic} strategies for independent workers", "Practical {topic} for people who work for themselves"],
+    creators:          ["The practical creator's guide to {topic}", "Real {topic} strategies for content creators", "Practical {topic} for people building an audience"],
+    parents:           ["The practical parent's guide to {topic}", "Real {topic} solutions for family life", "Practical {topic} for people with limited free time"],
+    students:          ["The practical student's guide to {topic}", "Real {topic} skills for people in school", "Practical {topic} that goes beyond theory"],
+    remote_workers:    ["The practical remote worker's guide to {topic}", "Real {topic} strategies for location-independent people", "Practical {topic} for the modern remote professional"],
+  },
+  premium: {
+    beginners:         ["Premium quality from your very first step into {topic}", "High-quality {topic} for beginners who want to start right", "The elevated beginner's resource for {topic}"],
+    busy_professionals:["The premium {topic} resource for high-performing professionals", "Professional-grade {topic} for people who expect results", "Elevated {topic} built for serious professionals"],
+    freelancers:       ["Premium {topic} for top-tier freelancers", "High-quality {topic} for independent professionals who charge accordingly", "Elevated {topic} that supports premium positioning"],
+    creators:          ["Premium {topic} for creators building serious work", "High-quality {topic} for creators who take the craft seriously", "Elevated {topic} for the creator economy's top tier"],
+    parents:           ["Premium {topic} designed around intentional parenting", "High-quality {topic} for parents who do not want to settle", "Elevated {topic} for families who value quality"],
+    students:          ["Premium {topic} for ambitious students", "High-quality {topic} guidance for students who want to get ahead", "Elevated {topic} education beyond the classroom"],
+    remote_workers:    ["Premium {topic} for serious remote professionals", "High-quality {topic} for people who work with intention", "Elevated {topic} for the location-independent professional"],
+  },
+  beginner_friendly: {
+    beginners:         ["The friendliest {topic} resource you will find", "Designed for absolute beginners in {topic}", "The judgment-free starting point for {topic}"],
+    busy_professionals:["Beginner-level {topic} for professionals with no time to waste", "The accessible {topic} guide for busy people new to it", "Friendly {topic} for professionals starting from zero"],
+    freelancers:       ["The beginner-friendly {topic} guide for freelancers", "Start {topic} as a freelancer without feeling lost", "Friendly {topic} for self-employed people new to it"],
+    creators:          ["Beginner-friendly {topic} for creators", "Start {topic} as a creator without the overwhelm", "The friendly entry point into {topic} for content creators"],
+    parents:           ["Beginner-friendly {topic} for parents", "Start {topic} without needing prior knowledge", "The gentle, clear starting point for {topic} as a parent"],
+    students:          ["The most beginner-friendly {topic} guide for students", "Start {topic} without feeling behind", "Friendly, clear {topic} for students new to it"],
+    remote_workers:    ["Beginner-friendly {topic} for remote workers", "Start {topic} remotely without feeling lost", "The friendly entry point into {topic} for location-independent people"],
+  },
+  time_saving: {
+    beginners:         ["Fast {topic} for beginners who do not want to waste time", "The quick-start {topic} guide", "Get to the good part of {topic} faster"],
+    busy_professionals:["The fastest {topic} resource for busy professionals", "Time-efficient {topic} that still works", "The professional time-saver for {topic}"],
+    freelancers:       ["The time-saving {topic} guide for freelancers", "Fast {topic} for people running their own business", "More {topic} results in less time, built for freelancers"],
+    creators:          ["Time-saving {topic} for creators", "The fastest {topic} resource built for content work", "More {topic} results, less time. Built for creators."],
+    parents:           ["The time-saving {topic} guide for busy parents", "Fast {topic} for people with full family schedules", "Get your {topic} done faster and spend the time elsewhere"],
+    students:          ["The time-saving {topic} guide for students", "Fast {topic} for people with full academic schedules", "More {topic} in less study time"],
+    remote_workers:    ["The time-saving {topic} guide for remote workers", "Fast {topic} for efficient remote professionals", "Save time on {topic} and use it for what matters more"],
+  },
+  money_focused: {
+    beginners:         ["The income-starter's guide to {topic}", "Your first step toward earning from {topic}", "Built for beginners who want {topic} to pay off"],
+    busy_professionals:["The income-focused {topic} resource for professionals", "Turn your {topic} knowledge into money", "Professional {topic} that pays dividends"],
+    freelancers:       ["The money-focused {topic} guide for freelancers", "Turn {topic} expertise into freelance income", "The income-generating {topic} resource for self-employed people"],
+    creators:          ["The money-focused {topic} guide for creators", "Turn {topic} into creator income", "Monetize your {topic} knowledge as a creator"],
+    parents:           ["The income-focused {topic} guide for parents", "Turn {topic} knowledge into family income", "Earn from {topic} on your own schedule"],
+    students:          ["The money-focused {topic} guide for students", "Turn {topic} skills into student income", "Earn from {topic} while you are still studying"],
+    remote_workers:    ["The income-focused {topic} guide for remote workers", "Turn {topic} into a remote income stream", "Monetize your {topic} knowledge from anywhere"],
+  },
+};
+
+const bestPickMap: Record<string, Record<string, string>> = {
+  simple: {
+    save_time:      "Hook 1 + Promise 1 + Positioning 1. A clean, direct combination that instantly communicates ease and speed. Works especially well for people who are tired of complicated systems.",
+    make_money:     "Hook 1 + Promise 3 + Positioning 2. The simplest money-making message lands better than a complex pitch. Pair directness with a clear income promise.",
+    get_organized:  "Hook 2 + Promise 2 + Positioning 3. Organized and simple is a powerful combination. Lead with the clean structure, back it with the ease of use.",
+    feel_confident: "Hook 3 + Promise 1 + Positioning 1. Simple confidence-building feels more trustworthy than bold claims. Understated and clear wins here.",
+    learn_faster:   "Hook 1 + Promise 1 + Positioning 2. Simplicity sells speed. A direct, clear message about learning faster feels both accessible and credible.",
+    avoid_mistakes: "Hook 2 + Promise 3 + Positioning 3. Simple mistake-prevention framing is more persuasive than complicated risk messaging. Keep it clean.",
+  },
+  practical: {
+    save_time:      "Hook 2 + Promise 2 + Positioning 2. Practical + time-saving is a powerful combination for busy audiences. Real shortcuts, real results, no filler.",
+    make_money:     "Hook 1 + Promise 1 + Positioning 1. A practical income message builds more trust than a hyped pitch. Real strategies for real results.",
+    get_organized:  "Hook 1 + Promise 3 + Positioning 2. Practical organization messaging focuses on what actually works, not what looks good on paper.",
+    feel_confident: "Hook 2 + Promise 2 + Positioning 3. Practical confidence comes from real preparation. Lead with that, not inspiration.",
+    learn_faster:   "Hook 3 + Promise 3 + Positioning 3. Hands-on learning is the most practical message you can send. Lead with doing, not reading.",
+    avoid_mistakes: "Hook 1 + Promise 1 + Positioning 1. Real-world mistake prevention is the most practical angle. It respects the reader's experience.",
+  },
+  premium: {
+    save_time:      "Hook 1 + Promise 1 + Positioning 3. Premium time-saving means fewer steps and better results. Lead with the quality of the shortcut.",
+    make_money:     "Hook 2 + Promise 2 + Positioning 2. A premium income message is about commanding higher prices, not just making money. Position accordingly.",
+    get_organized:  "Hook 3 + Promise 3 + Positioning 1. Premium organization is about thoughtful systems, not just clean desks. Lead with craft and intention.",
+    feel_confident: "Hook 1 + Promise 1 + Positioning 2. Premium confidence messaging is calm and certain. No hype. Just quality.",
+    learn_faster:   "Hook 2 + Promise 2 + Positioning 3. A premium learning experience promises depth and quality, not just speed. Balance both in your message.",
+    avoid_mistakes: "Hook 3 + Promise 3 + Positioning 1. Premium mistake-prevention messaging is about protecting high-value outcomes. Lead with what is at stake.",
+  },
+  beginner_friendly: {
+    save_time:      "Hook 2 + Promise 2 + Positioning 2. Beginner-friendly + fast is a reassuring combination. Easy to start, quick to get value from.",
+    make_money:     "Hook 1 + Promise 1 + Positioning 3. Telling beginners they can earn without experience is your strongest angle. Back it with a clear, accessible process.",
+    get_organized:  "Hook 1 + Promise 2 + Positioning 1. Beginner-friendly organization messaging works best when it emphasizes ease and clarity over system complexity.",
+    feel_confident: "Hook 3 + Promise 3 + Positioning 2. Beginners respond to reassurance. Your best pick should feel approachable and human, not authoritative.",
+    learn_faster:   "Hook 1 + Promise 1 + Positioning 1. Beginners want to feel like they can actually do this. Fast + friendly is the most compelling learning message.",
+    avoid_mistakes: "Hook 2 + Promise 2 + Positioning 3. For beginners, mistake prevention is actually a confidence message. Help them start right, not start scared.",
+  },
+  time_saving: {
+    save_time:      "Hook 1 + Promise 1 + Positioning 1. When your entire angle is speed, everything should reinforce it. Pick the fastest-sounding combination across all three.",
+    make_money:     "Hook 2 + Promise 2 + Positioning 2. Time-saving + money-making is a strong dual-angle. Earn more in less time. Lead with that exact message.",
+    get_organized:  "Hook 3 + Promise 3 + Positioning 3. Fast organization sounds almost too good. That is your advantage. Make the speed the headline.",
+    feel_confident: "Hook 1 + Promise 1 + Positioning 2. Time-saving confidence means feeling ready faster. Lead with that specific promise.",
+    learn_faster:   "Hook 1 + Promise 1 + Positioning 1. Speed + learning is the core message here. Make every element of your angle reflect how quickly they will get results.",
+    avoid_mistakes: "Hook 3 + Promise 3 + Positioning 1. Fast mistake-prevention is compelling. Save time by skipping the trial and error. Lead with that.",
+  },
+  money_focused: {
+    save_time:      "Hook 1 + Promise 3 + Positioning 2. Earning more by saving time is an efficient angle. Frame the time-saving as protecting their income potential.",
+    make_money:     "Hook 1 + Promise 1 + Positioning 1. When everything is money-focused, go direct. The clearest income message wins. No hedging.",
+    get_organized:  "Hook 2 + Promise 2 + Positioning 3. Income-focused organization is about building systems that support revenue. Lead with the business case.",
+    feel_confident: "Hook 2 + Promise 2 + Positioning 2. Money-focused confidence means charging more. Frame your confidence messaging around what it enables financially.",
+    learn_faster:   "Hook 3 + Promise 3 + Positioning 3. Learning faster to earn sooner is a compelling income angle. Lead with the monetization timeline.",
+    avoid_mistakes: "Hook 1 + Promise 1 + Positioning 1. The financial cost of mistakes is your strongest money-focused angle. Lead with what avoiding them is worth.",
+  },
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+
+let angleVariant = 0;
+let lastAngleHash = '';
+let currentTopic = '';
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function pick<T>(arr: T[], idx: number): T { return arr[idx % arr.length]; }
+function interp(s: string, t: string): string { return s.replace(/\{topic\}/g, t); }
+function cap(s: string): string { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+// ─── GENERATION ──────────────────────────────────────────────────────────────
+
+function generateAngles(inputs: AngleData) {
+  const { tone, outcome, audience, topic, variant } = inputs;
+  const t = topic.trim() || 'your topic';
+
+  const hookSets = hooksByToneOutcome[tone]?.[outcome] ?? hooksByToneOutcome['practical']['save_time'];
+  const hookSet = pick(hookSets, variant);
+  const hooks = hookSet.map(h => interp(h, t));
+
+  const promisesRaw = promisesByToneAudience[tone]?.[audience] ?? promisesByToneAudience['practical']['busy_professionals'];
+  const promises = promisesRaw.map(p => interp(p, t));
+
+  const positionsRaw = positioningByToneAudience[tone]?.[audience] ?? positioningByToneAudience['practical']['busy_professionals'];
+  const positions = positionsRaw.map(p => interp(p, t));
+
+  const bestPick = bestPickMap[tone]?.[outcome] ?? 'Hook 1 + Promise 1 + Positioning 1. A straightforward combination that clearly communicates what this product does and who it is for.';
+
+  const label = `${cap(t)} / ${audience.replace('_',' ')} / ${tone.replace('_',' ')}`;
+
+  return { hooks, promises, positions, bestPick, label };
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+
+function renderAngles(data: ReturnType<typeof generateAngles>) {
+  const empty = document.getElementById('angle-empty-state')!;
+  const result = document.getElementById('angle-result')!;
+
+  (document.getElementById('angle-result-label') as HTMLElement).textContent = data.label;
+
+  const makeList = (items: string[]) =>
+    items.map((item, i) => `
+      <li class="flex items-start gap-2.5 text-sm text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
+        <span class="mt-0.5 w-5 h-5 rounded-full bg-[#1B1B3D] border-2 border-black flex items-center justify-center text-white text-xs font-black shrink-0">${i + 1}</span>
+        <span class="font-medium leading-relaxed">${item}</span>
+      </li>`).join('');
+
+  (document.getElementById('angle-hooks') as HTMLElement).innerHTML = makeList(data.hooks);
+  (document.getElementById('angle-promises') as HTMLElement).innerHTML = makeList(data.promises);
+  (document.getElementById('angle-positions') as HTMLElement).innerHTML = makeList(data.positions);
+  (document.getElementById('angle-best-pick') as HTMLElement).textContent = data.bestPick;
+
+  empty.classList.add('hidden');
+  result.classList.remove('hidden');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ─── MODAL CONTROL ────────────────────────────────────────────────────────────
+
+const overlay = document.getElementById('angle-modal-overlay') as HTMLElement;
+const card = document.getElementById('angle-modal-card') as HTMLElement;
+const closeBtn = document.getElementById('angle-modal-close') as HTMLButtonElement;
+
+function openModal(prefillTopic?: string) {
+  if (prefillTopic) {
+    (document.getElementById('angle-topic') as HTMLInputElement).value = prefillTopic;
+  }
+  overlay.classList.remove('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-95');
+  card.classList.add('scale-100');
+  document.body.style.overflow = 'hidden';
+  card.scrollTop = 0;
+}
+
+function closeModal() {
+  overlay.classList.add('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+  document.body.style.overflow = '';
+}
+
+(window as any).openAngleGeneratorModal = openModal;
+
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// ─── FORM INTERACTIONS ────────────────────────────────────────────────────────
+
+document.querySelectorAll('.angle-topic-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    (document.getElementById('angle-topic') as HTMLInputElement).value = (chip as HTMLElement).dataset.topic ?? '';
+  });
+});
+
+document.getElementById('angle-generate-btn')!.addEventListener('click', () => {
+  const icon = document.getElementById('angle-btn-icon') as HTMLElement;
+  const text = document.getElementById('angle-btn-text') as HTMLElement;
+  const btn = document.getElementById('angle-generate-btn') as HTMLButtonElement;
+
+  icon.textContent = '⏳';
+  text.textContent = 'Generating...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    const topic = (document.getElementById('angle-topic') as HTMLInputElement).value;
+    const audience = (document.getElementById('angle-audience') as HTMLSelectElement).value;
+    const outcome = (document.getElementById('angle-outcome') as HTMLSelectElement).value;
+    const tone = (document.getElementById('angle-tone') as HTMLSelectElement).value;
+
+    currentTopic = topic;
+    const hash = `${topic}|${audience}|${outcome}|${tone}`;
+    if (hash !== lastAngleHash) { angleVariant = 0; lastAngleHash = hash; }
+
+    const data = generateAngles({ topic, audience, outcome, tone, variant: angleVariant });
+    renderAngles(data);
+
+    icon.textContent = '🎯';
+    text.textContent = 'Generate Angles';
+    btn.disabled = false;
+  }, 500);
+});
+
+document.getElementById('angle-regen-btn')!.addEventListener('click', () => {
+  const topic = (document.getElementById('angle-topic') as HTMLInputElement).value;
+  const audience = (document.getElementById('angle-audience') as HTMLSelectElement).value;
+  const outcome = (document.getElementById('angle-outcome') as HTMLSelectElement).value;
+  const tone = (document.getElementById('angle-tone') as HTMLSelectElement).value;
+  angleVariant++;
+  const data = generateAngles({ topic, audience, outcome, tone, variant: angleVariant });
+  renderAngles(data);
+});
+
+document.getElementById('angle-copy-btn')!.addEventListener('click', () => {
+  const hooks = Array.from(document.querySelectorAll('#angle-hooks li span:last-child')).map(el => el.textContent).join('\n');
+  const promises = Array.from(document.querySelectorAll('#angle-promises li span:last-child')).map(el => el.textContent).join('\n');
+  const positions = Array.from(document.querySelectorAll('#angle-positions li span:last-child')).map(el => el.textContent).join('\n');
+  const best = (document.getElementById('angle-best-pick') as HTMLElement).textContent;
+  const text = `PRODUCT ANGLE GENERATOR\n\nHook Ideas:\n${hooks}\n\nPromise Angles:\n${promises}\n\nPositioning Directions:\n${positions}\n\nBest Pick:\n${best}\n\nGenerated by Strategic Sloth`;
+  navigator.clipboard.writeText(text).then(() => {
+    const el = document.getElementById('angle-copy-text') as HTMLElement;
+    el.textContent = 'Copied!';
+    setTimeout(() => { el.textContent = 'Copy All'; }, 2000);
+  });
+});
+
+document.getElementById('angle-use-outline')!.addEventListener('click', () => {
+  closeModal();
+  setTimeout(() => {
+    if (typeof (window as any).openOutlineBuilderModal === 'function') {
+      (window as any).openOutlineBuilderModal(currentTopic || (document.getElementById('angle-topic') as HTMLInputElement).value);
+    }
+  }, 200);
+});
+
+})();
+</script>

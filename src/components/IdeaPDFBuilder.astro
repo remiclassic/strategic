@@ -1,0 +1,631 @@
+---
+const audienceOptions = [
+  { value: "beginners", label: "Beginners" },
+  { value: "busy_professionals", label: "Busy Professionals" },
+  { value: "freelancers", label: "Freelancers" },
+  { value: "creators", label: "Creators" },
+  { value: "parents", label: "Parents" },
+  { value: "students", label: "Students" },
+  { value: "remote_workers", label: "Remote Workers" },
+];
+
+const outcomeOptions = [
+  { value: "save_time", label: "Save Time" },
+  { value: "make_money", label: "Make Money" },
+  { value: "get_organized", label: "Get Organized" },
+  { value: "feel_confident", label: "Feel More Confident" },
+  { value: "learn_faster", label: "Learn Faster" },
+  { value: "avoid_mistakes", label: "Avoid Mistakes" },
+];
+
+const productTypeOptions = [
+  { value: "checklist", label: "Checklist" },
+  { value: "guide", label: "Guide" },
+  { value: "workbook", label: "Workbook" },
+  { value: "template_pack", label: "Template Pack" },
+  { value: "starter_kit", label: "Starter Kit" },
+  { value: "planner", label: "Planner" },
+];
+
+const sampleTopics = [
+  "travel", "freelancing", "budgeting", "content creation", "fitness",
+  "home office", "social media", "cooking", "job interviews", "side hustles"
+];
+---
+
+<section id="idea-builder" class="py-20 bg-white border-t-2 border-black">
+  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section label -->
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 mb-4">
+        <span class="text-xs font-black uppercase tracking-widest text-[#8888A4]" style="font-family:'Inter',system-ui,sans-serif;">Featured Tool</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-black text-[#1B1B3D] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Idea to PDF Builder</h2>
+      <p class="text-[#5C5C7A] max-w-xl mx-auto" style="font-family:'Inter',system-ui,sans-serif;">Answer four quick questions and get a complete, sellable product idea you can start building today.</p>
+    </div>
+
+    <!-- Main builder card -->
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-[#FFFBF2] border-[3px] border-black rounded-2xl shadow-[6px_6px_0_#000] overflow-hidden">
+
+        <!-- Card header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b-2 border-black bg-white">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">💡</span>
+            <span class="font-black text-[#1B1B3D] text-lg" style="font-family:'Inter',system-ui,sans-serif;">Idea Builder</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-3 py-1 shadow-[2px_2px_0_#000]">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
+              LIVE
+            </span>
+            <span class="text-xs text-[#8888A4] font-medium" style="font-family:'Inter',system-ui,sans-serif;">Powered by NarriaFlow</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="p-6 sm:p-8">
+          <div class="space-y-6" id="builder-form">
+
+            <!-- Topic input -->
+            <div>
+              <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="topic-input" style="font-family:'Inter',system-ui,sans-serif;">
+                What do you know about?
+              </label>
+              <input
+                id="topic-input"
+                type="text"
+                placeholder="e.g. travel, freelancing, design, budgeting, fitness…"
+                class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              />
+              <!-- Sample chips -->
+              <div class="flex flex-wrap gap-2 mt-3" id="topic-chips">
+                {sampleTopics.map(t => (
+                  <button
+                    type="button"
+                    class="topic-chip text-xs font-bold bg-white border-2 border-black rounded-full px-3 py-1 hover:bg-[#FFD600] hover:shadow-[2px_2px_0_#000] transition-all duration-150 cursor-pointer"
+                    data-topic={t}
+                    style="font-family:'Inter',system-ui,sans-serif;"
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <!-- Three selects in a grid -->
+            <div class="grid sm:grid-cols-3 gap-4">
+              <!-- Audience -->
+              <div>
+                <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="audience-select" style="font-family:'Inter',system-ui,sans-serif;">
+                  Who is it for?
+                </label>
+                <div class="relative">
+                  <select
+                    id="audience-select"
+                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150 cursor-pointer"
+                    style="font-family:'Inter',system-ui,sans-serif;"
+                  >
+                    {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                    <svg class="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Outcome -->
+              <div>
+                <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="outcome-select" style="font-family:'Inter',system-ui,sans-serif;">
+                  What outcome do they want?
+                </label>
+                <div class="relative">
+                  <select
+                    id="outcome-select"
+                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150 cursor-pointer"
+                    style="font-family:'Inter',system-ui,sans-serif;"
+                  >
+                    {outcomeOptions.map(o => <option value={o.value}>{o.label}</option>)}
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                    <svg class="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Product type -->
+              <div>
+                <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="type-select" style="font-family:'Inter',system-ui,sans-serif;">
+                  Product type
+                </label>
+                <div class="relative">
+                  <select
+                    id="type-select"
+                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150 cursor-pointer"
+                    style="font-family:'Inter',system-ui,sans-serif;"
+                  >
+                    {productTypeOptions.map(o => <option value={o.value}>{o.label}</option>)}
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                    <svg class="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generate button -->
+            <div>
+              <button
+                id="generate-btn"
+                type="button"
+                class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <span id="generate-btn-icon">✨</span>
+                <span id="generate-btn-text">Generate My Idea</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty state (default) -->
+          <div id="empty-state" class="mt-8 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+            <span class="text-5xl mb-4">📄</span>
+            <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your product idea will appear here</p>
+            <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above, then hit Generate</p>
+          </div>
+
+          <!-- Result card (hidden until generated) -->
+          <div id="result-card" class="mt-8 hidden">
+            <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+
+              <!-- Result header -->
+              <div class="bg-[#1B1B3D] px-6 py-4 flex items-start justify-between gap-3">
+                <div>
+                  <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-1" style="font-family:'Inter',system-ui,sans-serif;">Your Product Idea</p>
+                  <h3 id="result-title" class="text-white text-xl sm:text-2xl font-black leading-tight" style="font-family:'Inter',system-ui,sans-serif;">The Freelancer's Client Onboarding Starter Kit</h3>
+                </div>
+                <span class="shrink-0 inline-flex items-center gap-1 bg-[#FFD600] text-black text-xs font-black border-2 border-black rounded-full px-3 py-1 mt-1">
+                  ✦ Ready
+                </span>
+              </div>
+
+              <!-- Result body -->
+              <div class="p-6 sm:p-8 space-y-5">
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                  <!-- Hook -->
+                  <div class="sm:col-span-2 bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
+                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">The Hook</p>
+                    <p id="result-hook" class="font-bold text-[#1B1B3D] text-base leading-snug" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  </div>
+
+                  <!-- Best for -->
+                  <div class="bg-[#E3F9ED] border-2 border-black rounded-xl p-4">
+                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Best For</p>
+                    <p id="result-audience" class="font-bold text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  </div>
+
+                  <!-- Problem -->
+                  <div class="bg-[#FFF3CD] border-2 border-black rounded-xl p-4">
+                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Problem It Solves</p>
+                    <p id="result-problem" class="font-bold text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  </div>
+                </div>
+
+                <!-- Sections -->
+                <div class="bg-white border-2 border-black rounded-xl p-4">
+                  <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">What to Include</p>
+                  <ul id="result-sections" class="space-y-2"></ul>
+                </div>
+
+                <!-- Price + Format row -->
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
+                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1" style="font-family:'Inter',system-ui,sans-serif;">Price Range</p>
+                    <p id="result-price" class="font-black text-[#1B1B3D] text-lg" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  </div>
+                  <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
+                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1" style="font-family:'Inter',system-ui,sans-serif;">Format</p>
+                    <p id="result-format" class="font-black text-[#1B1B3D] text-lg" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                  <a
+                    id="build-narriaflow-btn"
+                    href="#narriaflow"
+                    class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                    style="font-family:'Inter',system-ui,sans-serif;"
+                  >
+                    🚀 Build This in NarriaFlow
+                  </a>
+                  <button
+                    id="copy-btn"
+                    type="button"
+                    class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                    style="font-family:'Inter',system-ui,sans-serif;"
+                  >
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    <span id="copy-btn-text">Copy Idea</span>
+                  </button>
+                  <button
+                    id="regenerate-btn"
+                    type="button"
+                    class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                    style="font-family:'Inter',system-ui,sans-serif;"
+                  >
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Regenerate
+                  </button>
+                </div>
+
+                <p class="text-xs text-[#B0B0C8] text-center pt-1" style="font-family:'Inter',system-ui,sans-serif;">
+                  Want to turn this into a full product? NarriaFlow is being built to help you do exactly that.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const titlePrefixes: Record<string, Record<string, string[]>> = {
+  checklist: {
+    beginners:         ["The Beginner's {topic} Checklist", "Your First {topic} Checklist", "The {topic} Quick-Start Checklist"],
+    busy_professionals:["The Busy Professional's {topic} Checklist", "The 10-Minute {topic} Checklist", "The {topic} Checklist for Busy People"],
+    freelancers:       ["The Freelancer's {topic} Checklist", "The {topic} Checklist for Freelancers", "The Self-Employed {topic} Checklist"],
+    creators:          ["The Creator's {topic} Checklist", "The {topic} Launch Checklist", "The {topic} Content Checklist"],
+    parents:           ["The Parent's {topic} Checklist", "The Family-Friendly {topic} Checklist", "The {topic} Checklist for Busy Parents"],
+    students:          ["The Student's {topic} Checklist", "The {topic} Study Checklist", "The {topic} Checklist for Students"],
+    remote_workers:    ["The Remote Worker's {topic} Checklist", "The {topic} WFH Checklist", "The {topic} Checklist for Remote Teams"],
+  },
+  guide: {
+    beginners:         ["The Beginner's Guide to {topic}", "The Plain-English {topic} Guide", "Everything You Need to Know About {topic}"],
+    busy_professionals:["The No-Fluff {topic} Guide", "The Busy Professional's Guide to {topic}", "The Fast-Track {topic} Guide"],
+    freelancers:       ["The Freelancer's Guide to {topic}", "The Independent Professional's {topic} Guide", "Build Your {topic} System: A Guide for Freelancers"],
+    creators:          ["The Creator's Guide to {topic}", "The {topic} Playbook for Creators", "Go Deeper on {topic}: A Creator's Field Guide"],
+    parents:           ["The Parent's Guide to {topic}", "The Realistic Guide to {topic} for Parents", "The {topic} Guide That Fits Real Life"],
+    students:          ["The Student's Guide to {topic}", "The Smart Student's {topic} Guide", "Master {topic} Without the Overwhelm"],
+    remote_workers:    ["The Remote Worker's Guide to {topic}", "The {topic} Handbook for Remote Teams", "The {topic} Guide for Location-Independent People"],
+  },
+  workbook: {
+    beginners:         ["The {topic} Starter Workbook", "Your {topic} Journey Workbook", "The {topic} Workbook for Beginners"],
+    busy_professionals:["The {topic} Workbook for Busy People", "The 30-Minute {topic} Workbook", "The Efficient {topic} Workbook"],
+    freelancers:       ["The Freelancer's {topic} Workbook", "The {topic} Action Workbook for Freelancers", "The Self-Employed {topic} Workbook"],
+    creators:          ["The Creator's {topic} Workbook", "The {topic} Content Workbook", "Map Your {topic} Strategy: A Workbook for Creators"],
+    parents:           ["The Family {topic} Workbook", "The {topic} Workbook for Overwhelmed Parents", "The {topic} Clarity Workbook for Parents"],
+    students:          ["The {topic} Study Workbook", "The {topic} Progress Workbook for Students", "The {topic} Learning Workbook"],
+    remote_workers:    ["The Remote {topic} Workbook", "The {topic} Workbook for Independent Workers", "The WFH {topic} Workbook"],
+  },
+  template_pack: {
+    beginners:         ["The {topic} Starter Template Pack", "The {topic} Template Pack for Beginners", "Plug-and-Play {topic} Templates"],
+    busy_professionals:["The {topic} Template Pack for Busy Professionals", "Done-For-You {topic} Templates", "The {topic} Shortcut Template Pack"],
+    freelancers:       ["The Freelancer's {topic} Template Pack", "The {topic} Business Template Pack", "The Freelance {topic} Template Bundle"],
+    creators:          ["The {topic} Content Template Pack", "The Creator's {topic} Template Pack", "Ready-to-Use {topic} Templates for Creators"],
+    parents:           ["The Parent's {topic} Template Pack", "The Family {topic} Template Pack", "The Organized Parent's {topic} Templates"],
+    students:          ["The Student's {topic} Template Pack", "The {topic} Study Template Pack", "The {topic} Template Pack for Students"],
+    remote_workers:    ["The Remote Worker's {topic} Template Pack", "The {topic} WFH Template Pack", "Work-Anywhere {topic} Templates"],
+  },
+  starter_kit: {
+    beginners:         ["The {topic} Starter Kit for Beginners", "Your First {topic} Kit", "The {topic} Jumpstart Kit"],
+    busy_professionals:["The {topic} Starter Kit for Busy Professionals", "The {topic} Launch Kit", "The Efficient {topic} Starter Kit"],
+    freelancers:       ["The Freelancer's {topic} Starter Kit", "The {topic} Business Starter Kit", "Launch Your {topic} Business: The Starter Kit"],
+    creators:          ["The Creator's {topic} Starter Kit", "The {topic} Content Starter Kit", "The {topic} Launch Kit for Creators"],
+    parents:           ["The Parent's {topic} Starter Kit", "The Family {topic} Kit", "The {topic} Setup Kit for Busy Parents"],
+    students:          ["The Student's {topic} Starter Kit", "The {topic} Study Starter Kit", "The {topic} Kit for Students Who Mean Business"],
+    remote_workers:    ["The Remote {topic} Starter Kit", "The Work-From-Anywhere {topic} Kit", "The Remote Worker's {topic} Setup Kit"],
+  },
+  planner: {
+    beginners:         ["The {topic} Planner for Beginners", "Your {topic} Action Planner", "The Simple {topic} Planner"],
+    busy_professionals:["The Busy Professional's {topic} Planner", "The 15-Minute {topic} Planner", "The No-Overwhelm {topic} Planner"],
+    freelancers:       ["The Freelancer's {topic} Planner", "The {topic} Business Planner for Self-Employed People", "The {topic} Quarterly Planner"],
+    creators:          ["The Creator's {topic} Planner", "The {topic} Content Planner", "The {topic} Launch Planner for Creators"],
+    parents:           ["The Parent's {topic} Planner", "The Family {topic} Planner", "The {topic} Planner That Works Around Real Life"],
+    students:          ["The Student's {topic} Planner", "The {topic} Study Planner", "The {topic} Semester Planner"],
+    remote_workers:    ["The Remote Worker's {topic} Planner", "The {topic} Planner for Remote Teams", "The Work-Anywhere {topic} Planner"],
+  },
+};
+
+const hookTemplates: Record<string, Record<string, string[]>> = {
+  save_time: {
+    checklist:    ["Stop guessing every time. This checklist covers everything about {topic} so you can get it done and move on.", "Spend less time figuring out {topic}, more time actually doing it. Every step is already mapped out."],
+    guide:        ["Most {topic} guides are too long and too vague. This one is short, clear, and built for people with better things to do.", "No fluff, no filler. Just the fastest path through {topic} for people who don't have time to waste."],
+    workbook:     ["Turn your {topic} chaos into a clear plan in under an hour. No wasted motion, no back-and-forth.", "Stop spinning on {topic}. This workbook gives you a structured path so you stop restarting and start finishing."],
+    template_pack:["Copy, paste, and go. These {topic} templates cut your setup time in half, no starting from scratch.", "Do less, get more done. These {topic} templates handle the heavy lifting so you can focus on what matters."],
+    starter_kit:  ["Everything you need to get started with {topic}, already organized, ready to use, no assembly required.", "Skip the setup. This {topic} starter kit has everything laid out so your first day is actually productive."],
+    planner:      ["Clear your head and plan your {topic} in one session. Less decision-making, more forward movement.", "Stop losing time to disorganized {topic}. This planner keeps everything in one place so every week flows."],
+  },
+  make_money: {
+    checklist:    ["Every step you need to turn your {topic} knowledge into income, checked off, in order, no overthinking.", "The {topic} money-making checklist nobody gave you before. Now you have it."],
+    guide:        ["The honest, practical guide to making money with {topic}. No hype, just the steps that actually work.", "Most people sit on their {topic} knowledge for years. This guide shows you how to turn it into real income."],
+    workbook:     ["Map out your {topic} income strategy from scratch. By the end, you'll know exactly what to build and who to sell it to.", "Turn your {topic} ideas into a real product plan. This workbook walks you through every decision."],
+    template_pack:["Professional {topic} templates that make your work look like it's worth more. Because it is.", "Charge more for your {topic} services with templates that do the heavy lifting for you."],
+    starter_kit:  ["Everything you need to start making money with {topic}, packaged cleanly so you can launch without second-guessing yourself.", "Your complete {topic} income starter kit. Build it once, sell it on repeat."],
+    planner:      ["Plan your {topic} income strategy week by week. Consistent action, compounding results.", "The {topic} planner that keeps your money goals in focus, even when life gets busy."],
+  },
+  get_organized: {
+    checklist:    ["Get your {topic} situation under control with a simple checklist that covers everything you keep forgetting.", "Finally, an organized approach to {topic}. Everything in order, nothing left out."],
+    guide:        ["The clearest, most logical guide to organizing your {topic}, written for people who are tired of figuring it out alone.", "Stop patching together your {topic} system. This guide gives you a structure that actually sticks."],
+    workbook:     ["Get everything about {topic} out of your head and onto paper. Organized, clear, and surprisingly calming.", "The {topic} clarity workbook. One session to organize your thinking, set your priorities, and start clean."],
+    template_pack:["A set of ready-made {topic} templates that bring order to chaos, no building your own systems from scratch.", "Organized {topic} starts here. These templates make it easy to maintain structure without constant effort."],
+    starter_kit:  ["Your complete {topic} organization kit. Everything set up the right way from day one.", "Stop reinventing your {topic} process every few months. This starter kit gives you a system that lasts."],
+    planner:      ["An organized {topic} year starts with an organized plan. This planner makes that easy to maintain.", "Map out your {topic} goals, track your progress, and stay organized without extra effort."],
+  },
+  feel_confident: {
+    checklist:    ["Go into any {topic} situation knowing you've covered everything. Confidence from preparation, not luck.", "Stop second-guessing yourself on {topic}. This checklist makes sure you're always ready."],
+    guide:        ["The {topic} guide that actually makes sense, written clearly so you understand it, not just follow it.", "After reading this, you'll know exactly where you stand on {topic} and what to do next. No more guessing."],
+    workbook:     ["Work through your {topic} knowledge and gaps in one sitting. Come out knowing exactly what you're doing.", "Build real confidence around {topic} by working through it step by step. No more winging it."],
+    template_pack:["Professionally crafted {topic} templates that make you look like you've been doing this for years.", "Show up to every {topic} situation prepared. These templates do the thinking in advance so you don't have to."],
+    starter_kit:  ["Start your {topic} journey with everything in place. Less uncertainty, more momentum from day one.", "The {topic} kit that makes you feel ready. Because you actually are."],
+    planner:      ["Plan your {topic} approach in advance so you always feel prepared, not reactive.", "A {topic} planner that helps you build real, steady confidence by making progress visible."],
+  },
+  learn_faster: {
+    checklist:    ["A distilled {topic} checklist that captures what took others years to figure out, so you can skip the slow part.", "Learn {topic} the fast way. This checklist filters out the noise so you only focus on what matters."],
+    guide:        ["The shortest path to understanding {topic}. Dense with the right things, nothing unnecessary.", "Learn {topic} faster than you thought possible. This guide skips the background and gets to what you need to know."],
+    workbook:     ["Accelerate your {topic} learning by doing. This workbook turns passive reading into real retention.", "The {topic} workbook that makes knowledge stick. Work through it once and you'll remember it for good."],
+    template_pack:["Learn {topic} patterns by using them. These templates show you the structure so you can learn by doing.", "The fastest way to learn {topic} is to use proven frameworks. These templates are exactly that."],
+    starter_kit:  ["Everything you need to start learning {topic} the right way: structured, progressive, and efficient.", "The {topic} starter kit designed around how adults actually learn: by doing, not just reading."],
+    planner:      ["Map out your {topic} learning path so you make real progress every week, not just occasionally.", "A {topic} study planner built for fast, focused learning. No wasted sessions."],
+  },
+  avoid_mistakes: {
+    checklist:    ["Everything that tends to go wrong with {topic}, caught before it becomes a problem.", "The {topic} checklist that prevents the mistakes most people only learn from experience."],
+    guide:        ["The honest guide to {topic}, including what nobody talks about and the mistakes that cost people the most.", "Learn what to do and what to absolutely avoid with {topic}. This guide doesn't skip the hard parts."],
+    workbook:     ["Work through your {topic} plan with a built-in sanity check at every step, before you make the costly kind.", "The {topic} workbook that spots problems early so you can fix them before they compound."],
+    template_pack:["Tested {topic} templates built to avoid the common mistakes, so you don't have to discover them yourself.", "Templates shaped around what actually works in {topic}, designed to prevent what doesn't."],
+    starter_kit:  ["A {topic} starter kit built around real mistakes real people make, so your start is cleaner than theirs.", "Get started with {topic} the right way. This kit is designed to protect you from the most common wrong turns."],
+    planner:      ["A {topic} planner with built-in checkpoints that catch problems before they snowball.", "Plan your {topic} properly from the start. This planner is designed around avoiding the patterns that derail people."],
+  },
+};
+
+const sectionsByType: Record<string, string[][]> = {
+  checklist: [
+    ["Before You Start", "Core Steps", "Common Mistakes to Avoid", "Final Review", "Resources to Keep Handy"],
+    ["Quick Setup Checklist", "Daily/Weekly Habits", "Problem-Solving Prompts", "Progress Markers", "What's Next"],
+    ["Phase 1: Foundations", "Phase 2: Action Steps", "Key Checkpoints", "Troubleshooting Guide", "Success Criteria"],
+  ],
+  guide: [
+    ["Why This Matters", "What You Need to Know First", "Step-by-Step Breakdown", "Pro Tips and Shortcuts", "Common Q&A", "Where to Go From Here"],
+    ["The Big Picture", "Core Concepts Explained Simply", "How to Get Started", "What to Do When It Gets Hard", "Quick Reference Summary"],
+    ["The Problem Most People Face", "A Simpler Way to Think About It", "Your Action Plan", "Real-World Examples", "Frequently Asked Questions"],
+  ],
+  workbook: [
+    ["Where You Are Now", "Where You Want to Be", "Your Action Plan", "Weekly Progress Tracker", "Reflection Prompts", "What's Working"],
+    ["Current Situation Assessment", "Goal Setting Exercises", "Obstacle Identification", "Step-by-Step Plan Builder", "Progress Checkpoints"],
+    ["Brainstorm Pages", "Decision-Making Framework", "Priority Matrix", "Implementation Roadmap", "Weekly Review Pages"],
+  ],
+  template_pack: [
+    ["Core Template", "Variation A: Quick Version", "Variation B: Detailed Version", "Fill-in-the-Blank Version", "Example Completed Templates", "How to Use Guide"],
+    ["Starter Template", "Advanced Template", "Email Template", "Tracking Sheet", "Reference Card", "FAQ Sheet"],
+    ["Template 1: Daily Use", "Template 2: Planning", "Template 3: Review", "Template 4: Communication", "How to Customize Instructions"],
+  ],
+  starter_kit: [
+    ["Quick Start Guide", "Core Checklist", "Essential Templates", "Resource List", "First 30 Days Plan", "Troubleshooting Guide"],
+    ["Getting Started Overview", "Step-by-Step Setup", "Must-Have Tools List", "Templates and Worksheets", "Common Pitfalls to Avoid", "Next Steps"],
+    ["Welcome + Overview", "Setup Checklist", "Core Frameworks", "Recommended Tools", "FAQ and Support Prompts", "Progress Milestones"],
+  ],
+  planner: [
+    ["Annual Overview", "Quarterly Goals", "Monthly Planning Pages", "Weekly Spreads", "Daily Action Logs", "End-of-Period Review"],
+    ["Goal Setting Pages", "Project Planning Spreads", "Weekly Habit Tracker", "Monthly Reflection", "Progress Dashboard", "Notes Pages"],
+    ["Vision and Priorities", "Monthly Roadmap", "Weekly Planning Template", "Daily Focus Pages", "Review and Reset Prompts", "Resources and References"],
+  ],
+};
+
+const priceByType: Record<string, string[]> = {
+  checklist:    ["$7 – $17", "$9 – $19", "$5 – $15"],
+  guide:        ["$17 – $37", "$19 – $39", "$15 – $29"],
+  workbook:     ["$19 – $39", "$17 – $37", "$22 – $47"],
+  template_pack:["$19 – $47", "$22 – $49", "$17 – $39"],
+  starter_kit:  ["$27 – $57", "$29 – $59", "$24 – $49"],
+  planner:      ["$17 – $37", "$19 – $39", "$15 – $29"],
+};
+
+const formatByType: Record<string, string> = {
+  checklist:    "PDF Checklist",
+  guide:        "PDF Guide",
+  workbook:     "PDF Workbook",
+  template_pack:"PDF + Canva/Notion Templates",
+  starter_kit:  "PDF Bundle",
+  planner:      "PDF Planner",
+};
+
+const problemMap: Record<string, string[]> = {
+  save_time:     ["Too much time wasted figuring it out from scratch", "Endless research with no clear system to follow", "Doing the same thing over and over with no shortcut"],
+  make_money:    ["Sitting on valuable knowledge without knowing how to monetize it", "Unsure how to turn skills into income", "Working harder instead of building something that earns passively"],
+  get_organized: ["Scattered notes, half-finished systems, and mental clutter", "No clear structure to follow, everything feels chaotic", "Starting over every few months instead of building on what works"],
+  feel_confident:["Constant self-doubt before taking action", "Not sure if you know enough to actually help others", "Overthinking every decision because there's no trusted framework"],
+  learn_faster:  ["Learning slowly because there's no structured path", "Too much noise to know what actually matters", "Spending months on something that could take weeks"],
+  avoid_mistakes:["Making expensive or embarrassing mistakes that were totally avoidable", "No one told you what not to do", "Learning the hard way instead of learning from others"],
+};
+
+const audienceLabels: Record<string, string> = {
+  beginners:         "Complete beginners who are just getting started",
+  busy_professionals:"Busy professionals who need fast, practical solutions",
+  freelancers:       "Freelancers and self-employed people building on their own",
+  creators:          "Content creators and digital entrepreneurs",
+  parents:           "Parents balancing family life with personal goals",
+  students:          "Students who want to get ahead faster",
+  remote_workers:    "Remote workers and location-independent people",
+};
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+
+let variantIndex = 0;
+let lastInputHash = '';
+
+// ─── HELPERS ────────────────────────────────────────────────────────────────
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function pick<T>(arr: T[], index: number): T {
+  return arr[index % arr.length];
+}
+
+function interpolate(template: string, topic: string): string {
+  return template.replace(/\{topic\}/g, topic);
+}
+
+// ─── GENERATION ─────────────────────────────────────────────────────────────
+
+function generateIdea(topic: string, audience: string, outcome: string, productType: string, variant: number) {
+  const t = topic.trim() || "your topic";
+
+  const titleArr = titlePrefixes[productType]?.[audience] ?? [`The ${capitalize(t)} ${capitalize(productType)}`];
+  const title = interpolate(pick(titleArr, variant), capitalize(t));
+
+  const hookArr = hookTemplates[outcome]?.[productType] ?? ["A practical product built around what you already know."];
+  const hook = interpolate(pick(hookArr, variant), t);
+
+  const sectionsArr = sectionsByType[productType] ?? [["Introduction", "Core Content", "Action Steps", "Summary"]];
+  const sections = pick(sectionsArr, variant);
+
+  const priceArr = priceByType[productType] ?? ["$17 – $37"];
+  const price = pick(priceArr, variant);
+
+  const format = formatByType[productType] ?? "PDF";
+  const audience_label = audienceLabels[audience] ?? audience;
+
+  const problemArr = problemMap[outcome] ?? ["A common challenge people face with this topic"];
+  const problem = pick(problemArr, variant);
+
+  return { title, hook, sections, price, format, audience_label, problem };
+}
+
+// ─── DOM UPDATE ─────────────────────────────────────────────────────────────
+
+function renderResult(data: ReturnType<typeof generateIdea>) {
+  const resultCard = document.getElementById('result-card')!;
+  const emptyState = document.getElementById('empty-state')!;
+
+  (document.getElementById('result-title') as HTMLElement).textContent = data.title;
+  (document.getElementById('result-hook') as HTMLElement).textContent = data.hook;
+  (document.getElementById('result-audience') as HTMLElement).textContent = data.audience_label;
+  (document.getElementById('result-problem') as HTMLElement).textContent = data.problem;
+
+  const sectionsList = document.getElementById('result-sections')!;
+  sectionsList.innerHTML = data.sections.map((s: string) => `
+    <li class="flex items-start gap-2 text-sm font-medium text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
+      <span class="mt-0.5 w-5 h-5 rounded-full bg-[#FFD600] border-2 border-black flex items-center justify-center text-xs font-black shrink-0">✓</span>
+      ${s}
+    </li>
+  `).join('');
+
+  (document.getElementById('result-price') as HTMLElement).textContent = data.price;
+  (document.getElementById('result-format') as HTMLElement).textContent = data.format;
+
+  emptyState.classList.add('hidden');
+  resultCard.classList.remove('hidden');
+  resultCard.classList.add('result-reveal');
+  setTimeout(() => resultCard.classList.remove('result-reveal'), 600);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  const topicInput = document.getElementById('topic-input') as HTMLInputElement;
+  const audienceSelect = document.getElementById('audience-select') as HTMLSelectElement;
+  const outcomeSelect = document.getElementById('outcome-select') as HTMLSelectElement;
+  const typeSelect = document.getElementById('type-select') as HTMLSelectElement;
+  const generateBtn = document.getElementById('generate-btn') as HTMLButtonElement;
+  const regenerateBtn = document.getElementById('regenerate-btn') as HTMLButtonElement;
+  const copyBtn = document.getElementById('copy-btn') as HTMLButtonElement;
+  const copyBtnText = document.getElementById('copy-btn-text') as HTMLElement;
+
+  // Topic chips
+  document.querySelectorAll('.topic-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      topicInput.value = (chip as HTMLElement).dataset.topic ?? '';
+      topicInput.focus();
+    });
+  });
+
+  // Generate
+  function runGenerate() {
+    const topic = topicInput.value;
+    const audience = audienceSelect.value;
+    const outcome = outcomeSelect.value;
+    const productType = typeSelect.value;
+
+    const inputHash = `${topic}|${audience}|${outcome}|${productType}`;
+    if (inputHash !== lastInputHash) {
+      variantIndex = 0;
+      lastInputHash = inputHash;
+    }
+
+    const data = generateIdea(topic, audience, outcome, productType, variantIndex);
+    renderResult(data);
+  }
+
+  generateBtn.addEventListener('click', () => {
+    const btn = generateBtn;
+    const icon = document.getElementById('generate-btn-icon') as HTMLElement;
+    const text = document.getElementById('generate-btn-text') as HTMLElement;
+
+    icon.textContent = '⏳';
+    text.textContent = 'Generating…';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      runGenerate();
+      icon.textContent = '✨';
+      text.textContent = 'Generate My Idea';
+      btn.disabled = false;
+    }, 600);
+  });
+
+  // Regenerate: cycles through variants
+  regenerateBtn.addEventListener('click', () => {
+    variantIndex++;
+    runGenerate();
+  });
+
+  // Copy
+  copyBtn.addEventListener('click', () => {
+    const title = (document.getElementById('result-title') as HTMLElement).textContent ?? '';
+    const hook = (document.getElementById('result-hook') as HTMLElement).textContent ?? '';
+    const audience = (document.getElementById('result-audience') as HTMLElement).textContent ?? '';
+    const problem = (document.getElementById('result-problem') as HTMLElement).textContent ?? '';
+    const sections = Array.from(document.querySelectorAll('#result-sections li'))
+      .map(li => `- ${li.textContent?.trim()}`)
+      .join('\n');
+    const price = (document.getElementById('result-price') as HTMLElement).textContent ?? '';
+    const format = (document.getElementById('result-format') as HTMLElement).textContent ?? '';
+
+    const text = `PRODUCT IDEA\n\n${title}\n\nHook: ${hook}\n\nBest for: ${audience}\n\nProblem: ${problem}\n\nWhat to include:\n${sections}\n\nPrice range: ${price}\nFormat: ${format}\n\nGenerated by Strategic Sloth Idea Builder`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtnText.textContent = 'Copied!';
+      setTimeout(() => { copyBtnText.textContent = 'Copy Idea'; }, 2000);
+    });
+  });
+});
+</script>
+
+<style>
+  @keyframes result-reveal {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .result-reveal {
+    animation: result-reveal 0.4s ease-out forwards;
+  }
+</style>

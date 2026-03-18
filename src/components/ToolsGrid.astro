@@ -1,0 +1,213 @@
+---
+const tools = [
+  {
+    id: "idea-builder",
+    emoji: "💡",
+    title: "PDF Idea Builder",
+    description: "Answer four questions and walk away with a complete, sellable product idea. Takes about two minutes.",
+    status: "live",
+    statusLabel: "Live",
+    cta: "Open Tool",
+    ctaHref: "#idea-builder",
+    toolAction: null,
+    bg: "#E3F9ED",
+  },
+  {
+    id: "angle-generator",
+    emoji: "🎯",
+    title: "Product Angle Generator",
+    description: "Find a stronger hook, promise, or positioning for your PDF so it stands out and actually sells.",
+    status: "live",
+    statusLabel: "Live",
+    cta: "Try It",
+    ctaHref: null,
+    toolAction: "angle",
+    bg: "#FFF3CD",
+  },
+  {
+    id: "outline-builder",
+    emoji: "📐",
+    title: "PDF Outline Builder",
+    description: "Turn your idea into a clean chapter or section outline, ready to fill in and build.",
+    status: "live",
+    statusLabel: "Live",
+    cta: "Build an Outline",
+    ctaHref: null,
+    toolAction: "outline",
+    bg: "#F0EEFF",
+  },
+  {
+    id: "cover-generator",
+    emoji: "🎨",
+    title: "Cover Direction Generator",
+    description: "Get clear visual direction for your PDF cover: colors, style, layout, and mood, without hiring a designer.",
+    status: "live",
+    statusLabel: "Live",
+    cta: "Generate Direction",
+    ctaHref: null,
+    toolAction: "cover",
+    bg: "#E3F4FF",
+  },
+  {
+    id: "offer-builder",
+    emoji: "📦",
+    title: "Offer Stack Builder",
+    description: "Package your PDF with the right bonuses and position it as a stronger, more valuable offer.",
+    status: "live",
+    statusLabel: "Live",
+    cta: "Build My Offer",
+    ctaHref: null,
+    toolAction: "offer",
+    bg: "#FFF0F0",
+  },
+  {
+    id: "sales-page-helper",
+    emoji: "✍️",
+    title: "Sales Page Helper",
+    description: "Turn your product into simple, persuasive sales page copy. No marketing degree needed.",
+    status: "live",
+    statusLabel: "Live",
+    cta: "Write Sales Copy",
+    ctaHref: null,
+    toolAction: "sales",
+    bg: "#FFFBF2",
+  },
+];
+
+const statusColors: Record<string, string> = {
+  live:        "bg-[#2ECC71] text-white border-[#2ECC71]",
+  demo:        "bg-[#4D9FFF] text-white border-[#4D9FFF]",
+  coming_soon: "bg-[#FFD600] text-black border-[#FFD600]",
+};
+---
+
+<section class="py-20 bg-[#FFFBF2] border-t-2 border-black">
+  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Heading -->
+    <div class="max-w-2xl mb-12">
+      <h2 class="text-3xl sm:text-4xl font-black text-[#1B1B3D] mb-3" style="font-family:'Inter',system-ui,sans-serif;">
+        More Tools to Help You Build Smarter
+      </h2>
+      <p class="text-[#5C5C7A] text-base" style="font-family:'Inter',system-ui,sans-serif;">
+        Start with one idea, then turn it into a product people actually want. Each tool handles a different part of the process.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {tools.map(tool => (
+        <div
+          class="group relative flex flex-col bg-white border-[3px] border-black rounded-2xl shadow-[4px_4px_0_#000] hover:shadow-[6px_6px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden"
+        >
+          <!-- Colored top strip -->
+          <div class="h-1.5 w-full" style={`background-color: ${tool.bg};`}></div>
+
+          <div class="flex flex-col flex-1 p-6">
+            <!-- Icon + status -->
+            <div class="flex items-start justify-between mb-4">
+              <div
+                class="w-12 h-12 rounded-xl border-2 border-black flex items-center justify-center text-2xl shadow-[2px_2px_0_#000]"
+                style={`background-color: ${tool.bg};`}
+              >
+                {tool.emoji}
+              </div>
+              <span class={`inline-flex items-center border-2 rounded-full text-xs font-black px-3 py-1 shadow-[2px_2px_0_#000] ${statusColors[tool.status]}`}>
+                {tool.status === 'live' && <span class="w-1.5 h-1.5 rounded-full bg-white mr-1.5 animate-pulse inline-block"></span>}
+                {tool.statusLabel}
+              </span>
+            </div>
+
+            <!-- Title + description -->
+            <h3 class="font-black text-[#1B1B3D] text-lg mb-2 leading-tight" style="font-family:'Inter',system-ui,sans-serif;">{tool.title}</h3>
+            <p class="text-[#5C5C7A] text-sm leading-relaxed flex-1 mb-6" style="font-family:'Inter',system-ui,sans-serif;">{tool.description}</p>
+
+            <!-- CTA -->
+            {tool.ctaHref ? (
+              <a
+                href={tool.ctaHref}
+                class="inline-flex items-center justify-center gap-1.5 w-full bg-[#FFD600] text-black font-black text-sm px-5 py-3 rounded-xl border-[2px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                {tool.cta}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            ) : tool.toolAction ? (
+              <button
+                type="button"
+                class="tool-trigger inline-flex items-center justify-center gap-1.5 w-full bg-[#FFD600] text-black font-black text-sm px-5 py-3 rounded-xl border-[2px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                data-tool={tool.toolAction}
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                {tool.cta}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            ) : (
+              <button
+                type="button"
+                class="waitlist-trigger inline-flex items-center justify-center gap-1.5 w-full bg-white text-[#1B1B3D] font-black text-sm px-5 py-3 rounded-xl border-[2px] border-black shadow-[3px_3px_0_#000] hover:bg-[#FFD600] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                data-tool-name={tool.title}
+                data-tool-desc={tool.comingSoonDesc}
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                {tool.cta}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom note -->
+    <p class="mt-10 text-center text-sm text-[#8888A4]" style="font-family:'Inter',system-ui,sans-serif;">
+      More tools ship regularly. Join early access to be first to try them. →
+      <button
+        type="button"
+        class="waitlist-trigger underline underline-offset-2 font-bold hover:text-[#1B1B3D] transition-colors"
+        data-tool-name="NarriaFlow Early Access"
+        data-tool-desc="Be the first to know when new tools go live and get early access before anyone else."
+        style="font-family:'Inter',system-ui,sans-serif;"
+      >
+        Get early access
+      </button>
+    </p>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.waitlist-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = (btn as HTMLElement).dataset.toolName ?? '';
+        const desc = (btn as HTMLElement).dataset.toolDesc ?? '';
+        if (typeof (window as any).openWaitlistModal === 'function') {
+          (window as any).openWaitlistModal(name, desc);
+        }
+      });
+    });
+
+    document.querySelectorAll('.tool-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tool = (btn as HTMLElement).dataset.tool ?? '';
+        const openers: Record<string, string> = {
+          angle:   'openAngleGeneratorModal',
+          outline: 'openOutlineBuilderModal',
+          cover:   'openCoverDirectionModal',
+          offer:   'openOfferStackModal',
+          sales:   'openSalesPageModal',
+        };
+        const fnName = openers[tool];
+        if (fnName && typeof (window as any)[fnName] === 'function') {
+          (window as any)[fnName]();
+        }
+      });
+    });
+  });
+</script>

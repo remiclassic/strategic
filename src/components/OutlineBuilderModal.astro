@@ -1,0 +1,676 @@
+---
+const audienceOptions = [
+  { value: "beginners", label: "Beginners" },
+  { value: "busy_professionals", label: "Busy Professionals" },
+  { value: "freelancers", label: "Freelancers" },
+  { value: "creators", label: "Creators" },
+  { value: "parents", label: "Parents" },
+  { value: "students", label: "Students" },
+  { value: "remote_workers", label: "Remote Workers" },
+];
+
+const productTypeOptions = [
+  { value: "checklist", label: "Checklist" },
+  { value: "guide", label: "Guide" },
+  { value: "workbook", label: "Workbook" },
+  { value: "template_pack", label: "Template Pack" },
+  { value: "starter_kit", label: "Starter Kit" },
+  { value: "planner", label: "Planner" },
+];
+
+const depthOptions = [
+  { value: "quick", label: "Quick (5 sections)" },
+  { value: "standard", label: "Standard (7 sections)" },
+  { value: "detailed", label: "Detailed (10 sections)" },
+];
+
+const sampleTopics = [
+  "travel", "freelancing", "budgeting", "fitness", "content creation",
+  "home office", "social media", "cooking", "job interviews", "side hustles"
+];
+---
+
+<!-- PDF Outline Builder Modal -->
+<div
+  id="outline-modal-overlay"
+  class="fixed inset-0 z-[210] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+  aria-modal="true"
+  role="dialog"
+  aria-labelledby="outline-modal-title"
+>
+  <div
+    id="outline-modal-card"
+    class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FFFBF2] border-[3px] border-black rounded-[24px] shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+  >
+    <!-- Close -->
+    <button
+      id="outline-modal-close"
+      type="button"
+      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+
+    <div class="p-7 sm:p-8 clear-both">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-10 h-10 rounded-xl border-2 border-black bg-[#F0EEFF] flex items-center justify-center text-xl shadow-[2px_2px_0_#000]">📐</div>
+        <div>
+          <div class="flex items-center gap-2 mb-0.5">
+            <h2 id="outline-modal-title" class="text-xl font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">PDF Outline Builder</h2>
+            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-2.5 py-0.5 shadow-[2px_2px_0_#000]">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
+              LIVE
+            </span>
+          </div>
+          <p class="text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Turn your idea into a complete, structured PDF outline you can start filling in today.</p>
+        </div>
+      </div>
+
+      <div class="h-px bg-black/10 my-6"></div>
+
+      <!-- Form -->
+      <div class="space-y-5">
+        <!-- Topic -->
+        <div>
+          <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="outline-topic" style="font-family:'Inter',system-ui,sans-serif;">
+            What is your PDF about?
+          </label>
+          <input
+            id="outline-topic"
+            type="text"
+            placeholder="e.g. travel, freelancing, budgeting, fitness..."
+            class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+            style="font-family:'Inter',system-ui,sans-serif;"
+          />
+          <div class="flex flex-wrap gap-2 mt-2.5">
+            {sampleTopics.map(t => (
+              <button
+                type="button"
+                class="outline-topic-chip text-xs font-bold bg-white border-2 border-black rounded-full px-3 py-1 hover:bg-[#FFD600] hover:shadow-[2px_2px_0_#000] transition-all duration-150"
+                data-topic={t}
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >{t}</button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Selects row -->
+        <div class="grid sm:grid-cols-3 gap-4">
+          <!-- Audience -->
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="outline-audience" style="font-family:'Inter',system-ui,sans-serif;">Who is it for?</label>
+            <div class="relative">
+              <select id="outline-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product type -->
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="outline-type" style="font-family:'Inter',system-ui,sans-serif;">Product type</label>
+            <div class="relative">
+              <select id="outline-type" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {productTypeOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Depth -->
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="outline-depth" style="font-family:'Inter',system-ui,sans-serif;">Depth</label>
+            <div class="relative">
+              <select id="outline-depth" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {depthOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate -->
+        <button
+          id="outline-generate-btn"
+          type="button"
+          class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          <span id="outline-btn-icon">📐</span>
+          <span id="outline-btn-text">Build My Outline</span>
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      <div id="outline-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+        <span class="text-4xl mb-3">📄</span>
+        <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your outline will appear here</p>
+        <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above and hit Build</p>
+      </div>
+
+      <!-- Result -->
+      <div id="outline-result" class="mt-6 hidden">
+        <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+          <!-- Result header -->
+          <div class="bg-[#1B1B3D] px-6 py-4">
+            <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-1" style="font-family:'Inter',system-ui,sans-serif;">Your Outline</p>
+            <h3 id="outline-result-title" class="text-white text-xl font-black leading-tight" style="font-family:'Inter',system-ui,sans-serif;"></h3>
+            <p id="outline-result-subtitle" class="text-[#B8B8D4] text-sm mt-1" style="font-family:'Inter',system-ui,sans-serif;"></p>
+          </div>
+
+          <div class="p-6 sm:p-7 space-y-5">
+            <!-- Promise -->
+            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Product Promise</p>
+              <p id="outline-promise" class="font-bold text-[#1B1B3D] leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Outline sections -->
+            <div class="bg-white border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Outline</p>
+              <ol id="outline-sections" class="space-y-2"></ol>
+            </div>
+
+            <!-- Bonus ideas + final page side by side -->
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="bg-[#E3F9ED] border-2 border-black rounded-xl p-4">
+                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Bonus Ideas</p>
+                <ul id="outline-bonuses" class="space-y-1.5"></ul>
+              </div>
+              <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
+                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-2" style="font-family:'Inter',system-ui,sans-serif;">Final Page Suggestion</p>
+                <p id="outline-final-page" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-1">
+              <a
+                href="#narriaflow"
+                id="outline-narriaflow-btn"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                🚀 Continue in NarriaFlow
+              </a>
+              <button
+                id="outline-copy-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span id="outline-copy-text">Copy Outline</span>
+              </button>
+              <button
+                id="outline-regen-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Regenerate
+              </button>
+            </div>
+
+            <p class="text-xs text-[#B0B0C8] text-center pt-1" style="font-family:'Inter',system-ui,sans-serif;">
+              NarriaFlow is being built to help you fill this outline in and turn it into a finished product.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+// INTEGRATION POINT: replace generateOutline() body with
+// fetch('/api/generate-outline', { topic, audience, productType, depth })
+
+type OutlineInputs = { topic: string; audience: string; productType: string; depth: string; variant: number; };
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const titlePrefixes: Record<string, Record<string, string[]>> = {
+  checklist: {
+    beginners:         ["The Beginner's {topic} Checklist", "Your First {topic} Checklist", "The {topic} Quick-Start Checklist"],
+    busy_professionals:["The Busy Professional's {topic} Checklist", "The 10-Minute {topic} Checklist", "The {topic} Checklist for Busy People"],
+    freelancers:       ["The Freelancer's {topic} Checklist", "The Self-Employed {topic} Checklist", "The {topic} Checklist for Freelancers"],
+    creators:          ["The Creator's {topic} Checklist", "The {topic} Launch Checklist", "The {topic} Content Checklist"],
+    parents:           ["The Parent's {topic} Checklist", "The Family-Friendly {topic} Checklist", "The {topic} Checklist for Busy Parents"],
+    students:          ["The Student's {topic} Checklist", "The {topic} Study Checklist", "The {topic} Checklist for Students"],
+    remote_workers:    ["The Remote Worker's {topic} Checklist", "The {topic} WFH Checklist", "The Work-Anywhere {topic} Checklist"],
+  },
+  guide: {
+    beginners:         ["The Beginner's Guide to {topic}", "The Plain-English {topic} Guide", "Everything You Need to Know About {topic}"],
+    busy_professionals:["The No-Fluff {topic} Guide", "The Busy Professional's Guide to {topic}", "The Fast-Track {topic} Guide"],
+    freelancers:       ["The Freelancer's Guide to {topic}", "Build Your {topic} System: A Freelancer's Guide", "The Independent Professional's {topic} Guide"],
+    creators:          ["The Creator's Guide to {topic}", "The {topic} Playbook for Creators", "The {topic} Field Guide for Creators"],
+    parents:           ["The Parent's Guide to {topic}", "The Realistic Guide to {topic} for Parents", "The {topic} Guide That Fits Real Life"],
+    students:          ["The Student's Guide to {topic}", "The Smart Student's {topic} Guide", "Master {topic} Without the Overwhelm"],
+    remote_workers:    ["The Remote Worker's Guide to {topic}", "The {topic} Handbook for Remote Professionals", "The {topic} Guide for Location-Independent People"],
+  },
+  workbook: {
+    beginners:         ["The {topic} Starter Workbook", "Your {topic} Journey Workbook", "The {topic} Workbook for Beginners"],
+    busy_professionals:["The {topic} Workbook for Busy People", "The 30-Minute {topic} Workbook", "The Efficient {topic} Workbook"],
+    freelancers:       ["The Freelancer's {topic} Workbook", "The {topic} Action Workbook for Freelancers", "The Self-Employed {topic} Workbook"],
+    creators:          ["The Creator's {topic} Workbook", "Map Your {topic} Strategy: A Creator's Workbook", "The {topic} Content Workbook"],
+    parents:           ["The Family {topic} Workbook", "The {topic} Clarity Workbook for Parents", "The {topic} Workbook for Overwhelmed Parents"],
+    students:          ["The {topic} Study Workbook", "The {topic} Learning Workbook", "The {topic} Progress Workbook for Students"],
+    remote_workers:    ["The Remote {topic} Workbook", "The WFH {topic} Workbook", "The {topic} Workbook for Independent Workers"],
+  },
+  template_pack: {
+    beginners:         ["The {topic} Starter Template Pack", "Plug-and-Play {topic} Templates", "The {topic} Template Pack for Beginners"],
+    busy_professionals:["Done-For-You {topic} Templates", "The {topic} Shortcut Template Pack", "The {topic} Template Pack for Busy Professionals"],
+    freelancers:       ["The Freelancer's {topic} Template Pack", "The Freelance {topic} Template Bundle", "The {topic} Business Template Pack"],
+    creators:          ["The {topic} Content Template Pack", "Ready-to-Use {topic} Templates for Creators", "The Creator's {topic} Template Pack"],
+    parents:           ["The Parent's {topic} Template Pack", "The Organized Parent's {topic} Templates", "The Family {topic} Template Pack"],
+    students:          ["The Student's {topic} Template Pack", "The {topic} Study Template Pack", "The {topic} Template Pack for Students"],
+    remote_workers:    ["The Remote Worker's {topic} Template Pack", "Work-Anywhere {topic} Templates", "The {topic} WFH Template Pack"],
+  },
+  starter_kit: {
+    beginners:         ["The {topic} Starter Kit for Beginners", "Your First {topic} Kit", "The {topic} Jumpstart Kit"],
+    busy_professionals:["The {topic} Starter Kit for Busy Professionals", "The Efficient {topic} Starter Kit", "The {topic} Launch Kit"],
+    freelancers:       ["The Freelancer's {topic} Starter Kit", "Launch Your {topic} Business: The Starter Kit", "The {topic} Business Starter Kit"],
+    creators:          ["The Creator's {topic} Starter Kit", "The {topic} Launch Kit for Creators", "The {topic} Content Starter Kit"],
+    parents:           ["The Parent's {topic} Starter Kit", "The {topic} Setup Kit for Busy Parents", "The Family {topic} Kit"],
+    students:          ["The Student's {topic} Starter Kit", "The {topic} Kit for Students Who Mean Business", "The {topic} Study Starter Kit"],
+    remote_workers:    ["The Remote {topic} Starter Kit", "The Work-From-Anywhere {topic} Kit", "The Remote Worker's {topic} Setup Kit"],
+  },
+  planner: {
+    beginners:         ["The {topic} Planner for Beginners", "Your {topic} Action Planner", "The Simple {topic} Planner"],
+    busy_professionals:["The Busy Professional's {topic} Planner", "The 15-Minute {topic} Planner", "The No-Overwhelm {topic} Planner"],
+    freelancers:       ["The Freelancer's {topic} Planner", "The {topic} Quarterly Planner", "The {topic} Business Planner for Self-Employed People"],
+    creators:          ["The Creator's {topic} Planner", "The {topic} Content Planner", "The {topic} Launch Planner for Creators"],
+    parents:           ["The Parent's {topic} Planner", "The Family {topic} Planner", "The {topic} Planner That Works Around Real Life"],
+    students:          ["The Student's {topic} Planner", "The {topic} Study Planner", "The {topic} Semester Planner"],
+    remote_workers:    ["The Remote Worker's {topic} Planner", "The Work-Anywhere {topic} Planner", "The {topic} Planner for Remote Professionals"],
+  },
+};
+
+const subtitlesByTypeDepth: Record<string, Record<string, string[]>> = {
+  checklist: {
+    quick:    ["Everything you need, nothing you do not", "The essential {topic} checklist, simplified", "Done in minutes, not hours"],
+    standard: ["A complete {topic} checklist for real results", "Every step you need, clearly laid out", "The full {topic} checklist built for action"],
+    detailed: ["The most thorough {topic} checklist you will find", "Every detail covered, every step covered", "A complete {topic} reference you will come back to again and again"],
+  },
+  guide: {
+    quick:    ["The fastest path through {topic}", "Short, clear, and built for action", "Everything you need to know, nothing extra"],
+    standard: ["A practical, readable guide to {topic}", "Clear guidance from start to finish", "The honest guide to {topic} that actually helps"],
+    detailed: ["A deep, comprehensive guide to {topic}", "Everything you need to understand and apply {topic}", "The complete reference for serious {topic} learners"],
+  },
+  workbook: {
+    quick:    ["A focused {topic} workbook you can complete in one sitting", "Short prompts, real clarity", "One session to get unstuck on {topic}"],
+    standard: ["A practical {topic} workbook built for real progress", "Work through it at your own pace", "The {topic} workbook that actually moves the needle"],
+    detailed: ["A thorough {topic} workbook built for deep progress", "Every exercise, every reflection, every decision covered", "The complete {topic} workbook for serious progress"],
+  },
+  template_pack: {
+    quick:    ["Ready-to-use {topic} templates, no setup needed", "Plug in and go", "The fastest way to get {topic} organized"],
+    standard: ["A complete set of {topic} templates built for real use", "Every template you actually need", "Professional {topic} templates, ready on day one"],
+    detailed: ["A full library of {topic} templates for every situation", "More templates, more flexibility, more use cases", "The comprehensive {topic} template pack for serious users"],
+  },
+  starter_kit: {
+    quick:    ["Everything to get started with {topic} today", "A fast, clean {topic} starting point", "No wasted time. Just get started."],
+    standard: ["A complete {topic} starting kit, set up the right way", "Everything you need, organized from day one", "The full starter kit for your {topic} journey"],
+    detailed: ["A thorough {topic} starting kit with everything included", "From day one to month three, fully covered", "The most complete {topic} starter kit available"],
+  },
+  planner: {
+    quick:    ["A focused {topic} planner for fast, clear planning", "Short sessions, big clarity", "Plan your {topic} in minutes, not hours"],
+    standard: ["A practical {topic} planner built for consistent progress", "The planner that keeps your {topic} on track", "Weekly structure for your {topic} goals"],
+    detailed: ["A thorough {topic} planning system for serious goal-setters", "Every week, every goal, every review covered", "The complete {topic} planner for long-term progress"],
+  },
+};
+
+const promisesByType: Record<string, string[]> = {
+  checklist:    [
+    "This checklist gives you everything you need to handle {topic} without missing a step or second-guessing yourself.",
+    "A clean, simple checklist that makes {topic} manageable and repeatable, even if you have never done it before.",
+    "Stop winging your {topic} process. This checklist makes sure everything is covered, every time.",
+  ],
+  guide:        [
+    "This guide walks you through {topic} in the clearest, most practical way possible, without the fluff or the jargon.",
+    "A no-nonsense guide to {topic} that gives you real understanding and a clear path forward.",
+    "This guide covers {topic} from the right angle: what you actually need to know, and what to do with it.",
+  ],
+  workbook:     [
+    "This workbook takes you from confused to clear on {topic}, one prompt at a time.",
+    "By the time you finish this workbook, you will have a real, personal plan for {topic} built around your situation.",
+    "This workbook helps you stop circling {topic} in your head and start making actual decisions on paper.",
+  ],
+  template_pack:[
+    "These templates remove the blank-page problem from {topic} entirely, so you can get moving without starting from scratch.",
+    "Every template in this pack is designed to make {topic} faster, cleaner, and more professional.",
+    "Stop rebuilding your {topic} process from zero every time. These templates do the structural thinking for you.",
+  ],
+  starter_kit:  [
+    "This starter kit gives you everything you need to begin {topic} properly, without spending weeks figuring out what goes where.",
+    "A complete starting point for {topic}, organized so you can hit the ground running from day one.",
+    "No guessing, no gap-filling. This starter kit makes sure your {topic} journey starts on solid ground.",
+  ],
+  planner:      [
+    "This planner gives your {topic} goals a real structure, so progress stops feeling random and starts feeling intentional.",
+    "Use this planner to turn your {topic} intentions into a weekly system that actually holds up.",
+    "The kind of {topic} planner that makes you actually want to plan, because it is simple enough to use and good enough to trust.",
+  ],
+};
+
+const sectionsByTypeDepth: Record<string, Record<string, string[][]>> = {
+  checklist: {
+    quick: [
+      ["Before You Start", "Core Steps", "Common Mistakes to Avoid", "Final Review", "Resources to Keep Handy"],
+      ["Quick Setup", "Main Actions", "Things to Double-Check", "What to Skip", "Next Steps"],
+      ["Preparation", "Step-by-Step Actions", "Error Prevention", "Completion Criteria", "What Comes Next"],
+    ],
+    standard: [
+      ["Before You Start", "Essentials Checklist", "Core Process Steps", "Quality Checkpoints", "Common Mistakes to Avoid", "Final Review", "What to Do Next"],
+      ["Getting Ready", "Foundation Steps", "Main Action Items", "Progress Check", "Troubleshooting", "Completion Review", "Next Phase"],
+      ["Preparation Checklist", "Phase 1 Actions", "Phase 2 Actions", "Checkpoints", "Error Prevention", "Final Sign-Off", "Resources"],
+    ],
+    detailed: [
+      ["Before You Start", "Quick-Reference Overview", "Phase 1: Foundation", "Phase 2: Core Actions", "Phase 3: Refinement", "Common Mistakes to Avoid", "Troubleshooting Guide", "Progress Checkpoints", "Final Review", "Resources and References"],
+      ["Pre-Launch Preparation", "Day One Setup", "Week One Actions", "Week Two Actions", "Ongoing Habits", "Quality Checks", "Troubleshooting", "Common Pitfalls", "Final Review", "Next Steps"],
+      ["Getting Started", "Essentials First", "Building Phase", "Refining Phase", "Verification", "Problem-Solving", "Checkpoints", "Final Review", "After Completion", "Resources"],
+    ],
+  },
+  guide: {
+    quick: [
+      ["Why This Matters", "What You Need to Know First", "Core Guidance", "What to Avoid", "Where to Go From Here"],
+      ["The Big Picture", "Key Concepts", "Step-by-Step Guidance", "Common Questions", "Next Steps"],
+      ["The Problem", "A Simpler Way to Think About It", "Your Action Plan", "What to Watch For", "Summary"],
+    ],
+    standard: [
+      ["Why This Matters", "What You Need to Know First", "The Core Framework", "Step-by-Step Guidance", "Common Questions Answered", "What to Avoid", "Where to Go From Here"],
+      ["Introduction", "The Right Mindset", "Foundation Concepts", "Practical Application", "Troubleshooting", "Common Mistakes", "Summary and Next Steps"],
+      ["The Problem Most People Face", "A Clearer Way to Look at It", "The Core Process", "Going Deeper", "Real-World Scenarios", "What to Avoid", "Quick Reference Summary"],
+    ],
+    detailed: [
+      ["Why This Matters", "Who This Is For", "What You Need Before You Start", "Core Concepts Explained", "The Main Framework", "Practical Step-by-Step Guidance", "Worked Examples", "Advanced Considerations", "Troubleshooting and FAQs", "Quick Reference Summary"],
+      ["Introduction", "Background and Context", "Key Principles", "The Core Method", "Step-by-Step Process", "Common Scenarios", "Mistakes to Avoid", "Advanced Tips", "Quick Reference Guide", "Where to Go From Here"],
+      ["The Real Problem", "Why Common Approaches Fail", "A Better Framework", "Foundation Concepts", "The Core Process", "Application and Practice", "Handling Edge Cases", "Troubleshooting", "Summary and Recap", "Next Steps"],
+    ],
+  },
+  workbook: {
+    quick: [
+      ["Where Are You Now?", "Where Do You Want to Be?", "What Is Getting in the Way?", "Your Action Plan", "First Step Commitment"],
+      ["Current Situation", "Ideal Outcome", "Key Obstacles", "Your 3-Step Plan", "Accountability Check"],
+      ["Honest Assessment", "Clear Goal Setting", "Obstacle Mapping", "Action Planning", "Next 24 Hours"],
+    ],
+    standard: [
+      ["Where Are You Now?", "Where Do You Want to Be?", "What Is Getting in the Way?", "Brainstorming Space", "Your Action Plan", "First 30 Days", "Reflection and Review"],
+      ["Current Reality Assessment", "Vision and Goals", "Gap Analysis", "Strategy Building", "Implementation Plan", "Progress Checkpoints", "Ongoing Reflection"],
+      ["Self-Assessment", "Goal Clarity", "Obstacle Identification", "Resource Inventory", "Step-by-Step Plan", "Weekly Commitments", "Review and Adjust"],
+    ],
+    detailed: [
+      ["Where Are You Now?", "Where Do You Want to Be?", "What Has Already Worked?", "What Is Getting in the Way?", "Brainstorming Space", "Priority Setting", "Your Action Plan", "First 30 Days", "60-Day Check-In", "Reflection and Review"],
+      ["Honest Self-Assessment", "Vision Mapping", "Goal Setting", "Gap Analysis", "Obstacle Deep-Dive", "Strategy Building", "Implementation Plan", "Weekly Planning Pages", "Monthly Review", "Long-Term Roadmap"],
+      ["Current Situation", "Future Vision", "Values and Motivators", "Key Obstacles", "Resource Audit", "Strategy Options", "Decision Framework", "Implementation Roadmap", "Progress Tracking", "Reflection and Next Steps"],
+    ],
+  },
+  template_pack: {
+    quick: [
+      ["Core Template", "Quick-Use Variation", "Fill-in-the-Blank Version", "Example Completed", "How to Use Guide"],
+      ["Main Template", "Simplified Version", "Customization Notes", "Sample Completed", "Quick Reference"],
+      ["Primary Template", "Light Version", "Instructions", "Example", "Customization Tips"],
+    ],
+    standard: [
+      ["How to Use This Pack", "Core Template", "Variation A: Detailed", "Variation B: Quick", "Email or Message Template", "Tracking Sheet", "Quick Reference Card"],
+      ["Getting Started Guide", "Template 1: Main Use Case", "Template 2: Follow-Up", "Template 3: Tracking", "Template 4: Communication", "Example Completed Set", "Customization Notes"],
+      ["Introduction", "Template Set 1", "Template Set 2", "Template Set 3", "Sample Completed Templates", "Instructions for Use", "Customization Guide"],
+    ],
+    detailed: [
+      ["How to Use This Pack", "Template 1: Initial Setup", "Template 2: Ongoing Use", "Template 3: Review and Audit", "Template 4: Communication", "Template 5: Tracking", "Template 6: Reporting", "Example Completed Set", "Customization Guide", "Quick Reference Sheet"],
+      ["Getting Started", "Foundation Templates", "Daily Use Templates", "Weekly Templates", "Monthly Templates", "Communication Templates", "Tracking Templates", "Examples and Samples", "How to Customize", "Quick Reference"],
+      ["Introduction and Overview", "Template Set A: Core", "Template Set B: Extended", "Template Set C: Specialized", "Fill-in-the-Blank Versions", "Completed Examples", "Instructions Per Template", "Customization Notes", "When to Use Each", "Quick Reference Guide"],
+    ],
+  },
+  starter_kit: {
+    quick: [
+      ["Quick Start Guide", "Core Checklist", "Essential Template", "First Week Plan", "Resources and Tools"],
+      ["Getting Started Overview", "Day One Setup", "Core Tools List", "Quick-Start Template", "Next Steps"],
+      ["Welcome and Overview", "Setup Checklist", "Core Template", "First Actions", "Where to Go From Here"],
+    ],
+    standard: [
+      ["Quick Start Guide", "Core Concepts Overview", "Setup Checklist", "Essential Templates", "First 30 Days Plan", "Recommended Tools", "Next Steps"],
+      ["Welcome and Overview", "What You Need Before You Start", "Step-by-Step Setup", "Core Templates and Resources", "First Month Roadmap", "Common Questions", "Next Phase"],
+      ["Getting Started", "Foundation Setup", "Core Templates", "Key Tools and Resources", "30-Day Plan", "Troubleshooting", "Next Steps"],
+    ],
+    detailed: [
+      ["Welcome and Overview", "What Is Included", "What You Need Before You Start", "Core Concepts Quick Guide", "Setup Checklist", "Essential Templates", "Recommended Tools and Resources", "First 30 Days Plan", "Troubleshooting Guide", "Next Steps and Upgrades"],
+      ["Introduction", "What Is Inside", "Prerequisites", "Day One Setup", "Week One Actions", "Core Templates", "Supporting Resources", "Month One Roadmap", "Problem-Solving Guide", "Growth Path"],
+      ["Getting Started", "The Full Inventory", "Setup Guide", "Core Frameworks", "Essential Templates", "Tools List", "Roadmap for the First Month", "Frequently Asked Questions", "Common Mistakes to Avoid", "Next Steps"],
+    ],
+  },
+  planner: {
+    quick: [
+      ["This Week's Focus", "Daily Planning Page", "Priority Tracker", "End-of-Week Review", "Next Week Prep"],
+      ["Weekly Goals", "Daily Action Log", "Key Priorities", "Quick Review", "Next Steps"],
+      ["Focus for the Week", "Daily Planning", "Priority Check", "Week Review", "Planning for What's Next"],
+    ],
+    standard: [
+      ["Vision and Goals Overview", "Monthly Planning Page", "Weekly Planning Template", "Daily Action Log", "Habit and Progress Tracker", "Monthly Review", "Quarterly Reset"],
+      ["Annual Overview", "Monthly Goals", "Weekly Spread", "Daily Log", "Progress Tracking", "Monthly Review", "Next Quarter Planning"],
+      ["Goals and Priorities", "Monthly Roadmap", "Weekly Planning Pages", "Daily Focus", "Habit Tracker", "Review and Reflection", "Next Period Planning"],
+    ],
+    detailed: [
+      ["Vision and Annual Goals", "Quarterly Planning Page", "Monthly Overview", "Monthly Goals and Tasks", "Weekly Planning Template", "Daily Planning Page", "Habit and Progress Tracker", "Monthly Review", "Quarterly Review", "Annual Reflection"],
+      ["Big Picture Vision", "Annual Goals", "Quarterly Breakdown", "Monthly Focus Pages", "Weekly Planning", "Daily Action Log", "Habit Tracking", "Weekly Review", "Monthly Review", "Annual Reflection"],
+      ["Vision Setting", "Annual Planning", "Quarterly Goals", "Monthly Roadmap", "Weekly Planning", "Daily Priorities", "Progress Tracker", "Habit Tracker", "End-of-Period Review", "Next Period Prep"],
+    ],
+  },
+};
+
+const bonusIdeasByType: Record<string, string[][]> = {
+  checklist:    [
+    ["A quick-reference single-page summary", "A troubleshooting cheat sheet", "A 'what to do when things go wrong' mini-guide"],
+    ["A print-ready version of the checklist", "A progress tracking sheet", "A list of recommended tools and resources"],
+    ["A quick audio walkthrough of the key steps", "A common questions page", "A fillable digital version"],
+  ],
+  guide:        [
+    ["A one-page summary of the core framework", "A quick-reference glossary", "A recommended reading or resource list"],
+    ["A checklist version of the key steps", "A worked example or case study", "A common questions and answers section"],
+    ["A printable summary card", "A fill-in-the-blank worksheet", "An implementation timeline template"],
+  ],
+  workbook:     [
+    ["A blank notes section for extra thoughts", "A reference list of useful prompts", "A summary page for key decisions made"],
+    ["A tracking sheet for ongoing progress", "A list of recommended tools and resources", "A 'stuck?' troubleshooting prompt page"],
+    ["A fill-in vision board page", "A weekly check-in template", "A congratulations and next steps page"],
+  ],
+  template_pack:[
+    ["A 'how to use this pack' quick-start guide", "A customization tips sheet", "A before/after example of a template in use"],
+    ["A printable version of the key templates", "A variable reference guide", "A 'choose the right template' decision guide"],
+    ["A sample completed template set", "A troubleshooting page for common template issues", "A fill-in-the-blank version for quick use"],
+  ],
+  starter_kit:  [
+    ["A glossary of key terms and concepts", "A recommended tools and resources list", "A 30-day quick-start checklist"],
+    ["A 'what to do first' priority guide", "A common questions answered page", "A goal-setting template for the first 90 days"],
+    ["A progress milestone tracker", "A troubleshooting and FAQs page", "A community and next steps resource list"],
+  ],
+  planner:      [
+    ["A goal-setting worksheet to use before starting", "A habit tracking template", "A year-in-review reflection page"],
+    ["A blank notes section", "A 'lessons learned' journaling page", "A future planning brainstorm page"],
+    ["A contacts and resources page", "A quick wins tracker", "A motivation and mindset check-in page"],
+  ],
+};
+
+const finalPageByType: Record<string, string[]> = {
+  checklist:    ["A simple 'what did you complete?' summary page with space for notes and a recommended next step, ending with a clear action for the reader to take after finishing."],
+  guide:        ["A clear summary of key takeaways, a recommended next step section, and a short note about where to go for more support or deeper learning."],
+  workbook:     ["A reflection page asking 'what did you learn about yourself?', followed by a commitment statement section and a recommended next action."],
+  template_pack:["A 'you're set up' confirmation page with guidance on where to start, how to customize, and what to do when templates need adjusting."],
+  starter_kit:  ["A 'you're ready to go' page with a checklist of what was covered, a milestone checklist for the first 30 days, and a link to next-level resources."],
+  planner:      ["An end-of-period reflection page with space to note wins, lessons, and intentions for the next planning period. Simple and honest."],
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+
+let outlineVariant = 0;
+let lastOutlineHash = '';
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function pick<T>(arr: T[], idx: number): T { return arr[idx % arr.length]; }
+function interp(s: string, t: string): string { return s.replace(/\{topic\}/g, t); }
+function cap(s: string): string { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+// ─── GENERATION ──────────────────────────────────────────────────────────────
+
+function generateOutline(inputs: OutlineInputs) {
+  const { topic, audience, productType, depth, variant } = inputs;
+  const t = topic.trim() || 'your topic';
+
+  const titlesArr = titlePrefixes[productType]?.[audience] ?? titlePrefixes['guide']['busy_professionals'];
+  const title = interp(pick(titlesArr, variant), cap(t));
+
+  const subtitleArrDeep = subtitlesByTypeDepth[productType]?.[depth] ?? subtitlesByTypeDepth['guide']['standard'];
+  const subtitle = interp(pick(subtitleArrDeep, variant), t);
+
+  const promisesArr = promisesByType[productType] ?? promisesByType['guide'];
+  const promise = interp(pick(promisesArr, variant), t);
+
+  const sectionsMatrix = sectionsByTypeDepth[productType]?.[depth] ?? sectionsByTypeDepth['guide']['standard'];
+  const sections = pick(sectionsMatrix, variant);
+
+  const bonusMatrix = bonusIdeasByType[productType] ?? bonusIdeasByType['guide'];
+  const bonuses = pick(bonusMatrix, variant);
+
+  const finalPage = finalPageByType[productType] ?? finalPageByType['guide'];
+
+  return { title, subtitle, promise, sections, bonuses, finalPage };
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+
+function renderOutline(data: ReturnType<typeof generateOutline>) {
+  const empty = document.getElementById('outline-empty-state')!;
+  const result = document.getElementById('outline-result')!;
+
+  (document.getElementById('outline-result-title') as HTMLElement).textContent = data.title;
+  (document.getElementById('outline-result-subtitle') as HTMLElement).textContent = data.subtitle;
+  (document.getElementById('outline-promise') as HTMLElement).textContent = data.promise;
+
+  const sectionsEl = document.getElementById('outline-sections')!;
+  sectionsEl.innerHTML = data.sections.map((s, i) => `
+    <li class="flex items-start gap-2.5 text-sm text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
+      <span class="mt-0.5 w-6 h-6 rounded-full bg-[#F0EEFF] border-2 border-black flex items-center justify-center text-xs font-black text-[#1B1B3D] shrink-0">${i + 1}</span>
+      <span class="font-medium leading-relaxed pt-0.5">${s}</span>
+    </li>`).join('');
+
+  const bonusesEl = document.getElementById('outline-bonuses')!;
+  bonusesEl.innerHTML = data.bonuses.map(b => `
+    <li class="flex items-start gap-2 text-sm text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
+      <span class="mt-1 w-4 h-4 rounded-full bg-[#2ECC71] border-2 border-black flex items-center justify-center text-white text-xs shrink-0">+</span>
+      <span class="font-medium leading-relaxed">${b}</span>
+    </li>`).join('');
+
+  (document.getElementById('outline-final-page') as HTMLElement).textContent = data.finalPage;
+
+  empty.classList.add('hidden');
+  result.classList.remove('hidden');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ─── MODAL CONTROL ────────────────────────────────────────────────────────────
+
+const overlay = document.getElementById('outline-modal-overlay') as HTMLElement;
+const card = document.getElementById('outline-modal-card') as HTMLElement;
+const closeBtn = document.getElementById('outline-modal-close') as HTMLButtonElement;
+
+function openModal(prefillTopic?: string) {
+  if (prefillTopic) {
+    (document.getElementById('outline-topic') as HTMLInputElement).value = prefillTopic;
+  }
+  overlay.classList.remove('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-95');
+  card.classList.add('scale-100');
+  document.body.style.overflow = 'hidden';
+  card.scrollTop = 0;
+}
+
+function closeModal() {
+  overlay.classList.add('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+  document.body.style.overflow = '';
+}
+
+(window as any).openOutlineBuilderModal = openModal;
+
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// ─── FORM INTERACTIONS ────────────────────────────────────────────────────────
+
+document.querySelectorAll('.outline-topic-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    (document.getElementById('outline-topic') as HTMLInputElement).value = (chip as HTMLElement).dataset.topic ?? '';
+  });
+});
+
+document.getElementById('outline-generate-btn')!.addEventListener('click', () => {
+  const icon = document.getElementById('outline-btn-icon') as HTMLElement;
+  const text = document.getElementById('outline-btn-text') as HTMLElement;
+  const btn = document.getElementById('outline-generate-btn') as HTMLButtonElement;
+  icon.textContent = '⏳'; text.textContent = 'Building...'; btn.disabled = true;
+
+  setTimeout(() => {
+    const topic = (document.getElementById('outline-topic') as HTMLInputElement).value;
+    const audience = (document.getElementById('outline-audience') as HTMLSelectElement).value;
+    const productType = (document.getElementById('outline-type') as HTMLSelectElement).value;
+    const depth = (document.getElementById('outline-depth') as HTMLSelectElement).value;
+
+    const hash = `${topic}|${audience}|${productType}|${depth}`;
+    if (hash !== lastOutlineHash) { outlineVariant = 0; lastOutlineHash = hash; }
+
+    const data = generateOutline({ topic, audience, productType, depth, variant: outlineVariant });
+    renderOutline(data);
+    icon.textContent = '📐'; text.textContent = 'Build My Outline'; btn.disabled = false;
+  }, 500);
+});
+
+document.getElementById('outline-regen-btn')!.addEventListener('click', () => {
+  const topic = (document.getElementById('outline-topic') as HTMLInputElement).value;
+  const audience = (document.getElementById('outline-audience') as HTMLSelectElement).value;
+  const productType = (document.getElementById('outline-type') as HTMLSelectElement).value;
+  const depth = (document.getElementById('outline-depth') as HTMLSelectElement).value;
+  outlineVariant++;
+  const data = generateOutline({ topic, audience, productType, depth, variant: outlineVariant });
+  renderOutline(data);
+});
+
+document.getElementById('outline-copy-btn')!.addEventListener('click', () => {
+  const title = (document.getElementById('outline-result-title') as HTMLElement).textContent ?? '';
+  const subtitle = (document.getElementById('outline-result-subtitle') as HTMLElement).textContent ?? '';
+  const promise = (document.getElementById('outline-promise') as HTMLElement).textContent ?? '';
+  const sections = Array.from(document.querySelectorAll('#outline-sections li')).map((li, i) => `${i + 1}. ${li.querySelector('span:last-child')?.textContent?.trim()}`).join('\n');
+  const bonuses = Array.from(document.querySelectorAll('#outline-bonuses li')).map(li => `+ ${li.querySelector('span:last-child')?.textContent?.trim()}`).join('\n');
+  const finalPage = (document.getElementById('outline-final-page') as HTMLElement).textContent ?? '';
+  const text = `PDF OUTLINE\n\n${title}\n${subtitle}\n\nPromise: ${promise}\n\nOutline:\n${sections}\n\nBonus Ideas:\n${bonuses}\n\nFinal Page:\n${finalPage}\n\nGenerated by Strategic Sloth Outline Builder`;
+  navigator.clipboard.writeText(text).then(() => {
+    const el = document.getElementById('outline-copy-text') as HTMLElement;
+    el.textContent = 'Copied!';
+    setTimeout(() => { el.textContent = 'Copy Outline'; }, 2000);
+  });
+});
+
+document.getElementById('outline-narriaflow-btn')!.addEventListener('click', () => {
+  closeModal();
+});
+
+})();
+</script>

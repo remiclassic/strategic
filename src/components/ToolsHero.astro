@@ -1,0 +1,120 @@
+---
+const sampleProducts = [
+  { emoji: "📋", title: "The Freelancer's Client Onboarding Kit", type: "Starter Kit" },
+  { emoji: "🗺️", title: "Beginner Solo Travel Checklist", type: "Checklist" },
+  { emoji: "💸", title: "Simple Money Tracker for Busy People", type: "Workbook" },
+];
+---
+
+<section class="relative py-20 md:py-28 overflow-hidden bg-[#FFFBF2]">
+  <!-- Background texture -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
+    <div class="absolute top-0 left-0 w-full h-1 bg-black"></div>
+  </div>
+
+  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- Left: Copy -->
+      <div>
+        <!-- Eyebrow -->
+        <div class="inline-flex items-center gap-2 bg-[#FFD600] border-2 border-black rounded-full px-4 py-1.5 mb-6 shadow-[2px_2px_0_#000]">
+          <span class="text-sm">🛠️</span>
+          <span class="text-sm font-bold tracking-wide uppercase" style="font-family:'Inter',system-ui,sans-serif;">Tools for Turning Ideas Into Income</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight text-[#1B1B3D] mb-6" style="font-family:'Inter',system-ui,sans-serif;">
+          Turn What You Know Into Something You Can Sell
+        </h1>
+
+        <p class="text-lg sm:text-xl text-[#3D3D5C] leading-relaxed mb-4" style="font-family:'Inter',system-ui,sans-serif;">
+          Simple tools to help you turn skills, experience, and messy ideas into digital products, without overthinking every step.
+        </p>
+
+        <p class="text-base text-[#5C5C7A] mb-10" style="font-family:'Inter',system-ui,sans-serif;">
+          You don't need a big audience. You don't need to be an expert. You just need one useful idea.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#idea-builder"
+            class="inline-flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+            style="font-family:'Inter',system-ui,sans-serif;"
+          >
+            <span>⚡</span>
+            Try the Idea Builder
+          </a>
+          <a
+            href="#narriaflow"
+            class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+            style="font-family:'Inter',system-ui,sans-serif;"
+          >
+            Get Early Access
+          </a>
+        </div>
+
+        <!-- Trust note -->
+        <p class="mt-5 text-sm text-[#8888A4] flex items-center gap-1.5" style="font-family:'Inter',system-ui,sans-serif;">
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Free to use. No account required. No fluff.
+        </p>
+      </div>
+
+      <!-- Right: Stacked product cards visual -->
+      <div class="relative flex items-center justify-center min-h-[320px] lg:min-h-[380px]">
+        <!-- Decorative background blob -->
+        <div class="absolute w-72 h-72 rounded-full bg-[#FFD600]/20 border-2 border-[#FFD600]/40" style="top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+        <!-- Stacked cards -->
+        <div class="relative w-full max-w-sm mx-auto">
+          {sampleProducts.map((product, i) => {
+            const rotations = ['-rotate-3', 'rotate-0', 'rotate-2'];
+            const translateY = ['translate-y-4', 'translate-y-0', '-translate-y-4'];
+            const zIndexes = ['z-10', 'z-20', 'z-30'];
+            const marginLeft = ['ml-0', 'ml-4', 'ml-2'];
+            return (
+              <div
+                class={`absolute inset-x-0 bg-white border-[3px] border-black rounded-2xl p-5 shadow-[4px_4px_0_#000] ${rotations[i]} ${zIndexes[i]}`}
+                style={`top: ${i * 28}px; margin-left: ${i === 1 ? '16px' : i === 2 ? '8px' : '0'};`}
+              >
+                <div class="flex items-start gap-3">
+                  <span class="text-3xl">{product.emoji}</span>
+                  <div>
+                    <p class="font-black text-[#1B1B3D] text-sm leading-tight" style="font-family:'Inter',system-ui,sans-serif;">{product.title}</p>
+                    <span class="inline-block mt-1.5 text-xs font-bold bg-[#FFD600] border border-black rounded-full px-2 py-0.5">{product.type}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
+          <!-- Spacer to size the container -->
+          <div class="h-52"></div>
+        </div>
+
+        <!-- Floating badges -->
+        <div class="absolute top-4 right-0 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-3 py-1.5 shadow-[2px_2px_0_#000] rotate-3 animate-float-badge">
+          ✦ LIVE NOW
+        </div>
+        <div class="absolute bottom-8 left-0 bg-white text-[#1B1B3D] text-xs font-bold border-2 border-black rounded-full px-3 py-1.5 shadow-[2px_2px_0_#000] -rotate-2">
+          💡 Start with one idea
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes float-badge {
+    0%, 100% { transform: translateY(0) rotate(3deg); }
+    50% { transform: translateY(-6px) rotate(3deg); }
+  }
+  .animate-float-badge {
+    animation: float-badge 3s ease-in-out infinite;
+  }
+</style>

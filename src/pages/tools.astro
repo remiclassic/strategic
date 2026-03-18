@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolsHero from '../components/ToolsHero.astro';
+import IdeaPDFBuilder from '../components/IdeaPDFBuilder.astro';
+import ToolsGrid from '../components/ToolsGrid.astro';
+import NarriaFlowPromo from '../components/NarriaFlowPromo.astro';
+import ToolsFinalCTA from '../components/ToolsFinalCTA.astro';
+import AngleGeneratorModal from '../components/AngleGeneratorModal.astro';
+import OutlineBuilderModal from '../components/OutlineBuilderModal.astro';
+import CoverDirectionModal from '../components/CoverDirectionModal.astro';
+import OfferStackModal from '../components/OfferStackModal.astro';
+import SalesPageModal from '../components/SalesPageModal.astro';
+---
+
+<Layout
+  title="Tools | Strategic Sloth"
+  description="Free tools to help you turn what you know into digital products. Use the Idea Builder to generate your first PDF product idea in minutes."
+>
+  <ToolsHero />
+  <IdeaPDFBuilder />
+  <ToolsGrid />
+  <NarriaFlowPromo />
+  <ToolsFinalCTA />
+  <AngleGeneratorModal />
+  <OutlineBuilderModal />
+  <CoverDirectionModal />
+  <OfferStackModal />
+  <SalesPageModal />
+</Layout>
+
+<!-- ─── Waitlist Modal ─────────────────────────────────────────────────────── -->
+<div
+  id="waitlist-modal-overlay"
+  class="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+  aria-modal="true"
+  role="dialog"
+  aria-labelledby="waitlist-modal-title"
+>
+  <div
+    id="waitlist-modal-card"
+    class="relative w-full max-w-md bg-[#FFF8E7] border-[3px] border-black rounded-[24px] shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+  >
+    <!-- Close button -->
+    <button
+      id="waitlist-modal-close"
+      type="button"
+      class="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+
+    <!-- Default state -->
+    <div id="waitlist-modal-default" class="p-7 sm:p-8">
+      <div class="mb-5">
+        <div class="inline-flex items-center gap-2 bg-[#FFD600] border-2 border-black rounded-full px-3 py-1 mb-4 shadow-[2px_2px_0_#000]">
+          <span class="text-xs font-black uppercase tracking-widest" style="font-family:'Inter',system-ui,sans-serif;">Coming Soon</span>
+        </div>
+        <h3
+          id="waitlist-modal-title"
+          class="text-xl font-black text-[#1B1B3D] mb-2 leading-tight"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          Get Early Access
+        </h3>
+        <p
+          id="waitlist-modal-desc"
+          class="text-sm text-[#5C5C7A] leading-relaxed"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          Be the first to try it when it launches.
+        </p>
+      </div>
+
+      <form id="waitlist-form" class="space-y-4" novalidate>
+        <div>
+          <label
+            for="waitlist-email"
+            class="block text-sm font-black text-[#1B1B3D] mb-1.5"
+            style="font-family:'Inter',system-ui,sans-serif;"
+          >
+            Your email
+          </label>
+          <input
+            id="waitlist-email"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+            style="font-family:'Inter',system-ui,sans-serif;"
+            required
+          />
+          <p id="waitlist-email-error" class="mt-1 text-xs text-red-600 hidden" style="font-family:'Inter',system-ui,sans-serif;">Please enter a valid email address.</p>
+        </div>
+
+        <button
+          type="submit"
+          id="waitlist-submit"
+          class="w-full flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-base px-6 py-3.5 rounded-xl border-[2px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          ✉️ Notify Me
+        </button>
+
+        <p class="text-center text-xs text-[#B0B0C8]" style="font-family:'Inter',system-ui,sans-serif;">
+          Be first to try it when it launches. No spam, ever.
+        </p>
+      </form>
+    </div>
+
+    <!-- Success state (hidden) -->
+    <div id="waitlist-modal-success" class="hidden p-7 sm:p-8 text-center">
+      <div class="text-5xl mb-4">🎉</div>
+      <h3
+        class="text-xl font-black text-[#1B1B3D] mb-2"
+        style="font-family:'Inter',system-ui,sans-serif;"
+      >
+        You're on the list!
+      </h3>
+      <p class="text-sm text-[#5C5C7A] leading-relaxed mb-6" style="font-family:'Inter',system-ui,sans-serif;">
+        We'll reach out as soon as this tool is ready. In the meantime, try the Idea Builder. It's live right now.
+      </p>
+      <a
+        href="#idea-builder"
+        id="waitlist-success-cta"
+        class="inline-flex items-center gap-2 bg-[#FFD600] text-black font-black text-sm px-6 py-3 rounded-xl border-[2px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+        style="font-family:'Inter',system-ui,sans-serif;"
+      >
+        ⚡ Try the Idea Builder
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const overlay = document.getElementById('waitlist-modal-overlay') as HTMLElement;
+    const card = document.getElementById('waitlist-modal-card') as HTMLElement;
+    const closeBtn = document.getElementById('waitlist-modal-close') as HTMLButtonElement;
+    const titleEl = document.getElementById('waitlist-modal-title') as HTMLElement;
+    const descEl = document.getElementById('waitlist-modal-desc') as HTMLElement;
+    const form = document.getElementById('waitlist-form') as HTMLFormElement;
+    const emailInput = document.getElementById('waitlist-email') as HTMLInputElement;
+    const emailError = document.getElementById('waitlist-email-error') as HTMLElement;
+    const defaultState = document.getElementById('waitlist-modal-default') as HTMLElement;
+    const successState = document.getElementById('waitlist-modal-success') as HTMLElement;
+    const successCta = document.getElementById('waitlist-success-cta') as HTMLAnchorElement;
+
+    function openModal(toolName: string, toolDesc: string) {
+      // Reset state
+      defaultState.classList.remove('hidden');
+      successState.classList.add('hidden');
+      emailInput.value = '';
+      emailError.classList.add('hidden');
+
+      titleEl.textContent = toolName;
+      descEl.textContent = toolDesc;
+
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(() => emailInput.focus(), 100);
+    }
+
+    function closeModal() {
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-100');
+      card.classList.add('scale-95');
+      document.body.style.overflow = '';
+    }
+
+    // Expose globally for other components
+    (window as any).openWaitlistModal = openModal;
+
+    // Close triggers
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Success CTA closes modal before scrolling
+    successCta.addEventListener('click', () => closeModal());
+
+    // Form submission (local state only, connect backend here later)
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        emailError.classList.remove('hidden');
+        emailInput.focus();
+        return;
+      }
+
+      emailError.classList.add('hidden');
+
+      // ── INTEGRATION POINT ───────────────────────────────────────────────
+      // Replace this block with your actual email list API call, e.g.:
+      // await fetch('/api/waitlist', { method: 'POST', body: JSON.stringify({ email, tool: titleEl.textContent }) })
+      // ────────────────────────────────────────────────────────────────────
+      console.log('Waitlist signup:', { email, tool: titleEl.textContent });
+
+      // Show success
+      defaultState.classList.add('hidden');
+      successState.classList.remove('hidden');
+    });
+  })();
+</script>

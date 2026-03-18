@@ -1,0 +1,73 @@
+---
+const bullets = [
+  { emoji: "🗂️", text: "Turn ideas into structured products, without the chaos of figuring out the format yourself." },
+  { emoji: "🧘", text: "Organize your content without overwhelm, one step at a time, in a system built for actual humans." },
+  { emoji: "🚀", text: "Build and launch faster, because the hard parts are already handled for you." },
+];
+---
+
+<section id="narriaflow" class="py-20 bg-[#1B1B3D] border-t-2 border-black">
+  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Eyebrow -->
+      <div class="flex items-center gap-3 mb-6">
+        <div class="inline-flex items-center gap-2 bg-[#FFD600] border-2 border-black rounded-full px-4 py-1.5 shadow-[2px_2px_0_#FFD600]/50">
+          <span class="text-sm">✦</span>
+          <span class="text-xs font-black uppercase tracking-widest text-black" style="font-family:'Inter',system-ui,sans-serif;">Coming Next</span>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-6" style="font-family:'Inter',system-ui,sans-serif;">
+        These Tools Are<br class="hidden sm:block"> Just the Start
+      </h2>
+
+      <!-- Body -->
+      <p class="text-[#B8B8D4] text-lg leading-relaxed mb-10 max-w-2xl" style="font-family:'Inter',system-ui,sans-serif;">
+        NarriaFlow is being built to help creators, freelancers, and everyday smart people turn their ideas into digital products, without getting buried in tech, design, or busywork.
+      </p>
+
+      <!-- Bullets -->
+      <div class="grid sm:grid-cols-3 gap-5 mb-12">
+        {bullets.map(b => (
+          <div class="flex flex-col gap-3 bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors duration-200">
+            <span class="text-3xl">{b.emoji}</span>
+            <p class="text-white text-sm font-medium leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;">{b.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <button
+          type="button"
+          class="waitlist-trigger inline-flex items-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-[#FFD600] shadow-[4px_4px_0_rgba(255,214,0,0.3)] hover:shadow-[2px_2px_0_rgba(255,214,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          data-tool-name="NarriaFlow Early Access"
+          data-tool-desc="Be first to access NarriaFlow when it launches, the full platform for turning ideas into digital products."
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          ✉️ Get Early Access to NarriaFlow
+        </button>
+        <p class="text-[#8888A4] text-sm" style="font-family:'Inter',system-ui,sans-serif;">
+          Start with one simple idea now. Build the full system later.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#narriaflow .waitlist-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = (btn as HTMLElement).dataset.toolName ?? '';
+        const desc = (btn as HTMLElement).dataset.toolDesc ?? '';
+        if (typeof (window as any).openWaitlistModal === 'function') {
+          (window as any).openWaitlistModal(name, desc);
+        }
+      });
+    });
+  });
+</script>

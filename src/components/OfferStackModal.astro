@@ -1,0 +1,662 @@
+---
+const productTypeOptions = [
+  { value: "checklist",     label: "Checklist" },
+  { value: "guide",         label: "Guide" },
+  { value: "workbook",      label: "Workbook" },
+  { value: "template_pack", label: "Template Pack" },
+  { value: "starter_kit",   label: "Starter Kit" },
+  { value: "planner",       label: "Planner" },
+];
+
+const audienceOptions = [
+  { value: "beginners",          label: "Beginners" },
+  { value: "freelancers",        label: "Freelancers" },
+  { value: "creators",           label: "Creators" },
+  { value: "busy_professionals", label: "Busy Professionals" },
+  { value: "students",           label: "Students" },
+];
+
+const priceOptions = [
+  { value: "low",    label: "$9 – $19" },
+  { value: "mid",    label: "$19 – $49" },
+  { value: "high",   label: "$49 – $99" },
+];
+---
+
+<!-- Offer Stack Builder Modal -->
+<div
+  id="offer-modal-overlay"
+  class="fixed inset-0 z-[210] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+  aria-modal="true"
+  role="dialog"
+  aria-labelledby="offer-modal-title"
+>
+  <div
+    id="offer-modal-card"
+    class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FFFBF2] border-[3px] border-black rounded-[24px] shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+  >
+    <!-- Close -->
+    <button
+      id="offer-modal-close"
+      type="button"
+      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      aria-label="Close"
+    >✕</button>
+
+    <div class="p-7 sm:p-8 clear-both">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-10 h-10 rounded-xl border-2 border-black bg-[#FFF0F0] flex items-center justify-center text-xl shadow-[2px_2px_0_#000]">📦</div>
+        <div>
+          <div class="flex items-center gap-2 mb-0.5">
+            <h2 id="offer-modal-title" class="text-xl font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Offer Stack Builder</h2>
+            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-2.5 py-0.5 shadow-[2px_2px_0_#000]">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
+              LIVE
+            </span>
+          </div>
+          <p class="text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Turn one PDF into a stronger, more valuable offer worth more than the sum of its parts.</p>
+        </div>
+      </div>
+
+      <div class="h-px bg-black/10 my-6"></div>
+
+      <!-- Form -->
+      <div class="space-y-5">
+        <!-- Product name + type -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="offer-product-name" style="font-family:'Inter',system-ui,sans-serif;">Product name</label>
+            <input
+              id="offer-product-name"
+              type="text"
+              placeholder="e.g. Freelance Starter Kit"
+              class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+              style="font-family:'Inter',system-ui,sans-serif;"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="offer-type" style="font-family:'Inter',system-ui,sans-serif;">Product type</label>
+            <div class="relative">
+              <select id="offer-type" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {productTypeOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audience + price -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="offer-audience" style="font-family:'Inter',system-ui,sans-serif;">Who is it for?</label>
+            <div class="relative">
+              <select id="offer-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="offer-price" style="font-family:'Inter',system-ui,sans-serif;">Price range</label>
+            <div class="relative">
+              <select id="offer-price" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {priceOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pain point -->
+        <div>
+          <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="offer-pain" style="font-family:'Inter',system-ui,sans-serif;">Main pain point</label>
+          <input
+            id="offer-pain"
+            type="text"
+            placeholder="What is frustrating them right now?"
+            class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+            style="font-family:'Inter',system-ui,sans-serif;"
+          />
+        </div>
+
+        <!-- Generate -->
+        <button
+          id="offer-generate-btn"
+          type="button"
+          class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          <span id="offer-btn-icon">📦</span>
+          <span id="offer-btn-text">Build My Offer</span>
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      <div id="offer-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+        <span class="text-4xl mb-3">📦</span>
+        <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your offer stack will appear here</p>
+        <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above and hit Build</p>
+      </div>
+
+      <!-- Result -->
+      <div id="offer-result" class="mt-6 hidden">
+        <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+          <!-- Result header -->
+          <div class="bg-[#1B1B3D] px-6 py-4 flex items-center justify-between gap-3">
+            <div>
+              <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-0.5" style="font-family:'Inter',system-ui,sans-serif;">Your Offer Stack</p>
+              <p id="offer-result-label" class="text-white font-bold text-sm" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+            <span class="shrink-0 inline-flex items-center gap-1 bg-[#FFD600] text-black text-xs font-black border-2 border-black rounded-full px-3 py-1">
+              ✦ Ready
+            </span>
+          </div>
+
+          <div class="p-6 sm:p-7 space-y-4">
+            <!-- Offer Name -->
+            <div class="bg-[#FFF3CD] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Offer Name</p>
+              <p id="offer-name-output" class="text-xl font-black text-[#1B1B3D] leading-tight" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Core Promise -->
+            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Core Promise</p>
+              <p id="offer-promise-output" class="font-bold text-[#1B1B3D] leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- What They Get -->
+            <div class="bg-white border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">What They Get</p>
+              <p id="offer-what-output" class="font-medium text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Bonuses -->
+            <div class="bg-[#E3F9ED] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Bonus Ideas</p>
+              <ul id="offer-bonuses-output" class="space-y-2"></ul>
+            </div>
+
+            <!-- Value Stack -->
+            <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Value Stack</p>
+              <div id="offer-stack-output" class="space-y-1.5"></div>
+            </div>
+
+            <!-- Urgency Angle -->
+            <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Urgency Angle</p>
+              <p id="offer-urgency-output" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Bundle Positioning -->
+            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Bundle Positioning</p>
+              <p id="offer-positioning-output" class="font-medium text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-1">
+              <a
+                href="#narriaflow"
+                id="offer-narriaflow-btn"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                🚀 Continue in NarriaFlow
+              </a>
+              <button
+                id="offer-copy-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span id="offer-copy-text">Copy Offer</span>
+              </button>
+              <button
+                id="offer-regen-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Regenerate
+              </button>
+            </div>
+
+            <p class="text-xs text-[#B0B0C8] text-center pt-1" style="font-family:'Inter',system-ui,sans-serif;">
+              NarriaFlow is being built to help you build and publish this offer end-to-end.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+// INTEGRATION POINT: replace generateOffer() body with
+// fetch('/api/generate-offer', { productName, productType, audience, painPoint, priceRange })
+
+type OfferInputs = {
+  productName: string;
+  productType: string;
+  audience: string;
+  painPoint: string;
+  priceRange: string;
+  variant: number;
+};
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const offerNamePrefixes: Record<string, Record<string, string[]>> = {
+  checklist: {
+    beginners:          ["The Complete {name} Checklist", "The Simple {name} Starter Checklist", "Your First {name} Checklist"],
+    freelancers:        ["The Freelancer's {name} Checklist", "The {name} Checklist for Independent Workers", "The Self-Employed {name} Checklist"],
+    creators:           ["The Creator's {name} Checklist", "The {name} Launch Checklist for Creators", "Your Complete {name} Content Checklist"],
+    busy_professionals: ["The Busy Professional's {name} Checklist", "The Quick-Reference {name} Checklist", "The 10-Minute {name} Checklist"],
+    students:           ["The Student's {name} Checklist", "The Smart {name} Checklist for Students", "Your {name} Study Checklist"],
+  },
+  guide: {
+    beginners:          ["The Beginner's Complete {name} Guide", "The Plain-English {name} Guide", "The No-Fluff {name} Guide for Beginners"],
+    freelancers:        ["The Freelancer's {name} Guide", "The Independent Professional's {name} Guide", "The Self-Employed {name} Field Guide"],
+    creators:           ["The Creator's {name} Playbook", "The {name} Guide for Serious Creators", "The No-Overwhelm {name} Creator Guide"],
+    busy_professionals: ["The Busy Professional's {name} Guide", "The Fast-Track {name} Guide", "The Efficient {name} Professional's Guide"],
+    students:           ["The Smart Student's {name} Guide", "The {name} Guide That Fits Your Schedule", "The Student's No-Fluff {name} Guide"],
+  },
+  workbook: {
+    beginners:          ["The {name} Starter Workbook", "The Beginner's {name} Action Workbook", "Your {name} Journey Workbook"],
+    freelancers:        ["The Freelancer's {name} Workbook", "The {name} Business Workbook for Freelancers", "The Independent {name} Workbook"],
+    creators:           ["The Creator's {name} Workbook", "Map Your {name} Strategy: A Creator's Workbook", "The {name} Action Workbook for Creators"],
+    busy_professionals: ["The {name} Clarity Workbook", "The Busy Professional's {name} Workbook", "The 30-Minute {name} Workbook"],
+    students:           ["The {name} Progress Workbook for Students", "Your {name} Study Workbook", "The {name} Learning Workbook"],
+  },
+  template_pack: {
+    beginners:          ["The {name} Starter Template Pack", "Done-For-You {name} Templates for Beginners", "Plug-and-Play {name} Templates"],
+    freelancers:        ["The Freelancer's {name} Template Bundle", "The {name} Business Template Pack", "The Self-Employed {name} Template Pack"],
+    creators:           ["The {name} Content Template Pack", "Ready-to-Use {name} Creator Templates", "The Creator's {name} Template Library"],
+    busy_professionals: ["The Done-For-You {name} Template Pack", "The {name} Shortcut Template Pack", "Professional {name} Templates"],
+    students:           ["The Student's {name} Template Pack", "The {name} Study Template Kit", "Ready-Made {name} Templates for Students"],
+  },
+  starter_kit: {
+    beginners:          ["The Simple {name} Starter Kit", "Your First {name} Kit", "The {name} Jumpstart Kit for Beginners"],
+    freelancers:        ["The Freelancer's {name} Launch Kit", "The {name} Business Starter Kit", "Launch Your {name} Freelance Business Kit"],
+    creators:           ["The Creator's {name} Starter Kit", "The {name} Launch Kit for Creators", "Start Your {name} Content Business Kit"],
+    busy_professionals: ["The Efficient {name} Starter Kit", "The Busy Professional's {name} Kit", "The {name} Setup Kit for Professionals"],
+    students:           ["The Student's {name} Starter Kit", "The {name} Kit for Students Who Mean Business", "Your {name} Academic Starter Kit"],
+  },
+  planner: {
+    beginners:          ["The {name} Action Planner for Beginners", "Your Simple {name} Planner", "The {name} Planner That Actually Works"],
+    freelancers:        ["The Freelancer's {name} Planner", "The {name} Business Planner for Self-Employed People", "The Independent {name} Planner"],
+    creators:           ["The Creator's {name} Planner", "Plan Your {name} Content: A Creator's Planner", "The {name} Launch Planner"],
+    busy_professionals: ["The Busy Professional's {name} Planner", "The 15-Minute {name} Planner", "The No-Overwhelm {name} Planner"],
+    students:           ["The Student's {name} Planner", "The {name} Semester Planner", "Your {name} Academic Planning System"],
+  },
+};
+
+const corePromises: Record<string, Record<string, string[]>> = {
+  checklist: {
+    beginners:          ["Get your {name} done right the first time, without missing a single step.", "A simple, clear checklist so beginners never have to wonder what comes next.", "Stop second-guessing your {name} process. This checklist does the thinking for you."],
+    freelancers:        ["Never miss a step in your {name} process again, even when you are juggling multiple clients.", "A reliable {name} system that keeps your freelance work clean, consistent, and professional.", "Handle {name} like a seasoned professional every time, without the mental overhead."],
+    creators:           ["Ship your {name} faster and with more confidence, every single time.", "A complete {name} checklist so you can stop reinventing the wheel on every launch.", "Get your {name} right without the last-minute scramble that kills creative momentum."],
+    busy_professionals: ["Get your {name} done in a fraction of the time without sacrificing quality.", "A 10-minute {name} checklist built for people who cannot afford to waste time on guesswork.", "Handle {name} fast, handle it right, and move on to what actually matters."],
+    students:           ["A clear, simple {name} system so students can focus on results, not process anxiety.", "Stop wasting time figuring out your {name} process. This checklist makes it automatic.", "Get your {name} done the smart way, without needing to start from scratch every time."],
+  },
+  guide: {
+    beginners:          ["Understand {name} clearly and completely, even if you are starting from absolute zero.", "A practical, jargon-free guide that walks beginners through {name} step by step.", "Get confident with {name} without needing background knowledge or expensive courses."],
+    freelancers:        ["Build a stronger {name} foundation that supports your freelance business long term.", "A no-fluff guide to {name} written specifically for self-employed people who need real results.", "Understand {name} deeply enough to charge for it, apply it, and explain it to clients."],
+    creators:           ["Turn your {name} knowledge into a solid content and product foundation.", "A practical {name} guide for creators who want to understand the topic well enough to build with it.", "Get the {name} clarity you need to create better content, better products, and better results."],
+    busy_professionals: ["Get the important parts of {name} without wading through filler, theory, or fluff.", "A fast, reliable {name} guide for people who need real information, not padding.", "Understand {name} at a professional level in less time than you think it will take."],
+    students:           ["A clear guide to {name} that works alongside your studies instead of competing with them.", "Get the {name} knowledge that your curriculum probably glosses over.", "Understand {name} in a way that is both practical and genuinely useful after graduation."],
+  },
+  workbook: {
+    beginners:          ["Work through {name} step by step and come out the other side with real clarity and a real plan.", "A guided workbook that takes the overwhelm out of {name} for people just starting out.", "Stop circling the same {name} questions in your head and start making actual decisions on paper."],
+    freelancers:        ["Get crystal clear on your {name} approach so you can stop improvising and start executing.", "A {name} workbook built for freelancers who want to build something solid, not just stay busy.", "Work through the hard parts of {name} properly so you never have to go back to square one."],
+    creators:           ["Map out your {name} strategy properly so you can stop guessing and start building.", "A structured workbook that helps creators turn {name} confusion into a clear content and product plan.", "Get your {name} thinking out of your head and into a format you can actually act on."],
+    busy_professionals: ["Make the important {name} decisions once, clearly, so you can execute without constant second-guessing.", "A focused workbook that gives busy people the {name} clarity they need without a full weekend commitment.", "Work through {name} in short, structured sessions and come out with something real."],
+    students:           ["A {name} workbook designed to build genuine understanding, not just surface-level notes.", "Get clear on the {name} concepts that matter most with exercises that actually push your thinking forward.", "Work through {name} properly now so you are not scrambling to figure it out under pressure later."],
+  },
+  template_pack: {
+    beginners:          ["Take the blank-page problem completely off the table with ready-to-use {name} templates.", "Plug in your details and get started with {name} today, no previous experience required.", "Professional {name} results from your first try, because the structure is already done for you."],
+    freelancers:        ["Stop rebuilding your {name} process from scratch on every project and every client.", "Professional, consistent {name} output every time, without the time cost of starting from zero.", "Templates that make your {name} work faster, cleaner, and easier to repeat at scale."],
+    creators:           ["A {name} template pack that removes friction from your creative workflow entirely.", "Stop spending creative energy on the structural parts of {name}. The templates handle that.", "Consistent, professional {name} output that lets you focus on the work that actually requires your creativity."],
+    busy_professionals: ["Do more {name} in less time with templates that skip all the setup work.", "A done-for-you {name} system that busy professionals can use immediately without customization.", "Professional {name} output at half the time cost, because the hard structural work is already done."],
+    students:           ["Ready-made {name} templates that help students get organized and stay that way.", "Stop reinventing your {name} system every semester. These templates make it automatic.", "Templates that make the {name} process faster, more consistent, and genuinely less stressful."],
+  },
+  starter_kit: {
+    beginners:          ["Everything you need to begin {name} properly, without the usual confusion about where to start.", "A complete {name} starting point built so beginners can hit the ground running from day one.", "Get started with {name} the right way the first time, without spending weeks figuring out what goes where."],
+    freelancers:        ["A complete {name} foundation so you can build your freelance work on solid ground instead of guesswork.", "Stop patching together your {name} approach from a dozen different sources. Everything is here.", "A proper {name} starting kit for freelancers who want to set things up right and move forward fast."],
+    creators:           ["A complete {name} starting point that gives creators everything they need to get moving.", "Stop piecing together your {name} setup from scattered resources. This kit has it all in one place.", "Get your {name} foundation built properly so you can focus on making things instead of figuring things out."],
+    busy_professionals: ["Get your {name} set up right without weeks of research and decision fatigue.", "A complete {name} starting kit that busy professionals can deploy without a long learning curve.", "Everything you need to get {name} running properly, organized and ready to use from the first day."],
+    students:           ["A complete {name} starting kit so students can start on the right foot instead of catching up later.", "Get everything you need for {name} organized and ready before you actually need it.", "A proper {name} setup kit that saves students the weeks of trial and error that everyone else goes through."],
+  },
+  planner: {
+    beginners:          ["A clear, simple {name} planning system that makes it easy to start and even easier to keep going.", "Turn your {name} goals from vague intentions into a real, followable weekly plan.", "A beginner-friendly {name} planner that removes the 'where do I start?' problem permanently."],
+    freelancers:        ["A practical {name} planner that keeps your freelance work organized, intentional, and moving forward.", "Stop running your {name} on memory and good intentions. This planner makes it systematic.", "Plan your {name} work properly so you stay consistent without relying on motivation to carry you."],
+    creators:           ["A {name} planning system that keeps your creative work moving without burning you out.", "Turn your {name} ideas and goals into a real weekly system you can actually follow.", "A structured {name} planner that gives creators the rhythm and direction they need to ship consistently."],
+    busy_professionals: ["A fast, focused {name} planning system for people who do not have time to over-plan.", "The 15-minute {name} planner that keeps busy professionals on track without adding to their plate.", "Plan your {name} priorities clearly in a short weekly session so you can execute without constant decisions."],
+    students:           ["A {name} planner that fits student life and actually helps you make progress instead of just feeling busy.", "Turn your {name} goals into a realistic weekly plan that works around your academic schedule.", "A structured {name} planning system so students can stay organized through the pressure points of the semester."],
+  },
+};
+
+const bonusesByType: Record<string, Array<{ name: string; value: number }>> = {
+  checklist:    [
+    { name: "Quick-Start Checklist (printable one-page version)",      value: 9  },
+    { name: "Common Mistakes Cheatsheet",                              value: 9  },
+    { name: "Resource and Tools Reference Card",                       value: 7  },
+    { name: "Progress Tracker Template",                               value: 9  },
+  ],
+  guide:        [
+    { name: "Summary Cheatsheet (key takeaways on one page)",          value: 12 },
+    { name: "Fill-in-the-Blank Worksheet",                             value: 14 },
+    { name: "Quick-Reference Glossary",                                value: 9  },
+    { name: "Recommended Resources List",                              value: 7  },
+  ],
+  workbook:     [
+    { name: "Bonus Reflection Prompts Pack",                           value: 12 },
+    { name: "Goal-Setting Template",                                   value: 9  },
+    { name: "Progress Tracker Sheet",                                  value: 9  },
+    { name: "Quick-Win Exercises Mini Guide",                          value: 14 },
+  ],
+  template_pack:[
+    { name: "Customization Guide (how to adapt each template)",        value: 12 },
+    { name: "Before-and-After Examples",                               value: 14 },
+    { name: "Variable Reference Cheatsheet",                           value: 9  },
+    { name: "Quick-Start Instructions Card",                           value: 7  },
+  ],
+  starter_kit:  [
+    { name: "30-Day Action Plan Template",                             value: 14 },
+    { name: "Tools and Resources Reference Sheet",                     value: 9  },
+    { name: "Glossary of Key Terms",                                   value: 7  },
+    { name: "Common Questions Answered Mini Guide",                    value: 12 },
+  ],
+  planner:      [
+    { name: "Goal-Setting Worksheet",                                  value: 12 },
+    { name: "Monthly Review Template",                                 value: 9  },
+    { name: "Habit Tracker Insert",                                    value: 9  },
+    { name: "Year-in-Review Reflection Page",                          value: 9  },
+  ],
+};
+
+const priceValues: Record<string, number[]> = {
+  low:  [9,  19],
+  mid:  [29, 49],
+  high: [59, 99],
+};
+
+const urgencyLines: Record<string, string[]> = {
+  beginners:          [
+    "Start now and skip the weeks of confusion that most beginners go through before figuring this out.",
+    "The earlier you start with a proper system, the faster you stop making the expensive beginner mistakes.",
+    "Get the foundation right from the beginning and avoid the frustrating do-over that most people hit later.",
+  ],
+  freelancers:        [
+    "Every week without a proper system is another week of avoidable inefficiency eating into your time and income.",
+    "Get this done in a weekend instead of piecing together a system from scratch over the next three months.",
+    "A proper foundation now means fewer client problems, fewer late nights, and more predictable income later.",
+  ],
+  creators:           [
+    "Every week without a proper content system is another week of avoidable last-minute scrambles.",
+    "Get this set up now and stop starting from zero every time you sit down to create.",
+    "A clear system now means more consistent output later without the burnout that kills most creators.",
+  ],
+  busy_professionals: [
+    "Get this set up once and stop losing time to the same avoidable decisions every week.",
+    "An hour spent setting this up properly will save you dozens of hours over the next few months.",
+    "The right system now means fewer context-switches, less friction, and more time for actual work.",
+  ],
+  students:           [
+    "Set this up before the semester gets busy, not during it when there is no time to think.",
+    "A good system at the start means you are not scrambling to catch up halfway through the term.",
+    "Get organized now while there is still time to build good habits before the pressure kicks in.",
+  ],
+};
+
+const bundlePositioning: Record<string, string[]> = {
+  checklist:    [
+    "Present this as the complete {type} system, not just a list. Lead with the main product, then layer in the bonuses as the extra resources that make sure they actually follow through. The bonus checklist gives them a fast-start option. The cheatsheet keeps them from getting stuck. The tracker keeps them consistent. Together, they make this a system, not just content.",
+    "Frame it as everything someone needs to handle {type} properly from the first day. The main product is the repeatable system. The bonuses remove the friction points. Position the bundle as the thing that makes sure they actually use it, not just download it.",
+  ],
+  guide:        [
+    "Lead with the guide as the anchor product. Position the worksheet as the action layer that turns reading into doing. The cheatsheet gives them something to come back to. The resource list makes them feel equipped. Together, this is a complete {type} learning experience, not just a document.",
+    "Present this as the complete {type} resource, not just information. The guide covers the understanding. The worksheet covers the application. The cheatsheet covers the reference. Position it as a system that actually moves people from confusion to competence.",
+  ],
+  workbook:     [
+    "Position the workbook as the main thinking tool and the bonuses as the support system that keeps people on track. The reflection prompts go deeper. The goal-setter creates direction. The tracker creates accountability. Together, this is a complete {type} progress system.",
+    "Lead with the transformation the workbook delivers. Then show how the bonuses fill the gaps: extra exercises for the parts where people get stuck, templates for the decisions they need to make, and tracking tools to keep momentum going after they finish.",
+  ],
+  template_pack:[
+    "Present this as a complete {type} template library, not just a pack of files. The main templates do the core work. The customization guide makes sure people can adapt them. The examples show what good looks like. Together, this is a complete system they can deploy immediately.",
+    "Lead with the time and effort that the templates save. Then position the bonuses as the layer that makes sure people actually use them correctly. The customization guide prevents the main failure mode. The examples give people a benchmark. The quick-start card removes the setup friction.",
+  ],
+  starter_kit:  [
+    "Position this as everything someone needs to start {type} properly, all in one place. The main kit gives them the foundation. The 30-day plan gives them the path. The tools guide gives them the context. The FAQs handle the resistance. This is a complete starting system, not a starter pack.",
+    "Lead with the completeness of the kit. Nothing is missing. The main product is the system. The action plan is the execution guide. The reference sheet is the support tool. The glossary removes the vocabulary friction. Someone who buys this has no excuse not to start.",
+  ],
+  planner:      [
+    "Present this as a complete {type} planning system, not just a planner. The main product gives them the weekly structure. The goal-setter gives them the direction. The monthly review makes them learn from experience. The habit tracker makes consistency measurable. Together, this is a complete system for actually making progress.",
+    "Lead with the difference between having a plan and having a planning system. The planner is the recurring tool. The bonuses are the supporting elements that make the planner work in practice. Goal clarity, progress review, habit reinforcement. This is a complete {type} execution system.",
+  ],
+};
+
+const whatTheyGet: Record<string, string[]> = {
+  checklist:    ["A clean, step-by-step checklist they can use immediately, print out, and come back to every time they need to repeat the process. No guesswork, no missed steps."],
+  guide:        ["A practical, clear guide covering the most important aspects of the topic from the right angle. Readable in one sitting, useful long after."],
+  workbook:     ["A structured workbook with guided prompts, exercises, and decision frameworks that help them think through the topic properly and come out with a real plan."],
+  template_pack:["A collection of ready-to-use templates they can plug into immediately. No setup, no blank-page problem, no wasted time rebuilding the same structure from scratch."],
+  starter_kit:  ["A complete starting kit with everything organized and ready to go. No hunting for resources, no piecing things together. Just a proper, complete starting point."],
+  planner:      ["A structured planner with weekly and monthly layouts, reflection pages, and tracking tools. Everything they need to plan consistently and actually follow through."],
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+
+let offerVariant = 0;
+let lastOfferHash = '';
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function pick<T>(arr: T[], idx: number): T { return arr[idx % arr.length]; }
+function interp(s: string, name: string, type: string): string {
+  return s.replace(/\{name\}/g, name).replace(/\{type\}/g, type);
+}
+function cap(s: string): string { return s.charAt(0).toUpperCase() + s.slice(1); }
+function labelAudience(a: string): string {
+  const m: Record<string, string> = { beginners: 'Beginners', freelancers: 'Freelancers', creators: 'Creators', busy_professionals: 'Busy Professionals', students: 'Students' };
+  return m[a] ?? a;
+}
+function labelType(t: string): string {
+  const m: Record<string, string> = { checklist: 'Checklist', guide: 'Guide', workbook: 'Workbook', template_pack: 'Template Pack', starter_kit: 'Starter Kit', planner: 'Planner' };
+  return m[t] ?? t;
+}
+
+// ─── GENERATION ──────────────────────────────────────────────────────────────
+
+function generateOffer(inputs: OfferInputs) {
+  const { productName, productType, audience, variant } = inputs;
+  const priceRange = inputs.priceRange;
+
+  const displayName = productName.trim() || 'Your Product';
+  const displayType = labelType(productType);
+
+  const nameArr = offerNamePrefixes[productType]?.[audience] ?? offerNamePrefixes['guide']['beginners'];
+  const offerName = interp(pick(nameArr, variant), displayName, displayType);
+
+  const promiseArr = corePromises[productType]?.[audience] ?? corePromises['guide']['beginners'];
+  const promise = interp(pick(promiseArr, variant), displayName, displayType);
+
+  const whatArr = whatTheyGet[productType] ?? whatTheyGet['guide'];
+  const what = pick(whatArr, variant);
+
+  const allBonuses = bonusesByType[productType] ?? bonusesByType['guide'];
+  const bonusCount = priceRange === 'high' ? 4 : priceRange === 'mid' ? 3 : 2;
+  const bonuses = allBonuses.slice(variant % 2, variant % 2 + bonusCount).concat(
+    allBonuses.slice(0, Math.max(0, bonusCount - allBonuses.length + (variant % 2)))
+  ).slice(0, bonusCount);
+
+  const [priceLow, priceHigh] = priceValues[priceRange] ?? [29, 49];
+  const mainPrice = priceRange === 'high' ? priceLow : priceRange === 'mid' ? Math.round((priceLow + priceHigh) / 2) : priceHigh;
+  const bonusTotal = bonuses.reduce((s, b) => s + b.value, 0);
+  const totalValue = mainPrice + bonusTotal;
+
+  const urgencyArr = urgencyLines[audience] ?? urgencyLines['beginners'];
+  const urgency = pick(urgencyArr, variant);
+
+  const positionArr = bundlePositioning[productType] ?? bundlePositioning['guide'];
+  const positioning = interp(pick(positionArr, variant), displayName, displayType);
+
+  const label = `${displayName} / ${labelAudience(audience)} / ${displayType}`;
+
+  return { offerName, promise, what, bonuses, mainPrice, bonusTotal, totalValue, urgency, positioning, label, priceRange };
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+
+function renderOffer(data: ReturnType<typeof generateOffer>) {
+  const empty = document.getElementById('offer-empty-state')!;
+  const result = document.getElementById('offer-result')!;
+
+  (document.getElementById('offer-result-label') as HTMLElement).textContent = data.label;
+  (document.getElementById('offer-name-output') as HTMLElement).textContent = data.offerName;
+  (document.getElementById('offer-promise-output') as HTMLElement).textContent = data.promise;
+  (document.getElementById('offer-what-output') as HTMLElement).textContent = data.what;
+
+  const bonusesEl = document.getElementById('offer-bonuses-output')!;
+  bonusesEl.innerHTML = data.bonuses.map(b => `
+    <li class="flex items-start justify-between gap-3 text-sm text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
+      <span class="flex items-start gap-2 font-medium leading-relaxed">
+        <span class="mt-0.5 w-5 h-5 rounded-full bg-[#2ECC71] border-2 border-black flex items-center justify-center text-white text-xs font-black shrink-0">+</span>
+        ${b.name}
+      </span>
+      <span class="font-black text-[#2ECC71] shrink-0">$${b.value}</span>
+    </li>`).join('');
+
+  const stackEl = document.getElementById('offer-stack-output')!;
+  const [priceLow, priceHigh] = [data.mainPrice, data.mainPrice];
+  void priceLow; void priceHigh;
+  stackEl.innerHTML = `
+    <div class="flex justify-between text-sm font-medium text-[#1B1B3D] py-1.5 border-b border-black/10" style="font-family:'Inter',system-ui,sans-serif;">
+      <span>Main Product</span>
+      <span class="font-black">$${data.mainPrice}</span>
+    </div>
+    ${data.bonuses.map(b => `
+    <div class="flex justify-between text-sm font-medium text-[#1B1B3D] py-1.5 border-b border-black/10" style="font-family:'Inter',system-ui,sans-serif;">
+      <span>${b.name.split('(')[0].trim()}</span>
+      <span class="font-black">$${b.value}</span>
+    </div>`).join('')}
+    <div class="flex justify-between text-sm py-1.5 border-b border-black/10 text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">
+      <span class="font-bold">Total Value</span>
+      <span class="font-black line-through">$${data.totalValue}</span>
+    </div>
+    <div class="flex justify-between text-base font-black text-[#1B1B3D] pt-2" style="font-family:'Inter',system-ui,sans-serif;">
+      <span>Your Price</span>
+      <span class="text-[#2ECC71]">$${data.mainPrice}</span>
+    </div>`;
+
+  (document.getElementById('offer-urgency-output') as HTMLElement).textContent = data.urgency;
+  (document.getElementById('offer-positioning-output') as HTMLElement).textContent = data.positioning;
+
+  empty.classList.add('hidden');
+  result.classList.remove('hidden');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ─── MODAL CONTROL ────────────────────────────────────────────────────────────
+
+const overlay = document.getElementById('offer-modal-overlay') as HTMLElement;
+const card = document.getElementById('offer-modal-card') as HTMLElement;
+const closeBtn = document.getElementById('offer-modal-close') as HTMLButtonElement;
+
+function openModal() {
+  overlay.classList.remove('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-95');
+  card.classList.add('scale-100');
+  document.body.style.overflow = 'hidden';
+  card.scrollTop = 0;
+}
+
+function closeModal() {
+  overlay.classList.add('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+  document.body.style.overflow = '';
+}
+
+(window as any).openOfferStackModal = openModal;
+
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// ─── FORM INTERACTIONS ────────────────────────────────────────────────────────
+
+function getInputs(): OfferInputs {
+  return {
+    productName: (document.getElementById('offer-product-name') as HTMLInputElement).value,
+    productType: (document.getElementById('offer-type') as HTMLSelectElement).value,
+    audience: (document.getElementById('offer-audience') as HTMLSelectElement).value,
+    painPoint: (document.getElementById('offer-pain') as HTMLInputElement).value,
+    priceRange: (document.getElementById('offer-price') as HTMLSelectElement).value,
+    variant: offerVariant,
+  };
+}
+
+document.getElementById('offer-generate-btn')!.addEventListener('click', () => {
+  const icon = document.getElementById('offer-btn-icon') as HTMLElement;
+  const text = document.getElementById('offer-btn-text') as HTMLElement;
+  const btn = document.getElementById('offer-generate-btn') as HTMLButtonElement;
+  icon.textContent = '⏳'; text.textContent = 'Building...'; btn.disabled = true;
+
+  setTimeout(() => {
+    const inputs = getInputs();
+    const hash = `${inputs.productName}|${inputs.productType}|${inputs.audience}|${inputs.priceRange}`;
+    if (hash !== lastOfferHash) { offerVariant = 0; lastOfferHash = hash; inputs.variant = 0; }
+    const data = generateOffer(inputs);
+    renderOffer(data);
+    icon.textContent = '📦'; text.textContent = 'Build My Offer'; btn.disabled = false;
+  }, 500);
+});
+
+document.getElementById('offer-regen-btn')!.addEventListener('click', () => {
+  offerVariant++;
+  const inputs = getInputs();
+  inputs.variant = offerVariant;
+  const data = generateOffer(inputs);
+  renderOffer(data);
+});
+
+document.getElementById('offer-copy-btn')!.addEventListener('click', () => {
+  const name = (document.getElementById('offer-name-output') as HTMLElement).textContent ?? '';
+  const promise = (document.getElementById('offer-promise-output') as HTMLElement).textContent ?? '';
+  const what = (document.getElementById('offer-what-output') as HTMLElement).textContent ?? '';
+  const bonuses = Array.from(document.querySelectorAll('#offer-bonuses-output li')).map(li => `+ ${li.querySelector('span:first-child span:last-child')?.textContent?.trim()}`).join('\n');
+  const stack = Array.from(document.querySelectorAll('#offer-stack-output div')).map(d => d.textContent?.replace(/\s+/g, ' ').trim()).join('\n');
+  const urgency = (document.getElementById('offer-urgency-output') as HTMLElement).textContent ?? '';
+  const positioning = (document.getElementById('offer-positioning-output') as HTMLElement).textContent ?? '';
+  const text = `OFFER STACK\n\nOffer Name:\n${name}\n\nCore Promise:\n${promise}\n\nWhat They Get:\n${what}\n\nBonus Ideas:\n${bonuses}\n\nValue Stack:\n${stack}\n\nUrgency Angle:\n${urgency}\n\nBundle Positioning:\n${positioning}\n\nGenerated by Strategic Sloth Offer Stack Builder`;
+  navigator.clipboard.writeText(text).then(() => {
+    const el = document.getElementById('offer-copy-text') as HTMLElement;
+    el.textContent = 'Copied!';
+    setTimeout(() => { el.textContent = 'Copy Offer'; }, 2000);
+  });
+});
+
+document.getElementById('offer-narriaflow-btn')!.addEventListener('click', () => {
+  closeModal();
+});
+
+})();
+</script>

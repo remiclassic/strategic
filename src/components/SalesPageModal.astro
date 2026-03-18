@@ -1,0 +1,645 @@
+---
+const audienceOptions = [
+  { value: "beginners",          label: "Beginners" },
+  { value: "freelancers",        label: "Freelancers" },
+  { value: "creators",           label: "Creators" },
+  { value: "busy_professionals", label: "Busy Professionals" },
+  { value: "students",           label: "Students" },
+];
+
+const toneOptions = [
+  { value: "simple",     label: "Simple" },
+  { value: "confident",  label: "Confident" },
+  { value: "friendly",   label: "Friendly" },
+  { value: "direct",     label: "Direct" },
+];
+---
+
+<!-- Sales Page Helper Modal -->
+<div
+  id="sales-modal-overlay"
+  class="fixed inset-0 z-[210] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+  aria-modal="true"
+  role="dialog"
+  aria-labelledby="sales-modal-title"
+>
+  <div
+    id="sales-modal-card"
+    class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#FFFBF2] border-[3px] border-black rounded-[24px] shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+  >
+    <!-- Close -->
+    <button
+      id="sales-modal-close"
+      type="button"
+      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      aria-label="Close"
+    >✕</button>
+
+    <div class="p-7 sm:p-8 clear-both">
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-1">
+        <div class="w-10 h-10 rounded-xl border-2 border-black bg-[#FFFBF2] flex items-center justify-center text-xl shadow-[2px_2px_0_#000]">✍️</div>
+        <div>
+          <div class="flex items-center gap-2 mb-0.5">
+            <h2 id="sales-modal-title" class="text-xl font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Sales Page Helper</h2>
+            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-2.5 py-0.5 shadow-[2px_2px_0_#000]">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
+              LIVE
+            </span>
+          </div>
+          <p class="text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Turn your product into simple, persuasive sales copy. No marketing degree needed.</p>
+        </div>
+      </div>
+
+      <div class="h-px bg-black/10 my-6"></div>
+
+      <!-- Form -->
+      <div class="space-y-5">
+        <!-- Product name + audience -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="sales-product-name" style="font-family:'Inter',system-ui,sans-serif;">Product name</label>
+            <input
+              id="sales-product-name"
+              type="text"
+              placeholder="e.g. The Freelance Starter Kit"
+              class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+              style="font-family:'Inter',system-ui,sans-serif;"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="sales-audience" style="font-family:'Inter',system-ui,sans-serif;">Who is it for?</label>
+            <div class="relative">
+              <select id="sales-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+                {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desired result + frustration -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="sales-result" style="font-family:'Inter',system-ui,sans-serif;">Desired result</label>
+            <input
+              id="sales-result"
+              type="text"
+              placeholder="What do they want to achieve?"
+              class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+              style="font-family:'Inter',system-ui,sans-serif;"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="sales-frustration" style="font-family:'Inter',system-ui,sans-serif;">Biggest frustration</label>
+            <input
+              id="sales-frustration"
+              type="text"
+              placeholder="What are they struggling with?"
+              class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
+              style="font-family:'Inter',system-ui,sans-serif;"
+            />
+          </div>
+        </div>
+
+        <!-- Tone -->
+        <div>
+          <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="sales-tone" style="font-family:'Inter',system-ui,sans-serif;">Tone</label>
+          <div class="relative max-w-xs">
+            <select id="sales-tone" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              {toneOptions.map(o => <option value={o.value}>{o.label}</option>)}
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate -->
+        <button
+          id="sales-generate-btn"
+          type="button"
+          class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'Inter',system-ui,sans-serif;"
+        >
+          <span id="sales-btn-icon">✍️</span>
+          <span id="sales-btn-text">Write My Sales Copy</span>
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      <div id="sales-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+        <span class="text-4xl mb-3">📄</span>
+        <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your sales copy will appear here</p>
+        <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above and hit Write</p>
+      </div>
+
+      <!-- Result -->
+      <div id="sales-result" class="mt-6 hidden">
+        <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+          <!-- Result header -->
+          <div class="bg-[#1B1B3D] px-6 py-4 flex items-center justify-between gap-3">
+            <div>
+              <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-0.5" style="font-family:'Inter',system-ui,sans-serif;">Your Sales Copy</p>
+              <p id="sales-result-label" class="text-white font-bold text-sm" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+            <span class="shrink-0 inline-flex items-center gap-1 bg-[#FFD600] text-black text-xs font-black border-2 border-black rounded-full px-3 py-1">
+              ✦ Ready
+            </span>
+          </div>
+
+          <div class="p-6 sm:p-7 space-y-4">
+            <!-- Headline -->
+            <div class="bg-[#FFF3CD] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Headline</p>
+              <p id="sales-headline-output" class="text-xl font-black text-[#1B1B3D] leading-tight" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Subheadline -->
+            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Subheadline</p>
+              <p id="sales-subheadline-output" class="font-bold text-[#1B1B3D] leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- Hook -->
+            <div class="bg-white border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-2" style="font-family:'Inter',system-ui,sans-serif;">Hook Paragraph</p>
+              <p id="sales-hook-output" class="font-medium text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- What you get -->
+            <div class="bg-[#E3F9ED] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">What You Get</p>
+              <ul id="sales-bullets-output" class="space-y-2"></ul>
+            </div>
+
+            <!-- Why it works -->
+            <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Why This Works</p>
+              <p id="sales-why-output" class="font-medium text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- CTA -->
+            <div class="bg-[#FFD600] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-black mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">CTA Line</p>
+              <p id="sales-cta-output" class="font-black text-[#1B1B3D] text-lg leading-tight" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            </div>
+
+            <!-- FAQ -->
+            <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
+              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">FAQ Starters</p>
+              <ul id="sales-faq-output" class="space-y-2"></ul>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-1">
+              <a
+                href="#narriaflow"
+                id="sales-narriaflow-btn"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                🚀 Use in NarriaFlow
+              </a>
+              <button
+                id="sales-copy-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span id="sales-copy-text">Copy Sales Page</span>
+              </button>
+              <button
+                id="sales-regen-btn"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'Inter',system-ui,sans-serif;"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Regenerate
+              </button>
+            </div>
+
+            <p class="text-xs text-[#B0B0C8] text-center pt-1" style="font-family:'Inter',system-ui,sans-serif;">
+              NarriaFlow will let you publish this copy directly onto a product page when it launches.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+// INTEGRATION POINT: replace generateSalesPage() body with
+// fetch('/api/generate-sales-page', { productName, audience, desiredResult, frustration, tone })
+
+type SalesInputs = {
+  productName: string;
+  audience: string;
+  desiredResult: string;
+  frustration: string;
+  tone: string;
+  variant: number;
+};
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const headlines: Record<string, Record<string, string[]>> = {
+  simple: {
+    beginners:          ["Finally, a simple way to {result}", "Get {result} without the confusion", "The straightforward way to {result}"],
+    freelancers:        ["A simpler path to {result} for freelancers", "Get {result} without overcomplicating it", "The no-fuss way for freelancers to {result}"],
+    creators:           ["A simpler way for creators to {result}", "Get {result} without the usual creative chaos", "The straightforward creator's path to {result}"],
+    busy_professionals: ["Get {result} without giving up your whole weekend", "A simple system for busy people to {result}", "The fastest simple way to {result}"],
+    students:           ["A simple way for students to {result}", "Get {result} without needing more hours in the day", "The simplest student path to {result}"],
+  },
+  confident: {
+    beginners:          ["You can {result}. Here is exactly how.", "This is how beginners actually {result}", "The proven starting point for {result}"],
+    freelancers:        ["Freelancers who {result} do this differently", "This is how freelancers build {result} that lasts", "The confident freelancer's approach to {result}"],
+    creators:           ["Creators who {result} use this system", "This is how serious creators {result}", "Build {result} the way top creators do"],
+    busy_professionals: ["High-performers {result} by doing less, not more", "This is how professionals get {result} on a tight schedule", "Get {result} the way the most efficient professionals do"],
+    students:           ["The students who {result} do this first", "This is how smart students get {result}", "Get {result} the way your most successful peers do"],
+  },
+  friendly: {
+    beginners:          ["Let's help you {result}, step by step", "Getting started with {result} is easier than you think", "A friendly, honest guide to {result} for beginners"],
+    freelancers:        ["Here to help you {result} as a freelancer", "Freelancing is complicated enough. {result} should not be.", "A friendly system to help freelancers {result}"],
+    creators:           ["Let's help you {result} without the overwhelm", "Creating is the fun part. Getting {result} should be too.", "A friendly path to {result} for people who make things"],
+    busy_professionals: ["You are busy. Let's help you {result} anyway.", "Getting {result} does not have to take over your schedule", "A friendly, practical approach to {result} for busy people"],
+    students:           ["Getting {result} as a student is actually doable", "Let's make {result} less stressful for students", "A friendly guide to {result} that fits around student life"],
+  },
+  direct: {
+    beginners:          ["{result}. No experience required.", "You want to {result}. Here is what to do.", "Stop waiting. Start {result} now."],
+    freelancers:        ["Freelancers who want to {result}: this is for you.", "{result}. Built specifically for freelancers.", "This is what it takes to {result} as a freelancer."],
+    creators:           ["Creators: here is how to {result}.", "If you want to {result}, start here.", "{result}. For creators who are done waiting."],
+    busy_professionals: ["Get {result}. Use less time doing it.", "Busy professionals: here is how to {result}.", "{result}. Built for people with no time to waste."],
+    students:           ["Students who want to {result}: this is your starting point.", "{result}. It fits your schedule.", "Here is how to {result} as a student, without adding more stress."],
+  },
+};
+
+const subheadlines: Record<string, string[]> = {
+  simple:     [
+    "{name} is a clear, simple resource that helps you {result} without the usual confusion and wasted effort.",
+    "Everything you need to {result} is in one place. No extra research, no second-guessing. Just a clear path forward.",
+    "{name} gives you the structure and guidance to {result} in less time than you think.",
+  ],
+  confident:  [
+    "{name} is the practical, results-focused resource that {audience} use to {result} consistently.",
+    "If you want to {result}, {name} gives you the exact structure, steps, and tools to make it happen.",
+    "Stop circling the same problem. {name} is the direct path to {result} that actually delivers.",
+  ],
+  friendly:   [
+    "{name} is here to help you {result} in a way that is clear, manageable, and actually enjoyable.",
+    "Consider {name} a friendly guide through the process of {result}. No jargon, no stress, just good guidance.",
+    "We built {name} for people who want to {result} without feeling overwhelmed every step of the way.",
+  ],
+  direct:     [
+    "{name}: what to do, in what order, to {result}.",
+    "This is {name}. It helps you {result}. That is the entire point.",
+    "{name} gives you exactly what you need to {result} and nothing you do not.",
+  ],
+};
+
+const hookParagraphs: Record<string, Record<string, string[]>> = {
+  simple: {
+    beginners:          [
+      "Most beginners who try to {result} spend weeks figuring out where to start. They read a lot, watch a lot, and still feel like they are missing something. {name} cuts through all of that. It gives you a clear, simple starting point so you can stop researching and actually begin.",
+      "Getting started with {result} should not require a background in the subject or hours of research. {name} is built for people who are new to this and want a clean, honest path forward. Simple enough to start today. Useful enough to come back to.",
+    ],
+    freelancers:        [
+      "Freelancers deal with enough complexity. {result} should not add to it. {name} is built specifically for self-employed people who need a clean, reliable approach to {result} without adding another complicated system to manage.",
+      "As a freelancer, your time and energy are your most valuable resources. {name} helps you {result} without the long learning curve or the expensive trial and error that most people go through.",
+    ],
+    creators:           [
+      "Creating takes enough energy. The last thing you need is to spend that energy figuring out how to {result} from scratch. {name} gives you a clean, simple framework so you can focus on the creative work instead of the process behind it.",
+      "Most creators who struggle to {result} are not short on ideas. They are short on a simple, clear system. {name} provides that system in the most direct way possible.",
+    ],
+    busy_professionals: [
+      "You already know what {result} would do for your work and your life. The problem is finding the time and the right approach to make it happen without adding more to your plate. {name} is built for exactly that situation.",
+      "Busy professionals do not have time for long learning curves or complicated frameworks. {name} gives you what you need to {result} in the most efficient way possible. Straightforward, practical, and built for people with real schedules.",
+    ],
+    students:           [
+      "Student life is already full. Adding a complicated approach to {result} on top of it makes no sense. {name} gives you a simple, structured way to {result} that fits around your actual schedule instead of competing with it.",
+      "Most students who want to {result} end up spending more time researching how to do it than actually doing it. {name} solves that problem with a clear, simple approach that gets you moving from day one.",
+    ],
+  },
+  confident: {
+    beginners:          [
+      "Most beginners try to {result} by piecing things together from scattered resources. Some of it works, most of it wastes time, and all of it creates more confusion than clarity. {name} gives you a structured, proven approach that actually moves the needle.",
+      "The difference between beginners who {result} quickly and those who take years is usually not talent. It is having the right starting framework. {name} is that framework.",
+    ],
+    freelancers:        [
+      "Freelancers who consistently {result} are not doing anything magical. They have a clear system and they follow it. {name} gives you that system, built specifically for the reality of self-employed work.",
+      "The freelancers who build sustainable {result} are not the ones working the most hours. They are the ones with the clearest approach. {name} gives you that approach, without the years it usually takes to develop it from scratch.",
+    ],
+    creators:           [
+      "Creators who consistently {result} are not the most talented or the most prolific. They are the most structured. {name} gives you the framework that makes consistent {result} possible, even when motivation is low.",
+      "The creators building real {result} are not doing it through brute force. They have a system. {name} is that system, built for the way creators actually work.",
+    ],
+    busy_professionals: [
+      "High-performing professionals who {result} are not working more hours. They are applying the right approach to the right problems. {name} gives you the exact framework for doing that in the context of {result}.",
+      "The professionals who get {result} consistently are not the ones with the most time. They are the ones with the clearest system. {name} gives you that system without the long development period.",
+    ],
+    students:           [
+      "The students who {result} are not the ones studying the hardest. They are the ones using the most effective approach. {name} gives you that approach, built specifically for the student context.",
+      "Academic success and personal {result} are not about working more. They are about working smarter with the right framework. {name} is that framework, designed for students who want real results.",
+    ],
+  },
+  friendly:   {
+    beginners:          [
+      "Starting from zero on {result} is genuinely hard, and nobody talks about that enough. There is so much information out there and very little of it is organized in a way that actually makes sense for someone just getting started. {name} is here to change that for you.",
+      "If you have been putting off {result} because it feels complicated or overwhelming, you are not alone. Most people feel that way at the start. {name} is designed to make it feel manageable, one clear step at a time.",
+    ],
+    freelancers:        [
+      "Freelancing already demands a lot. We get it. {name} is not here to add to that. It is here to make {result} one less thing you have to figure out on your own, so you can focus on the work that actually pays.",
+      "The honest truth is that {result} as a freelancer is harder than most resources admit. {name} was built with that reality in mind. No idealized version of freelance life. Just practical, friendly guidance that works.",
+    ],
+    creators:           [
+      "Creating is already vulnerable work. The last thing you need is a confusing system around {result} making it harder. {name} is here to make that part of your creative life feel easier, clearer, and a little bit lighter.",
+      "We built {name} for creators who are good at making things but sometimes struggle with the surrounding structure of {result}. It is the friendly, practical guide you probably wish existed when you first started.",
+    ],
+    busy_professionals: [
+      "You do not need another complicated system. You need something that actually works with your schedule instead of against it. {name} is built to deliver {result} in the most time-efficient, stress-free way possible.",
+      "Busy does not mean disorganized. It means your time is valuable. {name} respects that by giving you exactly what you need to {result} without the hours of setup and learning curve that most resources require.",
+    ],
+    students:           [
+      "Student life is already demanding enough without adding a steep learning curve to {result}. {name} is the friendly, practical guide that makes this manageable, even in the busiest parts of the semester.",
+      "We built {name} for students who want to {result} but are realistic about their time, energy, and schedule. It meets you where you are and helps you get where you want to go.",
+    ],
+  },
+  direct:     {
+    beginners:          [
+      "You want to {result}. You are starting from zero. {name} gives you the exact path from here to there, without the usual detours and wasted time. That is the complete description.",
+      "Most beginners waste months trying to figure out {result} on their own. {name} compresses that process down to something you can actually use today.",
+    ],
+    freelancers:        [
+      "You freelance. You need to {result}. {name} tells you exactly how to do that, without the noise, the theory, or the approaches that only work for people with unlimited time.",
+      "Freelancers need systems that work in the real world, not ideal conditions. {name} is built for real freelance life. Direct, practical, immediately useful.",
+    ],
+    creators:           [
+      "You make things. You need to {result}. {name} gives you the structure to make that happen without the endless planning and second-guessing that kills creative momentum.",
+      "This is not a motivation resource. It is a practical system for creators who want to {result} and are done waiting to figure it out.",
+    ],
+    busy_professionals: [
+      "You are busy. You need to {result}. {name} is direct, fast, and built to deliver results without requiring a major time investment to implement.",
+      "No fluff, no padding, no filler. {name} is the efficient, direct approach to {result} for professionals who cannot afford to waste time.",
+    ],
+    students:           [
+      "You are a student. You want to {result}. You have limited time. {name} is built around all three of those facts.",
+      "This is a direct, practical resource for students who want to {result} without adding complexity to an already full schedule.",
+    ],
+  },
+};
+
+const bulletSetsByTone: Record<string, string[][]> = {
+  simple: [
+    ["A clear, step-by-step structure you can follow from the beginning", "Simple enough to start without any background knowledge", "Practical enough to use immediately after reading", "A clean format that respects your time"],
+    ["Everything organized so you know exactly what to do next", "No jargon, no filler, no content that wastes your time", "A resource you can come back to whenever you need it", "Built for real people in real situations"],
+  ],
+  confident: [
+    ["A proven framework built around what actually works", "Structured guidance that takes you from confusion to clarity", "The specific steps, in the right order, for real results", "A system you can apply immediately and build on over time"],
+    ["No guessing, no trial and error, no starting from scratch", "A clear path forward that confident practitioners actually use", "Practical application built into every section", "Designed to deliver results, not just information"],
+  ],
+  friendly: [
+    ["A friendly, approachable guide that meets you where you are", "Clear explanations without the jargon or the condescension", "Practical steps that fit into real life instead of an ideal version of it", "The kind of resource you actually want to come back to"],
+    ["Honest, human guidance for a process most resources overcomplicate", "Exercises and prompts that make the process feel manageable", "A tone that respects your intelligence without making you feel behind", "Built for people who want real help, not a sales pitch"],
+  ],
+  direct: [
+    ["Exactly what to do, in what order, without extra padding", "Immediate application from the first page to the last", "No motivation content, no filler, no fluffy advice", "A fast, direct path to the result you actually want"],
+    ["Clear, actionable steps with no detours", "Built for people who want results, not more information", "Everything you need, nothing you do not", "Designed to be used, not just read"],
+  ],
+};
+
+const whyItWorks: Record<string, string[]> = {
+  simple: [
+    "{name} works because it does not try to be everything. It focuses on exactly what matters for {result} and presents it in the clearest, most usable way possible. Simple resources get used. Complicated ones get abandoned. This one gets used.",
+    "Most people fail to {result} not because they lack information but because they have too much of it in the wrong format. {name} solves that by giving you just the right amount, organized in the right way, at the right level of complexity.",
+  ],
+  confident: [
+    "{name} works because it is built around how {result} actually happens in practice, not how it theoretically should work. The structure, the sequencing, and the level of detail are all based on what consistently produces real results.",
+    "The reason {name} is effective is simple: it removes the guesswork. Every section is there because it needs to be. Every step is sequenced because that order matters. You get a clear path built on what actually works.",
+  ],
+  friendly: [
+    "{name} works because it was built with the real barriers to {result} in mind, not an idealized version of the process. The tone, the pacing, and the structure are all designed to help you keep going instead of getting stuck.",
+    "The reason people who use {name} actually follow through is that it feels achievable. Not because it waters anything down, but because it presents everything in a way that feels manageable instead of overwhelming.",
+  ],
+  direct: [
+    "{name} works because it skips everything that does not matter and delivers only what does. The result is a resource that you can actually use, from the first page, in the real world, without a long setup process.",
+    "Most resources fail because they try to cover too much. {name} works because it covers exactly the right amount, in exactly the right format, for exactly the right purpose: helping you {result}.",
+  ],
+};
+
+const ctaLines: Record<string, string[]> = {
+  simple:     ["Get instant access and start today", "Download now and begin in the next ten minutes", "Add to cart and get started right away"],
+  confident:  ["Get access and start getting results", "Download and start applying it today", "Get yours and start moving forward now"],
+  friendly:   ["Get your copy and start whenever you are ready", "Download now and take things at your own pace", "Grab it today and start when it feels right"],
+  direct:     ["Get it now", "Download and start", "Get access now"],
+};
+
+const faqStartersByAudience: Record<string, string[]> = {
+  beginners:          [
+    "Is this really for complete beginners?",
+    "Do I need any prior knowledge before starting?",
+    "How long will it take me to go through everything?",
+  ],
+  freelancers:        [
+    "Is this relevant for freelancers who work in different industries?",
+    "Will this still be useful if I have been freelancing for a while?",
+    "How does this fit into an already busy freelance schedule?",
+  ],
+  creators:           [
+    "Does this work for creators in any niche?",
+    "Do I need an established audience to get value from this?",
+    "How much time does implementing this actually take?",
+  ],
+  busy_professionals: [
+    "How much time does this actually require?",
+    "Can I use this even if my schedule is genuinely unpredictable?",
+    "Is this different from the other productivity resources I have already tried?",
+  ],
+  students:           [
+    "Can I use this alongside my current coursework?",
+    "Is this relevant even if my field is quite specific?",
+    "How much time does working through this realistically take?",
+  ],
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+
+let salesVariant = 0;
+let lastSalesHash = '';
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function pick<T>(arr: T[], idx: number): T { return arr[idx % arr.length]; }
+function interp(s: string, vars: Record<string, string>): string {
+  return s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? `{${k}}`);
+}
+function labelAudience(a: string): string {
+  const m: Record<string, string> = { beginners: 'Beginners', freelancers: 'Freelancers', creators: 'Creators', busy_professionals: 'Busy Professionals', students: 'Students' };
+  return m[a] ?? a;
+}
+
+// ─── GENERATION ──────────────────────────────────────────────────────────────
+
+function generateSalesPage(inputs: SalesInputs) {
+  const { productName, audience, desiredResult, frustration: _frustration, tone, variant } = inputs;
+
+  const name = productName.trim() || 'this product';
+  const result = desiredResult.trim() || 'reach your goal';
+  const audienceLabel = labelAudience(audience);
+
+  const vars = { name, result, audience: audienceLabel };
+
+  const headlineArr = headlines[tone]?.[audience] ?? headlines['simple']['beginners'];
+  const headline = interp(pick(headlineArr, variant), vars);
+
+  const subArr = subheadlines[tone] ?? subheadlines['simple'];
+  const subheadline = interp(pick(subArr, variant), vars);
+
+  const hookArr = hookParagraphs[tone]?.[audience] ?? hookParagraphs['simple']['beginners'];
+  const hook = interp(pick(hookArr, variant), vars);
+
+  const bulletMatrix = bulletSetsByTone[tone] ?? bulletSetsByTone['simple'];
+  const bullets = pick(bulletMatrix, variant);
+
+  const whyArr = whyItWorks[tone] ?? whyItWorks['simple'];
+  const why = interp(pick(whyArr, variant), vars);
+
+  const ctaArr = ctaLines[tone] ?? ctaLines['simple'];
+  const cta = pick(ctaArr, variant);
+
+  const faqs = faqStartersByAudience[audience] ?? faqStartersByAudience['beginners'];
+
+  const label = `${name} / ${audienceLabel} / ${tone}`;
+
+  return { headline, subheadline, hook, bullets, why, cta, faqs, label };
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+
+function renderSalesPage(data: ReturnType<typeof generateSalesPage>) {
+  const empty = document.getElementById('sales-empty-state')!;
+  const result = document.getElementById('sales-result')!;
+
+  (document.getElementById('sales-result-label') as HTMLElement).textContent = data.label;
+  (document.getElementById('sales-headline-output') as HTMLElement).textContent = data.headline;
+  (document.getElementById('sales-subheadline-output') as HTMLElement).textContent = data.subheadline;
+  (document.getElementById('sales-hook-output') as HTMLElement).textContent = data.hook;
+
+  const bulletsEl = document.getElementById('sales-bullets-output')!;
+  bulletsEl.innerHTML = data.bullets.map(b => `
+    <li class="flex items-start gap-2.5 text-sm text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
+      <span class="mt-0.5 w-5 h-5 rounded-full bg-[#2ECC71] border-2 border-black flex items-center justify-center text-white text-xs font-black shrink-0">✓</span>
+      <span class="font-medium leading-relaxed">${b}</span>
+    </li>`).join('');
+
+  (document.getElementById('sales-why-output') as HTMLElement).textContent = data.why;
+  (document.getElementById('sales-cta-output') as HTMLElement).textContent = data.cta;
+
+  const faqEl = document.getElementById('sales-faq-output')!;
+  faqEl.innerHTML = data.faqs.map((f, i) => `
+    <li class="flex items-start gap-2.5 text-sm text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
+      <span class="mt-0.5 font-black text-[#8888A4] shrink-0">Q${i + 1}.</span>
+      <span class="font-medium leading-relaxed">${f}</span>
+    </li>`).join('');
+
+  empty.classList.add('hidden');
+  result.classList.remove('hidden');
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ─── MODAL CONTROL ────────────────────────────────────────────────────────────
+
+const overlay = document.getElementById('sales-modal-overlay') as HTMLElement;
+const card = document.getElementById('sales-modal-card') as HTMLElement;
+const closeBtn = document.getElementById('sales-modal-close') as HTMLButtonElement;
+
+function openModal() {
+  overlay.classList.remove('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-95');
+  card.classList.add('scale-100');
+  document.body.style.overflow = 'hidden';
+  card.scrollTop = 0;
+}
+
+function closeModal() {
+  overlay.classList.add('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+  document.body.style.overflow = '';
+}
+
+(window as any).openSalesPageModal = openModal;
+
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// ─── FORM INTERACTIONS ────────────────────────────────────────────────────────
+
+function getInputs(): SalesInputs {
+  return {
+    productName:   (document.getElementById('sales-product-name') as HTMLInputElement).value,
+    audience:      (document.getElementById('sales-audience') as HTMLSelectElement).value,
+    desiredResult: (document.getElementById('sales-result') as HTMLInputElement).value,
+    frustration:   (document.getElementById('sales-frustration') as HTMLInputElement).value,
+    tone:          (document.getElementById('sales-tone') as HTMLSelectElement).value,
+    variant: salesVariant,
+  };
+}
+
+document.getElementById('sales-generate-btn')!.addEventListener('click', () => {
+  const icon = document.getElementById('sales-btn-icon') as HTMLElement;
+  const text = document.getElementById('sales-btn-text') as HTMLElement;
+  const btn = document.getElementById('sales-generate-btn') as HTMLButtonElement;
+  icon.textContent = '⏳'; text.textContent = 'Writing...'; btn.disabled = true;
+
+  setTimeout(() => {
+    const inputs = getInputs();
+    const hash = `${inputs.productName}|${inputs.audience}|${inputs.desiredResult}|${inputs.tone}`;
+    if (hash !== lastSalesHash) { salesVariant = 0; lastSalesHash = hash; inputs.variant = 0; }
+    const data = generateSalesPage(inputs);
+    renderSalesPage(data);
+    icon.textContent = '✍️'; text.textContent = 'Write My Sales Copy'; btn.disabled = false;
+  }, 500);
+});
+
+document.getElementById('sales-regen-btn')!.addEventListener('click', () => {
+  salesVariant++;
+  const inputs = getInputs();
+  inputs.variant = salesVariant;
+  const data = generateSalesPage(inputs);
+  renderSalesPage(data);
+});
+
+document.getElementById('sales-copy-btn')!.addEventListener('click', () => {
+  const headline    = (document.getElementById('sales-headline-output') as HTMLElement).textContent ?? '';
+  const subheadline = (document.getElementById('sales-subheadline-output') as HTMLElement).textContent ?? '';
+  const hook        = (document.getElementById('sales-hook-output') as HTMLElement).textContent ?? '';
+  const bullets     = Array.from(document.querySelectorAll('#sales-bullets-output li span:last-child')).map(el => `- ${el.textContent?.trim()}`).join('\n');
+  const why         = (document.getElementById('sales-why-output') as HTMLElement).textContent ?? '';
+  const cta         = (document.getElementById('sales-cta-output') as HTMLElement).textContent ?? '';
+  const faqs        = Array.from(document.querySelectorAll('#sales-faq-output li')).map(li => li.textContent?.trim()).join('\n');
+  const text = `SALES PAGE COPY\n\nHeadline:\n${headline}\n\nSubheadline:\n${subheadline}\n\nHook:\n${hook}\n\nWhat You Get:\n${bullets}\n\nWhy This Works:\n${why}\n\nCTA:\n${cta}\n\nFAQ Starters:\n${faqs}\n\nGenerated by Strategic Sloth Sales Page Helper`;
+  navigator.clipboard.writeText(text).then(() => {
+    const el = document.getElementById('sales-copy-text') as HTMLElement;
+    el.textContent = 'Copied!';
+    setTimeout(() => { el.textContent = 'Copy Sales Page'; }, 2000);
+  });
+});
+
+document.getElementById('sales-narriaflow-btn')!.addEventListener('click', () => {
+  closeModal();
+});
+
+})();
+</script>

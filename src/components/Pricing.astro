@@ -53,7 +53,7 @@ const pricingTiers = [
 		badge: 'MOST POPULAR',
 		image: '/images/bestvalue.webp',
 		buttonText: 'GET BEST VALUE',
-		checkoutUrl: null,
+		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/79792bc4-e1aa-47a8-948b-1058c47d0288?embed=1',
 		notes: 'Built for builders.',
 		description: 'Everything you need to build a passive income system that runs on autopilot'
 	},
@@ -219,7 +219,7 @@ if (endTime < new Date()) {
 				{tier.checkoutUrl ? (
 					<a
 						href={tier.checkoutUrl}
-						class={`lemonsqueezy-button cta-button w-full block text-center bg-[#1B1B3D] text-white hover:bg-[#2C2D5D] font-bold py-3 rounded-xl border-2 border-black transition-colors`}
+						class={`lemonsqueezy-button cta-button w-full block text-center ${tier.id === 'best-value' ? 'bg-[#4D9FFF] hover:bg-[#3D8FEF] text-white' : tier.id === 'scale-freedom' ? 'bg-[#FFB800] text-[#1B1B3D] hover:bg-[#FFA800]' : 'bg-[#1B1B3D] text-white hover:bg-[#2C2D5D]'} font-bold py-3 rounded-xl border-2 border-black transition-colors`}
 					>
 						{tier.buttonText}
 					</a>

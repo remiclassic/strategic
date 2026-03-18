@@ -15,6 +15,7 @@ const ctas = {
 		buttonBg: 'bg-[#1B1B3D] text-white',
 		badge: 'bg-[#FFE066]',
 		badgeText: 'STARTER',
+		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/fd467bf3-1dd0-4e1c-92a5-d0dfcbd8646a?embed=1',
 	},
 	builder: {
 		emoji: '🏗️',
@@ -25,6 +26,7 @@ const ctas = {
 		buttonBg: 'bg-[#4D9FFF] text-white',
 		badge: 'bg-[#4D9FFF] text-white',
 		badgeText: 'BEST VALUE',
+		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/79792bc4-e1aa-47a8-948b-1058c47d0288?embed=1',
 	},
 	scale: {
 		emoji: '🚀',
@@ -35,6 +37,7 @@ const ctas = {
 		buttonBg: 'bg-[#FF4D4D] text-white',
 		badge: 'bg-[#FF4D4D] text-white',
 		badgeText: 'PREMIUM',
+		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/64915b54-7f09-4184-add3-1f87b83a5cd0?embed=1',
 	},
 };
 
@@ -50,7 +53,7 @@ const cta = ctas[category];
 		</div>
 	</div>
 	<p class="text-gray-700 mb-6 text-lg">{cta.text}</p>
-	<a href="/#get-started" class={`inline-flex items-center gap-2 ${cta.buttonBg} font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg`}>
+	<a href={cta.checkoutUrl} class={`lemonsqueezy-button inline-flex items-center gap-2 ${cta.buttonBg} font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg`}>
 		{cta.button}
 	</a>
 </div>

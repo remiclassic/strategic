@@ -225,14 +225,27 @@ import SalesPageModal from '../components/SalesPageModal.astro';
 
       try {
         const body = new URLSearchParams({ email_address: email }).toString();
-        await fetch(kitSubscriptionEndpoint, {
+        const response = await fetch(kitSubscriptionEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            Accept: 'application/json',
           },
           body,
-          mode: 'no-cors',
         });
+
+        if (!response.ok) {
+          throw new Error('Kit subscription request failed');
+        }
+
+        const data = await response.json() as {
+          status?: string;
+          errors?: { messages?: string[] };
+        };
+
+        if (data.status !== 'success') {
+          throw new Error(data.errors?.messages?.[0] ?? 'Kit rejected subscription');
+        }
 
         emailInput.value = '';
         defaultState.classList.add('hidden');

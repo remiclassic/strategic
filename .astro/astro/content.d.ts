@@ -162,9 +162,23 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"build-digital-products-without-coding.md": {
+	id: "build-digital-products-without-coding.md";
+  slug: "build-digital-products-without-coding";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "caribbean-citizenship-by-investment.md": {
 	id: "caribbean-citizenship-by-investment.md";
   slug: "caribbean-citizenship-by-investment";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"content-that-actually-converts.md": {
+	id: "content-that-actually-converts.md";
+  slug: "content-that-actually-converts";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -183,6 +197,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"email-list-for-creators.md": {
+	id: "email-list-for-creators.md";
+  slug: "email-list-for-creators";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "estonia-e-residency-review.md": {
 	id: "estonia-e-residency-review.md";
   slug: "estonia-e-residency-review";
@@ -193,6 +214,13 @@ declare module 'astro:content' {
 "five-flags-theory-explained.md": {
 	id: "five-flags-theory-explained.md";
   slug: "five-flags-theory-explained";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"focus-like-a-sloth.md": {
+	id: "focus-like-a-sloth.md";
+  slug: "focus-like-a-sloth";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -221,6 +249,13 @@ declare module 'astro:content' {
 "how-to-quit-your-9-to-5.md": {
 	id: "how-to-quit-your-9-to-5.md";
   slug: "how-to-quit-your-9-to-5";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"idea-to-pdf-in-24-hours.md": {
+	id: "idea-to-pdf-in-24-hours.md";
+  slug: "idea-to-pdf-in-24-hours";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -260,6 +295,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"pricing-your-digital-products.md": {
+	id: "pricing-your-digital-products.md";
+  slug: "pricing-your-digital-products";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "second-passport-cost-comparison.md": {
 	id: "second-passport-cost-comparison.md";
   slug: "second-passport-cost-comparison";
@@ -274,9 +316,51 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"sell-without-an-audience.md": {
+	id: "sell-without-an-audience.md";
+  slug: "sell-without-an-audience";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"simple-landing-pages-that-convert.md": {
+	id: "simple-landing-pages-that-convert.md";
+  slug: "simple-landing-pages-that-convert";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"stop-overthinking-start-shipping.md": {
+	id: "stop-overthinking-start-shipping.md";
+  slug: "stop-overthinking-start-shipping";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "swiss-bank-account-non-resident.md": {
 	id: "swiss-bank-account-non-resident.md";
   slug: "swiss-bank-account-non-resident";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"the-anti-hustle-playbook.md": {
+	id: "the-anti-hustle-playbook.md";
+  slug: "the-anti-hustle-playbook";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"the-offer-that-sells-itself.md": {
+	id: "the-offer-that-sells-itself.md";
+  slug: "the-offer-that-sells-itself";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"the-one-page-sales-funnel.md": {
+	id: "the-one-page-sales-funnel.md";
+  slug: "the-one-page-sales-funnel";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -295,6 +379,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"why-youre-not-making-money-online-yet.md": {
+	id: "why-youre-not-making-money-online-yet.md";
+  slug: "why-youre-not-making-money-online-yet";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "wise-vs-revolut-vs-payoneer.md": {
 	id: "wise-vs-revolut-vs-payoneer.md";
   slug: "wise-vs-revolut-vs-payoneer";
@@ -309,9 +400,23 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"your-first-100-online.md": {
+	id: "your-first-100-online.md";
+  slug: "your-first-100-online";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "zero-tax-countries-digital-nomads.md": {
 	id: "zero-tax-countries-digital-nomads.md";
   slug: "zero-tax-countries-digital-nomads";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"zero-to-1k-per-month.md": {
+	id: "zero-to-1k-per-month.md";
+  slug: "zero-to-1k-per-month";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">

@@ -8,12 +8,19 @@ interface Props {
 
 const { book } = Astro.props;
 const primaryBundle: Bundle | undefined = getPrimaryBundle(book);
+const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
 ---
 
 <div class="book-card">
   <div class="book-card__top">
     <h3 class="book-card__title">{book.title}</h3>
     <p class="book-card__benefit">{book.benefit}</p>
+    <p class="book-card__detail">{book.detail}</p>
+    {blogHref && (
+      <a href={blogHref} class="book-card__blog">
+        Free overview on the blog →
+      </a>
+    )}
   </div>
 
   <div class="book-card__bottom">
@@ -54,7 +61,7 @@ const primaryBundle: Bundle | undefined = getPrimaryBundle(book);
   .book-card__top {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
   }
 
   .book-card__title {
@@ -72,6 +79,30 @@ const primaryBundle: Bundle | undefined = getPrimaryBundle(book);
     color: #6666aa;
     margin: 0;
     line-height: 1.4;
+  }
+
+  .book-card__detail {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: #555577;
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .book-card__blog {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #1B1B3D;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-top: 0.15rem;
+    align-self: flex-start;
+    transition: color 0.15s ease;
+  }
+
+  .book-card__blog:hover {
+    color: #4444aa;
   }
 
   .book-card__bottom {

@@ -1,0 +1,149 @@
+---
+import type { Book, Bundle } from '../../data/catalog-data';
+import { getPrimaryBundle } from '../../data/catalog-data';
+
+interface Props {
+  book: Book;
+}
+
+const { book } = Astro.props;
+const primaryBundle: Bundle | undefined = getPrimaryBundle(book);
+---
+
+<div class="book-card">
+  <div class="book-card__top">
+    <h3 class="book-card__title">{book.title}</h3>
+    <p class="book-card__benefit">{book.benefit}</p>
+  </div>
+
+  <div class="book-card__bottom">
+    <div class="book-card__pricing">
+      <span class="book-price">${book.price}</span>
+    </div>
+
+    <a href={book.checkoutUrl} class="book-card__cta">Buy Now</a>
+
+    {primaryBundle && (
+      <a href="#bundles" class="book-card__upsell">
+        Also in <strong>{primaryBundle.name}</strong> → Save more
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  .book-card {
+    background: #fff;
+    border: 2px solid #e4e4f0;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    gap: 1rem;
+  }
+
+  .book-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.1);
+    border-color: #c0c0dd;
+  }
+
+  .book-card__top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .book-card__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1B1B3D;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .book-card__benefit {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: #6666aa;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .book-card__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .book-card__pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .book-price {
+    font-family: 'Bangers', cursive;
+    font-size: 1.7rem;
+    letter-spacing: 0.03em;
+    color: #1B1B3D;
+    line-height: 1;
+  }
+
+  .book-card__cta {
+    display: block;
+    text-align: center;
+    background: #1B1B3D;
+    color: #FFD600;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.6rem 1rem;
+    border-radius: 7px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0 #000;
+    text-decoration: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .book-card__cta:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #000;
+  }
+
+  .book-card__cta:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 #000;
+  }
+
+  .book-card__upsell {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    color: #8888bb;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.4;
+    padding: 0.2rem 0;
+    transition: color 0.15s ease;
+    display: block;
+  }
+
+  .book-card__upsell:hover {
+    color: #1B1B3D;
+    text-decoration: underline;
+  }
+
+  .book-card__upsell strong {
+    font-weight: 600;
+    color: #1B1B3D;
+  }
+</style>

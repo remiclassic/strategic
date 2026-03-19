@@ -1,0 +1,96 @@
+---
+import type { Book, Category } from '../../data/catalog-data';
+import BookCard from './BookCard.astro';
+
+interface Props {
+  books: Book[];
+  categories: Category[];
+}
+
+const { books, categories } = Astro.props;
+
+const grouped = categories.map((cat) => ({
+  category: cat,
+  books: books.filter((b) => b.category === cat.id),
+}));
+---
+
+<section id="books" class="catalog-section">
+  <div class="catalog-section__inner">
+    {grouped.map(({ category, books: catBooks }) => (
+      <div class="catalog-category">
+        <div class="catalog-category__header">
+          <span class="catalog-category__emoji">{category.emoji}</span>
+          <h2 class="catalog-category__name">{category.label}</h2>
+        </div>
+        <div class="books-grid">
+          {catBooks.map((book) => (
+            <BookCard book={book} />
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .catalog-section {
+    background: #f8f8fc;
+    padding: 4rem 1.25rem 5rem;
+  }
+
+  .catalog-section__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  .catalog-category__header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e0e0ec;
+  }
+
+  .catalog-category__emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .catalog-category__name {
+    font-family: 'Bangers', cursive;
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    color: #1B1B3D;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 480px) {
+    .books-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .books-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .books-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

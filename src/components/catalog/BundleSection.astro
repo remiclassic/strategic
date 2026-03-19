@@ -1,0 +1,111 @@
+---
+import type { Bundle, Book } from '../../data/catalog-data';
+import { getBundleBooks } from '../../data/catalog-data';
+import BundleCard from './BundleCard.astro';
+
+interface Props {
+  bundles: Bundle[];
+  books: Book[];
+}
+
+const { bundles, books } = Astro.props;
+---
+
+<section id="bundles" class="bundles-section">
+  <div class="bundles-section__inner">
+    <div class="bundles-section__header">
+      <p class="section-label">Save more, stress less</p>
+      <h2 class="section-heading">Pick Your Path</h2>
+      <p class="section-subtext">
+        Bundles give you everything you need in one step — no piecing things together.
+      </p>
+    </div>
+
+    <div class="bundles-grid">
+      {bundles.map((bundle) => (
+        <BundleCard
+          bundle={bundle}
+          books={getBundleBooks(bundle)}
+        />
+      ))}
+    </div>
+
+    <p class="bundles-section__guarantee">
+      🔒 Secure checkout via Lemon Squeezy · Instant delivery · 30-day guarantee
+    </p>
+  </div>
+</section>
+
+<style>
+  .bundles-section {
+    background: #f4f4f9;
+    border-bottom: 2px solid #e0e0ec;
+    padding: 5rem 1.25rem 4rem;
+  }
+
+  .bundles-section__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .bundles-section__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #1B1B3D;
+    opacity: 0.5;
+    margin: 0 0 0.5rem;
+  }
+
+  .section-heading {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 0.03em;
+    color: #1B1B3D;
+    margin: 0 0 0.75rem;
+    line-height: 1.1;
+  }
+
+  .section-subtext {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #5a5a7a;
+    margin: 0;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .bundles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  /* On desktop, 3 columns with the highlighted card appearing taller via its own transform */
+  @media (min-width: 900px) {
+    .bundles-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      padding: 1.5rem 0;
+    }
+  }
+
+  .bundles-section__guarantee {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #8888aa;
+    text-align: center;
+    margin: 3rem 0 0;
+    letter-spacing: 0.02em;
+  }
+</style>

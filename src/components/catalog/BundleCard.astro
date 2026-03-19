@@ -1,0 +1,265 @@
+---
+import type { Bundle, Book } from '../../data/catalog-data';
+
+interface Props {
+  bundle: Bundle;
+  books: Book[];
+}
+
+const { bundle, books } = Astro.props;
+const isHighlighted = bundle.highlighted;
+const isFullFreedom = bundle.id === 'full-freedom';
+---
+
+<div class:list={['bundle-card', { 'bundle-card--highlighted': isHighlighted }]}>
+  <!-- Badge -->
+  <div class:list={['bundle-badge', { 'bundle-badge--popular': isHighlighted, 'bundle-badge--value': bundle.id === 'full-freedom' }]}>
+    {bundle.badge}
+  </div>
+
+  <div class="bundle-card__body">
+    <h3 class="bundle-card__name">{bundle.name}</h3>
+    <p class="bundle-card__description">{bundle.description}</p>
+
+    <!-- Book list -->
+    <ul class="bundle-card__books">
+      {isFullFreedom ? (
+        <li class="bundle-book-item bundle-book-item--all">
+          <span class="check">✓</span>
+          <span>All 15 books in the library</span>
+        </li>
+      ) : (
+        books.map((book) => (
+          <li class="bundle-book-item">
+            <span class="check">✓</span>
+            <span>{book.title}</span>
+          </li>
+        ))
+      )}
+    </ul>
+
+    <!-- Pricing -->
+    <div class="bundle-card__pricing">
+      <span class="bundle-price">${bundle.price}</span>
+      <span class="bundle-anchor">
+        <span class="strike">${bundle.anchorPrice}+ value</span>
+        {' '}→{' '}
+        <strong>${bundle.price}</strong>
+      </span>
+    </div>
+
+    <!-- CTA -->
+    <a href={bundle.checkoutUrl} class:list={['bundle-cta', { 'bundle-cta--highlighted': isHighlighted }]}>
+      {bundle.cta}
+    </a>
+
+    <p class="bundle-card__secure">Instant digital delivery · Secure checkout</p>
+  </div>
+</div>
+
+<style>
+  .bundle-card {
+    position: relative;
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .bundle-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.14);
+  }
+
+  .bundle-card--highlighted {
+    border-color: #1B1B3D;
+    border-width: 3px;
+    box-shadow: 6px 6px 0 #1B1B3D;
+    transform: translateY(-6px);
+    z-index: 1;
+  }
+
+  .bundle-card--highlighted:hover {
+    transform: translateY(-9px);
+    box-shadow: 8px 10px 0 #1B1B3D;
+  }
+
+  /* Badge */
+  .bundle-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    border: 2px solid #000;
+    background: #e2e8f0;
+    color: #1B1B3D;
+  }
+
+  .bundle-badge--popular {
+    background: #FFD600;
+    color: #1B1B3D;
+    box-shadow: 2px 2px 0 #000;
+  }
+
+  .bundle-badge--value {
+    background: #1B1B3D;
+    color: #FFD600;
+  }
+
+  .bundle-card__body {
+    padding: 2rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.75rem;
+  }
+
+  .bundle-card__name {
+    font-family: 'Bangers', cursive;
+    font-size: 1.7rem;
+    letter-spacing: 0.03em;
+    color: #1B1B3D;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .bundle-card__description {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #5a5a7a;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .bundle-card__books {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .bundle-book-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #3a3a5c;
+    line-height: 1.4;
+  }
+
+  .bundle-book-item--all {
+    font-weight: 700;
+    color: #1B1B3D;
+    font-size: 0.9rem;
+  }
+
+  .check {
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    background: #FFD600;
+    border: 1.5px solid #000;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 900;
+    margin-top: 0.1rem;
+  }
+
+  /* Pricing */
+  .bundle-card__pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1.5px dashed #ddd;
+    flex-wrap: wrap;
+  }
+
+  .bundle-price {
+    font-family: 'Bangers', cursive;
+    font-size: 2.6rem;
+    letter-spacing: 0.03em;
+    color: #1B1B3D;
+    line-height: 1;
+  }
+
+  .bundle-anchor {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: #8888aa;
+  }
+
+  .strike {
+    text-decoration: line-through;
+    opacity: 0.65;
+  }
+
+  /* CTA */
+  .bundle-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: #f0f0f5;
+    color: #1B1B3D;
+    font-family: 'Bangers', cursive;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    padding: 0.875rem 1rem;
+    border: 2px solid #1B1B3D;
+    box-shadow: 3px 3px 0 #1B1B3D;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    min-height: 44px;
+  }
+
+  .bundle-cta:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #1B1B3D;
+    background: #e8e8f8;
+  }
+
+  .bundle-cta:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1B1B3D;
+  }
+
+  .bundle-cta--highlighted {
+    background: #FFD600;
+    border-color: #000;
+    box-shadow: 3px 3px 0 #000;
+    color: #1B1B3D;
+  }
+
+  .bundle-cta--highlighted:hover {
+    box-shadow: 5px 5px 0 #000;
+    background: #ffe033;
+  }
+
+  .bundle-card__secure {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: #aaaacc;
+    text-align: center;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+</style>

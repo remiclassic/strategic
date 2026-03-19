@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CatalogHero from '../components/catalog/CatalogHero.astro';
+import BundleSection from '../components/catalog/BundleSection.astro';
+import SectionDivider from '../components/catalog/SectionDivider.astro';
+import BookCatalog from '../components/catalog/BookCatalog.astro';
+import CatalogUpsell from '../components/catalog/CatalogUpsell.astro';
+import { books, bundles, categories } from '../data/catalog-data';
+
+const fullFreedomBundle = bundles.find((b) => b.id === 'full-freedom');
+---
+
+<Layout
+  title="Books & Bundles — Strategic Sloth"
+  description="Simple digital guides for creators who want to build, sell, and grow a digital product business — without the hustle."
+>
+  <CatalogHero />
+  <BundleSection bundles={bundles} books={books} />
+  <SectionDivider />
+  <BookCatalog books={books} categories={categories} />
+  <CatalogUpsell checkoutUrl={fullFreedomBundle?.checkoutUrl ?? '#'} />
+</Layout>

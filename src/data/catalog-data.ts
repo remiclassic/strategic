@@ -11,6 +11,8 @@ export type Book = {
   benefit: string;
   /** One line on what the guide covers (richer than benefit alone) */
   detail: string;
+  /** 2-4 short bullets describing what is actually inside the PDF */
+  whatsInside?: string[];
   price: number;
   category: string;
   bundleIds: string[];
@@ -48,6 +50,12 @@ export const books: Book[] = [
     benefit: "Make your first online income quickly",
     detail:
       "Full path from idea to first sale, including awkward steps most guides skip.",
+    whatsInside: [
+      "How to pick an idea people will pay for",
+      "Where to sell it without a website or audience",
+      "The exact steps from zero to first payment",
+      "What to do after your first sale to keep it going",
+    ],
     price: 9,
     category: "make-money",
     bundleIds: ["starter"],
@@ -60,6 +68,12 @@ export const books: Book[] = [
     benefit: "Clear roadmap to consistent income",
     detail:
       "Zero to steady income in order: what to do at each stage and what to decide next.",
+    whatsInside: [
+      "A stage-by-stage plan from zero to repeatable income",
+      "What decisions actually matter at each level",
+      "Common bottlenecks and how to move past them",
+      "How to build momentum without burning out",
+    ],
     price: 19,
     category: "make-money",
     bundleIds: ["full-freedom"],
@@ -72,6 +86,12 @@ export const books: Book[] = [
     benefit: "Stop guessing your prices",
     detail:
       "Anchoring, tiers, and how to present price so value lands before objections do.",
+    whatsInside: [
+      "Why most creators underprice and how to fix it",
+      "Anchoring and tier strategies that work",
+      "How to present price so it feels fair, not cheap",
+      "Adjusting price over time as you grow",
+    ],
     price: 9,
     category: "make-money",
     bundleIds: ["starter"],
@@ -84,6 +104,12 @@ export const books: Book[] = [
     benefit: "Fix what is holding you back",
     detail:
       "Diagnostic for stuck income plus next steps matched to where your gap actually is.",
+    whatsInside: [
+      "The most common reasons income stalls",
+      "A simple self-audit to find your specific gap",
+      "Targeted fixes for each type of problem",
+      "How to start moving forward without starting over",
+    ],
     price: 9,
     category: "make-money",
     bundleIds: ["starter"],
@@ -97,6 +123,12 @@ export const books: Book[] = [
     benefit: "Turn an idea into a product fast",
     detail:
       "Blank page to finished PDF: format choices, writing flow, and what to do after ship.",
+    whatsInside: [
+      "How to go from rough idea to finished PDF in one session",
+      "Format and structure decisions that make it feel professional",
+      "What to include and what to cut",
+      "Steps to take after you ship so it actually sells",
+    ],
     price: 9,
     category: "build",
     bundleIds: ["builder"],
@@ -109,6 +141,12 @@ export const books: Book[] = [
     benefit: "Create products without tech skills",
     detail:
       "Tools by product type, setup walkthrough, idea to live without hiring a developer.",
+    whatsInside: [
+      "Which tools to use for each type of digital product",
+      "Step-by-step setup without touching code",
+      "How to go from idea to live product on your own",
+      "Where to host and deliver your product simply",
+    ],
     price: 19,
     category: "build",
     bundleIds: ["builder"],
@@ -121,6 +159,12 @@ export const books: Book[] = [
     benefit: "Build pages that actually sell",
     detail:
       "Page structure, copy patterns that work, and mistakes that quietly cost sales.",
+    whatsInside: [
+      "The exact page structure that moves visitors to buyers",
+      "Copy patterns you can adapt for your own product",
+      "The most common mistakes that quietly kill conversions",
+      "How to test and improve without overthinking",
+    ],
     price: 19,
     category: "build",
     bundleIds: ["builder"],
@@ -133,6 +177,12 @@ export const books: Book[] = [
     benefit: "Make your product easy to buy",
     detail:
       "Offer structure, positioning fixes, and framing work most creators never do.",
+    whatsInside: [
+      "What makes an offer feel like an obvious yes",
+      "How to position your product so it needs less selling",
+      "Framing and context changes that reduce friction",
+      "Simple fixes for offers that are getting traffic but not sales",
+    ],
     price: 19,
     category: "build",
     bundleIds: ["builder"],
@@ -146,6 +196,12 @@ export const books: Book[] = [
     benefit: "Make sales without followers",
     detail:
       "Channels and tactics that work before you have a following, plus early momentum.",
+    whatsInside: [
+      "Where to find buyers when you have zero following",
+      "Tactics that create early sales momentum",
+      "How to use communities and platforms without spamming",
+      "Building your first small audience alongside your product",
+    ],
     price: 9,
     category: "sell",
     bundleIds: ["full-freedom"],
@@ -158,6 +214,12 @@ export const books: Book[] = [
     benefit: "Simple system that converts",
     detail:
       "What to write at each stage, plus a light post-purchase flow without a tech week.",
+    whatsInside: [
+      "A one-page funnel structure you can set up in a day",
+      "What to write at each stage to keep readers moving",
+      "A simple post-purchase sequence that builds trust",
+      "How to avoid over-engineering it into something you never ship",
+    ],
     price: 19,
     category: "sell",
     bundleIds: ["full-freedom"],
@@ -170,6 +232,12 @@ export const books: Book[] = [
     benefit: "Build and use your email list",
     detail:
       "From platform pick to emails that lead to sales, without burning your list out.",
+    whatsInside: [
+      "Which email platform to pick and why",
+      "How to grow your list from the first subscriber",
+      "What to send so people stay subscribed and buy",
+      "A simple email rhythm that sells without feeling pushy",
+    ],
     price: 9,
     category: "sell",
     bundleIds: ["full-freedom"],
@@ -182,6 +250,12 @@ export const books: Book[] = [
     benefit: "Create content that leads to sales",
     detail:
       "What to make, how to structure it, and a rhythm that sells without feeling salesy.",
+    whatsInside: [
+      "What content formats lead to actual product sales",
+      "How to structure posts and videos that build buying intent",
+      "A posting rhythm you can actually maintain",
+      "The difference between content that builds an audience and content that earns",
+    ],
     price: 9,
     category: "sell",
     bundleIds: ["full-freedom"],
@@ -195,6 +269,12 @@ export const books: Book[] = [
     benefit: "Build without burnout",
     detail:
       "Shape the business so work compounds: decisions that stop endless busywork.",
+    whatsInside: [
+      "How to design your work so it compounds instead of drains",
+      "Decisions that reduce busywork without hurting growth",
+      "What to say no to and when",
+      "Building a pace you can keep for years, not just weeks",
+    ],
     price: 9,
     category: "mindset",
     bundleIds: ["full-freedom"],
@@ -207,6 +287,12 @@ export const books: Book[] = [
     benefit: "Take action and finish projects",
     detail:
       "For when you're ready to build but keep finding reasons to wait. Cut the loop.",
+    whatsInside: [
+      "Why overthinking happens and what actually breaks the loop",
+      "A simple decision filter for when you are stuck",
+      "How to ship something imperfect and improve from there",
+      "Practical prompts to get moving today",
+    ],
     price: 9,
     category: "mindset",
     bundleIds: ["full-freedom"],
@@ -219,6 +305,12 @@ export const books: Book[] = [
     benefit: "Stay consistent and focused",
     detail:
       "Consistency without willpower: stay on one thing long enough for it to compound.",
+    whatsInside: [
+      "How to pick one thing and stick with it long enough to see results",
+      "Systems for consistency that do not rely on motivation",
+      "How to protect your focus from distraction and shiny objects",
+      "The compounding effect of slow, steady progress",
+    ],
     price: 9,
     category: "mindset",
     bundleIds: ["full-freedom"],

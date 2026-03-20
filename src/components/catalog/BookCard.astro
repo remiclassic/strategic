@@ -16,6 +16,16 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
     <h3 class="book-card__title">{book.title}</h3>
     <p class="book-card__benefit">{book.benefit}</p>
     <p class="book-card__detail">{book.detail}</p>
+    {book.whatsInside && book.whatsInside.length > 0 && (
+      <div class="book-card__inside">
+        <p class="book-card__inside-label">What's inside</p>
+        <ul class="book-card__inside-list">
+          {book.whatsInside.map((item) => (
+            <li class="book-card__inside-item">{item}</li>
+          ))}
+        </ul>
+      </div>
+    )}
     {blogHref && (
       <a href={blogHref} class="book-card__blog">
         Free overview on the blog →
@@ -87,6 +97,49 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
     color: #555577;
     margin: 0;
     line-height: 1.45;
+  }
+
+  .book-card__inside {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e8e8f0;
+  }
+
+  .book-card__inside-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #9999bb;
+    margin: 0 0 0.35rem;
+  }
+
+  .book-card__inside-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .book-card__inside-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: #44446a;
+    line-height: 1.4;
+    padding-left: 0.85rem;
+    position: relative;
+  }
+
+  .book-card__inside-item::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #9999bb;
+    font-size: 0.65rem;
+    top: 0.05em;
   }
 
   .book-card__blog {

@@ -23,7 +23,7 @@ const testimonials = [
 
 <section class="relative md:min-h-[100dvh] w-full overflow-hidden bg-[#FFD600]">
 	<!-- Background Plants and Sloth - Absolute position for contained scroll effect (desktop only) -->
-	<div class="absolute inset-0 overflow-hidden pointer-events-none hidden md:block" id="hero-images-container">
+	<div class="absolute inset-0 overflow-hidden pointer-events-none hidden lg:block" id="hero-images-container">
 		<!-- Background Plants -->
 		<img 
 			src="/images/plants.webp" 
@@ -176,8 +176,8 @@ const testimonials = [
 		<div class="w-full lg:w-1/2"></div>
 	</div>
 
-	<!-- Mobile-only Sloth (in document flow, not overlapped) -->
-	<div class="block md:hidden relative w-full pointer-events-none">
+	<!-- Mobile/tablet Sloth (in document flow, no overlap) -->
+	<div class="block lg:hidden relative w-full pointer-events-none">
 		<img 
 			src="/images/plants.webp" 
 			alt="Decorative Plants" 

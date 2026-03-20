@@ -58,7 +58,7 @@ const steps = [
         <!-- Steps Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {steps.map((step, index) => (
-                <div class="relative group">
+                <div class="relative group h-full min-h-0">
                     <!-- Connection Lines (only for desktop) -->
                     {index < steps.length - 1 && (
                         <div class="hidden md:block absolute top-1/2 left-[calc(100%_-_2rem)] w-[calc(4rem_+_2vw)] h-0.5 bg-black transform -translate-y-1/2 z-0">
@@ -68,7 +68,7 @@ const steps = [
                     
                     <!-- Step Card -->
                     <div 
-                        class={`step-card relative comic-card ${step.accent} transform hover:scale-105 hover:-rotate-2 transition-all duration-500 group`}
+                        class={`step-card relative comic-card h-full flex flex-col ${step.accent} transform hover:scale-105 hover:-rotate-2 transition-all duration-500 group`}
                         style={`animation-delay: ${index * 200}ms`}
                     >
                         <!-- Number Badge -->
@@ -81,7 +81,7 @@ const steps = [
                             {step.emoji}
                         </div>
                         
-                        <div class="p-8 pt-12">
+                        <div class="p-8 pt-12 flex flex-1 flex-col min-h-0">
                             <!-- Icon with Enhanced Presentation -->
                             <div class="relative mb-6">
                                 <div class="absolute inset-0 bg-black opacity-5 blur-xl transform group-hover:scale-110 transition-transform duration-300"></div>

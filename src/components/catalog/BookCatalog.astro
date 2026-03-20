@@ -16,12 +16,22 @@ const grouped = categories.map((cat) => ({
 ---
 
 <section id="books" class="catalog-section">
+  <div class="catalog-section__intro" aria-hidden="true">
+    <span class="catalog-section__float">🦥</span>
+    <span class="catalog-section__float catalog-section__float--2">📚</span>
+    <span class="catalog-section__float catalog-section__float--3">💜</span>
+  </div>
   <div class="catalog-section__inner">
+    <header class="catalog-section__masthead">
+      <p class="catalog-section__label">The full library</p>
+      <h2 class="catalog-section__title">Every guide, sorted by job</h2>
+      <p class="catalog-section__blurb">Tap a category and grab the PDF that matches what you are working on right now.</p>
+    </header>
     {grouped.map(({ category, books: catBooks }) => (
       <div class="catalog-category">
         <div class="catalog-category__header">
-          <span class="catalog-category__emoji">{category.emoji}</span>
-          <h2 class="catalog-category__name">{category.label}</h2>
+          <span class="catalog-category__emoji" aria-hidden="true">{category.emoji}</span>
+          <h3 class="catalog-category__name">{category.label}</h3>
         </div>
         <div class="books-grid">
           {catBooks.map((book) => (
@@ -35,11 +45,61 @@ const grouped = categories.map((cat) => ({
 
 <style>
   .catalog-section {
+    position: relative;
+    overflow: hidden;
     background: #f8f8fc;
-    padding: 4rem 1.25rem 5rem;
+    padding: 3rem 1.25rem 5rem;
+  }
+
+  .catalog-section__intro {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+
+  .catalog-section__float {
+    position: absolute;
+    font-size: 1.75rem;
+    opacity: 0.12;
+    animation: catalogSectionFloat 10s ease-in-out infinite;
+  }
+
+  .catalog-section__float--2 {
+    top: 12%;
+    right: 8%;
+    animation-delay: 2s;
+    font-size: 2rem;
+  }
+
+  .catalog-section__float--3 {
+    bottom: 25%;
+    left: 5%;
+    animation-delay: 4s;
+    font-size: 1.5rem;
+  }
+
+  .catalog-section__float:not(.catalog-section__float--2):not(.catalog-section__float--3) {
+    top: 6%;
+    left: 10%;
+  }
+
+  @keyframes catalogSectionFloat {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(-5deg);
+    }
+    50% {
+      transform: translate(8px, -12px) rotate(5deg);
+    }
   }
 
   .catalog-section__inner {
+    position: relative;
+    z-index: 1;
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
@@ -47,25 +107,81 @@ const grouped = categories.map((cat) => ({
     gap: 3.5rem;
   }
 
+  .catalog-section__masthead {
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto 0.5rem;
+  }
+
+  .catalog-section__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1b1b3d;
+    opacity: 0.45;
+    margin: 0 0 0.5rem;
+  }
+
+  .catalog-section__title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.85rem, 4.5vw, 2.65rem);
+    letter-spacing: 0.03em;
+    color: #1b1b3d;
+    margin: 0 0 0.65rem;
+    line-height: 1.08;
+  }
+
+  .catalog-section__blurb {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #5a5a7a;
+    margin: 0;
+    line-height: 1.55;
+  }
+
   .catalog-category__header {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.65rem;
     margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid #e0e0ec;
+    padding: 0.5rem 0.85rem 0.75rem 0;
+    border-bottom: 3px solid #1b1b3d;
+    background: linear-gradient(90deg, rgba(255, 214, 0, 0.2), transparent 55%);
+    border-radius: 8px 8px 0 0;
   }
 
   .catalog-category__emoji {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 #000;
+    animation: categoryEmojiNod 4s ease-in-out infinite;
+  }
+
+  @keyframes categoryEmojiNod {
+    0%,
+    100% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(4deg);
+    }
   }
 
   .catalog-category__name {
     font-family: 'Bangers', cursive;
-    font-size: 1.6rem;
+    font-size: 1.65rem;
     letter-spacing: 0.04em;
-    color: #1B1B3D;
+    color: #1b1b3d;
     margin: 0;
     line-height: 1;
   }
@@ -91,6 +207,13 @@ const grouped = categories.map((cat) => ({
   @media (min-width: 1024px) {
     .books-grid {
       grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .catalog-section__float,
+    .catalog-category__emoji {
+      animation: none;
     }
   }
 </style>

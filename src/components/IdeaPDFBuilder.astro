@@ -33,16 +33,20 @@ const sampleTopics = [
 ];
 ---
 
-<section id="idea-builder" class="py-20 bg-white border-t-2 border-black">
-  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+<section id="idea-builder" class="idea-builder-wrap relative overflow-hidden border-t-[3px] border-black bg-gradient-to-b from-white via-[#fafbff] to-white py-20">
+  <div class="idea-builder-deco" aria-hidden="true">
+    <span class="idea-builder-float idea-builder-float--1">💡</span>
+    <span class="idea-builder-float idea-builder-float--2">📄</span>
+  </div>
+  <div class="container-custom relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Section label -->
-    <div class="text-center mb-10">
-      <div class="inline-flex items-center gap-2 mb-4">
-        <span class="text-xs font-black uppercase tracking-widest text-[#8888A4]" style="font-family:'Inter',system-ui,sans-serif;">Featured Tool</span>
+    <div class="mb-10 text-center">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#FFD600] px-4 py-1.5 shadow-[2px_2px_0_#000]">
+        <span class="text-xs font-black uppercase tracking-widest text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">⭐ Featured Tool</span>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-black text-[#1B1B3D] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Idea to PDF Builder</h2>
-      <p class="text-[#5C5C7A] max-w-xl mx-auto" style="font-family:'Inter',system-ui,sans-serif;">Answer four quick questions and get a complete, sellable product idea you can start building today.</p>
+      <h2 class="mb-3 text-[clamp(1.9rem,4.5vw,2.75rem)] font-black leading-tight text-[#1B1B3D]" style="font-family: Bangers, cursive; letter-spacing: 0.03em;">Idea to PDF Builder</h2>
+      <p class="mx-auto max-w-xl text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Answer four quick questions and walk away with a sellable product idea you can build today.</p>
     </div>
 
     <!-- Main builder card -->
@@ -621,11 +625,55 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <style>
+  .idea-builder-deco {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .idea-builder-float {
+    position: absolute;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1;
+    opacity: 0.08;
+    animation: ideaBuilderFloat 9s ease-in-out infinite;
+  }
+  .idea-builder-float--1 {
+    top: 12%;
+    left: 5%;
+  }
+  .idea-builder-float--2 {
+    bottom: 18%;
+    right: 6%;
+    animation-delay: 2s;
+  }
+  @keyframes ideaBuilderFloat {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(-5deg);
+    }
+    50% {
+      transform: translate(6px, -12px) rotate(5deg);
+    }
+  }
+
   @keyframes result-reveal {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .result-reveal {
     animation: result-reveal 0.4s ease-out forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .idea-builder-float {
+      animation: none;
+    }
   }
 </style>

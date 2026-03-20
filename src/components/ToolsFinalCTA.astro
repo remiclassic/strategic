@@ -1,16 +1,24 @@
 ---
 ---
 
-<section class="py-20 bg-[#FFD600] border-t-2 border-black">
-  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto text-center">
+<section class="tools-final relative overflow-hidden border-t-[3px] border-black bg-[#FFD600] py-20">
+  <div class="tools-final-pattern absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+  <div class="tools-final-floats pointer-events-none" aria-hidden="true">
+    <span class="tools-final-float tools-final-float--1">🧠</span>
+    <span class="tools-final-float tools-final-float--2">⚡</span>
+    <span class="tools-final-float tools-final-float--3">🦥</span>
+  </div>
+  <div class="container-custom relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
 
       <!-- Headline -->
-      <div class="inline-block mb-6 bg-white border-[3px] border-black rounded-2xl px-5 py-2.5 shadow-[4px_4px_0_#000] -rotate-1">
-        <span class="text-lg font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Got Something in Your Brain?</span>
+      <div class="mb-6 flex justify-center">
+        <span class="tools-final-badge inline-block rounded-2xl border-[3px] border-black bg-white px-5 py-2.5 text-lg font-black text-[#1B1B3D] shadow-[4px_4px_0_#000]" style="font-family: Bangers, cursive; letter-spacing: 0.04em;">
+          Got Something in Your Brain?
+        </span>
       </div>
 
-      <h2 class="text-4xl sm:text-5xl font-black text-[#1B1B3D] leading-tight mb-6" style="font-family:'Inter',system-ui,sans-serif;">
+      <h2 class="mb-6 text-[clamp(2.75rem,8vw,4rem)] font-black leading-tight text-[#1B1B3D]" style="font-family: Bangers, cursive; letter-spacing: 0.02em;">
         Start There.
       </h2>
 
@@ -77,3 +85,71 @@
     });
   });
 </script>
+
+<style>
+  .tools-final-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C32 5 34 7 34 9C34 11 32 13 30 13C28 13 26 11 26 9C26 7 28 5 30 5Z' fill='%23FFB800' fill-opacity='0.14'/%3E%3C/svg%3E");
+  }
+
+  .tools-final-floats {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .tools-final-float {
+    position: absolute;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1;
+    opacity: 0.35;
+    animation: toolsFinalBob 5.5s ease-in-out infinite;
+    filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.15));
+  }
+  .tools-final-float--1 {
+    top: 12%;
+    left: 8%;
+  }
+  .tools-final-float--2 {
+    bottom: 16%;
+    right: 10%;
+    animation-delay: 1s;
+  }
+  .tools-final-float--3 {
+    top: 50%;
+    right: 6%;
+    animation-delay: 2s;
+    font-size: clamp(2rem, 5vw, 3rem);
+    opacity: 0.25;
+  }
+
+  @keyframes toolsFinalBob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-4deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(4deg);
+    }
+  }
+
+  @keyframes toolsFinalBadge {
+    0%,
+    100% {
+      transform: rotate(-1deg);
+    }
+    50% {
+      transform: rotate(1deg);
+    }
+  }
+
+  .tools-final-badge {
+    animation: toolsFinalBadge 3s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tools-final-float,
+    .tools-final-badge {
+      animation: none;
+    }
+  }
+</style>

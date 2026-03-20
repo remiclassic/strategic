@@ -6,33 +6,109 @@ const { text = 'Or explore individual guides' } = Astro.props;
 ---
 
 <div class="section-divider">
-  <div class="section-divider__line"></div>
-  <span class="section-divider__text">{text}</span>
-  <div class="section-divider__line"></div>
+  <div class="section-divider__inner">
+    <div class="section-divider__line section-divider__line--left" aria-hidden="true"></div>
+    <div class="section-divider__center">
+      <span class="section-divider__emoji section-divider__emoji--a" aria-hidden="true">📖</span>
+      <span class="section-divider__text">{text}</span>
+      <span class="section-divider__emoji section-divider__emoji--b" aria-hidden="true">✨</span>
+    </div>
+    <div class="section-divider__line section-divider__line--right" aria-hidden="true"></div>
+  </div>
 </div>
 
 <style>
+  /* Full-bleed band so background is not clipped by max-width (avoids white gutters on wide viewports). */
   .section-divider {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #f4f4f9 0%, #f8f8fc 100%);
+    padding: 2.75rem 1.25rem;
+  }
+
+  .section-divider__inner {
+    max-width: 760px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    padding: 2.5rem 1.25rem;
-    max-width: 700px;
-    margin: 0 auto;
+    gap: 1rem;
   }
 
   .section-divider__line {
     flex: 1;
-    height: 1.5px;
-    background: #d0d0e4;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, #1b1b3d 20%, #1b1b3d 80%, transparent);
+    opacity: 0.2;
+    transform-origin: center;
+    animation: dividerPulse 3s ease-in-out infinite;
+  }
+
+  .section-divider__line--right {
+    animation-delay: 1.5s;
+  }
+
+  @keyframes dividerPulse {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: scaleX(1);
+    }
+    50% {
+      opacity: 0.35;
+      transform: scaleX(1.02);
+    }
+  }
+
+  .section-divider__center {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .section-divider__emoji {
+    font-size: 1.15rem;
+    line-height: 1;
+    display: inline-block;
+    animation: dividerBob 2.8s ease-in-out infinite;
+  }
+
+  .section-divider__emoji--b {
+    animation-delay: 0.6s;
+  }
+
+  @keyframes dividerBob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-4px) rotate(8deg);
+    }
   }
 
   .section-divider__text {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #8888aa;
+    font-family: 'Bangers', cursive;
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    letter-spacing: 0.04em;
+    color: #1b1b3d;
     white-space: nowrap;
-    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 480px) {
+    .section-divider__text {
+      white-space: normal;
+      text-align: center;
+      max-width: 11rem;
+      line-height: 1.2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-divider__line,
+    .section-divider__emoji {
+      animation: none;
+    }
   }
 </style>

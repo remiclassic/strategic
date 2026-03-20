@@ -14,7 +14,7 @@ const { bundles, books } = Astro.props;
 <section id="bundles" class="bundles-section">
   <div class="bundles-section__inner">
     <div class="bundles-section__header">
-      <p class="section-label">Save more, stress less</p>
+      <p class="section-label"><span class="section-label__spark" aria-hidden="true">✨</span> Save more, stress less</p>
       <h2 class="section-heading">Pick Your Path</h2>
       <p class="section-subtext">
         Bundles give you everything you need in one step, no piecing things together.
@@ -38,12 +38,41 @@ const { bundles, books } = Astro.props;
 
 <style>
   .bundles-section {
-    background: #f4f4f9;
+    position: relative;
+    overflow: hidden;
+    background-color: #f4f4f9;
+    background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%231B1B3D' fill-opacity='0.06'/%3E%3C/svg%3E");
     border-bottom: 2px solid #e0e0ec;
     padding: 5rem 1.25rem 4rem;
   }
 
+  .bundles-section::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: min(420px, 55vw);
+    height: min(420px, 55vw);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 214, 0, 0.22) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .bundles-section::after {
+    content: '';
+    position: absolute;
+    bottom: -15%;
+    left: -8%;
+    width: min(320px, 45vw);
+    height: min(320px, 45vw);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(43, 45, 93, 0.06) 0%, transparent 68%);
+    pointer-events: none;
+  }
+
   .bundles-section__inner {
+    position: relative;
+    z-index: 1;
     max-width: 1100px;
     margin: 0 auto;
   }
@@ -59,18 +88,40 @@ const { bundles, books } = Astro.props;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #1B1B3D;
-    opacity: 0.5;
+    color: #1b1b3d;
+    opacity: 0.55;
     margin: 0 0 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .section-label__spark {
+    display: inline-block;
+    animation: bundleSpark 2.4s ease-in-out infinite;
+  }
+
+  @keyframes bundleSpark {
+    0%,
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.15) rotate(12deg);
+      opacity: 1;
+    }
   }
 
   .section-heading {
     font-family: 'Bangers', cursive;
     font-size: clamp(2rem, 5vw, 3rem);
     letter-spacing: 0.03em;
-    color: #1B1B3D;
+    color: #1b1b3d;
     margin: 0 0 0.75rem;
     line-height: 1.1;
+    text-shadow: 2px 2px 0 rgba(255, 214, 0, 0.35);
   }
 
   .section-subtext {
@@ -107,5 +158,11 @@ const { bundles, books } = Astro.props;
     text-align: center;
     margin: 3rem 0 0;
     letter-spacing: 0.02em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-label__spark {
+      animation: none;
+    }
   }
 </style>

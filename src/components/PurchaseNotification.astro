@@ -1,108 +1,380 @@
 ---
-// Purchase notification data
-const notifications = [
-  {
-    name: "Sarah",
-    location: "New York",
-    time: "2 minutes ago",
-    product: "Don't Do Anything",
-    amount: "$5"
+import { books, bundles } from '../data/catalog-data';
+
+/** Passed to client script — random pairings on each page load & each toast */
+const purchaseFirstNames = [
+  'Sarah',
+  'Michael',
+  'Emma',
+  'James',
+  'Priya',
+  'Diego',
+  'Yuki',
+  'Oliver',
+  'Sophie',
+  'Liam',
+  'Nina',
+  'Marcus',
+  'Chloe',
+  'Hassan',
+  'Zoe',
+  'Alex',
+  'Jordan',
+  'Taylor',
+  'Morgan',
+  'Riley',
+  'Jamie',
+  'Casey',
+  'Aisha',
+  'Kenji',
+  'Luca',
+  'Fatima',
+  'Ethan',
+  'Maya',
+  'Noah',
+  'Isabelle',
+  'Ronan',
+  'Mei',
+  'Amara',
+  'Viktor',
+  'Ines',
+  'Mateo',
+  'Sienna',
+  'Arjun',
+  'Elena',
+  'Theo',
+  'Layla',
+  'Finn',
+  'Nadia',
+  'Owen',
+  'Camila',
+];
+
+/** Tier 3: special epic toast (unique title key for rotation de-dupe) */
+const scaleToFreedomEpic = {
+  title: 'SCALE TO FREEDOM — Full Toolkit',
+  href: '/reading-guide#scale',
+  variant: 'epic',
+  epic: {
+    badge: 'TIER 3 · SCALE TO FREEDOM',
+    headline: 'THE FULL TOOLKIT',
+    subline: '11 books · the complete sovereignty stack',
+    fomoLines: [
+      '🔥 Full system is the fast lane — see what you get →',
+      '⚡ Others leveled up to all 11 books — don’t get left behind →',
+      '🚀 Complete tier moving — lock the whole library →',
+      '👀 You’re still on starter energy? Peek the full path →',
+    ],
   },
-  {
-    name: "Michael",
-    location: "London",
-    time: "5 minutes ago",
-    product: "STARTER PACKAGE",
-    amount: "$17"
-  },
-  {
-    name: "Emma",
-    location: "Sydney",
-    time: "8 minutes ago",
-    product: "BEST VALUE PACKAGE",
-    amount: "$47"
-  },
-  {
-    name: "James",
-    location: "Toronto",
-    time: "12 minutes ago",
-    product: "SCALE TO FREEDOM",
-    amount: "$97"
+};
+
+const readingGuidePurchases = [
+  { title: "Don't Do Anything", href: '/reading-guide#starter' },
+  { title: 'Design Your Exit', href: '/reading-guide#builder' },
+  { title: 'STARTER PACKAGE', href: '/reading-guide#starter' },
+  { title: 'BEST VALUE PACKAGE', href: '/reading-guide#builder' },
+  scaleToFreedomEpic,
+];
+
+const creatorGuidePurchases = books.map((b) => ({
+  title: b.title,
+  href: '/books#books',
+}));
+
+const bundlePurchases = bundles.map((b) => {
+  if (b.id === 'full-freedom') {
+    return {
+      title: b.name,
+      href: '/books#bundles',
+      variant: 'creatorSpotlight',
+      spotlight: {
+        badge: 'CREATOR LIBRARY · 15 GUIDES',
+        headline: 'FULL FREEDOM SYSTEM',
+        subline: 'The whole PDF stack — build, sell & grow',
+        fomoLines: [
+          '📚 Cheaper as a bundle than guide-by-guide — see the lineup →',
+          '✨ Creators often grab this after one PDF — worth a look →',
+          '🎯 Everything in one pass — browse what’s included →',
+          '💡 Best value on the creator page right now →',
+        ],
+      },
+    };
   }
+  return { title: b.name, href: '/books#bundles' };
+});
+
+const purchaseProducts = [
+  ...readingGuidePurchases,
+  ...creatorGuidePurchases,
+  ...bundlePurchases,
 ];
 ---
 
-<div id="purchase-notification" class="fixed bottom-4 left-4 z-40">
-  <a href="#get-started" class="block">
-    <div class="relative w-fit transform transition-all duration-300 opacity-0 translate-y-4" id="notification-container">
-      <!-- Main notification box -->
-      <div class="bg-white rounded-[16px] px-4 py-3 shadow-[3px_3px_0px_rgba(0,0,0,1)] border-[3px] border-black">
-        <div class="flex flex-col">
-          <p class="text-base font-bold leading-tight">James just purchased</p>
-          <p class="text-[15px] text-black/80">SCALE TO FREEDOM...</p>
+<div id="purchase-notification" class="fixed bottom-4 left-4 z-40 max-w-[min(100vw-2rem,22rem)] sm:max-w-sm">
+  <a href="/books#books" class="block no-underline" id="purchase-notif-link">
+    <div
+      class="relative w-full transform transition-all duration-300 opacity-0 translate-y-4"
+      id="notification-container"
+    >
+      <!-- Default toast -->
+      <div
+        id="notif-mode-default"
+        class="purchase-notif-card bg-white rounded-[16px] px-4 py-3 shadow-[3px_3px_0px_rgba(0,0,0,1)] border-[3px] border-black"
+      >
+        <div class="flex flex-col gap-0.5">
+          <p class="text-base font-bold leading-tight text-black" id="purchase-notif-line1">
+            Someone just purchased
+          </p>
+          <p class="text-[15px] text-black/80 leading-snug" id="purchase-notif-line2">a guide…</p>
+        </div>
+      </div>
+
+      <!-- Epic Tier 3 toast (Freedom Library) -->
+      <div
+        id="notif-mode-epic"
+        class="hidden purchase-notif-card purchase-notif-card--epic relative overflow-hidden rounded-[18px] px-4 py-3.5 border-[3px] border-black shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+      >
+        <div class="purchase-notif-epic-glow pointer-events-none absolute inset-0 rounded-[15px]" aria-hidden="true"></div>
+        <div class="relative z-[1] flex gap-3">
+          <span class="text-3xl leading-none shrink-0 drop-shadow-[2px_2px_0_#000]" aria-hidden="true">🚀</span>
+          <div class="flex flex-col gap-1.5 min-w-0">
+            <span
+              class="purchase-notif-epic-badge inline-flex w-fit items-center rounded-full border-2 border-black px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-[#1B1B3D]"
+              id="purchase-epic-badge"></span>
+            <p class="text-[13px] font-extrabold uppercase tracking-wide text-white/95 leading-tight" id="purchase-epic-line1"></p>
+            <p
+              class="text-[1.35rem] leading-[1.05] font-black text-white tracking-wide drop-shadow-[2px_2px_0_rgba(0,0,0,0.35)]"
+              style="font-family: 'Bangers', cursive; letter-spacing: 0.04em;"
+              id="purchase-epic-headline"
+            ></p>
+            <p class="text-xs font-bold text-amber-100/95 leading-snug" id="purchase-epic-sub"></p>
+            <p class="text-[11px] font-bold text-white/90 leading-snug border-t border-white/25 pt-2 mt-0.5" id="purchase-epic-fomo"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Creator catalog: Full Freedom bundle (premium, not library-epic) -->
+      <div
+        id="notif-mode-creator"
+        class="hidden purchase-notif-card purchase-notif-card--creator relative overflow-hidden rounded-[16px] px-4 py-3.5 border-[3px] border-black shadow-[3px_3px_0px_rgba(0,0,0,1)]"
+      >
+        <div class="purchase-notif-creator-shine pointer-events-none absolute inset-0 rounded-[13px]" aria-hidden="true"></div>
+        <div class="relative z-[1] flex gap-3">
+          <span class="text-2xl leading-none shrink-0 opacity-95" aria-hidden="true">📚</span>
+          <div class="flex flex-col gap-1 min-w-0">
+            <span
+              class="purchase-notif-creator-badge inline-flex w-fit items-center rounded-full border-2 border-white/35 bg-white/15 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-white"
+              id="purchase-creator-badge"></span>
+            <p class="text-[12px] font-bold text-sky-100/95 leading-tight" id="purchase-creator-line1"></p>
+            <p
+              class="text-[1.2rem] leading-[1.08] font-black text-white tracking-wide"
+              style="font-family: 'Bangers', cursive; letter-spacing: 0.03em;"
+              id="purchase-creator-headline"
+            ></p>
+            <p class="text-[11px] font-semibold text-white/80 leading-snug" id="purchase-creator-sub"></p>
+            <p class="text-[10px] font-bold text-sky-200/90 leading-snug border-t border-white/20 pt-1.5 mt-0.5" id="purchase-creator-fomo"></p>
+          </div>
         </div>
       </div>
     </div>
   </a>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const notifications = [
-    {
-      name: "Sarah",
-      product: "Don't Do Anything"
-    },
-    {
-      name: "Michael",
-      product: "STARTER PACKAGE"
-    },
-    {
-      name: "Emma",
-      product: "BEST VALUE PACKAGE"
-    },
-    {
-      name: "James",
-      product: "SCALE TO FREEDOM"
+<script define:vars={{ purchaseFirstNames, purchaseProducts }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const notificationContainer = document.getElementById('notification-container');
+    const linkEl = document.getElementById('purchase-notif-link');
+    const modeDefault = document.getElementById('notif-mode-default');
+    const modeEpic = document.getElementById('notif-mode-epic');
+    const modeCreator = document.getElementById('notif-mode-creator');
+    const line1 = document.getElementById('purchase-notif-line1');
+    const line2 = document.getElementById('purchase-notif-line2');
+    const epicBadge = document.getElementById('purchase-epic-badge');
+    const epicLine1 = document.getElementById('purchase-epic-line1');
+    const epicHeadline = document.getElementById('purchase-epic-headline');
+    const epicSub = document.getElementById('purchase-epic-sub');
+    const epicFomo = document.getElementById('purchase-epic-fomo');
+    const creatorBadge = document.getElementById('purchase-creator-badge');
+    const creatorLine1 = document.getElementById('purchase-creator-line1');
+    const creatorHeadline = document.getElementById('purchase-creator-headline');
+    const creatorSub = document.getElementById('purchase-creator-sub');
+    const creatorFomo = document.getElementById('purchase-creator-fomo');
+
+    if (
+      !notificationContainer ||
+      !linkEl ||
+      !modeDefault ||
+      !modeEpic ||
+      !modeCreator ||
+      !line1 ||
+      !line2 ||
+      !epicBadge ||
+      !epicLine1 ||
+      !epicHeadline ||
+      !epicSub ||
+      !epicFomo ||
+      !creatorBadge ||
+      !creatorLine1 ||
+      !creatorHeadline ||
+      !creatorSub ||
+      !creatorFomo
+    )
+      return;
+
+    const names = purchaseFirstNames;
+    const products = purchaseProducts;
+
+    function randomInt(max) {
+      return Math.floor(Math.random() * max);
     }
-  ];
 
-  const notificationContainer = document.getElementById('notification-container');
-  const nameEl = document.getElementById('purchase-notification').querySelector('.font-bold');
-  const detailsEl = document.getElementById('purchase-notification').querySelector('.text-black\\/80');
-  let currentIndex = 0;
+    function pickRandomName(prev) {
+      if (names.length <= 1) return names[0];
+      let n;
+      do {
+        n = names[randomInt(names.length)];
+      } while (n === prev);
+      return n;
+    }
 
-  function showNotification() {
-    // Get current notification data
-    const data = notifications[currentIndex];
-    
-    // Update content
-    nameEl.textContent = `${data.name} just purchased`;
-    detailsEl.textContent = `${data.product}...`;
-    
-    // Show notification
-    notificationContainer.classList.remove('opacity-0', 'translate-y-4');
-    notificationContainer.classList.add('opacity-100', 'translate-y-0');
-    
-    // Hide after delay
-    setTimeout(() => {
-      notificationContainer.classList.remove('opacity-100', 'translate-y-0');
-      notificationContainer.classList.add('opacity-0', 'translate-y-4');
-      
-      // Prepare for next notification
-      currentIndex = (currentIndex + 1) % notifications.length;
-      
-      // Show next notification after delay
-      setTimeout(showNotification, 8000);
-    }, 4000);
-  }
+    function pickRandomProduct(prevTitle) {
+      if (products.length <= 1) return products[0];
+      let p;
+      do {
+        p = products[randomInt(products.length)];
+      } while (p.title === prevTitle);
+      return p;
+    }
 
-  // Start showing notifications after initial delay
-  setTimeout(showNotification, 2000);
-});
+    let lastName = '';
+    let lastProductTitle = '';
+
+    function showNotification() {
+      const name = pickRandomName(lastName);
+      const product = pickRandomProduct(lastProductTitle);
+      lastName = name;
+      lastProductTitle = product.title;
+
+      const isEpic = product.variant === 'epic' && product.epic;
+      const isCreator = product.variant === 'creatorSpotlight' && product.spotlight;
+
+      modeDefault.classList.toggle('hidden', isEpic || isCreator);
+      modeEpic.classList.toggle('hidden', !isEpic);
+      modeCreator.classList.toggle('hidden', !isCreator);
+      notificationContainer.classList.toggle('purchase-notif-container--epic', isEpic);
+      notificationContainer.classList.toggle('purchase-notif-container--creator', isCreator);
+
+      linkEl.setAttribute('href', product.href);
+
+      if (isEpic) {
+        const e = product.epic;
+        const verbs = ['just unlocked', 'just grabbed', 'just claimed', 'went all-in on'];
+        epicBadge.textContent = e.badge;
+        epicLine1.textContent = `${name} ${verbs[randomInt(verbs.length)]}`;
+        epicHeadline.textContent = e.headline;
+        epicSub.textContent = e.subline;
+        const fomoPool = e.fomoLines && e.fomoLines.length ? e.fomoLines : ['See the full system →'];
+        epicFomo.textContent = fomoPool[randomInt(fomoPool.length)];
+      } else if (isCreator) {
+        const s = product.spotlight;
+        const verbs = ['just picked up', 'just grabbed', 'snagged', 'added'];
+        creatorBadge.textContent = s.badge;
+        creatorLine1.textContent = `${name} ${verbs[randomInt(verbs.length)]}`;
+        creatorHeadline.textContent = s.headline;
+        creatorSub.textContent = s.subline;
+        const fomoPool = s.fomoLines && s.fomoLines.length ? s.fomoLines : ['See the bundle →'];
+        creatorFomo.textContent = fomoPool[randomInt(fomoPool.length)];
+      } else {
+        line1.textContent = `${name} just purchased`;
+        const title = product.title;
+        line2.textContent = title.length > 52 ? `${title.slice(0, 49)}…` : `${title}…`;
+      }
+
+      notificationContainer.classList.remove('opacity-0', 'translate-y-4');
+      notificationContainer.classList.add('opacity-100', 'translate-y-0');
+
+      const visibleMs = isEpic ? 5200 : isCreator ? 4600 : 4000;
+
+      setTimeout(() => {
+        notificationContainer.classList.remove('opacity-100', 'translate-y-0');
+        notificationContainer.classList.add('opacity-0', 'translate-y-4');
+        setTimeout(showNotification, 8000);
+      }, visibleMs);
+    }
+
+    setTimeout(showNotification, 2000);
+  });
 </script>
 
 <style>
+  .purchase-notif-epic-glow {
+    background: radial-gradient(ellipse 120% 80% at 20% 0%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 90% 70% at 100% 100%, rgba(255, 214, 0, 0.2) 0%, transparent 50%);
+    opacity: 0.95;
+  }
+
+  .purchase-notif-epic-badge {
+    background: linear-gradient(180deg, #ffd600 0%, #ffb800 100%);
+    box-shadow: 2px 2px 0 #000;
+  }
+
+  .purchase-notif-container--epic {
+    filter: drop-shadow(0 0 14px rgba(255, 77, 77, 0.45));
+  }
+
+  .purchase-notif-creator-shine {
+    background: radial-gradient(ellipse 100% 70% at 0% 0%, rgba(77, 159, 255, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 60% at 100% 100%, rgba(255, 214, 0, 0.08) 0%, transparent 50%);
+    opacity: 1;
+  }
+
+  .purchase-notif-container--creator {
+    filter: drop-shadow(0 0 12px rgba(77, 159, 255, 0.28));
+  }
+
+  @keyframes pn-creator-enter {
+    0% {
+      transform: translateY(6px) scale(0.97);
+      opacity: 0.85;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .purchase-notif-card--creator {
+    background: linear-gradient(145deg, #2c2d5d 0%, #384a7a 42%, #1b1b3d 100%);
+    animation: pn-creator-enter 0.4s cubic-bezier(0.33, 1, 0.68, 1) both;
+  }
+
+  @keyframes pn-epic-enter {
+    0% {
+      transform: scale(0.92);
+      filter: brightness(1.15);
+    }
+    100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+  }
+
+  @keyframes pn-epic-pulse {
+    0%,
+    100% {
+      box-shadow: 4px 4px 0 #000, 0 0 0 0 rgba(255, 214, 0, 0.35);
+    }
+    50% {
+      box-shadow: 4px 4px 0 #000, 0 0 22px 4px rgba(255, 214, 0, 0.2);
+    }
+  }
+
+  .purchase-notif-card--epic {
+    background: linear-gradient(135deg, #ff4d4d 0%, #ff6b35 45%, #c41e1e 100%);
+    animation: pn-epic-enter 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      pn-epic-pulse 2.4s ease-in-out 0.55s infinite;
+  }
+
   .comic-card {
     border: 1px solid black;
     box-shadow: 1px 1px 0 #000;
@@ -110,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     position: relative;
     overflow: hidden;
   }
-  
+
   .comic-card::before {
     content: '';
     position: absolute;
@@ -118,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
     z-index: 1;
   }
 
@@ -127,13 +399,33 @@ document.addEventListener('DOMContentLoaded', () => {
     box-shadow: 1px 1px 0 #000;
     border-radius: 50%;
   }
-  
+
   @keyframes bounce-horizontal {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(3px); }
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(3px);
+    }
   }
-  
+
   .animate-bounce-horizontal {
     animation: bounce-horizontal 1s infinite;
   }
-</style> 
+
+  @media (prefers-reduced-motion: reduce) {
+    .purchase-notif-card--epic {
+      animation: none;
+    }
+    .purchase-notif-card--creator {
+      animation: none;
+    }
+    .purchase-notif-container--epic {
+      filter: none;
+    }
+    .purchase-notif-container--creator {
+      filter: none;
+    }
+  }
+</style>

@@ -12,6 +12,7 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
 ---
 
 <div class="book-card">
+  <div class="book-card__shine" aria-hidden="true"></div>
   <div class="book-card__top">
     <h3 class="book-card__title">{book.title}</h3>
     <p class="book-card__benefit">{book.benefit}</p>
@@ -50,25 +51,64 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
 
 <style>
   .book-card {
+    position: relative;
+    overflow: hidden;
     background: #fff;
     border: 2px solid #e4e4f0;
-    border-radius: 10px;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 1.25rem;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    transition:
+      transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.18s ease,
+      border-color 0.18s ease;
     gap: 1rem;
   }
 
+  .book-card__shine {
+    position: absolute;
+    top: -40%;
+    left: -60%;
+    width: 40%;
+    height: 180%;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      rgba(255, 214, 0, 0.15) 45%,
+      transparent 70%
+    );
+    transform: rotate(12deg);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
   .book-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.1);
-    border-color: #c0c0dd;
+    transform: translateY(-4px) rotate(-0.5deg);
+    box-shadow: 5px 6px 0 #1b1b3d;
+    border-color: #1b1b3d;
+  }
+
+  .book-card:hover .book-card__shine {
+    opacity: 1;
+    animation: bookCardShine 1.2s ease-out forwards;
+  }
+
+  @keyframes bookCardShine {
+    0% {
+      left: -60%;
+    }
+    100% {
+      left: 120%;
+    }
   }
 
   .book-card__top {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -77,10 +117,15 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
   .book-card__title {
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
-    font-weight: 700;
-    color: #1B1B3D;
+    font-weight: 800;
+    color: #1b1b3d;
     margin: 0;
     line-height: 1.35;
+    transition: color 0.15s ease;
+  }
+
+  .book-card:hover .book-card__title {
+    color: #2c2d5d;
   }
 
   .book-card__benefit {
@@ -159,6 +204,8 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
   }
 
   .book-card__bottom {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
@@ -228,6 +275,19 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
 
   .book-card__upsell strong {
     font-weight: 600;
-    color: #1B1B3D;
+    color: #1b1b3d;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .book-card,
+    .book-card:hover {
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      transform: none;
+    }
+
+    .book-card:hover .book-card__shine {
+      animation: none;
+      opacity: 0;
+    }
   }
 </style>

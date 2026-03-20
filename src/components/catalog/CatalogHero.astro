@@ -3,20 +3,60 @@
 ---
 
 <section class="catalog-hero">
+  <div class="catalog-hero__bg-pattern" aria-hidden="true"></div>
+
+  <!-- Floating emojis (decorative, matches index hero energy) -->
+  <div class="catalog-hero__floats" aria-hidden="true">
+    <span class="catalog-float catalog-float--1">📚</span>
+    <span class="catalog-float catalog-float--2">✨</span>
+    <span class="catalog-float catalog-float--3">💰</span>
+    <span class="catalog-float catalog-float--4">🦥</span>
+    <span class="catalog-float catalog-float--5">🚀</span>
+    <span class="catalog-float catalog-float--6">📝</span>
+    <span class="catalog-float catalog-float--7">🎯</span>
+    <span class="catalog-float catalog-float--8">💡</span>
+  </div>
+
+  <!-- Light Z marks like main hero -->
+  <div class="catalog-hero__zmarks" aria-hidden="true">
+    <svg class="catalog-z catalog-z--1" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <svg class="catalog-z catalog-z--2" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <svg class="catalog-z catalog-z--3" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 12H32L12 28H32" stroke="#2C2D5D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </div>
+
   <div class="catalog-hero__inner">
-    <div class="catalog-hero__badge">🦥 Strategic Sloth Library</div>
+    <div class="catalog-hero__badge-wrap">
+      <span class="catalog-hero__badge">🦥 Strategic Sloth Library</span>
+    </div>
     <h1 class="catalog-hero__heading">
-      Build Your Income System,<br />One Step at a Time
+      Build Your Income System,<br />
+      <span class="catalog-hero__heading-accent">One Step at a Time</span>
     </h1>
     <p class="catalog-hero__subtext">
-      Simple guides. No fluff. No overwhelm.<br class="hide-mobile" />
-      Just clear steps that work.
+      <span class="catalog-hero__subtext-line">Simple guides. No fluff. No overwhelm.</span>
+      <br class="hide-mobile" />
+      <span class="catalog-hero__subtext-em">Just clear steps that work.</span>
     </p>
     <div class="catalog-hero__actions">
-      <a href="#bundles" class="cta-primary">View Bundles</a>
+      <a href="#bundles" class="cta-primary">
+        <span class="cta-primary__shine" aria-hidden="true"></span>
+        View Bundles
+      </a>
       <a href="#books" class="cta-secondary">Browse All Books</a>
     </div>
-    <p class="catalog-hero__note">15 guides · 3 bundles · instant digital delivery</p>
+    <div class="catalog-hero__stats">
+      <span class="catalog-stat"><span class="catalog-stat__emoji">📖</span> 15 guides</span>
+      <span class="catalog-stat__dot">·</span>
+      <span class="catalog-stat"><span class="catalog-stat__emoji">📦</span> 3 bundles</span>
+      <span class="catalog-stat__dot">·</span>
+      <span class="catalog-stat"><span class="catalog-stat__emoji">⚡</span> Instant delivery</span>
+    </div>
     <p class="catalog-hero__context">
       These are practical digital PDF guides for building and selling digital products. No income guarantees, just clear steps that work when you put them into practice.<br class="hide-mobile" />
       Looking for the sovereignty &amp; freedom system? <a href="/reading-guide" class="context-link">See the Freedom Library →</a>
@@ -26,48 +66,226 @@
 
 <style>
   .catalog-hero {
-    background-color: #FFFDF7;
-    border-bottom: 2px solid #000;
-    padding: 6rem 1.25rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffd600;
+    border-bottom: 3px solid #000;
+    padding: 5.5rem 1.25rem 4.5rem;
     text-align: center;
   }
 
+  .catalog-hero__bg-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 1;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C32 5 34 7 34 9C34 11 32 13 30 13C28 13 26 11 26 9C26 7 28 5 30 5ZM22 14C24 14 26 16 26 18C26 20 24 22 22 22C20 22 18 20 18 18C18 16 20 14 22 14ZM38 14C40 14 42 16 42 18C42 20 40 22 38 22C36 22 34 20 34 18C34 16 36 14 38 14ZM30 23C35 23 39 27 39 32C39 37 35 41 30 41C25 41 21 37 21 32C21 27 25 23 30 23Z' fill='%23FFB800' fill-opacity='0.12'/%3E%3C/svg%3E");
+  }
+
+  .catalog-hero__floats {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .catalog-float {
+    position: absolute;
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    line-height: 1;
+    opacity: 0.88;
+    filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.15));
+    animation: catalogEmojiFloat 7s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .catalog-float--1 {
+    top: 12%;
+    left: 8%;
+    animation-duration: 6.5s;
+  }
+  .catalog-float--2 {
+    top: 18%;
+    right: 12%;
+    animation-duration: 8s;
+    animation-delay: 0.5s;
+  }
+  .catalog-float--3 {
+    top: 42%;
+    left: 4%;
+    animation-duration: 7s;
+    animation-delay: 1s;
+  }
+  .catalog-float--4 {
+    top: 8%;
+    left: 44%;
+    animation-duration: 5.5s;
+    animation-delay: 0.2s;
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  }
+  .catalog-float--5 {
+    bottom: 28%;
+    right: 6%;
+    animation-duration: 6.8s;
+    animation-delay: 1.2s;
+  }
+  .catalog-float--6 {
+    bottom: 18%;
+    left: 14%;
+    animation-duration: 7.5s;
+    animation-delay: 0.8s;
+  }
+  .catalog-float--7 {
+    top: 52%;
+    right: 18%;
+    animation-duration: 6.2s;
+    animation-delay: 1.5s;
+  }
+  .catalog-float--8 {
+    bottom: 38%;
+    left: 38%;
+    animation-duration: 8.2s;
+    animation-delay: 2s;
+    opacity: 0.65;
+  }
+
+  .catalog-hero__zmarks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .catalog-z {
+    position: absolute;
+    opacity: 0.08;
+    animation: catalogZFloat 9s ease-in-out infinite;
+  }
+
+  .catalog-z--1 {
+    top: 22%;
+    left: 22%;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .catalog-z--2 {
+    top: 35%;
+    right: 28%;
+    width: 3rem;
+    height: 3rem;
+    animation-delay: 2.5s;
+  }
+  .catalog-z--3 {
+    bottom: 30%;
+    right: 40%;
+    width: 2rem;
+    height: 2rem;
+    animation-delay: 5s;
+  }
+
+  @keyframes catalogEmojiFloat {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(-6deg) scale(1);
+    }
+    50% {
+      transform: translate(4px, -14px) rotate(6deg) scale(1.05);
+    }
+  }
+
+  @keyframes catalogZFloat {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.06;
+    }
+    50% {
+      transform: translate(0, -20px) rotate(4deg);
+      opacity: 0.11;
+    }
+  }
+
+  @keyframes catalogBadgePop {
+    0%,
+    100% {
+      transform: rotate(-2deg) scale(1);
+    }
+    50% {
+      transform: rotate(2deg) scale(1.02);
+    }
+  }
+
   .catalog-hero__inner {
-    max-width: 700px;
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
     margin: 0 auto;
+  }
+
+  .catalog-hero__badge-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
   }
 
   .catalog-hero__badge {
     display: inline-block;
-    background: #FFD600;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 0 #000;
+    background: #fff;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0 #000;
     border-radius: 999px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-size: 0.78rem;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 0.3rem 1rem;
-    margin-bottom: 1.25rem;
-    color: #1B1B3D;
+    padding: 0.4rem 1.15rem;
+    color: #1b1b3d;
+    animation: catalogBadgePop 3s ease-in-out infinite;
   }
 
   .catalog-hero__heading {
     font-family: 'Bangers', cursive;
-    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
     letter-spacing: 0.02em;
-    line-height: 1.08;
-    color: #1B1B3D;
+    line-height: 1.05;
+    color: #1b1b3d;
     margin: 0 0 1rem;
+    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .catalog-hero__heading-accent {
+    display: inline-block;
+    position: relative;
+    font-style: italic;
+    color: #1b1b3d;
+  }
+
+  .catalog-hero__heading-accent::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: 0.08em;
+    height: 0.28em;
+    background: linear-gradient(90deg, transparent, rgba(43, 45, 93, 0.2), transparent);
+    border-radius: 2px;
+    z-index: -1;
+    transform: rotate(-1deg);
   }
 
   .catalog-hero__subtext {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    color: #4a4a6a;
-    line-height: 1.6;
+    font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+    color: #2a2a4a;
+    line-height: 1.65;
     margin: 0 0 2rem;
+    font-weight: 500;
+  }
+
+  .catalog-hero__subtext-em {
+    font-weight: 800;
+    color: #1b1b3d;
   }
 
   .catalog-hero__actions {
@@ -75,25 +293,54 @@
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   .cta-primary {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFD600;
-    color: #1B1B3D;
+    overflow: hidden;
+    background: #2c2d5d;
+    color: #fff;
     font-family: 'Bangers', cursive;
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
-    padding: 0.75rem 2rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.06em;
+    padding: 0.8rem 2rem;
     border: 3px solid #000;
     box-shadow: 4px 4px 0 #000;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-    min-height: 44px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    min-height: 48px;
+  }
+
+  .cta-primary__shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 60%
+    );
+    transform: rotate(25deg);
+    animation: catalogShine 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes catalogShine {
+    0%,
+    100% {
+      transform: translateX(-60%) rotate(25deg);
+    }
+    50% {
+      transform: translateX(40%) rotate(25deg);
+    }
   }
 
   .cta-primary:hover {
@@ -111,54 +358,127 @@
     align-items: center;
     justify-content: center;
     background: #fff;
-    color: #1B1B3D;
+    color: #1b1b3d;
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
-    font-weight: 600;
-    padding: 0.75rem 1.75rem;
-    border: 2px solid #1B1B3D;
-    border-radius: 8px;
+    font-weight: 700;
+    padding: 0.8rem 1.75rem;
+    border: 3px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    border-radius: 10px;
     text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease;
-    min-height: 44px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+    min-height: 48px;
   }
 
   .cta-secondary:hover {
-    background: #1B1B3D;
-    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #000;
+    background: #e3f2ff;
   }
 
-  .catalog-hero__note {
+  .cta-secondary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+  }
+
+  .catalog-hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.5rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    color: #8888aa;
-    margin: 0;
-    letter-spacing: 0.03em;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1b1b3d;
+    margin: 0 0 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .catalog-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px solid #000;
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.12);
+    transition: transform 0.15s ease;
+  }
+
+  .catalog-stat:hover {
+    transform: translateY(-2px);
+  }
+
+  .catalog-stat__emoji {
+    display: inline-block;
+    animation: catalogStatWiggle 2.5s ease-in-out infinite;
+  }
+
+  .catalog-hero__stats > .catalog-stat:nth-child(3) .catalog-stat__emoji {
+    animation-delay: 0.35s;
+  }
+  .catalog-hero__stats > .catalog-stat:nth-child(5) .catalog-stat__emoji {
+    animation-delay: 0.7s;
+  }
+
+  @keyframes catalogStatWiggle {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-8deg);
+    }
+    75% {
+      transform: rotate(8deg);
+    }
+  }
+
+  .catalog-stat__dot {
+    opacity: 0.35;
+    font-weight: 900;
+    user-select: none;
   }
 
   .catalog-hero__context {
     font-family: 'Inter', sans-serif;
     font-size: 0.82rem;
-    color: #9999bb;
-    margin: 0.75rem 0 0;
-    line-height: 1.5;
+    color: rgba(27, 27, 61, 0.72);
+    margin: 0;
+    line-height: 1.55;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .context-link {
-    color: #1B1B3D;
-    font-weight: 600;
+    color: #1b1b3d;
+    font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: opacity 0.15s ease;
   }
 
   .context-link:hover {
-    opacity: 0.7;
+    opacity: 0.75;
+  }
+
+  @media (max-width: 640px) {
+    .catalog-float--4,
+    .catalog-float--8 {
+      display: none;
+    }
+    .catalog-z--2 {
+      display: none;
+    }
   }
 
   @media (max-width: 480px) {
     .catalog-hero {
-      padding: 5rem 1rem 3rem;
+      padding: 4.5rem 1rem 3.5rem;
     }
 
     .hide-mobile {
@@ -173,7 +493,29 @@
     .cta-primary,
     .cta-secondary {
       width: 100%;
-      max-width: 280px;
+      max-width: 300px;
+    }
+
+    .catalog-hero__stats {
+      flex-direction: column;
+    }
+
+    .catalog-stat__dot {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .catalog-float,
+    .catalog-z,
+    .catalog-hero__badge,
+    .catalog-stat__emoji,
+    .cta-primary__shine {
+      animation: none !important;
+    }
+
+    .catalog-stat:hover {
+      transform: none;
     }
   }
 </style>

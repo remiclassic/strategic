@@ -81,24 +81,33 @@ const statusColors: Record<string, string> = {
 };
 ---
 
-<section class="py-20 bg-[#FFFBF2] border-t-2 border-black">
-  <div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+<section class="tools-grid-section relative overflow-hidden border-t-[3px] border-black py-20">
+  <div class="tools-grid-pattern absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+  <div class="tools-grid-blob tools-grid-blob--tr" aria-hidden="true"></div>
+  <div class="tools-grid-blob tools-grid-blob--bl" aria-hidden="true"></div>
+  <div class="tools-grid-floats" aria-hidden="true">
+    <span class="tools-grid-float tools-grid-float--1">🧰</span>
+    <span class="tools-grid-float tools-grid-float--2">✍️</span>
+    <span class="tools-grid-float tools-grid-float--3">🎨</span>
+  </div>
+  <div class="container-custom relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Heading -->
-    <div class="max-w-2xl mb-12">
-      <h2 class="text-3xl sm:text-4xl font-black text-[#1B1B3D] mb-3" style="font-family:'Inter',system-ui,sans-serif;">
-        More Tools to Help You Build Smarter
+    <div class="mb-12 max-w-2xl">
+      <p class="mb-2 text-xs font-black uppercase tracking-[0.14em] text-[#1B1B3D]/45" style="font-family: Inter, system-ui, sans-serif;">The workshop</p>
+      <h2 class="mb-3 text-[clamp(1.85rem,4vw,2.65rem)] font-black leading-tight text-[#1B1B3D]" style="font-family: Bangers, cursive; letter-spacing: 0.03em;">
+        More Tools to Build Smarter
       </h2>
-      <p class="text-[#5C5C7A] text-base" style="font-family:'Inter',system-ui,sans-serif;">
-        Start with one idea, then turn it into a product people actually want. Each tool handles a different part of the process.
+      <p class="text-base text-[#5C5C7A]" style="font-family: Inter, system-ui, sans-serif;">
+        One idea first—then shape it into something people want. Each tool covers a different step.
       </p>
     </div>
 
     <!-- Grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {tools.map(tool => (
         <div
-          class="group relative flex flex-col bg-white border-[3px] border-black rounded-2xl shadow-[4px_4px_0_#000] hover:shadow-[6px_6px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] transition-all duration-200 overflow-hidden"
+          class="tools-tool-card group relative flex flex-col overflow-hidden rounded-2xl border-[3px] border-black bg-white shadow-[4px_4px_0_#000] transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#1B1B3D]"
         >
           <!-- Colored top strip -->
           <div class="h-1.5 w-full" style={`background-color: ${tool.bg};`}></div>
@@ -167,10 +176,11 @@ const statusColors: Record<string, string> = {
 
     <!-- Bottom note -->
     <p class="mt-10 text-center text-sm text-[#8888A4]" style="font-family:'Inter',system-ui,sans-serif;">
-      More tools ship regularly. Join early access to be first to try them. →
+      <span class="mr-1 inline-block animate-pulse" aria-hidden="true">✨</span>
+      New tools ship regularly —
       <button
         type="button"
-        class="waitlist-trigger underline underline-offset-2 font-bold hover:text-[#1B1B3D] transition-colors"
+        class="waitlist-trigger font-bold text-[#1B1B3D] underline underline-offset-2 transition-colors hover:text-[#4D9FFF]"
         data-tool-name="NarriaFlow Early Access"
         data-tool-desc="Be the first to know when new tools go live and get early access before anyone else."
         style="font-family:'Inter',system-ui,sans-serif;"
@@ -211,3 +221,121 @@ const statusColors: Record<string, string> = {
     });
   });
 </script>
+
+<style>
+  .tools-grid-section {
+    background-color: #f7f7fb;
+  }
+
+  .tools-grid-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' r='1.5' fill='%231B1B3D' fill-opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  .tools-grid-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .tools-grid-blob--tr {
+    top: -15%;
+    right: -5%;
+    width: min(380px, 52vw);
+    height: min(380px, 52vw);
+    background: radial-gradient(circle, rgba(255, 214, 0, 0.22) 0%, transparent 70%);
+  }
+  .tools-grid-blob--bl {
+    bottom: -18%;
+    left: -8%;
+    width: min(300px, 48vw);
+    height: min(300px, 48vw);
+    background: radial-gradient(circle, rgba(77, 159, 255, 0.1) 0%, transparent 72%);
+  }
+
+  .tools-grid-floats {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .tools-grid-float {
+    position: absolute;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1;
+    opacity: 0.11;
+    animation: toolsGridDrift 11s ease-in-out infinite;
+  }
+  .tools-grid-float--1 {
+    top: 10%;
+    left: 6%;
+  }
+  .tools-grid-float--2 {
+    top: 55%;
+    right: 8%;
+    animation-delay: 2.5s;
+  }
+  .tools-grid-float--3 {
+    bottom: 20%;
+    left: 12%;
+    animation-delay: 5s;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  @keyframes toolsGridDrift {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(-6deg);
+    }
+    50% {
+      transform: translate(8px, -14px) rotate(6deg);
+    }
+  }
+
+  .tools-tool-card {
+    position: relative;
+  }
+
+  .tools-tool-card::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    top: -40%;
+    left: -80%;
+    z-index: 0;
+    height: 180%;
+    width: 45%;
+    rotate: 12deg;
+    background: linear-gradient(105deg, transparent, rgba(255, 214, 0, 0.12), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .tools-tool-card:hover::before {
+    opacity: 1;
+    animation: toolsCardShine 0.9s ease-out forwards;
+  }
+
+  @keyframes toolsCardShine {
+    0% {
+      left: -80%;
+    }
+    100% {
+      left: 120%;
+    }
+  }
+
+  .tools-tool-card > div {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tools-grid-float {
+      animation: none;
+    }
+    .tools-tool-card:hover::before {
+      animation: none;
+      opacity: 0;
+    }
+  }
+</style>

@@ -13,28 +13,43 @@ const specialOffer = {
 };
 ---
 
-<div id="exit-popup" class="fixed inset-0 bg-black/30 z-50 hidden" role="dialog" aria-modal="true" aria-label="Special offer">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[600px] p-4 sm:p-6">
-        <div class="bg-[#FFF8E7] rounded-[32px] p-6 sm:p-8 relative border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<div
+    id="exit-popup"
+    class="exit-popup-root fixed inset-0 z-50 hidden overflow-x-hidden overflow-y-auto overscroll-contain bg-black/30"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Special offer"
+>
+    <!-- Flex shell: scrolls when tall; avoids translate centering + horizontal overflow on small viewports -->
+    <div
+        class="exit-popup-shell min-h-[100dvh] flex items-center justify-center px-3 py-4 sm:px-6 sm:py-8 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))]"
+    >
+        <div class="w-full max-w-[600px] min-w-0 shrink-0">
+            <div
+                data-exit-popup-card
+                class="bg-[#FFF8E7] rounded-2xl sm:rounded-[32px] px-4 pt-5 pb-6 sm:p-8 relative border-[3px] border-black shadow-[2px_2px_0_0_#000] sm:shadow-[4px_4px_0_0_#000] box-border"
+            >
             <!-- Close button -->
             <button 
                 id="close-popup"
-                class="absolute top-4 right-4 sm:top-5 sm:right-5 w-10 h-10 flex items-center justify-center text-2xl hover:scale-110 transition-transform"
+                type="button"
+                class="absolute top-3 right-3 sm:top-5 sm:right-5 z-10 h-11 w-11 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-2xl leading-none text-black hover:bg-black/5 active:bg-black/10 transition-colors touch-manipulation"
                 aria-label="Close offer"
             >
                 ×
             </button>
 
-            <!-- Title -->
-            <h2 class="text-[28px] sm:text-[32px] font-bold mb-3 leading-tight">{specialOffer.title}</h2>
-            
+            <!-- Mobile: title → book+kit (product first) → description; sm+: unchanged reading order -->
+            <div class="flex flex-col">
+            <h2 class="text-[22px] sm:text-[32px] font-bold mb-3 leading-tight pr-12 text-balance max-sm:order-1 sm:order-none">{specialOffer.title}</h2>
+
             <!-- Description -->
-            <p class="text-[18px] sm:text-[20px] mb-6 leading-tight">{specialOffer.description}</p>
+            <p class="text-base sm:text-[20px] mb-6 leading-snug text-pretty max-sm:order-3 sm:order-none max-sm:pt-1 max-sm:text-[15px] max-sm:leading-relaxed">{specialOffer.description}</p>
 
             <!-- Book and Info Section -->
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-6">
+            <div class="flex flex-col sm:flex-row gap-5 sm:gap-6 mb-6 min-w-0 max-sm:order-2 sm:order-none max-sm:mb-5 sm:mb-6">
                 <!-- Book Cover -->
-                <div class="w-[160px] sm:w-[200px] mx-auto sm:mx-0 flex-shrink-0">
+                <div class="w-[min(240px,62vw)] sm:w-[200px] max-w-[280px] sm:max-w-none mx-auto sm:mx-0 flex-shrink-0 max-sm:pt-1">
                     <img 
                         src="/images/bookpdf.webp" 
                         alt="Don't Do Anything - Strategic Sloth Starter Guide" 
@@ -42,35 +57,41 @@ const specialOffer = {
                         height="1536"
                         loading="lazy"
                         decoding="async"
-                        class="w-full h-auto"
+                        class="w-full h-auto rounded-sm max-sm:shadow-[4px_6px_0_0_#000] max-sm:border-[2px] max-sm:border-black max-sm:bg-white max-sm:ring-1 max-sm:ring-black/10"
                     />
                 </div>
 
                 <!-- Kit Info -->
-                <div class="flex-1 text-center sm:text-left">
-                    <h3 class="text-[22px] sm:text-[24px] font-bold mb-2">{specialOffer.kitTitle}</h3>
-                    <p class="text-[18px] sm:text-[20px] mb-4">{specialOffer.kitDescription}</p>
-                    <p class="text-[18px] sm:text-[20px]">{specialOffer.subtext}</p>
+                <div class="flex-1 min-w-0 text-center sm:text-left max-sm:px-0.5">
+                    <h3 class="text-lg sm:text-2xl font-bold mb-2 max-sm:mt-1">{specialOffer.kitTitle}</h3>
+                    <p class="text-[15px] sm:text-xl mb-3 leading-snug max-sm:max-w-[28rem] max-sm:mx-auto">{specialOffer.kitDescription}</p>
+                    <p class="text-[15px] sm:text-xl leading-snug max-sm:text-black/85 max-sm:max-w-[28rem] max-sm:mx-auto">{specialOffer.subtext}</p>
                 </div>
+            </div>
             </div>
 
             <!-- CTA Section -->
-            <div class="space-y-4">
+            <div class="exit-popup-cta space-y-4">
                 <a 
                     href={specialOffer.ctaLink}
                     id="cta-button"
-                    class="lemonsqueezy-button block w-full bg-[#FFD600] text-black font-bold text-center py-4 sm:py-5 rounded-[16px] border-[3px] border-black hover:bg-[#FFE44D] transition-colors text-[24px] sm:text-[28px] min-h-[60px] flex items-center justify-center"
+                    class="lemonsqueezy-button block w-full max-w-full bg-[#FFD600] text-black font-bold text-center py-3.5 sm:py-5 rounded-xl sm:rounded-[16px] border-[3px] border-black hover:bg-[#FFE44D] transition-colors text-lg sm:text-[26px] leading-tight min-h-[52px] sm:min-h-[60px] flex items-center justify-center px-3 box-border break-words hyphens-auto"
                 >
                     {specialOffer.cta}
                 </a>
-                <p class="text-[16px] text-center px-4">{specialOffer.ctaSubtext}</p>
+                <p class="text-sm sm:text-base text-center px-1">{specialOffer.ctaSubtext}</p>
                 
                 <!-- No Thanks Link -->
                 <div class="text-center">
-                    <button id="no-thanks" class="text-[16px] text-gray-600 hover:text-gray-800 py-2 px-4 min-h-[44px]">
+                    <button
+                        type="button"
+                        id="no-thanks"
+                        class="text-sm sm:text-base text-gray-600 hover:text-gray-800 py-3 px-4 min-h-[44px] max-w-full text-balance"
+                    >
                         {specialOffer.noThanks}
                     </button>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -121,7 +142,8 @@ const specialOffer = {
 
     document.getElementById('exit-popup')?.addEventListener('click', (e) => {
         const t = e.target;
-        if (t instanceof Element && t.id === 'exit-popup') {
+        if (!(t instanceof Element)) return;
+        if (!t.closest('[data-exit-popup-card]')) {
             hidePopup();
         }
     });
@@ -164,17 +186,10 @@ const specialOffer = {
         animation: bounce-horizontal 1.5s ease-in-out infinite;
     }
 
-    /* Improved touch targets for mobile */
+    /* Touch targets without overriding CTA padding / full-width layout */
     @media (max-width: 640px) {
-        button,
-        a {
-            min-height: 44px;
-            min-width: 44px;
-            padding: 12px;
-        }
-        
-        #exit-popup .space-y-4 {
-            margin-top: 1rem;
+        .exit-popup-cta {
+            margin-top: 0.5rem;
         }
     }
 </style> 

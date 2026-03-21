@@ -4,17 +4,17 @@ import BuyButton from './BuyButton.astro';
 const achievements = [
   {
     icon: "💻",
-    text: "18 years across platforms",
+    text: "18 years building products across games, mobile, and software platforms",
     color: "#FFD600"
   },
   {
-    icon: "🧩",
-    text: "Built systems, products, and UX",
+    icon: "🌐",
+    text: "Worked on products used by millions",
     color: "#4A90E2"
   },
   {
-    icon: "📖",
-    text: "Real experience, not guru theory",
+    icon: "🧩",
+    text: "Built systems, not just ideas",
     color: "#2ECC71"
   }
 ];
@@ -76,7 +76,7 @@ const milestones = [
         <!-- Story Quote -->
         <div class="bg-[#FFD600]/40 border-2 border-black rounded-2xl shadow-[4px_4px_0_#000] px-6 py-4 transform rotate-1 mb-8">
           <p class="text-xl italic text-[#1B1B3D]">
-            "I'm Remi. I've spent 18 years working in software development across multiple platforms, building products, systems, and user experiences used by real people."
+            "I'm Remi. I've spent 18 years building products across games, mobile, and software platforms. I've worked on products used by millions. I build systems, not just ideas. That's the spine behind these guides, not recycled internet theory."
           </p>
         </div>
         
@@ -101,7 +101,7 @@ const milestones = [
           </div>
           
           <p>
-            Somewhere along the way it clicked: I'd spent almost two decades building products and systems for other people. It felt right to build something of my own.
+            Somewhere along the way it clicked: I'd spent almost two decades shipping for other people's roadmaps across games, mobile, and software. It felt right to build something of my own.
           </p>
           
           <div class="bg-[#E3F2FF] border-2 border-black rounded-2xl shadow-[4px_4px_0_#000] px-6 py-4 transform -rotate-1">
@@ -140,7 +140,10 @@ const milestones = [
           <!-- Shadow layer tied to image size -->
           <div class="absolute inset-0 translate-x-3 translate-y-3 bg-black rounded-2xl -z-10"></div>
           <!-- Photo card with crossfade -->
-          <div class="photo-card relative bg-[#FFD600] border-4 border-black rounded-2xl overflow-hidden transform hover:-rotate-1 hover:scale-[1.02] transition-transform duration-300">
+          <div
+            class="photo-card relative bg-[#FFD600] border-4 border-black rounded-2xl overflow-hidden transform hover:-rotate-1 hover:scale-[1.02] transition-transform duration-300 max-lg:cursor-pointer"
+            data-photo-card
+          >
             <!-- Illustration (default visible) -->
             <img
               src="/images/remi-illustration.webp"
@@ -187,13 +190,24 @@ const milestones = [
     background-size: 24px 24px;
   }
 
-  /* Crossfade on hover */
-  .photo-card:hover .photo-real {
+  /* Crossfade on hover — only real hover (avoids sticky “hover” on touch) */
+  @media (hover: hover) and (pointer: fine) {
+    .photo-card:hover .photo-real {
+      opacity: 1;
+    }
+    .photo-card:hover .photo-illustration {
+      opacity: 0;
+    }
+  }
+
+  /* Tap-to-peek on touch / coarse pointers */
+  .photo-card.photo-card--peek .photo-real {
     opacity: 1;
   }
-  .photo-card:hover .photo-illustration {
+  .photo-card.photo-card--peek .photo-illustration {
     opacity: 0;
   }
+
   .photo-illustration {
     transition: opacity 0.5s ease;
   }
@@ -217,6 +231,72 @@ const milestones = [
 
   @media (prefers-reduced-motion: reduce) {
     .animate-float-a, .animate-float-b, .animate-float-c { animation: none; }
+    .photo-illustration,
+    .photo-real {
+      transition: none;
+    }
   }
 </style>
+
+<script>
+  let aboutAuthorPhotoPeekAc = null;
+
+  function setupAboutAuthorPhotoPeek() {
+    aboutAuthorPhotoPeekAc?.abort();
+    aboutAuthorPhotoPeekAc = null;
+
+    const card = document.querySelector('#about-author [data-photo-card]');
+    if (!card || !(card instanceof HTMLElement)) return;
+
+    const ac = new AbortController();
+    aboutAuthorPhotoPeekAc = ac;
+    const { signal } = ac;
+
+    const fineHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let peekTimeout = 0;
+
+    const clearPeekTimer = () => {
+      if (peekTimeout) {
+        window.clearTimeout(peekTimeout);
+        peekTimeout = 0;
+      }
+    };
+
+    const endPeek = () => {
+      card.classList.remove('photo-card--peek');
+    };
+
+    signal.addEventListener('abort', () => {
+      clearPeekTimer();
+      endPeek();
+    });
+
+    const onActivate = () => {
+      if (fineHover.matches) return;
+
+      clearPeekTimer();
+      card.classList.add('photo-card--peek');
+
+      const holdMs = reducedMotion.matches ? 900 : 2200;
+      peekTimeout = window.setTimeout(() => {
+        peekTimeout = 0;
+        endPeek();
+      }, holdMs);
+    };
+
+    card.addEventListener('click', onActivate, { signal });
+
+    const onFineHoverChange = () => {
+      if (fineHover.matches) {
+        clearPeekTimer();
+        endPeek();
+      }
+    };
+    fineHover.addEventListener('change', onFineHoverChange, { signal });
+  }
+
+  setupAboutAuthorPhotoPeek();
+  document.addEventListener('astro:page-load', setupAboutAuthorPhotoPeek);
+</script>
 

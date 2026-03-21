@@ -35,12 +35,12 @@ const navItems = [
 
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 
-/** Same-document section links — active state is driven by scroll on the homepage only */
+/** Same-document section links; active state is driven by scroll on the homepage only */
 function isHashNavHref(href: string) {
   return href.startsWith("/#");
 }
 
-/** Full-page routes — highlight current section from URL */
+/** Full-page routes; highlight current section from URL */
 function isPageNavActive(href: string) {
   if (isHashNavHref(href)) return false;
   const path = href.replace(/\/$/, "") || "/";
@@ -377,7 +377,7 @@ function isPageNavActive(href: string) {
   const closeMobileMenuButton = document.getElementById('close-mobile-menu');
   const mobileMenu = document.getElementById('mobile-menu');
   const navbar = document.querySelector('header');
-  /** Homepage section links only — page routes use server-rendered `active` */
+  /** Homepage section links only; page routes use server-rendered `active` */
   const navLinks = document.querySelectorAll('a.nav-link:not([data-nav-route])');
   const sections = document.querySelectorAll('section');
   const scrollProgress = document.querySelector('#scroll-progress');

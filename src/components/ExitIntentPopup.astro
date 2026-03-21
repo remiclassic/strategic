@@ -82,38 +82,53 @@ const specialOffer = {
     function showPopup() {
         if (!popupShown) {
             const popup = document.getElementById('exit-popup');
-            popup.classList.remove('hidden');
+            if (popup) popup.classList.remove('hidden');
             popupShown = true;
         }
     }
 
     function hidePopup() {
         const popup = document.getElementById('exit-popup');
-        popup.classList.add('hidden');
+        if (popup) popup.classList.add('hidden');
     }
 
-    // Show popup when mouse leaves the viewport
     document.addEventListener('mouseleave', (e) => {
         if (e.clientY <= 0 && !popupShown) {
             showPopup();
         }
     });
 
-    // Close popup when clicking the close button
-    document.getElementById('close-popup').addEventListener('click', hidePopup);
+    /** Mobile / touch: fast scroll-up (often “back to URL bar”) suggests exit intent */
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    let lastScrollY = window.scrollY;
+    window.addEventListener(
+        'scroll',
+        () => {
+            if (!coarsePointer || popupShown) {
+                lastScrollY = window.scrollY;
+                return;
+            }
+            const y = window.scrollY;
+            if (lastScrollY - y > 100 && y > 520) {
+                showPopup();
+            }
+            lastScrollY = y;
+        },
+        { passive: true },
+    );
 
-    // Close popup when clicking outside
-    document.getElementById('exit-popup').addEventListener('click', (e) => {
-        if (e.target.id === 'exit-popup') {
+    document.getElementById('close-popup')?.addEventListener('click', hidePopup);
+
+    document.getElementById('exit-popup')?.addEventListener('click', (e) => {
+        const t = e.target;
+        if (t instanceof Element && t.id === 'exit-popup') {
             hidePopup();
         }
     });
-    
-    // Close popup when clicking "no thanks"
-    document.getElementById('no-thanks').addEventListener('click', hidePopup);
 
-    // Close popup when clicking the CTA button
-    document.getElementById('cta-button').addEventListener('click', hidePopup);
+    document.getElementById('no-thanks')?.addEventListener('click', hidePopup);
+
+    document.getElementById('cta-button')?.addEventListener('click', hidePopup);
 </script>
 
 <style>

@@ -1,90 +1,80 @@
-<div id="mobile-cta" class="fixed bottom-4 left-0 right-0 flex justify-center z-50 opacity-0 translate-y-full transition-all duration-300 hidden md:hidden">
-  <a 
-    href="#get-started" 
-    class="comic-button !bg-[#FFD600] hover:!bg-[#FFE44D] text-black font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:scale-105 relative group"
-  >
-    <span class="absolute -right-2 -top-2 w-4 h-4 bg-red-500 rounded-full animate-pulse"></span>
-    GET THE BLUEPRINT
-  </a>
+---
+---
+
+<div
+	id="sticky-cta-bar"
+	class="fixed bottom-0 left-0 right-0 z-[45] border-t-2 border-black bg-[#FFFDF7] shadow-[0_-6px_24px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-out pb-[env(safe-area-inset-bottom,0)] translate-y-full pointer-events-none"
+	aria-hidden="true"
+>
+	<div class="container-custom mx-auto flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4 max-w-3xl">
+		<a
+			href="#get-started"
+			class="sticky-cta-primary flex min-h-[48px] flex-1 items-center justify-center rounded-xl border-2 border-black bg-[#2C2D5D] px-4 py-3 text-center text-base font-black text-white transition-colors hover:bg-[#1B1B3D] sm:flex-none sm:min-w-[200px]"
+		>
+			Get started
+		</a>
+		<a
+			href="#book-offer"
+			class="flex min-h-[48px] flex-1 items-center justify-center rounded-xl border-2 border-black bg-[#FFD600] px-4 py-3 text-center text-base font-black text-[#1B1B3D] transition-colors hover:bg-[#FFE44D] sm:flex-none sm:min-w-[200px]"
+		>
+			$5 starter guide
+		</a>
+	</div>
 </div>
 
 <script>
-  // Only run this script on mobile devices
-  if (window.innerWidth < 768) {
-    const mobileCtaElement = document.getElementById('mobile-cta');
-    let lastScrollY = window.scrollY;
-    let isVisible = false;
-    let hasInteracted = false;
-    let scrollTimeout;
+	const bar = document.getElementById('sticky-cta-bar');
+	if (!bar) {
+		// no-op
+	} else {
+		const hero = document.getElementById('hero');
+		const showAfterPx = () => Math.min((hero?.offsetHeight ?? 420) * 0.35, 320);
+		const footerReserve = 220;
+		let ticking = false;
+		let lastY = window.scrollY;
 
-    // Show CTA after user has scrolled a bit and waited
-    function handleScroll() {
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
+		function setStickyCtaHeightPx(px) {
+			document.documentElement.style.setProperty('--sticky-cta-height', `${px}px`);
+		}
 
-      const currentScrollY = window.scrollY;
-      const scrollingDown = currentScrollY > lastScrollY;
-      const nearBottom = window.innerHeight + currentScrollY >= document.documentElement.scrollHeight - 100;
-      
-      // Hide when scrolling up or near bottom
-      if (!scrollingDown || nearBottom) {
-        hideCTA();
-      } else if (!hasInteracted && currentScrollY > 300) {
-        // Show after scrolling down 300px
-        scrollTimeout = setTimeout(() => {
-          showCTA();
-        }, 1000); // Wait 1 second of no scrolling before showing
-      }
+		function updateBar() {
+			const y = window.scrollY;
+			const doc = document.documentElement;
+			const nearBottom = y + window.innerHeight >= doc.scrollHeight - footerReserve;
+			const pastHero = y > showAfterPx();
 
-      lastScrollY = currentScrollY;
-    }
+			if (pastHero && !nearBottom) {
+				bar.classList.remove('translate-y-full', 'pointer-events-none');
+				bar.setAttribute('aria-hidden', 'false');
+				requestAnimationFrame(() => {
+					setStickyCtaHeightPx(bar.offsetHeight);
+				});
+			} else {
+				bar.classList.add('translate-y-full', 'pointer-events-none');
+				bar.setAttribute('aria-hidden', 'true');
+				setStickyCtaHeightPx(0);
+			}
+			lastY = y;
+			ticking = false;
+		}
 
-    function showCTA() {
-      if (!isVisible && !hasInteracted) {
-        mobileCtaElement.classList.remove('hidden');
-        // Use requestAnimationFrame to ensure the display:block has taken effect
-        requestAnimationFrame(() => {
-          mobileCtaElement.classList.remove('opacity-0', 'translate-y-full');
-        });
-        isVisible = true;
-      }
-    }
-
-    function hideCTA() {
-      if (isVisible) {
-        mobileCtaElement.classList.add('opacity-0', 'translate-y-full');
-        // Wait for transition to complete before hiding
-        setTimeout(() => {
-          mobileCtaElement.classList.add('hidden');
-        }, 300);
-        isVisible = false;
-      }
-    }
-
-    // Handle button click
-    mobileCtaElement.querySelector('a').addEventListener('click', () => {
-      hasInteracted = true;
-      hideCTA();
-    });
-
-    // Add scroll event listener with throttling
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
-
-    // Handle resize events
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768) {
-        hideCTA();
-      }
-    });
-  }
-</script> 
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (!ticking) {
+					requestAnimationFrame(updateBar);
+					ticking = true;
+				}
+			},
+			{ passive: true },
+		);
+		window.addEventListener('resize', () => {
+			lastY = window.scrollY;
+			updateBar();
+			if (!bar.classList.contains('translate-y-full')) {
+				requestAnimationFrame(() => setStickyCtaHeightPx(bar.offsetHeight));
+			}
+		});
+		updateBar();
+	}
+</script>

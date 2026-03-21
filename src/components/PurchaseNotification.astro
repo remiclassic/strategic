@@ -110,7 +110,10 @@ const purchaseProducts = [
 ];
 ---
 
-<div id="purchase-notification" class="fixed bottom-4 left-4 z-40 max-w-[min(100vw-2rem,22rem)] sm:max-w-sm">
+<div
+	id="purchase-notification"
+	class="purchase-notif-root fixed left-4 z-[48] max-w-[min(100vw-2rem,22rem)] sm:max-w-sm"
+>
   <a href="/books#books" class="block no-underline" id="purchase-notif-link">
     <div
       class="relative w-full transform transition-all duration-300 opacity-0 translate-y-4"
@@ -414,7 +417,24 @@ const purchaseProducts = [
     animation: bounce-horizontal 1s infinite;
   }
 
+  /* Mobile / tablet: sit above the sticky CTA bar so stacked buttons stay tappable. */
+  .purchase-notif-root {
+    bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px) + var(--sticky-cta-height, 0px));
+    top: auto;
+    transition: bottom 0.3s ease-out;
+  }
+
+  /* Desktop: bottom-left above the bar edge with 1rem inset (matches left-4) + safe area. */
+  @media (min-width: 1024px) {
+    .purchase-notif-root {
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .purchase-notif-root {
+      transition: none;
+    }
     .purchase-notif-card--epic {
       animation: none;
     }

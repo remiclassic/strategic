@@ -4,7 +4,7 @@
 
 <button
   id="back-to-top"
-  class="fixed bottom-5 right-5 z-50 p-4 rounded-full opacity-0 invisible transition-all duration-300 transform translate-y-full bg-comic-accent hover:bg-comic-accent/80 border-2 border-[#1C1C5B] shadow-pop group"
+	class="back-to-top-fixed fixed right-5 z-50 p-4 rounded-full opacity-0 invisible transition-all duration-300 transform translate-y-full bg-comic-accent hover:bg-comic-accent/80 border-2 border-[#1C1C5B] shadow-pop group"
   aria-label="Back to top"
 >
   <div class="relative w-10 h-10 flex items-center justify-center">
@@ -26,6 +26,11 @@
 </button>
 
 <style>
+  /* Clear sticky bottom CTA bar (--sticky-cta-height from MinimalCTA). */
+  .back-to-top-fixed {
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px) + var(--sticky-cta-height, 0px));
+  }
+
   /* Float shadow effect */
   .shadow-pop {
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);

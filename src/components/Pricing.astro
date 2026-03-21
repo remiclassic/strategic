@@ -1,9 +1,8 @@
 ---
-import BuyButton from './BuyButton.astro';
-
 const pricingTiers = [
 	{
 		name: 'STARTER PACKAGE',
+		persona: 'I want my first $1.',
 		id: 'starter',
 		href: '#',
 		price: {
@@ -30,6 +29,7 @@ const pricingTiers = [
 	},
 	{
 		name: 'BEST VALUE PACKAGE',
+		persona: 'I want a full-time automated business.',
 		id: 'best-value',
 		href: '#',
 		price: {
@@ -58,6 +58,7 @@ const pricingTiers = [
 	},
 	{
 		name: 'SCALE TO FREEDOM PATH',
+		persona: 'I want to take my business global and tax-free.',
 		id: 'scale-freedom',
 		href: '#',
 		price: {
@@ -126,7 +127,7 @@ if (endTime < new Date()) {
 	<!-- Section Header -->
 	<div class="relative z-10 text-center mb-12">
 		<h2 class="text-4xl font-black text-[#1B1B3D] mb-4">PRICING PLANS</h2>
-		<p class="text-xl text-[#1B1B3D] mb-4">Pick the package that fits where you are right now.</p>
+		<p class="text-xl text-[#1B1B3D] mb-4">Each card leads with a <span class="font-black">persona line</span>: pick the one that sounds like you, then skim features.</p>
 		<p class="text-xl text-[#1B1B3D] max-w-2xl mx-auto">
 			Simple digital guides for turning your knowledge into products that can sell in the background while you focus on the rest of your life.
 		</p>
@@ -163,7 +164,8 @@ if (endTime < new Date()) {
 					/>
 				</div>
 
-				<!-- Package Name -->
+				<!-- Persona + package name -->
+				<p class="text-base font-black text-[#1B1B3D] mb-3 leading-snug border-l-4 border-[#FFD600] pl-3 py-1 bg-[#FFF9E6]/80 rounded-r-lg">{tier.persona}</p>
 				<h3 class="text-xl font-black text-[#1B1B3D] mb-2">{tier.name}</h3>
 				<p class="text-sm text-gray-600 mb-4">{tier.description}</p>
 

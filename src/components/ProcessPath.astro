@@ -1,0 +1,68 @@
+---
+const pathSteps = [
+	{
+		step: "1",
+		title: "Identify what you already know",
+		body: "One problem you can solve in a tight PDF, template, or checklist, not a vague “someday” book.",
+		icon: "🧠",
+	},
+	{
+		step: "2",
+		title: "Ship a simple digital asset",
+		body: "Outline, draft, export. One price, one checkout link, automatic delivery.",
+		icon: "📄",
+	},
+	{
+		step: "3",
+		title: "Let sales run in the background",
+		body: "After setup, checkout and delivery tick along while you improve traffic in small passes.",
+		icon: "💤",
+	},
+];
+---
+
+<section
+	id="process-path"
+	class="relative border-b-2 border-black bg-[#FFFDF7] py-10 md:py-12"
+	aria-labelledby="process-path-heading"
+>
+	<div class="container-custom mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="text-center mb-8 md:mb-10">
+			<p class="text-sm font-black uppercase tracking-wider text-[#1B1B3D]/70 mb-2">From employee energy to sloth systems</p>
+			<h2 id="process-path-heading" class="text-2xl md:text-3xl font-black text-[#1B1B3D] max-w-3xl mx-auto leading-tight">
+				Three steps. No black box.
+			</h2>
+		</div>
+
+		<ol class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 max-w-5xl mx-auto list-none p-0 m-0">
+			{pathSteps.map((s, i) => (
+				<li class="relative">
+					{i < pathSteps.length - 1 && (
+						<div
+							class="hidden md:block absolute top-12 left-[calc(100%-0.5rem)] w-[calc(100%-2rem)] max-w-[4rem] h-0.5 bg-black z-0"
+							aria-hidden="true"
+						>
+							<span class="absolute -right-1 -top-1.5 text-lg leading-none">→</span>
+						</div>
+					)}
+					<div class="relative z-10 h-full rounded-2xl border-2 border-black bg-white p-5 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">
+						<div class="flex items-start gap-3">
+							<span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#FFD600] font-black text-[#1B1B3D]">
+								{s.step}
+							</span>
+							<div class="min-w-0">
+								<span class="text-2xl" aria-hidden="true">{s.icon}</span>
+								<h3 class="mt-1 font-bold text-lg text-[#1B1B3D] leading-snug">{s.title}</h3>
+								<p class="mt-2 text-sm text-gray-700 leading-relaxed">{s.body}</p>
+							</div>
+						</div>
+					</div>
+				</li>
+			))}
+		</ol>
+
+		<p class="text-center text-sm text-gray-600 max-w-2xl mx-auto mt-8">
+			Real work up front: usually weeks, not one evening. Then the nest holds while you rest smarter.
+		</p>
+	</div>
+</section>

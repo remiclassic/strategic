@@ -13,7 +13,7 @@ const bookDetails = {
     insidePdf: [
         {
             title: "Find a winning topic",
-            detail: "The PUAPS filter, 20 idea prompts, and strong vs weak niches—so you pick one problem you can solve in a focused PDF, not a vague \"someday\" book.",
+            detail: "A simple filter to stress-test ideas, 20 prompts to spark topics, and how to spot strong vs weak niches, so you pick one problem you can solve in a focused PDF, not a vague \"someday\" book.",
         },
         {
             title: "Create the PDF",
@@ -21,11 +21,11 @@ const bookDetails = {
         },
         {
             title: "Sell it with a simple funnel",
-            detail: "Sales page skeleton, checkout, order bump, thank-you page, and follow-up emails—plus where to build it (e.g. Gumroad, Podia, ThriveCart) and smooth delivery.",
+            detail: "Sales page skeleton, checkout, order bump, thank-you page, and follow-up emails, plus where to build it (e.g. Gumroad, Podia, ThriveCart) and smooth delivery.",
         },
         {
             title: "Get traffic and first sales",
-            detail: "Organic and paid paths without becoming a content machine—then a 30-day optimization rhythm so you are improving numbers, not guessing.",
+            detail: "Organic and paid paths without becoming a content machine, then a 30-day optimization rhythm so you are improving numbers, not guessing.",
         },
     ],
     features: [
@@ -103,7 +103,7 @@ const bookDetails = {
                             <span aria-hidden="true">📄</span> Inside the PDF
                         </p>
                         <p class="text-white/90 text-sm sm:text-base mb-4 font-medium">
-                            Here is the core execution path from the guide—not just vibes. You also get deeper chapters on mindset, upsells, premium offers, keeping more of what you earn, and scaling without burning out.
+                            Here is the core execution path from the guide, not just vibes. You also get deeper chapters on mindset, upsells, premium offers, keeping more of what you earn, and scaling without burning out.
                         </p>
                         <ol class="space-y-4 list-none m-0 p-0">
                             {bookDetails.insidePdf.map((item, i) => (
@@ -146,7 +146,17 @@ const bookDetails = {
 
                     <!-- Rating Stars with Enhanced Styling -->
                     <div class="flex items-center gap-3 transform -rotate-1 animate-badge-pulse justify-center sm:justify-start">
-                        <div class="flex text-yellow-300 text-2xl sm:text-3xl">★★★★½</div>
+                        <div
+                            class="rating-stars flex items-center gap-0.5 text-yellow-300 text-2xl sm:text-3xl leading-none select-none"
+                            role="img"
+                            aria-label={`Rated ${bookDetails.rating.replace("/", " out of ")} stars`}
+                        >
+                            <span aria-hidden="true">★</span>
+                            <span aria-hidden="true">★</span>
+                            <span aria-hidden="true">★</span>
+                            <span aria-hidden="true">★</span>
+                            <span class="inline-block w-[0.52em] overflow-hidden shrink-0 leading-none" aria-hidden="true">★</span>
+                        </div>
                         <div class="rating-bubble bg-white/20 px-3 py-1 sm:px-4 sm:py-2 text-lg sm:text-xl font-bold text-white">
                             {bookDetails.rating}
                         </div>

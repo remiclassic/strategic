@@ -1,3 +1,17 @@
+---
+const notItems = [
+	{ label: "Dropshipping", sub: "No inventory. No supply chain. Not that game.", icon: "📦", rotate: "rotate-[1.5deg]" },
+	{ label: "Affiliate spam", sub: "No shady links. No fake reviews. No one gets tricked.", icon: "🔗", rotate: "-rotate-[1deg]" },
+	{ label: "Overnight money", sub: "No lottery tickets. Real systems built at your pace.", icon: "🎰", rotate: "rotate-[0.5deg]" },
+] as const;
+
+const faqItems = [
+	{ q: '"Is this just another PDF scam?"', a: 'Nope. You get real, structured guides, not a blank "ebook" with a pretty cover. If it is not what you expected, you have 30 days to get your money back.' },
+	{ q: '"Will this actually work for me?"', a: 'It works if you use it. These are systems and steps, not a lottery ticket. Your pace, your niche, your follow-through.' },
+	{ q: '"What if I fail?"', a: 'Most people do not "fail." They never start. The whole point here is small, lazy-friendly steps, not a high-stakes gamble.' },
+] as const;
+---
+
 <section
 	id="what-this-is-not"
 	class="relative w-full bg-[#EEF6FF] py-20 overflow-hidden border-y-4 border-black"
@@ -9,8 +23,8 @@
 	</div>
 
 	<div class="container-custom relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="max-w-3xl mx-auto">
-			<div class="text-center mb-10">
+		<div class="max-w-4xl mx-auto">
+			<div class="text-center mb-12">
 				<div class="inline-block bg-white p-3 rounded-xl border-2 border-black transform rotate-1 mb-4 shadow-[4px_4px_0_0_#000]">
 					<span class="text-2xl" aria-hidden="true">🧠</span>
 				</div>
@@ -22,48 +36,83 @@
 				</p>
 			</div>
 
-			<div class="space-y-4 mb-10">
-				<div class="bg-white/95 p-5 md:p-6 rounded-2xl border-2 border-black shadow-[4px_4px_0_0_#000]">
-					<p class="font-black text-[#1B1B3D] text-lg mb-2">“Is this just another PDF scam?”</p>
-					<p class="text-[#1B1B3D]/90 font-medium leading-relaxed">
-						Nope. You get real, structured guides, not a blank “ebook” with a pretty cover. If it is not what you expected, you have 30 days to get your money back.
-					</p>
-				</div>
-				<div class="bg-white/95 p-5 md:p-6 rounded-2xl border-2 border-black shadow-[4px_4px_0_0_#000]">
-					<p class="font-black text-[#1B1B3D] text-lg mb-2">“Will this actually work for me?”</p>
-					<p class="text-[#1B1B3D]/90 font-medium leading-relaxed">
-						It works if you use it. These are systems and steps, not a lottery ticket. Your pace, your niche, your follow-through.
-					</p>
-				</div>
-				<div class="bg-white/95 p-5 md:p-6 rounded-2xl border-2 border-black shadow-[4px_4px_0_0_#000]">
-					<p class="font-black text-[#1B1B3D] text-lg mb-2">“What if I fail?”</p>
-					<p class="text-[#1B1B3D]/90 font-medium leading-relaxed">
-						Most people do not “fail.” They never start. The whole point here is small, lazy-friendly steps, not a high-stakes gamble.
-					</p>
-				</div>
+			<!-- FAQ Cards -->
+			<div class="space-y-4 mb-14 max-w-3xl mx-auto">
+				{faqItems.map((item) => (
+					<div class="bg-white/95 p-5 md:p-6 rounded-2xl border-2 border-black shadow-[4px_4px_0_0_#000]">
+						<p class="font-black text-[#1B1B3D] text-lg mb-2">{item.q}</p>
+						<p class="text-[#1B1B3D]/90 font-medium leading-relaxed">{item.a}</p>
+					</div>
+				))}
 			</div>
 
-			<div
-				class="bg-[#FFD600] p-6 md:p-8 rounded-2xl border-2 border-black shadow-[4px_4px_0_0_#000] transform -rotate-[0.5deg]"
-			>
-				<p class="font-black text-[#1B1B3D] text-center text-lg md:text-xl mb-4">
-					Strategic Sloth is not:
+			<!-- "Not about this" visual cards -->
+			<div class="not-card-wrap relative bg-[#FFD600] rounded-2xl border-3 border-black shadow-[6px_6px_0_0_#000] p-6 md:p-10 overflow-hidden">
+				<!-- Decorative corner badge -->
+				<div class="absolute -top-3 -right-3 z-20 bg-[#2C2D5D] text-white w-14 h-14 rounded-full border-3 border-black flex items-center justify-center shadow-[3px_3px_0_0_#000]">
+					<span class="text-2xl" aria-hidden="true">🚫</span>
+				</div>
+
+				<!-- Subtle background circles -->
+				<div class="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">
+					<div class="absolute -top-4 -left-4 w-28 h-28 bg-black/[0.04] rounded-full"></div>
+					<div class="absolute -bottom-6 -right-6 w-36 h-36 bg-black/[0.04] rounded-full"></div>
+					<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-black/[0.02] rounded-full"></div>
+				</div>
+
+				<p class="relative z-10 text-center font-black text-[#1B1B3D] text-xl md:text-2xl mb-8" style="font-family:'Bangers',cursive; letter-spacing:0.04em;">
+					Strategic Sloth is <span class="not-underline">not</span> about any of this
 				</p>
-				<ul class="space-y-3 text-[#1B1B3D] font-bold text-lg md:text-xl">
-					<li class="flex items-start gap-3">
-						<span class="shrink-0" aria-hidden="true">🚫</span>
-						<span>Not dropshipping</span>
-					</li>
-					<li class="flex items-start gap-3">
-						<span class="shrink-0" aria-hidden="true">🚫</span>
-						<span>Not affiliate spam</span>
-					</li>
-					<li class="flex items-start gap-3">
-						<span class="shrink-0" aria-hidden="true">🚫</span>
-						<span>Not overnight money</span>
-					</li>
-				</ul>
+
+				<div class="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-5">
+					{notItems.map((item) => (
+						<div class={`not-card group bg-white rounded-xl border-2 border-black shadow-[4px_4px_0_0_#000] p-5 md:p-6 text-center transform ${item.rotate} relative overflow-hidden`}>
+							<!-- Diagonal red strikethrough -->
+							<div class="not-stripe absolute inset-0 pointer-events-none z-10" aria-hidden="true">
+								<svg class="w-full h-full" viewBox="0 0 200 200" preserveAspectRatio="none">
+									<line x1="15" y1="185" x2="185" y2="15" stroke="#E53E3E" stroke-width="3" stroke-linecap="round" opacity="0.5" />
+								</svg>
+							</div>
+							<div class="text-3xl md:text-4xl mb-3" aria-hidden="true">{item.icon}</div>
+							<p class="font-black text-[#1B1B3D] text-lg md:text-xl mb-1.5">{item.label}</p>
+							<p class="text-[#1B1B3D]/70 text-sm md:text-base font-medium leading-snug">{item.sub}</p>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
+<style>
+	.not-underline {
+		position: relative;
+		display: inline-block;
+	}
+	.not-underline::after {
+		content: '';
+		position: absolute;
+		left: -4px;
+		right: -4px;
+		bottom: 0;
+		height: 4px;
+		background: #E53E3E;
+		border-radius: 2px;
+		transform: rotate(-1deg);
+	}
+
+	.not-card {
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+	}
+	.not-card:hover {
+		transform: rotate(0deg) translateY(-4px) !important;
+		box-shadow: 6px 6px 0 0 #000;
+	}
+
+	.not-stripe svg line {
+		transition: opacity 0.3s ease;
+	}
+	.not-card:hover .not-stripe svg line {
+		opacity: 0.8;
+	}
+</style>

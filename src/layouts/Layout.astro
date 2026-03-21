@@ -81,44 +81,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	</head>
 	<body class="min-h-screen bg-white overflow-x-hidden">
 		<Navbar />
-		<!-- Start Here Banner -->
-		<div id="start-here-banner" class="fixed top-16 left-0 right-0 z-40 bg-[#E3F2FF] border-b-2 border-black transform transition-transform duration-300">
-			<div class="container mx-auto px-4 py-2.5 sm:py-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-				<div class="flex items-start gap-3 min-w-0 flex-1">
-					<span class="text-xl shrink-0 leading-none mt-0.5" aria-hidden="true">💡</span>
-					<p class="text-sm md:text-base font-medium min-w-0 leading-snug">New here? Learn how to turn your ideas into digital products that can run in the background while you nap.</p>
-				</div>
-				<div class="flex items-center justify-between gap-3 shrink-0 sm:justify-end sm:gap-4">
-					<a
-						href="/#book-offer"
-						class="flex items-center gap-2 text-sm font-bold text-[#1B1B3D] hover:text-[#4D9FFF] active:text-[#4D9FFF] transition-colors min-h-[44px] sm:min-h-0"
-					>
-						Start with the $5 guide
-						<span class="text-lg" aria-hidden="true">👉</span>
-					</a>
-					<button
-						type="button"
-						id="close-banner"
-						class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-gray-600 hover:bg-black/5 hover:text-black active:bg-black/10 transition-colors touch-manipulation"
-						aria-label="Close banner"
-					>
-						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-						</svg>
-					</button>
-				</div>
-			</div>
-		</div>
-		<script is:inline>
-			(function () {
-				try {
-					if (localStorage.getItem('bannerClosed') === 'true') {
-						var el = document.getElementById('start-here-banner');
-						if (el) el.style.transform = 'translateY(-100%)';
-					}
-				} catch (_) {}
-			})();
-		</script>
 		<main class="w-full min-h-screen max-w-[100vw]">
 			<slot />
 		</main>
@@ -134,68 +96,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 			document.querySelectorAll('section').forEach(section => {
 				initSectionAnimations(section);
 			});
-
-			// Banner visibility: hide on scroll-down (past threshold), show on scroll-up or at top; close persists via localStorage.
-			const banner = document.getElementById('start-here-banner');
-			const closeBanner = document.getElementById('close-banner');
-			const BANNER_SCROLL_HIDE_AFTER = 100;
-			let lastScroll = window.scrollY;
-			let bannerTicking = false;
-
-			function isBannerDismissed() {
-				return localStorage.getItem('bannerClosed') === 'true';
-			}
-
-			function applyBannerScrollState() {
-				if (!banner || isBannerDismissed()) return;
-				const currentScroll = window.scrollY;
-				if (currentScroll <= 0) {
-					banner.style.transform = 'translateY(0)';
-				} else if (
-					currentScroll > lastScroll &&
-					currentScroll > BANNER_SCROLL_HIDE_AFTER
-				) {
-					banner.style.transform = 'translateY(-100%)';
-				} else if (currentScroll < lastScroll) {
-					banner.style.transform = 'translateY(0)';
-				}
-				lastScroll = currentScroll;
-			}
-
-			if (closeBanner && banner) {
-				closeBanner.addEventListener('click', () => {
-					banner.style.transform = 'translateY(-100%)';
-					localStorage.setItem('bannerClosed', 'true');
-				});
-
-				if (isBannerDismissed()) {
-					banner.style.transform = 'translateY(-100%)';
-				} else {
-					applyBannerScrollState();
-				}
-
-				window.addEventListener(
-					'scroll',
-					() => {
-						if (bannerTicking) return;
-						bannerTicking = true;
-						requestAnimationFrame(() => {
-							if (isBannerDismissed()) {
-								bannerTicking = false;
-								return;
-							}
-							applyBannerScrollState();
-							bannerTicking = false;
-						});
-					},
-					{ passive: true },
-				);
-
-				window.addEventListener('resize', () => {
-					lastScroll = window.scrollY;
-					if (!isBannerDismissed()) applyBannerScrollState();
-				});
-			}
 		</script>
 	</body>
 </html>

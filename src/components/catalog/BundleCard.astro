@@ -81,15 +81,20 @@ const isFullFreedom = bundle.id === 'full-freedom';
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
+  /* Inner radius = card radius minus border so art meets the black curve with no white wedges */
   .bundle-card__cover {
     width: 100%;
     aspect-ratio: 16 / 9;
     background: linear-gradient(145deg, #f8f8fc 0%, #ececf5 100%);
     border-bottom: 2px solid #000;
     flex-shrink: 0;
-    margin-top: 0.75rem;
+    margin-top: 0;
     border-radius: 10px 10px 0 0;
     overflow: hidden;
+  }
+
+  .bundle-card--highlighted .bundle-card__cover {
+    border-radius: 9px 9px 0 0;
   }
 
   .bundle-card__cover-img {
@@ -97,6 +102,7 @@ const isFullFreedom = bundle.id === 'full-freedom';
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: inherit;
   }
 
   .bundle-card:hover {
@@ -122,6 +128,7 @@ const isFullFreedom = bundle.id === 'full-freedom';
     position: absolute;
     top: -14px;
     left: 50%;
+    z-index: 2;
     transform: translateX(-50%);
     white-space: nowrap;
     font-family: 'Inter', sans-serif;

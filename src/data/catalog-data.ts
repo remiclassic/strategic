@@ -17,6 +17,8 @@ export type Book = {
   category: string;
   bundleIds: string[];
   checkoutUrl: string;
+  /** Card header art under `/public` */
+  coverImage: string;
   /** Blog post slug when a companion article links to this guide on /books */
   blogSlug?: string;
 };
@@ -33,6 +35,7 @@ export type Bundle = {
   cta: string;
   highlighted: boolean;
   checkoutUrl: string;
+  coverImage: string;
 };
 
 export const categories: Category[] = [
@@ -60,6 +63,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/first-100.png",
     blogSlug: "your-first-100-online",
   },
   {
@@ -78,6 +82,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/zero-to-1k.png",
     blogSlug: "zero-to-1k-per-month",
   },
   {
@@ -96,6 +101,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/pricing.png",
     blogSlug: "pricing-your-digital-products",
   },
   {
@@ -114,6 +120,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/not-making-money.png",
     blogSlug: "why-youre-not-making-money-online-yet",
   },
   // Build
@@ -133,6 +140,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/idea-to-pdf.png",
     blogSlug: "idea-to-pdf-in-24-hours",
   },
   {
@@ -151,6 +159,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/no-coding.png",
     blogSlug: "build-digital-products-without-coding",
   },
   {
@@ -169,6 +178,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/landing-pages.png",
     blogSlug: "simple-landing-pages-that-convert",
   },
   {
@@ -187,6 +197,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/offer-sells-itself.png",
     blogSlug: "the-offer-that-sells-itself",
   },
   // Sell
@@ -206,6 +217,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/sell-no-audience.png",
     blogSlug: "sell-without-an-audience",
   },
   {
@@ -224,6 +236,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/one-page-funnel.png",
     blogSlug: "the-one-page-sales-funnel",
   },
   {
@@ -242,6 +255,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/email-list.png",
     blogSlug: "email-list-for-creators",
   },
   {
@@ -260,6 +274,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/content-converts.png",
     blogSlug: "content-that-actually-converts",
   },
   // Mindset
@@ -279,6 +294,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/anti-hustle.png",
     blogSlug: "the-anti-hustle-playbook",
   },
   {
@@ -297,6 +313,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/stop-overthinking.png",
     blogSlug: "stop-overthinking-start-shipping",
   },
   {
@@ -315,6 +332,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
+    coverImage: "/images/catalog/focus-sloth.png",
     blogSlug: "focus-like-a-sloth",
   },
 ];
@@ -332,6 +350,7 @@ export const bundles: Bundle[] = [
     cta: "Get Starter System",
     highlighted: false,
     checkoutUrl: "#",
+    coverImage: "/images/catalog/bundle-starter.png",
   },
   {
     id: "builder",
@@ -345,6 +364,7 @@ export const bundles: Bundle[] = [
     cta: "Get Builder System",
     highlighted: true,
     checkoutUrl: "#",
+    coverImage: "/images/catalog/bundle-builder.png",
   },
   {
     id: "full-freedom",
@@ -363,6 +383,7 @@ export const bundles: Bundle[] = [
     cta: "Get Full System",
     highlighted: false,
     checkoutUrl: "#",
+    coverImage: "/images/catalog/bundle-full-freedom.png",
   },
 ];
 

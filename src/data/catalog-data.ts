@@ -63,7 +63,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/first-100.png",
+    coverImage: "/images/catalog/first-100.webp",
     blogSlug: "your-first-100-online",
   },
   {
@@ -82,7 +82,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/zero-to-1k.png",
+    coverImage: "/images/catalog/zero-to-1k.webp",
     blogSlug: "zero-to-1k-per-month",
   },
   {
@@ -101,7 +101,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/pricing.png",
+    coverImage: "/images/catalog/pricing.webp",
     blogSlug: "pricing-your-digital-products",
   },
   {
@@ -120,7 +120,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/not-making-money.png",
+    coverImage: "/images/catalog/not-making-money.webp",
     blogSlug: "why-youre-not-making-money-online-yet",
   },
   // Build
@@ -140,7 +140,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/idea-to-pdf.png",
+    coverImage: "/images/catalog/idea-to-pdf.webp",
     blogSlug: "idea-to-pdf-in-24-hours",
   },
   {
@@ -159,7 +159,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/no-coding.png",
+    coverImage: "/images/catalog/no-coding.webp",
     blogSlug: "build-digital-products-without-coding",
   },
   {
@@ -178,7 +178,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/landing-pages.png",
+    coverImage: "/images/catalog/landing-pages.webp",
     blogSlug: "simple-landing-pages-that-convert",
   },
   {
@@ -197,7 +197,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/offer-sells-itself.png",
+    coverImage: "/images/catalog/offer-sells-itself.webp",
     blogSlug: "the-offer-that-sells-itself",
   },
   // Sell
@@ -217,7 +217,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/sell-no-audience.png",
+    coverImage: "/images/catalog/sell-no-audience.webp",
     blogSlug: "sell-without-an-audience",
   },
   {
@@ -236,7 +236,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/one-page-funnel.png",
+    coverImage: "/images/catalog/one-page-funnel.webp",
     blogSlug: "the-one-page-sales-funnel",
   },
   {
@@ -255,7 +255,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/email-list.png",
+    coverImage: "/images/catalog/email-list.webp",
     blogSlug: "email-list-for-creators",
   },
   {
@@ -274,7 +274,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/content-converts.png",
+    coverImage: "/images/catalog/content-converts.webp",
     blogSlug: "content-that-actually-converts",
   },
   // Mindset
@@ -294,7 +294,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/anti-hustle.png",
+    coverImage: "/images/catalog/anti-hustle.webp",
     blogSlug: "the-anti-hustle-playbook",
   },
   {
@@ -313,7 +313,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/stop-overthinking.png",
+    coverImage: "/images/catalog/stop-overthinking.webp",
     blogSlug: "stop-overthinking-start-shipping",
   },
   {
@@ -332,7 +332,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl: "#",
-    coverImage: "/images/catalog/focus-sloth.png",
+    coverImage: "/images/catalog/focus-sloth.webp",
     blogSlug: "focus-like-a-sloth",
   },
 ];
@@ -350,7 +350,7 @@ export const bundles: Bundle[] = [
     cta: "Get Starter System",
     highlighted: false,
     checkoutUrl: "#",
-    coverImage: "/images/catalog/bundle-starter.png",
+    coverImage: "/images/catalog/bundle-starter.webp",
   },
   {
     id: "builder",
@@ -364,7 +364,7 @@ export const bundles: Bundle[] = [
     cta: "Get Builder System",
     highlighted: true,
     checkoutUrl: "#",
-    coverImage: "/images/catalog/bundle-builder.png",
+    coverImage: "/images/catalog/bundle-builder.webp",
   },
   {
     id: "full-freedom",
@@ -383,7 +383,7 @@ export const bundles: Bundle[] = [
     cta: "Get Full System",
     highlighted: false,
     checkoutUrl: "#",
-    coverImage: "/images/catalog/bundle-full-freedom.png",
+    coverImage: "/images/catalog/bundle-full-freedom.webp",
   },
 ];
 

@@ -10,9 +10,15 @@ import '../styles/animations.css';
 interface Props {
 	title: string;
 	description?: string;
+	/** Bottom sticky “Get started / $5 guide” bar — homepage only */
+	showStickyCta?: boolean;
 }
 
-const { title, description = "Strategic Sloth - Your guide to lazy wealth building" } = Astro.props;
+const {
+	title,
+	description = "Strategic Sloth - Your guide to lazy wealth building",
+	showStickyCta = false,
+} = Astro.props;
 
 const gaId = import.meta.env.PUBLIC_GA_ID;
 const fbPixelId = import.meta.env.PUBLIC_FB_PIXEL_ID;
@@ -87,7 +93,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<ParallaxFooter />
 		<PurchaseNotification />
 		<LegalModals />
-		<MinimalCTA />
+		{showStickyCta && <MinimalCTA />}
 		<BackToTop />
 
 		<script>

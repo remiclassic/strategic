@@ -1,4 +1,6 @@
 ---
+import { starterGuidePricing, starterGuideDiscountPercent } from '../data/starter-guide-offer';
+
 const bookDetails = {
     title: "Don't Do Anything",
     subtitle: "The Art of Building Income That Runs Without You",
@@ -6,9 +8,9 @@ const bookDetails = {
     description: "A short, practical digital guide (PDF) from 18 years building products across games, mobile, and software, including work used by millions. It shows you how to stop trading every hour for money and start building a simple income system the lazy way.",
     tagline: "Lazy Genius. Set up once, improve over time, nap more.",
     rating: "4.5/5",
-    currentPrice: 5,
-    regularPrice: 15,
-    discount: 67,
+    currentPrice: starterGuidePricing.currentPrice,
+    regularPrice: starterGuidePricing.regularPrice,
+    discount: starterGuideDiscountPercent(),
     /** Aligned with Strategic Sloth books/1-Starter-17/dont-do-anything.html (Ch.5–8 + Ch.14 plan). */
     insidePdf: [
         {

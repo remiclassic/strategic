@@ -1,195 +1,214 @@
 ---
-// ExitIntentPopup.astro
+// ExitIntentPopup.astro — compact centered modal; fits common mobile viewports without scroll
 const specialOffer = {
-    title: "👋 Leaving already? 😴",
-    description: "You do not need to commit to everything right now. Start small, see how it feels, and if it is not for you? Refund it. No questions, no pressure.",
-    kitTitle: "🦥 Get the Lazy Genius Starter Kit",
-    kitDescription: "A $5 starter guide for building your first lazy income system.",
-    subtext: "You have 30 days. That is plenty of time for a test nap.",
-    cta: "GRAB THE $5 GUIDE",
-    ctaSubtext: "Instant access. Zero risk. Just naps.",
-    ctaLink: "https://strategicsloth.lemonsqueezy.com/checkout/buy/54b3ee41-9cd1-42e3-9eea-1ea416e3f738?embed=1",
-    noThanks: "No thanks, I'm too energetic for this. (That's fair.)"
+	title: "Leaving already? 😴",
+	intro: "$5 guide first. Not for you? Full refund.",
+	kitTitle: "🦥 Lazy Genius Starter Kit",
+	kitBlurb: "$5 PDF: lazy-income roadmap. 30 days to try.",
+	cta: "GRAB THE $5 GUIDE",
+	ctaSubtext: "Instant access · 30-day guarantee",
+	ctaLink: "https://strategicsloth.lemonsqueezy.com/checkout/buy/54b3ee41-9cd1-42e3-9eea-1ea416e3f738?embed=1",
+	noThanks: "No thanks",
 };
 ---
 
 <div
-    id="exit-popup"
-    class="exit-popup-root fixed inset-0 z-50 hidden overflow-x-hidden overflow-y-auto overscroll-contain bg-black/30"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Special offer"
+	id="exit-popup"
+	class="exit-popup-root fixed inset-0 z-50 hidden overflow-hidden overscroll-contain bg-black/45"
+	role="dialog"
+	aria-modal="true"
+	aria-label="Special offer"
 >
-    <!-- Flex shell: scrolls when tall; avoids translate centering + horizontal overflow on small viewports -->
-    <div
-        class="exit-popup-shell min-h-[100dvh] flex items-center justify-center px-3 py-4 sm:px-6 sm:py-8 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))]"
-    >
-        <div class="w-full max-w-[600px] min-w-0 shrink-0">
-            <div
-                data-exit-popup-card
-                class="bg-[#FFF8E7] rounded-2xl sm:rounded-[32px] px-4 pt-5 pb-6 sm:p-8 relative border-[3px] border-black shadow-[2px_2px_0_0_#000] sm:shadow-[4px_4px_0_0_#000] box-border"
-            >
-            <!-- Close button -->
-            <button 
-                id="close-popup"
-                type="button"
-                class="absolute top-3 right-3 sm:top-5 sm:right-5 z-10 h-11 w-11 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-2xl leading-none text-black hover:bg-black/5 active:bg-black/10 transition-colors touch-manipulation"
-                aria-label="Close offer"
-            >
-                ×
-            </button>
+	<div
+		class="exit-popup-shell min-h-[100dvh] w-full flex items-center justify-center px-3 py-3 sm:px-6 sm:py-8 box-border pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+	>
+		<div
+			class="w-full max-w-[min(100%,520px)] sm:max-w-[600px] min-w-0 shrink max-h-[min(600px,calc(100dvh-1.5rem-env(safe-area-inset-top)-env(safe-area-inset-bottom)))] sm:max-h-[min(92dvh,900px)] flex flex-col"
+		>
+			<div
+				data-exit-popup-card
+				class="relative flex max-h-full flex-col overflow-hidden rounded-2xl border-[3px] border-black bg-[#FFF8E7] shadow-[3px_3px_0_0_#000] sm:rounded-[32px] sm:shadow-[4px_4px_0_0_#000] box-border"
+			>
+				<button
+					id="close-popup"
+					type="button"
+					class="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 flex h-11 w-11 items-center justify-center rounded-lg text-2xl leading-none text-black/70 hover:bg-black/5 active:bg-black/10 touch-manipulation"
+					aria-label="Close offer"
+				>
+					×
+				</button>
 
-            <!-- Mobile: title → book+kit (product first) → description; sm+: unchanged reading order -->
-            <div class="flex flex-col">
-            <h2 class="text-[22px] sm:text-[32px] font-bold mb-3 leading-tight pr-12 text-balance max-sm:order-1 sm:order-none">{specialOffer.title}</h2>
+				<div
+					class="flex min-h-0 flex-1 flex-col items-center gap-3 overflow-hidden px-3.5 pt-11 pb-2 text-center sm:gap-4 sm:px-8 sm:pt-14 sm:pb-4"
+				>
+					<header class="w-full min-w-0 space-y-1.5 px-10 sm:space-y-2 sm:px-12">
+						<h2
+							class="text-lg sm:text-[32px] font-bold leading-tight text-balance text-[#1B1B3D]"
+						>
+							{specialOffer.title}
+						</h2>
+						<p
+							class="mx-auto max-w-sm text-xs leading-snug text-pretty text-[#1B1B3D]/90 sm:max-w-md sm:text-lg"
+						>
+							{specialOffer.intro}
+						</p>
+					</header>
 
-            <!-- Description -->
-            <p class="text-base sm:text-[20px] mb-6 leading-snug text-pretty max-sm:order-3 sm:order-none max-sm:pt-1 max-sm:text-[15px] max-sm:leading-relaxed">{specialOffer.description}</p>
+					<div class="flex w-full min-h-0 flex-col items-center gap-2.5 sm:gap-4">
+						<div class="mx-auto w-[9.25rem] shrink-0 sm:w-56">
+							<img
+								src="/images/bookpdf.webp"
+								alt="Don't Do Anything - Strategic Sloth Starter Guide"
+								width="1024"
+								height="1536"
+								loading="lazy"
+								decoding="async"
+								class="mx-auto w-full h-auto rounded-md border-2 border-black bg-white shadow-[3px_4px_0_0_#000] sm:rounded-lg sm:shadow-[4px_6px_0_0_#000]"
+							/>
+						</div>
 
-            <!-- Book and Info Section -->
-            <div class="flex flex-col sm:flex-row gap-5 sm:gap-6 mb-6 min-w-0 max-sm:order-2 sm:order-none max-sm:mb-5 sm:mb-6">
-                <!-- Book Cover -->
-                <div class="w-[min(240px,62vw)] sm:w-[200px] max-w-[280px] sm:max-w-none mx-auto sm:mx-0 flex-shrink-0 max-sm:pt-1">
-                    <img 
-                        src="/images/bookpdf.webp" 
-                        alt="Don't Do Anything - Strategic Sloth Starter Guide" 
-                        width="1024"
-                        height="1536"
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-auto rounded-sm max-sm:shadow-[4px_6px_0_0_#000] max-sm:border-[2px] max-sm:border-black max-sm:bg-white max-sm:ring-1 max-sm:ring-black/10"
-                    />
-                </div>
+						<div class="w-full min-w-0 space-y-1 px-1 sm:space-y-1.5">
+							<h3
+								class="text-sm font-bold leading-tight text-balance text-[#1B1B3D] sm:text-2xl"
+							>
+								{specialOffer.kitTitle}
+							</h3>
+							<p
+								class="mx-auto max-w-sm text-[11px] leading-snug text-pretty text-[#1B1B3D]/88 sm:max-w-md sm:text-xl"
+							>
+								{specialOffer.kitBlurb}
+							</p>
+						</div>
+					</div>
+				</div>
 
-                <!-- Kit Info -->
-                <div class="flex-1 min-w-0 text-center sm:text-left max-sm:px-0.5">
-                    <h3 class="text-lg sm:text-2xl font-bold mb-2 max-sm:mt-1">{specialOffer.kitTitle}</h3>
-                    <p class="text-[15px] sm:text-xl mb-3 leading-snug max-sm:max-w-[28rem] max-sm:mx-auto">{specialOffer.kitDescription}</p>
-                    <p class="text-[15px] sm:text-xl leading-snug max-sm:text-black/85 max-sm:max-w-[28rem] max-sm:mx-auto">{specialOffer.subtext}</p>
-                </div>
-            </div>
-            </div>
+				<div
+					class="exit-popup-cta w-full shrink-0 space-y-1 border-t border-black/10 px-3.5 pt-2 pb-3 text-center sm:space-y-4 sm:border-t-0 sm:px-8 sm:pb-8 sm:pt-0"
+				>
+					<a
+						href={specialOffer.ctaLink}
+						id="cta-button"
+						class="lemonsqueezy-button flex min-h-[44px] w-full items-center justify-center rounded-xl border-[3px] border-black bg-[#FFD600] px-2 py-2.5 text-center text-sm font-bold leading-tight text-black transition-colors hover:bg-[#FFE44D] sm:min-h-[60px] sm:rounded-[16px] sm:py-5 sm:text-[26px]"
+					>
+						{specialOffer.cta}
+					</a>
+					<p
+						class="text-center text-[10px] font-medium text-[#1B1B3D]/70 sm:text-base"
+					>
+						{specialOffer.ctaSubtext}
+					</p>
 
-            <!-- CTA Section -->
-            <div class="exit-popup-cta space-y-4">
-                <a 
-                    href={specialOffer.ctaLink}
-                    id="cta-button"
-                    class="lemonsqueezy-button block w-full max-w-full bg-[#FFD600] text-black font-bold text-center py-3.5 sm:py-5 rounded-xl sm:rounded-[16px] border-[3px] border-black hover:bg-[#FFE44D] transition-colors text-lg sm:text-[26px] leading-tight min-h-[52px] sm:min-h-[60px] flex items-center justify-center px-3 box-border break-words hyphens-auto"
-                >
-                    {specialOffer.cta}
-                </a>
-                <p class="text-sm sm:text-base text-center px-1">{specialOffer.ctaSubtext}</p>
-                
-                <!-- No Thanks Link -->
-                <div class="text-center">
-                    <button
-                        type="button"
-                        id="no-thanks"
-                        class="text-sm sm:text-base text-gray-600 hover:text-gray-800 py-3 px-4 min-h-[44px] max-w-full text-balance"
-                    >
-                        {specialOffer.noThanks}
-                    </button>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
+					<div class="text-center">
+						<button
+							type="button"
+							id="no-thanks"
+							class="text-[11px] text-[#1B1B3D]/50 hover:text-[#1B1B3D]/75 py-2 px-2 min-h-[44px] sm:text-sm underline-offset-2 hover:underline"
+						>
+							{specialOffer.noThanks}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
-    let popupShown = false;
+	let popupShown = false;
 
-    function showPopup() {
-        if (!popupShown) {
-            const popup = document.getElementById('exit-popup');
-            if (popup) popup.classList.remove('hidden');
-            popupShown = true;
-        }
-    }
+	function showPopup() {
+		if (!popupShown) {
+			const popup = document.getElementById('exit-popup');
+			if (popup) popup.classList.remove('hidden');
+			popupShown = true;
+		}
+	}
 
-    function hidePopup() {
-        const popup = document.getElementById('exit-popup');
-        if (popup) popup.classList.add('hidden');
-    }
+	function hidePopup() {
+		const popup = document.getElementById('exit-popup');
+		if (popup) popup.classList.add('hidden');
+	}
 
-    document.addEventListener('mouseleave', (e) => {
-        if (e.clientY <= 0 && !popupShown) {
-            showPopup();
-        }
-    });
+	document.addEventListener('mouseleave', (e) => {
+		if (e.clientY <= 0 && !popupShown) {
+			showPopup();
+		}
+	});
 
-    /** Mobile / touch: fast scroll-up (often “back to URL bar”) suggests exit intent */
-    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    let lastScrollY = window.scrollY;
-    window.addEventListener(
-        'scroll',
-        () => {
-            if (!coarsePointer || popupShown) {
-                lastScrollY = window.scrollY;
-                return;
-            }
-            const y = window.scrollY;
-            if (lastScrollY - y > 100 && y > 520) {
-                showPopup();
-            }
-            lastScrollY = y;
-        },
-        { passive: true },
-    );
+	/** Mobile / touch: fast scroll-up (often “back to URL bar”) suggests exit intent */
+	const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+	let lastScrollY = window.scrollY;
+	window.addEventListener(
+		'scroll',
+		() => {
+			if (!coarsePointer || popupShown) {
+				lastScrollY = window.scrollY;
+				return;
+			}
+			const y = window.scrollY;
+			if (lastScrollY - y > 100 && y > 520) {
+				showPopup();
+			}
+			lastScrollY = y;
+		},
+		{ passive: true },
+	);
 
-    document.getElementById('close-popup')?.addEventListener('click', hidePopup);
+	document.getElementById('close-popup')?.addEventListener('click', hidePopup);
 
-    document.getElementById('exit-popup')?.addEventListener('click', (e) => {
-        const t = e.target;
-        if (!(t instanceof Element)) return;
-        if (!t.closest('[data-exit-popup-card]')) {
-            hidePopup();
-        }
-    });
+	document.getElementById('exit-popup')?.addEventListener('click', (e) => {
+		const t = e.target;
+		if (!(t instanceof Element)) return;
+		if (!t.closest('[data-exit-popup-card]')) {
+			hidePopup();
+		}
+	});
 
-    document.getElementById('no-thanks')?.addEventListener('click', hidePopup);
+	document.getElementById('no-thanks')?.addEventListener('click', hidePopup);
 
-    document.getElementById('cta-button')?.addEventListener('click', hidePopup);
+	document.getElementById('cta-button')?.addEventListener('click', hidePopup);
 </script>
 
 <style>
-    .comic-card {
-        transition: all 0.3s ease-out;
-        border: 3px solid black;
-        box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-    }
+	.comic-card {
+		transition: all 0.3s ease-out;
+		border: 3px solid black;
+		box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+	}
 
-    .comic-card:hover .comic-bubble {
-        transform: rotate(2deg) scale(1.05);
-    }
+	.comic-card:hover .comic-bubble {
+		transform: rotate(2deg) scale(1.05);
+	}
 
-    .comic-card:hover .comic-icon {
-        transform: rotate(-15deg) scale(1.1);
-    }
-    
-    @keyframes bounce-slow {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-    }
-    
-    .animate-bounce-slow {
-        animation: bounce-slow 3s ease-in-out infinite;
-    }
-    
-    @keyframes bounce-horizontal {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(5px); }
-    }
-    
-    .animate-bounce-horizontal {
-        animation: bounce-horizontal 1.5s ease-in-out infinite;
-    }
+	.comic-card:hover .comic-icon {
+		transform: rotate(-15deg) scale(1.1);
+	}
 
-    /* Touch targets without overriding CTA padding / full-width layout */
-    @media (max-width: 640px) {
-        .exit-popup-cta {
-            margin-top: 0.5rem;
-        }
-    }
-</style> 
+	@keyframes bounce-slow {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-5px);
+		}
+	}
+
+	.animate-bounce-slow {
+		animation: bounce-slow 3s ease-in-out infinite;
+	}
+
+	@keyframes bounce-horizontal {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		50% {
+			transform: translateX(5px);
+		}
+	}
+
+	.animate-bounce-horizontal {
+		animation: bounce-horizontal 1.5s ease-in-out infinite;
+	}
+</style>

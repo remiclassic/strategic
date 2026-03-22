@@ -12,3 +12,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 Strategic Sloth books/
+# PDF mirror from `npm run export-single-books-pdf` (large files — avoid committing if you use Git LFS or exclude locally)

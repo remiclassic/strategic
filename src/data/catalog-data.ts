@@ -349,7 +349,7 @@ export const bundles: Bundle[] = [
     badge: "Best place to start",
     cta: "Get Starter System",
     highlighted: false,
-    checkoutUrl: "#",
+    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/367aa0af-0dfd-4651-a61c-d8b6b7293a1f?embed=1",
     coverImage: "/images/catalog/bundle-starter.webp",
   },
   {

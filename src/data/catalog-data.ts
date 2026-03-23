@@ -63,7 +63,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/69765019-8a1a-464c-bc63-1a89e31c1302?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/a12fdf67-c30a-4fb0-9a16-ea2beae633c8?embed=1",
     coverImage: "/images/catalog/first-100.webp",
     blogSlug: "your-first-100-online",
   },
@@ -103,7 +103,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/13369933-cb62-42de-9391-1dfced9e5497?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/dddd09c9-4eb4-463e-bdb2-daf5ffd0139f?embed=1",
     coverImage: "/images/catalog/pricing.webp",
     blogSlug: "pricing-your-digital-products",
   },
@@ -123,7 +123,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["starter"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/910b8cac-bf35-466e-845b-7599d3a217bd?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/d7bb8d03-59a9-4aae-a1dc-03c9d6ca9eb6?embed=1",
     coverImage: "/images/catalog/not-making-money.webp",
     blogSlug: "why-youre-not-making-money-online-yet",
   },
@@ -144,7 +144,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/cba21642-32df-4a93-ac2d-cc30694c35a7?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/57ac803a-31a3-4a7b-b666-3154d9cf0914?embed=1",
     coverImage: "/images/catalog/idea-to-pdf.webp",
     blogSlug: "idea-to-pdf-in-24-hours",
   },
@@ -164,7 +164,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/1c25a107-ec72-4ccc-b011-baeb6a23c1a6?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/2d2694c3-92b6-4e3b-a06c-1d94b40de13e?embed=1",
     coverImage: "/images/catalog/no-coding.webp",
     blogSlug: "build-digital-products-without-coding",
   },
@@ -184,7 +184,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/0154a483-21a9-41c0-b291-c6e2e28e7719?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/c519b27a-18a0-4ad0-8a2d-a9fa9dda0c51?embed=1",
     coverImage: "/images/catalog/landing-pages.webp",
     blogSlug: "simple-landing-pages-that-convert",
   },
@@ -204,7 +204,7 @@ export const books: Book[] = [
     category: "build",
     bundleIds: ["builder"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/300c4eed-2523-40b7-ba64-e40c4643199c?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/893cbcb0-46a6-4068-943d-835862afa5bc?embed=1",
     coverImage: "/images/catalog/offer-sells-itself.webp",
     blogSlug: "the-offer-that-sells-itself",
   },
@@ -225,7 +225,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/cc1af827-5fe5-4488-9532-eff8f66a5e51?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/e6f6a449-b1cf-4084-8afc-d2e54c9f5631?embed=1",
     coverImage: "/images/catalog/sell-no-audience.webp",
     blogSlug: "sell-without-an-audience",
   },
@@ -245,7 +245,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/e2a99248-1a1b-41f9-ab1a-1a4196c136de?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/cdce397c-b20b-45e1-bdf9-7f881b21f397?embed=1",
     coverImage: "/images/catalog/one-page-funnel.webp",
     blogSlug: "the-one-page-sales-funnel",
   },
@@ -265,7 +265,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/1ebe1531-9dc7-4cb3-85aa-10197d111ba9?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/d038056b-c2d7-4058-af6b-44ea05a5bcd9?embed=1",
     coverImage: "/images/catalog/email-list.webp",
     blogSlug: "email-list-for-creators",
   },
@@ -285,7 +285,7 @@ export const books: Book[] = [
     category: "sell",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/e3fffd3e-e0e6-4dec-be89-fa57092f9c29?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/7c5cb5e4-19f5-4c9c-ad7d-26c3d3927e10?embed=1",
     coverImage: "/images/catalog/content-converts.webp",
     blogSlug: "content-that-actually-converts",
   },
@@ -306,7 +306,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/dc946bc7-c408-4ad7-872c-e5edb280bbdc?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/370c7e1f-107f-40cf-832f-ffddb6ed8dd6?embed=1",
     coverImage: "/images/catalog/anti-hustle.webp",
     blogSlug: "the-anti-hustle-playbook",
   },
@@ -326,7 +326,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/62ce79c1-dd33-475e-827a-dd196ee43f58?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/590af509-f26f-4e4b-aed1-760638d78313?embed=1",
     coverImage: "/images/catalog/stop-overthinking.webp",
     blogSlug: "stop-overthinking-start-shipping",
   },
@@ -346,7 +346,7 @@ export const books: Book[] = [
     category: "mindset",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/1ab93ff2-aa62-45fd-be07-f2442ed2bd75?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/65be9b9c-973e-49ea-bf26-87c4f61ed16d?embed=1",
     coverImage: "/images/catalog/focus-sloth.webp",
     blogSlug: "focus-like-a-sloth",
   },
@@ -378,7 +378,7 @@ export const bundles: Bundle[] = [
     badge: "Most popular",
     cta: "Get Builder System",
     highlighted: true,
-    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/e45b365a-3d26-4131-93d6-6ce189465279?embed=1",
+    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/b600de67-1151-4cd8-83af-2cfa1ae73968?embed=1",
     coverImage: "/images/catalog/bundle-builder.webp",
   },
   {
@@ -397,7 +397,7 @@ export const bundles: Bundle[] = [
     badge: "Best value",
     cta: "Unlock Full Library",
     highlighted: false,
-    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/9bf71b87-e00d-4a91-9df3-21ec7605350d?embed=1",
+    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/8b30bcb3-7242-4091-b155-bae2a222ae45?embed=1",
     coverImage: "/images/catalog/bundle-full-freedom.webp",
   },
 ];

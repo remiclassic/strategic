@@ -1,0 +1,889 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { starterGuideCheckoutUrl, starterGuidePricing } from '../data/starter-guide-offer';
+
+/** Exact CTA label site-wide on this page (pricing from data). */
+const ctaPrimaryLabel = `Start with the $${starterGuidePricing.currentPrice} Guide`;
+
+const title = 'Start Here | Strategic Sloth';
+const description =
+	'Turn what you know into your first simple digital product. $5 · practical · beginner-friendly. No audience or coding required. One calm place to start.';
+
+const checkIcon = '✓';
+
+const whoFor = [
+	'You want to stop trading all your time for money',
+	'You want to sell something simple online',
+	'You have knowledge, experience, or ideas you could package',
+	'You feel overwhelmed by business advice and want a simpler way',
+	'You want a calm system, not hustle culture',
+];
+
+const steps = [
+	{
+		n: '1',
+		icon: '💡',
+		title: 'Learn the simple model',
+		body: 'See how one small digital asset plus light systems can sell in the background after you set it up.',
+	},
+	{
+		n: '2',
+		icon: '📄',
+		title: 'Turn what you know into a small product',
+		body: 'Start with something tiny and real, often a PDF, not a perfect “brand” or a huge course.',
+	},
+	{
+		n: '3',
+		icon: '⚙️',
+		title: 'Set it up once, improve over time',
+		body: 'Wire checkout and delivery, then tweak in small passes. This is not instant money; it is a system you refine.',
+	},
+];
+
+const faq = [
+	{
+		q: 'Do I need a big audience?',
+		a: 'No. The guide focuses on paths that do not depend on being “internet famous.” A small offer and simple distribution are enough to begin.',
+	},
+	{
+		q: 'Do I need to know how to code?',
+		a: 'No. People build and sell PDFs with tools like Google Docs, Canva, and simple checkout platforms. No engineering degree required.',
+	},
+	{
+		q: 'What kind of digital product can I sell?',
+		a: 'Often a short PDF, template, or small kit works best to begin. Pick one problem you can solve in a focused download.',
+	},
+	{
+		q: 'Is this passive income instantly?',
+		a: 'No. There is real work up front: choose the idea, build the asset, connect checkout. After that, sales and delivery can run with less babysitting, and you keep improving.',
+	},
+	{
+		q: 'What should I start with if I feel overwhelmed?',
+		a: 'Start with the guide if you want the clearest path. Not ready to buy? Browse Creator Guides or try the free tools first. No pressure.',
+	},
+];
+---
+
+<Layout {title} {description}>
+	<div class="start-page-root">
+	<!-- Hero -->
+	<section
+		id="start-hero"
+		class="start-hero relative overflow-hidden bg-[#FFD600] pt-24 pb-12 sm:pt-28 sm:pb-16 md:pb-20"
+		aria-labelledby="start-hero-heading"
+	>
+		<div class="start-hero-pattern absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float" style="left: 5%; top: 38%;">🌴</span>
+			<span class="start-emoji-float start-emoji-float--b" style="right: 6%; top: 48%;">✨</span>
+			<span class="start-emoji-float start-emoji-float--c" style="left: 40%; top: 6%;">💤</span>
+			<span class="start-emoji-float start-emoji-float--d" style="right: 18%; bottom: 12%;">🦥</span>
+		</div>
+		<div class="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.09]" aria-hidden="true">
+			<svg class="start-hero-float start-hero-float--1 absolute left-[8%] top-[18%] h-10 w-10 sm:h-12 sm:w-12" viewBox="0 0 40 40" fill="none">
+				<path d="M8 12H32L12 28H32" stroke="#1B1B3D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+			<svg class="start-hero-float start-hero-float--2 absolute right-[12%] top-[28%] h-9 w-9" viewBox="0 0 40 40" fill="none">
+				<path d="M8 12H32L12 28H32" stroke="#1B1B3D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+			<svg class="start-hero-float start-hero-float--3 absolute bottom-[32%] left-[20%] h-8 w-8" viewBox="0 0 40 40" fill="none">
+				<path d="M8 12H32L12 28H32" stroke="#1B1B3D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+		</div>
+		<img
+			src="/images/slothloungehero.webp"
+			alt=""
+			width="200"
+			height="220"
+			decoding="async"
+			class="start-hero-mascot pointer-events-none absolute bottom-0 right-[-4%] hidden h-[min(28vw,7.5rem)] w-auto select-none opacity-[0.22] sm:block sm:right-0 sm:h-[min(22vw,8.5rem)] md:opacity-[0.28]"
+			aria-hidden="true"
+		/>
+		<div class="container-custom relative z-10 mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+			<h1
+				id="start-hero-heading"
+				class="start-hero-el mb-3 text-[#1B1B3D]"
+				style="font-family: 'Inter', system-ui, sans-serif; --start-d: 0ms;"
+			>
+				<span class="block text-[clamp(2.5rem,8vw,4rem)] font-black leading-[1.02] tracking-tight">Start Here</span>
+			</h1>
+			<p
+				class="start-hero-el mx-auto mb-3 text-lg font-extrabold leading-snug text-[#2a2a4a] sm:text-xl"
+				style="--start-d: 90ms;"
+			>
+				Turn what you know into your first simple digital product
+			</p>
+			<p
+				class="start-hero-el mx-auto mb-6 max-w-xl text-base font-medium leading-relaxed text-[#2a2a4a]/95 sm:text-lg"
+				style="--start-d: 130ms;"
+			>
+				If you feel stuck or overwhelmed, this is probably the simplest place to start.
+			</p>
+			<div class="start-hero-el mb-4 flex flex-wrap justify-center gap-2" style="--start-d: 175ms;">
+				<span class="start-pill">No audience</span>
+				<span class="start-pill">No coding</span>
+				<span class="start-pill">No complicated business</span>
+			</div>
+			<p class="start-hero-el mb-8 text-base font-semibold text-[#1B1B3D]/90" style="--start-d: 235ms;">
+				Start with one small product, like a PDF.
+			</p>
+			<p class="start-hero-el mb-3 text-sm font-bold text-[#1B1B3D]/80" style="--start-d: 275ms;">
+				{`$${starterGuidePricing.currentPrice} · simple, practical, beginner-friendly`}
+			</p>
+			<div
+				class="start-hero-el flex flex-col items-stretch justify-center gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3"
+				style="--start-d: 330ms;"
+			>
+				<a
+					href={starterGuideCheckoutUrl}
+					class="start-cta-primary start-cta-primary--hero lemonsqueezy-button text-center"
+				>
+					{ctaPrimaryLabel}
+				</a>
+				<a href="/#how-it-works" class="start-cta-secondary start-cta-secondary--sm text-center">See how it works</a>
+			</div>
+			<p class="start-hero-el mt-4 text-sm font-semibold text-[#1B1B3D]/75" style="--start-d: 390ms;">
+				Most people start here. It is the simplest path.
+			</p>
+			<div class="start-hero-el start-micro-pills mt-4 justify-center" style="--start-d: 410ms;">
+				<span class="start-micro-pill">Takes about 1–2 hours to go through</span>
+				<span class="start-micro-pill">No experience needed</span>
+				<span class="start-micro-pill">Start today, no setup required</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- Who this is for -->
+	<section class="relative overflow-hidden bg-[#FFF7E6] py-16 sm:py-20 md:py-24" aria-labelledby="start-who-heading">
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float start-emoji-float--b" style="left: 8%; top: 20%;">🌱</span>
+			<span class="start-emoji-float start-emoji-float--c" style="right: 10%; top: 35%;">💭</span>
+			<span class="start-emoji-float" style="right: 6%; bottom: 15%;">🤗</span>
+		</div>
+		<div class="container-custom relative z-[1] mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+			<h2
+				id="start-who-heading"
+				class="mb-8 text-center text-2xl font-black text-[#1B1B3D] sm:text-3xl md:text-4xl"
+				style="font-family: 'Bangers', cursive; letter-spacing: 0.03em;"
+				data-scroll-animation="fade-up"
+			>
+				Is this for you?
+			</h2>
+			<ul class="start-who-stagger space-y-4" data-scroll-animation="fade-up">
+				{
+					whoFor.map((line, i) => (
+						<li
+							class="start-check-item flex gap-3 rounded-2xl bg-white p-4 shadow-md shadow-[#1B1B3D]/[0.08] transition-shadow duration-200 ease-out hover:shadow-lg hover:shadow-[#1B1B3D]/[0.12]"
+							style={`--stagger: ${i}`}
+						>
+							<span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2ECC71] text-sm font-black text-white shadow-sm" aria-hidden="true">
+								{checkIcon}
+							</span>
+							<span class="font-semibold leading-snug text-[#1B1B3D]">{line}</span>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Start simple: 3 steps -->
+	<section class="relative overflow-hidden bg-[#FAFBFC] py-16 sm:py-20 md:py-24" aria-labelledby="start-steps-heading">
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float" style="left: 4%; top: 18%;">📚</span>
+			<span class="start-emoji-float start-emoji-float--b" style="right: 5%; top: 28%;">⭐</span>
+			<span class="start-emoji-float start-emoji-float--d" style="left: 12%; bottom: 12%;">🦥</span>
+		</div>
+		<div class="container-custom relative z-[1] mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+			<h2
+				id="start-steps-heading"
+				class="mb-3 text-center text-2xl font-black text-[#1B1B3D] sm:text-3xl md:text-4xl"
+				style="font-family: 'Bangers', cursive; letter-spacing: 0.03em;"
+				data-scroll-animation="fade-up"
+			>
+				Start simple
+			</h2>
+			<p class="mx-auto mb-10 max-w-2xl text-center text-base font-medium leading-relaxed text-[#1B1B3D]/75" data-scroll-animation="fade-up">
+				One product. One calm system.<br />
+				Three simple steps so you always know what to do next.
+			</p>
+			<div class="grid gap-6 md:grid-cols-3">
+				{
+					steps.map((s) => (
+						<div
+							class="start-step-card flex flex-col rounded-2xl bg-[#E3F2FD] p-6 shadow-lg shadow-[#1B1B3D]/[0.07]"
+							data-scroll-animation="fade-up"
+						>
+							<div class="mb-3 flex items-center gap-2">
+								<span class="text-xl leading-none opacity-90" aria-hidden="true">
+									{s.icon}
+								</span>
+								<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#FFD600] text-sm font-black text-[#1B1B3D] shadow-sm">
+									{s.n}
+								</span>
+							</div>
+							<h3 class="mb-2 text-lg font-black text-[#1B1B3D]">{s.title}</h3>
+							<p class="text-sm font-medium leading-relaxed text-[#1B1B3D]/80">{s.body}</p>
+						</div>
+					))
+				}
+			</div>
+			<div class="mt-14 pt-10 text-center" data-scroll-animation="fade-up">
+				<a href={starterGuideCheckoutUrl} class="start-cta-primary lemonsqueezy-button mx-auto inline-flex min-w-[min(100%,300px)] justify-center">
+					{ctaPrimaryLabel}
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Where to start -->
+	<section class="relative overflow-hidden bg-[#FFFDF7] py-16 sm:py-20 md:py-24" aria-labelledby="start-decision-heading">
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float start-emoji-float--c" style="left: 7%; top: 22%;">🎯</span>
+			<span class="start-emoji-float" style="right: 8%; bottom: 20%;">✨</span>
+		</div>
+		<div class="container-custom relative z-[1] mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+			<h2
+				id="start-decision-heading"
+				class="mb-10 text-center text-2xl font-black text-[#1B1B3D] sm:text-3xl md:text-4xl"
+				style="font-family: 'Bangers', cursive; letter-spacing: 0.03em;"
+				data-scroll-animation="fade-up"
+			>
+				Where to start
+			</h2>
+			<div
+				class="relative rounded-2xl bg-[#FFD600] p-6 shadow-xl shadow-amber-900/15 sm:p-8 md:p-10"
+				data-scroll-animation="fade-up"
+			>
+				<p class="mb-6 text-center text-lg font-black text-[#1B1B3D] sm:text-xl">
+					If you just want the simplest way to start:
+				</p>
+				<div class="flex justify-center">
+					<a
+						href={starterGuideCheckoutUrl}
+						class="start-cta-primary start-cta-primary--hero lemonsqueezy-button w-full max-w-md justify-center text-center"
+					>
+						{ctaPrimaryLabel}
+					</a>
+				</div>
+			</div>
+			<div
+				class="mt-8 rounded-2xl bg-white/95 p-6 text-center shadow-md shadow-[#1B1B3D]/[0.06]"
+				data-scroll-animation="fade-up"
+			>
+				<p class="mb-4 text-sm font-bold text-[#1B1B3D]/70">
+					If you are not ready to buy yet:
+				</p>
+				<div class="flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-6">
+					<a
+						href="/books"
+						class="text-base font-bold text-[#1B1B3D] underline decoration-2 underline-offset-4 hover:text-black"
+					>
+						Browse Creator Guides
+					</a>
+					<a
+						href="/tools"
+						class="text-base font-bold text-[#1B1B3D] underline decoration-2 underline-offset-4 hover:text-black"
+					>
+						Try free tools
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Featured offer -->
+	<section
+		id="starter-guide"
+		class="start-product-section relative bg-[#1B1B3D] py-20 text-white sm:py-24 md:py-32"
+		aria-labelledby="start-spotlight-heading"
+	>
+		<div class="pointer-events-none absolute inset-0 overflow-hidden opacity-40" aria-hidden="true">
+			<div class="start-product-blob absolute -left-[20%] top-[10%] h-[50%] w-[70%] rounded-full bg-[#2C2D5D]/80 blur-3xl"></div>
+			<div class="start-product-blob absolute -right-[15%] bottom-[5%] h-[45%] w-[55%] rounded-full bg-[#12122a] blur-3xl"></div>
+		</div>
+		<div class="start-emoji-layer start-emoji-layer--dark" aria-hidden="true">
+			<span class="start-emoji-float start-emoji-float--dark start-emoji-float--b" style="left: 6%; top: 18%;">📖</span>
+			<span class="start-emoji-float start-emoji-float--dark" style="right: 5%; top: 40%;">💡</span>
+			<span class="start-emoji-float start-emoji-float--dark start-emoji-float--d" style="right: 12%; bottom: 18%;">🦥</span>
+		</div>
+		<div class="container-custom relative z-[1] mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+			<p
+				class="mb-4 text-center text-base font-semibold leading-relaxed text-white/90 sm:text-lg"
+				data-scroll-animation="fade-up"
+			>
+				If you are unsure where to start, this is it.
+			</p>
+			<p
+				class="start-product-kicker mb-10 text-center text-[11px] font-black uppercase tracking-[0.2em] text-[#FFD600]/95 sm:mb-12"
+				data-scroll-animation="fade-up"
+			>
+				Most people begin here
+			</p>
+			<div
+				class="start-product-shell rounded-2xl bg-white/[0.08] p-6 shadow-[0_24px_48px_rgba(0,0,0,0.22)] backdrop-blur-[2px] sm:p-8 md:grid md:grid-cols-2 md:gap-12 md:p-10"
+				data-scroll-animation="fade-up"
+			>
+				<div class="order-2 md:order-1 md:flex md:flex-col md:justify-center">
+					<p class="mb-2 inline-block rounded-full bg-white/15 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-white/90">
+						Starter PDF
+					</p>
+					<h2
+						id="start-spotlight-heading"
+						class="mb-4 text-2xl font-black leading-tight sm:text-3xl md:text-4xl"
+						style="font-family: 'Bangers', cursive; letter-spacing: 0.03em;"
+					>
+						Don’t Do Anything
+					</h2>
+					<p class="mb-6 text-base font-semibold leading-relaxed text-white/95 sm:text-lg">
+						A short PDF that shows you how to go from <strong class="text-white">idea → product → first sale</strong>, without getting stuck or overthinking everything. No big audience or coding required.
+					</p>
+					<ul class="mb-4 space-y-2 text-sm font-medium text-white/85 sm:text-base">
+						<li class="flex gap-2">
+							<span aria-hidden="true">→</span> Prompts and filters to pick a workable topic
+						</li>
+						<li class="flex gap-2">
+							<span aria-hidden="true">→</span> Outline and “get the PDF done” structure
+						</li>
+						<li class="flex gap-2">
+							<span aria-hidden="true">→</span> Simple funnel, checkout, and delivery basics
+						</li>
+					</ul>
+					<div
+						class="mb-6 rounded-xl border border-white/15 bg-white/[0.06] px-4 py-3.5 sm:px-5 sm:py-4"
+						aria-label="Included bonus"
+					>
+						<p class="mb-2 text-[10px] font-black uppercase tracking-[0.14em] text-white/55">
+							Includes bonus
+						</p>
+						<p class="text-sm font-bold leading-snug text-white/95 sm:text-base">
+							Find Your First Product <span class="font-semibold text-white/75">(AI Prompt Kit)</span>
+						</p>
+						<p class="mt-1.5 text-xs font-medium leading-relaxed text-white/70 sm:text-sm">
+							A simple system that helps you turn your experience into a product idea you can actually build.
+						</p>
+					</div>
+					<p class="mb-8 text-base font-bold text-[#FFD600]">
+						Read it once. Then build.
+					</p>
+					<a
+						href={starterGuideCheckoutUrl}
+						class="start-cta-on-dark start-cta-on-dark--lg start-cta-on-dark--product lemonsqueezy-button inline-flex w-full justify-center sm:w-auto"
+					>
+						{ctaPrimaryLabel}
+					</a>
+					<p class="mt-3 max-w-md text-center text-xs font-medium leading-snug text-white/55 md:text-left">
+						If you are stuck on what to sell, this alone solves that.
+					</p>
+					<div class="start-micro-pills start-micro-pills--on-dark mt-4 justify-center md:justify-start">
+						<span class="start-micro-pill start-micro-pill--dark">Roughly 1–2 hours start to finish</span>
+						<span class="start-micro-pill start-micro-pill--dark">No experience needed</span>
+						<span class="start-micro-pill start-micro-pill--dark">You can open it the same day</span>
+					</div>
+				</div>
+				<div class="order-1 mb-10 flex justify-center md:order-2 md:mb-0 md:items-center">
+					<div class="relative max-w-[280px] sm:max-w-xs">
+						<div class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-xl bg-black/25" aria-hidden="true"></div>
+						<img
+							src="/images/bookpdf.webp"
+							alt="Cover: Don’t Do Anything, Strategic Sloth starter PDF"
+							width="1024"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							class="relative rounded-xl shadow-2xl shadow-black/40"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Repeat CTA after product -->
+	<section class="relative overflow-hidden bg-[#E3F2FD] py-12 sm:py-14" aria-label="Get the starter guide">
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float start-emoji-float--b" style="right: 10%; top: 30%;">✨</span>
+		</div>
+		<div class="container-custom relative z-[1] mx-auto max-w-xl px-4 text-center sm:px-6 lg:px-8" data-scroll-animation="fade-up">
+			<a href={starterGuideCheckoutUrl} class="start-cta-primary lemonsqueezy-button mx-auto inline-flex w-full max-w-md justify-center">
+				{ctaPrimaryLabel}
+			</a>
+		</div>
+	</section>
+
+	<!-- Trust: not guru stuff -->
+	<section class="relative overflow-hidden bg-[#FFF7E6] py-16 sm:py-20 md:py-24" aria-labelledby="start-trust-heading">
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float start-emoji-float--c" style="left: 8%; top: 25%;">🤝</span>
+			<span class="start-emoji-float" style="right: 7%; bottom: 20%;">🧠</span>
+		</div>
+		<div class="container-custom relative z-[1] mx-auto max-w-xl px-4 text-center sm:px-6 lg:px-8">
+			<h2
+				id="start-trust-heading"
+				class="mb-6 text-2xl font-black text-[#1B1B3D] sm:text-3xl"
+				style="font-family: 'Bangers', cursive; letter-spacing: 0.03em;"
+				data-scroll-animation="fade-up"
+			>
+				Not guru stuff
+			</h2>
+			<p class="text-base font-semibold leading-relaxed text-[#1B1B3D]/88 md:text-lg" data-scroll-animation="fade-up">
+				Built after 18 years designing products and systems across games, mobile, and software.<br class="hidden sm:block" />
+				<span class="sm:ml-1">Not theory. Not hype. Just what actually works.</span>
+			</p>
+			<p class="mt-4 text-base font-medium leading-relaxed text-[#1B1B3D]/80 md:text-lg" data-scroll-animation="fade-up">
+				This is built from real product work, not internet theory.
+			</p>
+			<p class="mt-5 text-sm font-medium text-[#1B1B3D]/65" data-scroll-animation="fade-up">
+				No Lambo promises. No “secret funnel.” One calm system you can start simple with.
+			</p>
+		</div>
+	</section>
+
+	<!-- FAQ -->
+	<section class="relative overflow-hidden bg-white py-16 sm:py-20 md:py-24" aria-labelledby="start-faq-heading">
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float start-emoji-float--b" style="left: 5%; top: 15%;">💬</span>
+			<span class="start-emoji-float start-emoji-float--d" style="right: 6%; top: 40%;">❓</span>
+		</div>
+		<div class="container-custom relative z-[1] mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+			<h2
+				id="start-faq-heading"
+				class="mb-8 text-center text-2xl font-black text-[#1B1B3D] sm:text-3xl md:text-4xl"
+				style="font-family: 'Bangers', cursive; letter-spacing: 0.03em;"
+				data-scroll-animation="fade-up"
+			>
+				Quick questions
+			</h2>
+			<div class="space-y-3">
+				{
+					faq.map((item) => (
+						<details class="group rounded-xl bg-[#FFF9F0] p-4 shadow-md shadow-[#1B1B3D]/[0.06] open:bg-white open:shadow-lg open:shadow-[#1B1B3D]/[0.08]">
+							<summary class="cursor-pointer list-none font-bold text-[#1B1B3D]">
+								<span class="flex items-center justify-between gap-2">
+									{item.q}
+									<span class="text-lg transition-transform group-open:rotate-180" aria-hidden="true">
+										▼
+									</span>
+								</span>
+							</summary>
+							<p class="mt-3 text-sm font-medium leading-relaxed text-[#1B1B3D]/80">{item.a}</p>
+						</details>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Final CTA -->
+	<section class="start-final-section relative overflow-hidden bg-[#FFD600] py-20 sm:py-24 md:py-32" aria-labelledby="start-final-heading">
+		<div class="pointer-events-none absolute inset-0 opacity-[0.14]" aria-hidden="true">
+			<div class="absolute -left-[10%] top-1/2 h-[120%] w-[55%] -translate-y-1/2 rounded-full bg-white blur-3xl"></div>
+			<div class="absolute -right-[5%] bottom-0 h-[70%] w-[45%] rounded-full bg-[#FFE066] blur-3xl"></div>
+		</div>
+		<div class="start-emoji-layer" aria-hidden="true">
+			<span class="start-emoji-float" style="left: 8%; top: 22%;">🌴</span>
+			<span class="start-emoji-float start-emoji-float--b" style="right: 10%; top: 30%;">✨</span>
+			<span class="start-emoji-float start-emoji-float--c" style="left: 18%; bottom: 15%;">🦥</span>
+		</div>
+		<div
+			class="start-final-inner container-custom relative z-[2] mx-auto max-w-xl px-4 text-center sm:px-6 lg:px-8"
+			data-scroll-animation="fade-up"
+		>
+			<h2
+				id="start-final-heading"
+				class="mb-8 text-2xl font-black text-[#1B1B3D] sm:mb-10 sm:text-3xl md:text-4xl"
+				style="font-family: 'Inter', system-ui, sans-serif;"
+			>
+				Start simple.
+			</h2>
+			<p class="mb-2 text-lg font-bold leading-snug text-[#1B1B3D] sm:text-xl">One product.</p>
+			<p class="mb-2 text-lg font-bold leading-snug text-[#1B1B3D] sm:text-xl">One system.</p>
+			<p class="mb-6 text-lg font-bold leading-snug text-[#1B1B3D] sm:text-xl">One step.</p>
+			<p class="mb-10 text-base font-semibold text-[#1B1B3D]/85">
+				You do not need everything figured out to start.
+			</p>
+			<a
+				href={starterGuideCheckoutUrl}
+				class="start-cta-primary start-cta-primary--hero lemonsqueezy-button mx-auto inline-flex w-full max-w-md justify-center"
+			>
+				{ctaPrimaryLabel}
+			</a>
+			<div class="start-micro-pills mt-5 justify-center text-[#1B1B3D]/65">
+				<span class="start-micro-pill">Takes about 1–2 hours to go through</span>
+				<span class="start-micro-pill">No experience needed</span>
+				<span class="start-micro-pill">Start today, no setup required</span>
+			</div>
+			<p class="mt-10 text-sm font-medium text-[#1B1B3D]/75">
+				Prefer to look around first?{' '}
+				<a href="/books" class="font-bold text-[#1B1B3D] underline underline-offset-2 hover:opacity-80">Creator Guides</a>
+				{' · '}
+				<a href="/tools" class="font-bold text-[#1B1B3D] underline underline-offset-2 hover:opacity-80">Free tools</a>
+			</p>
+		</div>
+	</section>
+
+	<!-- Sticky mobile CTA -->
+	<div
+		class="start-sticky-cta start-sticky-cta--hidden lg:hidden"
+		role="region"
+		aria-label="Start with the guide"
+	>
+		<a href={starterGuideCheckoutUrl} class="start-cta-primary start-cta-primary--sticky lemonsqueezy-button w-full justify-center text-center shadow-[0_-4px_24px_rgba(0,0,0,0.18)]">
+			{ctaPrimaryLabel}
+		</a>
+	</div>
+	</div>
+</Layout>
+
+<script>
+	{
+		const hero = document.getElementById('start-hero');
+		const sticky = document.querySelector('.start-sticky-cta');
+		if (hero && sticky) {
+			let lastY = window.scrollY;
+			const tick = () => {
+				const pastHero = hero.getBoundingClientRect().bottom < 56;
+				const y = window.scrollY;
+				const dy = y - lastY;
+				lastY = y;
+				if (!pastHero) {
+					sticky.classList.add('start-sticky-cta--hidden');
+					return;
+				}
+				if (dy < -8) sticky.classList.add('start-sticky-cta--hidden');
+				else sticky.classList.remove('start-sticky-cta--hidden');
+			};
+			tick();
+			window.addEventListener('scroll', () => requestAnimationFrame(tick), { passive: true });
+		}
+	}
+</script>
+
+<style>
+	/* Slightly snappier scroll reveals on this page (global animations.css is 0.6s) */
+	.start-page-root [data-scroll-animation] {
+		transition-duration: 0.38s;
+		transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.start-page-root [data-scroll-animation='fade-up'] {
+		transform: translateY(14px);
+	}
+
+	@media (max-width: 768px) {
+		.start-page-root [data-scroll-animation] {
+			transition-duration: 0.32s;
+		}
+	}
+
+	.start-page-root {
+		padding-bottom: max(5.25rem, calc(4.5rem + env(safe-area-inset-bottom, 0px)));
+	}
+
+	@media (min-width: 1024px) {
+		.start-page-root {
+			padding-bottom: 0;
+		}
+	}
+
+	/* Hero */
+	.start-hero-pattern {
+		background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C32 5 34 7 34 9C34 11 32 13 30 13C28 13 26 11 26 9C26 7 28 5 30 5ZM22 14C24 14 26 16 26 18C26 20 24 22 22 22C20 22 18 20 18 18C18 16 20 14 22 14ZM38 14C40 14 42 16 42 18C42 20 40 22 38 22C36 22 34 20 34 18C34 16 36 14 38 14ZM30 23C35 23 39 27 39 32C39 37 35 41 30 41C25 41 21 37 21 32C21 27 25 23 30 23Z' fill='%23FFB800' fill-opacity='0.14'/%3E%3C/svg%3E");
+		opacity: 0.85;
+	}
+
+	@keyframes start-hero-fade-up {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes start-hero-float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-5px);
+		}
+	}
+
+	.start-hero-el {
+		opacity: 0;
+		transform: translateY(10px);
+		animation: start-hero-fade-up 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+		animation-delay: var(--start-d, 0ms);
+	}
+
+	.start-hero-float {
+		animation: start-hero-float 7s ease-in-out infinite;
+	}
+
+	.start-hero-float--2 {
+		animation-duration: 8.5s;
+		animation-delay: -2s;
+	}
+
+	.start-hero-float--3 {
+		animation-duration: 9s;
+		animation-delay: -4s;
+	}
+
+	.start-hero-mascot {
+		animation: start-hero-float 10s ease-in-out infinite;
+	}
+
+	/* Floating emojis (index-adjacent vibe) */
+	.start-emoji-layer {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		overflow: hidden;
+		z-index: 1;
+	}
+
+	.start-emoji-float {
+		position: absolute;
+		font-size: clamp(1.1rem, 2.8vw, 1.55rem);
+		line-height: 1;
+		user-select: none;
+		animation: start-emoji-drift 8.5s ease-in-out infinite;
+		opacity: 0.3;
+		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+	}
+
+	.start-emoji-float--dark {
+		opacity: 0.2;
+		filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+	}
+
+	.start-emoji-float--b {
+		animation-duration: 10.5s;
+		animation-delay: -2.5s;
+	}
+
+	.start-emoji-float--c {
+		animation-duration: 12s;
+		animation-delay: -4s;
+	}
+
+	.start-emoji-float--d {
+		animation-duration: 9s;
+		animation-delay: -1.2s;
+	}
+
+	@keyframes start-emoji-drift {
+		0%,
+		100% {
+			transform: translateY(0) rotate(-5deg);
+		}
+		50% {
+			transform: translateY(-11px) rotate(5deg);
+		}
+	}
+
+	/* Checklist: staggered slide-in (65ms per row) */
+	.start-who-stagger .start-check-item {
+		opacity: 0;
+		transform: translateX(-12px);
+		transition:
+			opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+			transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: calc(var(--stagger, 0) * 65ms);
+	}
+
+	.start-who-stagger.animate.fade-up .start-check-item {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	/* Step cards */
+	.start-step-card {
+		transition:
+			transform 0.2s ease-out,
+			box-shadow 0.2s ease-out;
+	}
+
+	.start-step-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 14px 32px rgba(27, 27, 61, 0.12);
+	}
+
+	/* Primary CTAs: scale + shadow (hover / active) */
+	.start-cta-primary,
+	.start-cta-on-dark {
+		transition:
+			transform 0.18s ease-out,
+			box-shadow 0.18s ease-out,
+			background-color 0.18s ease-out,
+			opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.start-cta-primary:hover,
+	.start-cta-on-dark:hover {
+		transform: translateY(-2px) scale(1.03);
+	}
+
+	.start-cta-primary:active,
+	.start-cta-on-dark:active {
+		transform: translateY(0) scale(0.98);
+	}
+
+	.start-cta-primary--hero:hover {
+		transform: translateY(-2px) scale(1.04);
+	}
+
+	.start-cta-on-dark--product {
+		box-shadow:
+			0 6px 24px rgba(0, 0, 0, 0.35),
+			0 2px 12px rgba(255, 214, 0, 0.25);
+	}
+
+	.start-cta-on-dark--product:hover {
+		box-shadow:
+			0 10px 32px rgba(0, 0, 0, 0.38),
+			0 4px 16px rgba(255, 214, 0, 0.3);
+	}
+
+	.start-cta-secondary {
+		transition:
+			transform 0.18s ease-out,
+			box-shadow 0.18s ease-out,
+			background-color 0.18s ease-out;
+	}
+
+	.start-cta-secondary:hover {
+		transform: translateY(-1px) scale(1.02);
+	}
+
+	.start-cta-secondary:active {
+		transform: scale(0.98);
+	}
+
+	.start-sticky-cta {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 40;
+		padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+		background: linear-gradient(to top, #fff7e6 80%, rgba(255, 247, 230, 0.98));
+		box-shadow: 0 -10px 36px rgba(0, 0, 0, 0.08);
+		transform: translateY(0);
+		opacity: 1;
+		pointer-events: auto;
+		transition:
+			transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 0.28s ease-out;
+	}
+
+	.start-sticky-cta--hidden {
+		transform: translateY(110%);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.start-pill {
+		@apply inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-black text-[#1B1B3D] sm:text-sm;
+		box-shadow: 0 2px 10px rgba(27, 27, 61, 0.1);
+	}
+
+	.start-cta-primary {
+		@apply inline-flex min-h-[52px] items-center justify-center rounded-xl bg-[#2C2D5D] px-7 py-4 text-base font-black tracking-tight text-white;
+		box-shadow:
+			0 4px 18px rgba(27, 27, 61, 0.35),
+			0 2px 6px rgba(0, 0, 0, 0.06);
+	}
+
+	.start-cta-primary--hero {
+		@apply min-h-[56px] px-8 py-4 text-lg sm:min-h-[60px] sm:text-xl;
+	}
+
+	.start-cta-primary--sticky {
+		@apply min-h-[48px] max-h-[52px] py-3 text-base;
+	}
+
+	.start-cta-secondary {
+		@apply inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-6 py-3.5 text-base font-black text-[#1B1B3D];
+		box-shadow: 0 3px 14px rgba(27, 27, 61, 0.12), 0 1px 4px rgba(0, 0, 0, 0.04);
+	}
+
+	.start-cta-secondary--sm {
+		@apply min-h-[44px] py-2.5 text-sm font-bold;
+		box-shadow: 0 2px 10px rgba(27, 27, 61, 0.1);
+	}
+
+	.start-cta-on-dark {
+		@apply min-h-[52px] items-center rounded-xl bg-[#FFD600] px-8 py-3.5 text-base font-black text-[#1B1B3D];
+		box-shadow:
+			0 4px 22px rgba(0, 0, 0, 0.28),
+			0 2px 8px rgba(255, 214, 0, 0.35);
+	}
+
+	.start-cta-on-dark--lg {
+		@apply min-h-[56px] px-8 py-4 text-lg;
+	}
+
+	.start-micro-pills {
+		@apply flex flex-wrap items-center gap-2 text-center;
+	}
+
+	.start-micro-pill {
+		@apply inline-flex items-center rounded-full bg-black/[0.06] px-2.5 py-1 text-[11px] font-medium text-[#1B1B3D]/75 sm:text-xs;
+	}
+
+	.start-micro-pill--light {
+		@apply bg-black/[0.08] text-[#1B1B3D]/80;
+	}
+
+	.start-micro-pill--dark {
+		@apply bg-white/[0.14] text-white/85;
+	}
+
+	.start-micro-pills--on-dark .start-micro-pill--dark {
+		@apply text-white/80;
+	}
+
+	details > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.start-hero-el,
+		.start-hero-float,
+		.start-hero-mascot {
+			animation: none !important;
+			opacity: 1 !important;
+			transform: none !important;
+		}
+
+		.start-emoji-float,
+		.start-emoji-float--dark {
+			animation: none !important;
+			transform: none !important;
+			opacity: 0.24 !important;
+		}
+
+		.start-who-stagger .start-check-item,
+		.start-who-stagger.animate.fade-up .start-check-item {
+			opacity: 1 !important;
+			transform: none !important;
+			transition: none !important;
+		}
+
+		.start-step-card:hover {
+			transform: none;
+		}
+
+		.start-cta-primary:hover,
+		.start-cta-on-dark:hover,
+		.start-cta-secondary:hover {
+			transform: none;
+		}
+
+		.start-sticky-cta {
+			transition: none;
+		}
+	}
+</style>

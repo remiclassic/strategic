@@ -71,6 +71,7 @@ const EXPECTED_FOLDERS = [
   'Build Digital Products Without Coding',
   'Content That Actually Converts',
   'Email List for Creators (Simple Setup)',
+  'Find Your First Product',
   'Focus Like a Sloth',
   'Idea to PDF in 24 Hours',
   'Pricing Your Digital Products',

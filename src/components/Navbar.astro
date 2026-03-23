@@ -2,6 +2,12 @@
 // Navigation links with updated section IDs and more descriptive labels
 const navItems = [
   { 
+    text: "Start Here", 
+    href: "/start", 
+    description: "Simple first step for new visitors",
+    preview: "Turn what you know into one small digital product — calmly"
+  },
+  { 
     text: "How It Works", 
     href: "/#the-problem", 
     description: "The core ideas behind the system",
@@ -44,6 +50,7 @@ function isHashNavHref(href: string) {
 function isPageNavActive(href: string) {
   if (isHashNavHref(href)) return false;
   const path = href.replace(/\/$/, "") || "/";
+  if (path === "/start") return pathname === "/start";
   if (path === "/reading-guide") return pathname === "/reading-guide";
   if (path === "/books") return pathname === "/books";
   if (path === "/tools") return pathname === "/tools";

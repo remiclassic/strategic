@@ -364,7 +364,7 @@ export const bundles: Bundle[] = [
     badge: "Best place to start",
     cta: "Buy Starter Package",
     highlighted: false,
-    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/35c6242c-4da1-40a6-8821-dae46243e1fd?embed=1",
+    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/80a08444-b7c2-48aa-a4a8-cec1575dc6f3?embed=1",
     coverImage: "/images/catalog/bundle-starter.webp",
   },
   {

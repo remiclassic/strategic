@@ -363,7 +363,7 @@ export const bundles: Bundle[] = [
     badge: "Most popular",
     cta: "Get Builder System",
     highlighted: true,
-    checkoutUrl: "#",
+    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/e45b365a-3d26-4131-93d6-6ce189465279?embed=1",
     coverImage: "/images/catalog/bundle-builder.webp",
   },
   {
@@ -380,9 +380,9 @@ export const bundles: Bundle[] = [
     price: 97,
     anchorPrice: 300,
     badge: "Best value",
-    cta: "Get Full System",
+    cta: "Unlock Full Library",
     highlighted: false,
-    checkoutUrl: "#",
+    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/9bf71b87-e00d-4a91-9df3-21ec7605350d?embed=1",
     coverImage: "/images/catalog/bundle-full-freedom.webp",
   },
 ];

@@ -1,7 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="45" fill="#FFD600"/>
-  <path d="M30,40 C30,30 40,20 50,20 C60,20 70,30 70,40 C70,50 60,60 50,60 C40,60 30,50 30,40 Z" fill="#1B1B3D"/>
-  <circle cx="40" cy="35" r="5" fill="white"/>
-  <circle cx="60" cy="35" r="5" fill="white"/>
-  <path d="M45,45 C45,45 50,50 55,45" stroke="white" stroke-width="3" fill="none"/>
-</svg> 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Strategic Sloth">
+  <!-- Transparent outside the badge -->
+  <circle cx="50" cy="50" r="46" fill="#FFD600" stroke="#1B1B3D" stroke-width="3.2"/>
+  <!-- Head fur tuft -->
+  <path
+    fill="#1B1B3D"
+    d="M43 16 L46 25 L50 15 L54 25 L57 16 L54 13 L50 15 L46 13 Z"
+  />
+  <!-- Side fluff -->
+  <ellipse cx="23.5" cy="52" rx="8" ry="12" fill="#1B1B3D" transform="rotate(-24 23.5 52)"/>
+  <ellipse cx="76.5" cy="52" rx="8" ry="12" fill="#1B1B3D" transform="rotate(24 76.5 52)"/>
+  <!-- Sloth eye masks -->
+  <ellipse cx="34" cy="48.5" rx="13.5" ry="16.5" fill="#1B1B3D" transform="rotate(-11 34 48.5)"/>
+  <ellipse cx="66" cy="48.5" rx="13.5" ry="16.5" fill="#1B1B3D" transform="rotate(11 66 48.5)"/>
+  <!-- Eyes -->
+  <circle cx="34" cy="45.5" r="5" fill="#ffffff"/>
+  <circle cx="66" cy="45.5" r="5" fill="#ffffff"/>
+  <!-- Nose -->
+  <ellipse cx="50" cy="59" rx="4.8" ry="4.2" fill="#1B1B3D"/>
+  <!-- Smile -->
+  <path
+    fill="none"
+    stroke="#1B1B3D"
+    stroke-width="2.6"
+    stroke-linecap="round"
+    d="M36 66 Q50 79 64 66"
+  />
+</svg>

@@ -83,7 +83,7 @@ export const books: Book[] = [
     category: "make-money",
     bundleIds: ["full-freedom"],
     checkoutUrl:
-      "https://strategicsloth.lemonsqueezy.com/checkout/buy/091da231-302f-49c5-bb03-6e3e5eaa5811?embed=1",
+      "https://strategicsloth.lemonsqueezy.com/checkout/buy/11225ee1-380b-4046-9a94-6ff3360dc0cd?embed=1",
     coverImage: "/images/catalog/zero-to-1k.webp",
     blogSlug: "zero-to-1k-per-month",
   },
@@ -362,9 +362,9 @@ export const bundles: Bundle[] = [
     price: 19,
     anchorPrice: 57,
     badge: "Best place to start",
-    cta: "Get Starter System",
+    cta: "Buy Starter Package",
     highlighted: false,
-    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/367aa0af-0dfd-4651-a61c-d8b6b7293a1f?embed=1",
+    checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/35c6242c-4da1-40a6-8821-dae46243e1fd?embed=1",
     coverImage: "/images/catalog/bundle-starter.webp",
   },
   {

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExitIntentPopup from '../components/ExitIntentPopup.astro';
+import BundleBonusBlurb from '../components/BundleBonusBlurb.astro';
 
 /** Same Lemon Squeezy checkouts as `Pricing.astro` (index). */
 const CHECKOUT_STARTER =
@@ -79,8 +80,9 @@ const CHECKOUT_SCALE =
 				<img src="/images/starterpackage.webp" alt="Starter Package Sloth" width="128" height="128" loading="eager" decoding="async" class="w-20 h-20 object-contain mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
 				<div class="inline-block bg-[#FFE066] border-2 border-black rounded-full px-4 py-1 text-xs font-black tracking-wide mb-3">STARTER</div>
 				<h3 class="text-lg font-black text-[#1B1B3D] mb-1" style="font-family:'Inter',system-ui,sans-serif;">2 Books</h3>
-				<p class="text-sm text-gray-600 mb-3">Income + Life Design</p>
-				<span class="text-2xl font-black text-[#1B1B3D]">$17</span>
+				<p class="text-sm text-gray-600 mb-1">Income + Life Design</p>
+				<BundleBonusBlurb variant="freedom-compare" />
+				<span class="text-2xl font-black text-[#1B1B3D] mt-2 inline-block">$17</span>
 			</a>
 
 			<!-- Builder -->
@@ -89,8 +91,9 @@ const CHECKOUT_SCALE =
 				<img src="/images/bestvalue.webp" alt="Best Value Package Sloth" width="128" height="128" loading="eager" decoding="async" class="w-20 h-20 object-contain mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
 				<div class="inline-block bg-[#4D9FFF] text-white border-2 border-black rounded-full px-4 py-1 text-xs font-black tracking-wide mb-3">BUILDER</div>
 				<h3 class="text-lg font-black text-[#1B1B3D] mb-1" style="font-family:'Inter',system-ui,sans-serif;">6 Books</h3>
-				<p class="text-sm text-gray-600 mb-3">Income + Sovereignty</p>
-				<span class="text-2xl font-black text-[#1B1B3D]">$47</span>
+				<p class="text-sm text-gray-600 mb-1">Income + Sovereignty</p>
+				<BundleBonusBlurb variant="freedom-compare" />
+				<span class="text-2xl font-black text-[#1B1B3D] mt-2 inline-block">$47</span>
 			</a>
 
 			<!-- Scale -->
@@ -98,8 +101,9 @@ const CHECKOUT_SCALE =
 				<img src="/images/scaletofreedom.webp" alt="Scale to Freedom Package Sloth" width="128" height="128" loading="eager" decoding="async" class="w-20 h-20 object-contain mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
 				<div class="inline-block bg-[#FF4D4D] text-white border-2 border-black rounded-full px-4 py-1 text-xs font-black tracking-wide mb-3">SCALE TO FREEDOM</div>
 				<h3 class="text-lg font-black text-[#1B1B3D] mb-1" style="font-family:'Inter',system-ui,sans-serif;">11 Books</h3>
-				<p class="text-sm text-gray-600 mb-3">The Complete System</p>
-				<span class="text-2xl font-black text-[#1B1B3D]">$97</span>
+				<p class="text-sm text-gray-600 mb-1">The Complete System</p>
+				<BundleBonusBlurb variant="freedom-compare" />
+				<span class="text-2xl font-black text-[#1B1B3D] mt-2 inline-block">$97</span>
 			</a>
 		</div>
 	</div>

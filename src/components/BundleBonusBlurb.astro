@@ -1,0 +1,99 @@
+---
+import {
+	BUNDLE_BONUS_LABEL,
+	BUNDLE_BONUS_TITLE,
+	BUNDLE_BONUS_DESCRIPTION,
+} from '../data/bundle-bonus';
+
+interface Props {
+	/** Catalog bundle cards (/books) vs Freedom Library compare cards (/reading-guide) */
+	variant?: 'catalog-card' | 'freedom-compare';
+}
+
+const { variant = 'catalog-card' } = Astro.props;
+---
+
+<div
+	class:list={['bbb', variant === 'freedom-compare' ? 'bbb--freedom' : 'bbb--catalog']}
+	aria-label={`${BUNDLE_BONUS_LABEL}: ${BUNDLE_BONUS_TITLE}`}
+>
+	<p class="bbb__label">{BUNDLE_BONUS_LABEL}</p>
+	<p class="bbb__title">{BUNDLE_BONUS_TITLE}</p>
+	<p class="bbb__desc">{BUNDLE_BONUS_DESCRIPTION}</p>
+</div>
+
+<style>
+	.bbb {
+		text-align: left;
+		border-radius: 8px;
+	}
+
+	.bbb--catalog {
+		margin-top: 0.35rem;
+		padding: 0.65rem 0.75rem;
+		background: linear-gradient(180deg, #fafaf8 0%, #f3f3f7 100%);
+		border: 1px solid #d8d8e4;
+	}
+
+	.bbb--catalog .bbb__label {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.62rem;
+		font-weight: 800;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: #6a6a8a;
+		margin: 0 0 0.35rem;
+	}
+
+	.bbb--catalog .bbb__title {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.78rem;
+		font-weight: 800;
+		color: #1b1b3d;
+		line-height: 1.35;
+		margin: 0;
+	}
+
+	.bbb--catalog .bbb__desc {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.72rem;
+		font-weight: 500;
+		color: #5a5a7a;
+		line-height: 1.45;
+		margin: 0.35rem 0 0;
+	}
+
+	.bbb--freedom {
+		margin-top: 0.65rem;
+		padding-top: 0.65rem;
+		border-top: 2px dashed rgba(0, 0, 0, 0.12);
+	}
+
+	.bbb--freedom .bbb__label {
+		font-family: 'Inter', system-ui, sans-serif;
+		font-size: 0.58rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: rgba(27, 27, 61, 0.5);
+		margin: 0 0 0.25rem;
+	}
+
+	.bbb--freedom .bbb__title {
+		font-family: 'Inter', system-ui, sans-serif;
+		font-size: 0.68rem;
+		font-weight: 800;
+		color: #1b1b3d;
+		line-height: 1.35;
+		margin: 0;
+	}
+
+	.bbb--freedom .bbb__desc {
+		font-family: 'Inter', system-ui, sans-serif;
+		font-size: 0.62rem;
+		font-weight: 500;
+		color: rgba(27, 27, 61, 0.72);
+		line-height: 1.4;
+		margin: 0.25rem 0 0;
+	}
+</style>

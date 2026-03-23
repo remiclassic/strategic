@@ -1,5 +1,6 @@
 ---
 import type { Bundle, Book } from '../../data/catalog-data';
+import BundleBonusBlurb from '../BundleBonusBlurb.astro';
 
 interface Props {
   bundle: Bundle;
@@ -49,6 +50,8 @@ const isFullFreedom = bundle.id === 'full-freedom';
         ))
       )}
     </ul>
+
+    <BundleBonusBlurb variant="catalog-card" />
 
     <!-- Pricing -->
     <div class="bundle-card__pricing">

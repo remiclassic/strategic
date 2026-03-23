@@ -9,6 +9,9 @@ interface Props {
 const { book } = Astro.props;
 const primaryBundle: Bundle | undefined = getPrimaryBundle(book);
 const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
+/** Lemon Squeezy overlay (lemon.js) — only attach when we have a real checkout URL */
+const useLemonOverlay =
+  book.checkoutUrl.startsWith("http") && book.checkoutUrl.includes("lemonsqueezy.com");
 ---
 
 <div class="book-card">
@@ -50,7 +53,12 @@ const blogHref = book.blogSlug ? `/blog/${book.blogSlug}` : null;
       <span class="book-price">${book.price}</span>
     </div>
 
-    <a href={book.checkoutUrl} class="book-card__cta">Buy Now</a>
+    <a
+      href={book.checkoutUrl}
+      class:list={["book-card__cta", { "lemonsqueezy-button": useLemonOverlay }]}
+    >
+      Buy Now
+    </a>
 
     {primaryBundle && (
       <a href="#bundles" class="book-card__upsell">

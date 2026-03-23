@@ -79,6 +79,7 @@ const EXPECTED_FOLDERS = [
   'The Anti-Hustle Playbook',
   'The Offer That Sells Itself',
   'The One-Page Sales Funnel',
+  'Sell Without an Audience',
   "Why You're Not Making Money Online (Yet)",
   'Your First 100 Online',
 ];

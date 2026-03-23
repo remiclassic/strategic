@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import BuyButton from '../components/BuyButton.astro';
 
 // Replace these with your actual Lemon Squeezy checkout URLs
-const starterKitUrl = 'https://your-store.lemonsqueezy.com/checkout/buy/...';
+const starterKitUrl =
+	'https://strategicsloth.lemonsqueezy.com/checkout/buy/5c2ebe0c-f79e-433f-9583-627a417c05fd?embed=1';
 const bundleUrl = 'https://your-store.lemonsqueezy.com/checkout/buy/...';
 ---
 
@@ -25,19 +26,19 @@ const bundleUrl = 'https://your-store.lemonsqueezy.com/checkout/buy/...';
 					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
 						<h3 class="text-sm font-medium text-gray-900">Primary Button</h3>
 						<div class="mt-4">
-							<BuyButton href={starterKitUrl} variant="primary" text="Buy Starter Kit" />
+							<BuyButton href={starterKitUrl} variant="primary" text="Buy Lazy Genius Starter Kit" lemonCheckout />
 						</div>
 					</div>
 					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
 						<h3 class="text-sm font-medium text-gray-900">Secondary Button</h3>
 						<div class="mt-4">
-							<BuyButton href={starterKitUrl} variant="secondary" text="Buy Starter Kit" />
+							<BuyButton href={starterKitUrl} variant="secondary" text="Buy Lazy Genius Starter Kit" lemonCheckout />
 						</div>
 					</div>
 					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
 						<h3 class="text-sm font-medium text-gray-900">Outline Button</h3>
 						<div class="mt-4">
-							<BuyButton href={starterKitUrl} variant="outline" text="Buy Starter Kit" />
+							<BuyButton href={starterKitUrl} variant="outline" text="Buy Lazy Genius Starter Kit" lemonCheckout />
 						</div>
 					</div>
 				</div>
@@ -73,19 +74,19 @@ const bundleUrl = 'https://your-store.lemonsqueezy.com/checkout/buy/...';
 					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
 						<h3 class="text-sm font-medium text-gray-900">Small</h3>
 						<div class="mt-4">
-							<BuyButton href={starterKitUrl} size="sm" text="Small Button" />
+							<BuyButton href={starterKitUrl} size="sm" text="Small Button" lemonCheckout />
 						</div>
 					</div>
 					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
 						<h3 class="text-sm font-medium text-gray-900">Medium</h3>
 						<div class="mt-4">
-							<BuyButton href={starterKitUrl} size="md" text="Medium Button" />
+							<BuyButton href={starterKitUrl} size="md" text="Medium Button" lemonCheckout />
 						</div>
 					</div>
 					<div class="flex flex-col items-center rounded-lg border border-gray-200 p-6">
 						<h3 class="text-sm font-medium text-gray-900">Large</h3>
 						<div class="mt-4">
-							<BuyButton href={starterKitUrl} size="lg" text="Large Button" />
+							<BuyButton href={starterKitUrl} size="lg" text="Large Button" lemonCheckout />
 						</div>
 					</div>
 				</div>

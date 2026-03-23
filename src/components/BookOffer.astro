@@ -1,6 +1,9 @@
 ---
 import { starterGuidePricing, starterGuideDiscountPercent } from '../data/starter-guide-offer';
 
+const lazyGeniusStarterCheckoutUrl =
+	'https://strategicsloth.lemonsqueezy.com/checkout/buy/5c2ebe0c-f79e-433f-9583-627a417c05fd?embed=1';
+
 const bookDetails = {
     title: "Don't Do Anything",
     subtitle: "The Art of Building Income That Runs Without You",
@@ -168,7 +171,7 @@ const bookDetails = {
                     <div class="relative">
                         <div class="flex flex-col sm:flex-row items-center gap-4 mb-8 sm:mb-16">
                             <!-- Main Price Tag -->
-                            <a href="https://strategicsloth.lemonsqueezy.com/checkout/buy/54b3ee41-9cd1-42e3-9eea-1ea416e3f738?embed=1" class="lemonsqueezy-button price-bubble bg-[#fcd34d] text-black transform -rotate-2 w-full sm:w-auto cursor-pointer no-underline hover:scale-105 transition-transform duration-150 block">
+                            <a href={lazyGeniusStarterCheckoutUrl} class="lemonsqueezy-button price-bubble bg-[#fcd34d] text-black transform -rotate-2 w-full sm:w-auto cursor-pointer no-underline hover:scale-105 transition-transform duration-150 block">
                                 <div class="flex flex-col items-center p-4 sm:p-6">
                                     <div class="text-center">
                                         <div class="text-3xl sm:text-4xl font-black mb-1 sm:mb-2">ONLY</div>
@@ -218,8 +221,8 @@ const bookDetails = {
 
                     <!-- CTA Section -->
                     <div class="space-y-4">
-                        <a href="https://strategicsloth.lemonsqueezy.com/checkout/buy/54b3ee41-9cd1-42e3-9eea-1ea416e3f738?embed=1" class="lemonsqueezy-button comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 animate-button-shine">
-                            <span class="text-xl sm:text-2xl font-black px-6 sm:px-8 py-3 sm:py-4">CLAIM YOUR COPY NOW</span>
+                        <a href={lazyGeniusStarterCheckoutUrl} class="lemonsqueezy-button comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 animate-button-shine">
+                            <span class="text-xl sm:text-2xl font-black px-6 sm:px-8 py-3 sm:py-4">Buy Lazy Genius Starter Kit</span>
                             <span class="text-xl sm:text-2xl animate-bounce-horizontal">👉</span>
                         </a>
                         

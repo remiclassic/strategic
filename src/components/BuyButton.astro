@@ -4,13 +4,16 @@ interface Props {
 	variant?: 'primary' | 'secondary' | 'outline' | 'white-on-blue';
 	size?: 'sm' | 'md' | 'lg';
 	text?: string;
+	/** Adds `lemonsqueezy-button` for Lemon.js checkout overlay */
+	lemonCheckout?: boolean;
 }
 
 const { 
 	href, 
 	variant = 'primary', 
 	size = 'md',
-	text = 'Buy Now'
+	text = 'Buy Now',
+	lemonCheckout = false,
 } = Astro.props;
 
 const variantClasses = {
@@ -29,7 +32,7 @@ const sizeClasses = {
 
 <a
 	href={href}
-	class={`rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${variantClasses[variant]} ${sizeClasses[size]}`}
+	class={`${lemonCheckout ? 'lemonsqueezy-button ' : ''}rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${variantClasses[variant]} ${sizeClasses[size]}`}
 	target="_blank"
 	rel="noopener noreferrer"
 >

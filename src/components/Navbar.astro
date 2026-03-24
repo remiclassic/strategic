@@ -120,12 +120,23 @@ function isPageNavActive(href: string) {
         </a>
         );
       })}
-      <a 
-        href="/#get-started" 
-        class="flex items-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-2 text-[#1B1B3D] hover:bg-[#1B1B3D] hover:text-white transition-colors duration-200"
+      <a
+        href="/#get-started"
+        class="nav-get-started group relative inline-flex rounded-lg outline-none ring-black/0 transition-[box-shadow] focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF7E6]"
+        aria-label="Get started: open the homepage getting started section with bundles and the five dollar guide"
       >
-        <span>🎯</span>
-        <span class="font-bold">GET STARTED</span>
+        <span class="flex items-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-2 text-[#1B1B3D] transition-colors duration-200 group-hover:bg-[#1B1B3D] group-hover:text-white">
+          <span aria-hidden="true">🎯</span>
+          <span class="font-bold">GET STARTED</span>
+        </span>
+        <div
+          class="nav-get-started-tooltip pointer-events-none absolute left-1/2 top-full z-[70] mt-2 w-[min(18rem,calc(100vw-2rem))] -translate-x-1/2 translate-y-1 rounded-xl border-2 border-black bg-white px-3 py-2.5 text-center opacity-0 shadow-[4px_4px_0_#000] transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none"
+          role="tooltip"
+        >
+          <p class="text-sm font-bold leading-snug text-[#1B1B3D]" style="font-family: 'Inter', system-ui, sans-serif;">
+            Your shortest path to picking a path.
+          </p>
+        </div>
       </a>
     </div>
 
@@ -239,11 +250,22 @@ function isPageNavActive(href: string) {
         })}
         <a
           href="/#get-started"
-          class="mt-4 flex items-center justify-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-3 text-[#1B1B3D] hover:bg-[#1B1B3D] hover:text-white transition-colors duration-200"
+          class="nav-get-started nav-get-started--mobile group relative mx-auto mt-4 block w-full max-w-md rounded-lg outline-none ring-black/0 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF7E6]"
+          aria-label="Get started: homepage getting started section"
           onclick="document.getElementById('mobile-menu').classList.add('hidden')"
         >
-          <span>🎯</span>
-          <span class="font-bold">GET STARTED</span>
+          <span class="flex items-center justify-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-3 text-[#1B1B3D] transition-colors duration-200 group-hover:bg-[#1B1B3D] group-hover:text-white">
+            <span aria-hidden="true">🎯</span>
+            <span class="font-bold">GET STARTED</span>
+          </span>
+          <div
+            class="nav-get-started-tooltip nav-get-started-tooltip--mobile pointer-events-none absolute left-0 right-0 top-full z-[1] mt-2 w-full translate-y-1 rounded-xl border-2 border-black bg-white px-3 py-2 text-left opacity-0 shadow-[3px_3px_0_#000] transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none"
+            role="tooltip"
+          >
+            <p class="text-xs font-bold leading-snug text-[#1B1B3D]" style="font-family: 'Inter', system-ui, sans-serif;">
+              Your shortest path to picking a path.
+            </p>
+          </div>
         </a>
       </div>
     </div>

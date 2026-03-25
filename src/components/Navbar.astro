@@ -59,9 +59,9 @@ function isPageNavActive(href: string) {
 }
 ---
 
-<header class="fixed top-0 z-50 w-full bg-[#FFF7E6] border-b-2 border-black">
+<header class="fixed top-0 z-50 w-full overflow-visible bg-[#FFF7E6] border-b-2 border-black">
   <div id="scroll-progress" class="absolute bottom-0 left-0 h-1 bg-[#FF4D4D] transition-all duration-100"></div>
-  <nav class="container-custom mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+  <nav class="container-custom mx-auto flex h-16 items-center justify-between overflow-visible px-4 sm:px-6 lg:px-8">
     <!-- Logo -->
     <a
       href="/"
@@ -80,8 +80,18 @@ function isPageNavActive(href: string) {
             class="nav-logo-img h-8 w-8 object-contain object-center pointer-events-none select-none transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.14] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
         </div>
+      </div>
+      <span
+        class="relative inline-block min-w-0 font-black text-xl tracking-tight text-black"
+        style="font-family: 'Inter', system-ui, sans-serif;"
+      >
+        STRATEGIC SLOTH
         <div
-          class="nav-logo-tooltip pointer-events-none absolute left-1/2 top-full z-[70] mt-2 w-[min(17.5rem,calc(100vw-2rem))] -translate-x-1/2 translate-y-1 rounded-xl border-2 border-black bg-white px-3 py-2.5 text-left opacity-0 shadow-[4px_4px_0_#000] transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none"
+          class="nav-link-underline absolute -bottom-1 left-0 h-[3px] w-full bg-[#FF4D4D] transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100 group-focus-within:scale-x-100"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="nav-logo-tooltip pointer-events-none absolute left-0 top-full z-[70] mt-2 w-max max-w-[min(17.5rem,calc(100vw-2rem))] translate-y-1 rounded-xl border-2 border-black bg-white px-3 py-2.5 text-left opacity-0 shadow-[4px_4px_0_#000] transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none"
           role="tooltip"
         >
           <p class="text-sm font-bold leading-snug text-[#1B1B3D]" style="font-family: 'Inter', system-ui, sans-serif;">
@@ -91,8 +101,7 @@ function isPageNavActive(href: string) {
             Goes to the front page
           </p>
         </div>
-      </div>
-      <span class="font-black text-xl tracking-tight text-black" style="font-family: 'Inter', system-ui, sans-serif;">STRATEGIC SLOTH</span>
+      </span>
     </a>
 
     <!-- Desktop Navigation -->
@@ -173,10 +182,10 @@ function isPageNavActive(href: string) {
     class="fixed inset-0 z-50 hidden bg-[#FFF7E6] lg:hidden"
   >
     <div class="container-custom mx-auto flex h-full flex-col px-4 py-6">
-      <div class="flex items-center justify-between border-b-2 border-black pb-4">
+      <div class="flex items-center justify-between overflow-visible border-b-2 border-black pb-4">
         <a
           href="/"
-          class="nav-logo-link nav-logo-link--mobile group relative flex items-center gap-3 rounded-lg py-1 pr-1 outline-none ring-black/0 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF7E6]"
+          class="nav-logo-link nav-logo-link--mobile group relative flex min-w-0 flex-1 items-center gap-3 rounded-lg py-1 pr-1 outline-none ring-black/0 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF7E6]"
           aria-label="Strategic Sloth: go to homepage"
           onclick="document.getElementById('mobile-menu')?.classList.add('hidden'); document.body.style.overflow=''; document.getElementById('mobile-menu-button')?.setAttribute('aria-expanded','false');"
         >
@@ -192,8 +201,18 @@ function isPageNavActive(href: string) {
                 class="nav-logo-img h-6 w-6 object-contain object-center pointer-events-none select-none transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-[1.14] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
             </div>
+          </div>
+          <span
+            class="relative inline-block min-w-0 font-black text-lg tracking-tight text-black"
+            style="font-family: 'Inter', system-ui, sans-serif;"
+          >
+            STRATEGIC SLOTH
             <div
-              class="nav-logo-tooltip nav-logo-tooltip--mobile pointer-events-none absolute left-0 top-full z-[70] mt-2 w-[min(18rem,calc(100vw-3rem))] translate-y-1 rounded-xl border-2 border-black bg-white px-3 py-2 text-left opacity-0 shadow-[3px_3px_0_#000] transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none"
+              class="nav-link-underline absolute -bottom-1 left-0 h-[3px] w-full bg-[#FF4D4D] transform scale-x-0 transition-transform duration-200 group-hover:scale-x-100 group-focus-within:scale-x-100"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="nav-logo-tooltip nav-logo-tooltip--drawer pointer-events-none absolute left-0 top-full z-[70] mt-2 w-max max-w-[min(18rem,calc(100vw-3rem))] translate-y-1 rounded-xl border-2 border-black bg-white px-3 py-2 text-left opacity-0 shadow-[3px_3px_0_#000] transition-[opacity,transform] duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none"
               role="tooltip"
             >
               <p class="text-xs font-bold leading-snug text-[#1B1B3D]" style="font-family: 'Inter', system-ui, sans-serif;">
@@ -201,8 +220,7 @@ function isPageNavActive(href: string) {
               </p>
               <p class="mt-1 text-[10px] font-semibold text-[#1B1B3D]/60">Closes this menu and opens the front page</p>
             </div>
-          </div>
-          <span class="font-black text-lg tracking-tight text-black" style="font-family: 'Inter', system-ui, sans-serif;">STRATEGIC SLOTH</span>
+          </span>
         </a>
         <button
           id="close-mobile-menu"

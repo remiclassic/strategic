@@ -1,4 +1,5 @@
 ---
+import MetaPixel from '../components/MetaPixel.astro';
 import Navbar from '../components/Navbar.astro';
 import PurchaseNotification from '../components/PurchaseNotification.astro';
 import LegalModals from '../components/LegalModals.astro';
@@ -21,7 +22,6 @@ const {
 } = Astro.props;
 
 const gaId = import.meta.env.PUBLIC_GA_ID;
-const fbPixelId = import.meta.env.PUBLIC_FB_PIXEL_ID;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -43,24 +43,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 			gtag('config', gaId);
 		</script>
 
-		<!-- Facebook Pixel Code -->
-		<script is:inline define:vars={{ fbPixelId }}>
-			!function(f,b,e,v,n,t,s)
-			{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-			n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-			if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-			n.queue=[];t=b.createElement(e);t.async=!0;
-			t.src=v;s=b.getElementsByTagName(e)[0];
-			s.parentNode.insertBefore(t,s)}(window, document,'script',
-			'https://connect.facebook.net/en_US/fbevents.js');
-			fbq('init', fbPixelId);
-			fbq('track', 'PageView');
-		</script>
-		<noscript>
-			<img height="1" width="1" style="display:none"
-			src={`https://www.facebook.com/tr?id=${fbPixelId}&ev=PageView&noscript=1`}/>
-		</noscript>
-		<!-- End Facebook Pixel Code -->
+		<MetaPixel />
 
 		<meta name="description" content={description} />
 		<meta name="keywords" content="strategic sloth, lazy wealth building, passive income, digital products, online business, work smarter not harder, digital nomad lifestyle, business automation, side hustle, remote work, lifestyle design, time management, productivity hacks, financial freedom, online entrepreneurship, work-life balance, business efficiency, digital transformation, strategic planning, lazy productivity, tax free income, tax optimization, tax efficient business, offshore business, international business, tax free digital products" />

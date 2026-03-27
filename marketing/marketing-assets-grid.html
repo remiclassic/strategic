@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Strategic Sloth — marketing assets (IG planner)</title>
+  <style>
+    :root {
+      --bg: #0f0f10;
+      --card: #18181b;
+      --border: #2a2a2e;
+      --text: #ececec;
+      --muted: #8b8b90;
+      --accent: #c9b458;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 40rem;
+      margin: 0 0 1rem;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .toolbar button {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .toolbar button:hover { border-color: var(--muted); }
+    .toolbar button.on {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      width: 100%;
+    }
+    h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 2rem 0 0.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+    }
+    /* Instagram profile grid: 3 columns, square cells (4∶5 PNG cropped like feed) */
+    #gridHost .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3px;
+      background: #000;
+      border: 3px solid #000;
+      border-radius: 4px;
+      overflow: hidden;
+      max-width: min(100%, 900px);
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) {
+      #gridHost .grid { grid-template-columns: repeat(3, minmax(0, 280px)); justify-content: center; }
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: #111;
+    }
+    .card.hidden { display: none; }
+    .thumb {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #111;
+      display: block;
+    }
+    .card-meta {
+      display: none;
+    }
+    /* Planner: full 4∶5 + labels under each tile */
+    #gridHost.planner .grid {
+      grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+      gap: 12px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      max-width: none;
+    }
+    #gridHost.planner .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #gridHost.planner .thumb {
+      aspect-ratio: 4 / 5;
+    }
+    #gridHost.planner .card-meta {
+      display: block;
+      padding: 0.5rem 0.65rem 0.65rem;
+    }
+    #gridHost.planner .badge {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+    #gridHost.planner .label {
+      margin: 0.2rem 0 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    #gridHost.planner .path {
+      margin: 0.35rem 0 0;
+      font-size: 0.65rem;
+      color: var(--muted);
+      word-break: break-all;
+    }
+    #gridHost.planner .path code { font-size: 0.62rem; }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .video-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .video-card {
+      margin: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .video-card video {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      display: block;
+    }
+    .video-card figcaption {
+      padding: 0.5rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+      word-break: break-all;
+    }
+    .empty { color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Marketing assets — Instagram planner</h1>
+    <p class="sub">Each tile is <strong>slide-01.png</strong> (carousel cover) from <code>marketing/output/</code>. Toggle filters to plan feed order. Regenerate this page after new exports: <code>npm run marketing-assets-grid</code></p>
+    <div class="toolbar">
+      <button type="button" class="on" data-filter="all">All (44)</button>
+      <button type="button" data-filter="launch">Launch</button>
+      <button type="button" data-filter="batch2">Batch 2</button>
+      <button type="button" data-filter="guides">Guides</button>
+      <button type="button" data-filter="freedom">Freedom</button>
+      <span class="hint">Square 3-column grid = profile feed crop. Check <strong>Show titles &amp; paths</strong> for full 4∶5 covers + filenames.</span>
+    </div>
+    <label style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;font-size:0.85rem;color:var(--muted);">
+      <input type="checkbox" id="plannerMode" /> Show titles &amp; paths (4∶5 preview)
+    </label>
+
+    <h2>Carousel covers (44)</h2>
+    <div id="gridHost">
+      <div class="grid" id="assetGrid">
+        
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r01-18-years-their-wealth/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r01-18-years-their-wealth/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r01 · 18 years their wealth</p>
+          <p class="path"><code>output/carousel-instagram/r01-18-years-their-wealth/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r02-no-big-idea-required/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r02-no-big-idea-required/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r02 · no big idea required</p>
+          <p class="path"><code>output/carousel-instagram/r02-no-big-idea-required/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r03-brand-not-money/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r03-brand-not-money/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r03 · brand not money</p>
+          <p class="path"><code>output/carousel-instagram/r03-brand-not-money/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r04-hard-work-not-rich/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r04-hard-work-not-rich/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r04 · hard work not rich</p>
+          <p class="path"><code>output/carousel-instagram/r04-hard-work-not-rich/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r05-one-step-ahead/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r05-one-step-ahead/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r05 · one step ahead</p>
+          <p class="path"><code>output/carousel-instagram/r05-one-step-ahead/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r06-buyers-over-views/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r06-buyers-over-views/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r06 · buyers over views</p>
+          <p class="path"><code>output/carousel-instagram/r06-buyers-over-views/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r07-zero-start-product-first/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r07-zero-start-product-first/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r07 · zero start product first</p>
+          <p class="path"><code>output/carousel-instagram/r07-zero-start-product-first/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="launch">
+        <a class="thumb" href="output/carousel-instagram/r08-pick-one-let-it-run/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram/r08-pick-one-let-it-run/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">launch</span>
+          <p class="label">r08 · pick one let it run</p>
+          <p class="path"><code>output/carousel-instagram/r08-pick-one-let-it-run/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r101-lazy-advantage/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r101-lazy-advantage/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r101 · lazy advantage</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r101-lazy-advantage/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r102-pdfs-beat-perfection/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r102-pdfs-beat-perfection/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r102 · pdfs beat perfection</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r102-pdfs-beat-perfection/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r103-nine-to-five-is-r-and-d/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r103-nine-to-five-is-r-and-d/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r103 · nine to five is r and d</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r103-nine-to-five-is-r-and-d/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r104-one-offer-many-doors/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r104-one-offer-many-doors/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r104 · one offer many doors</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r104-one-offer-many-doors/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r105-energy-is-inventory/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r105-energy-is-inventory/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r105 · energy is inventory</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r105-energy-is-inventory/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r106-anti-hustle-stack/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r106-anti-hustle-stack/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r106 · anti hustle stack</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r106-anti-hustle-stack/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r107-selling-while-offline/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r107-selling-while-offline/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r107 · selling while offline</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r107-selling-while-offline/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r108-minimum-lovable-product/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r108-minimum-lovable-product/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r108 · minimum lovable product</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r108-minimum-lovable-product/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r109-permission-to-be-boring/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r109-permission-to-be-boring/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r109 · permission to be boring</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r109-permission-to-be-boring/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="batch2">
+        <a class="thumb" href="output/carousel-instagram-batch2/r110-sloth-mode-on/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-batch2/r110-sloth-mode-on/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">batch2</span>
+          <p class="label">r110 · sloth mode on</p>
+          <p class="path"><code>output/carousel-instagram-batch2/r110-sloth-mode-on/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r301-dont-do-anything/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r301-dont-do-anything/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r301 · dont do anything</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r301-dont-do-anything/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r302-design-your-exit/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r302-design-your-exit/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r302 · design your exit</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r302-design-your-exit/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r303-the-freedom-blueprint/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r303-the-freedom-blueprint/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r303 · the freedom blueprint</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r303-the-freedom-blueprint/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r304-strategic-privacy-tax/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r304-strategic-privacy-tax/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r304 · strategic privacy tax</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r304-strategic-privacy-tax/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r305-residency-without-relocation/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r305-residency-without-relocation/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r305 · residency without relocation</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r305-residency-without-relocation/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r306-global-business-jurisdictions/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r306-global-business-jurisdictions/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r306 · global business jurisdictions</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r306-global-business-jurisdictions/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r307-global-banking-systems/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r307-global-banking-systems/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r307 · global banking systems</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r307-global-banking-systems/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r308-advanced-banking-strategies/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r308-advanced-banking-strategies/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r308 · advanced banking strategies</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r308-advanced-banking-strategies/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r309-asset-protection-playbook/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r309-asset-protection-playbook/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r309 · asset protection playbook</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r309-asset-protection-playbook/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r310-ancestral-birthright-citizenship/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r310-ancestral-birthright-citizenship/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r310 · ancestral birthright citizenship</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r310-ancestral-birthright-citizenship/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="freedom">
+        <a class="thumb" href="output/carousel-instagram-freedom/r311-investment-citizenship-handbook/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-freedom/r311-investment-citizenship-handbook/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">freedom</span>
+          <p class="label">r311 · investment citizenship handbook</p>
+          <p class="path"><code>output/carousel-instagram-freedom/r311-investment-citizenship-handbook/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r201-your-first-100-online/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r201-your-first-100-online/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r201 · your first 100 online</p>
+          <p class="path"><code>output/carousel-instagram-guides/r201-your-first-100-online/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r202-zero-to-1k-per-month/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r202-zero-to-1k-per-month/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r202 · zero to 1k per month</p>
+          <p class="path"><code>output/carousel-instagram-guides/r202-zero-to-1k-per-month/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r203-pricing-your-digital-products/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r203-pricing-your-digital-products/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r203 · pricing your digital products</p>
+          <p class="path"><code>output/carousel-instagram-guides/r203-pricing-your-digital-products/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r204-why-youre-not-making-money-online-yet/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r204-why-youre-not-making-money-online-yet/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r204 · why youre not making money online yet</p>
+          <p class="path"><code>output/carousel-instagram-guides/r204-why-youre-not-making-money-online-yet/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r205-idea-to-pdf-in-24-hours/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r205-idea-to-pdf-in-24-hours/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r205 · idea to pdf in 24 hours</p>
+          <p class="path"><code>output/carousel-instagram-guides/r205-idea-to-pdf-in-24-hours/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r206-build-digital-products-without-coding/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r206-build-digital-products-without-coding/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r206 · build digital products without coding</p>
+          <p class="path"><code>output/carousel-instagram-guides/r206-build-digital-products-without-coding/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r207-simple-landing-pages-that-convert/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r207-simple-landing-pages-that-convert/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r207 · simple landing pages that convert</p>
+          <p class="path"><code>output/carousel-instagram-guides/r207-simple-landing-pages-that-convert/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r208-the-offer-that-sells-itself/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r208-the-offer-that-sells-itself/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r208 · the offer that sells itself</p>
+          <p class="path"><code>output/carousel-instagram-guides/r208-the-offer-that-sells-itself/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r209-sell-without-an-audience/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r209-sell-without-an-audience/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r209 · sell without an audience</p>
+          <p class="path"><code>output/carousel-instagram-guides/r209-sell-without-an-audience/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r210-the-one-page-sales-funnel/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r210-the-one-page-sales-funnel/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r210 · the one page sales funnel</p>
+          <p class="path"><code>output/carousel-instagram-guides/r210-the-one-page-sales-funnel/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r211-email-list-for-creators/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r211-email-list-for-creators/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r211 · email list for creators</p>
+          <p class="path"><code>output/carousel-instagram-guides/r211-email-list-for-creators/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r212-content-that-actually-converts/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r212-content-that-actually-converts/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r212 · content that actually converts</p>
+          <p class="path"><code>output/carousel-instagram-guides/r212-content-that-actually-converts/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r213-the-anti-hustle-playbook/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r213-the-anti-hustle-playbook/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r213 · the anti hustle playbook</p>
+          <p class="path"><code>output/carousel-instagram-guides/r213-the-anti-hustle-playbook/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r214-stop-overthinking-start-shipping/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r214-stop-overthinking-start-shipping/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r214 · stop overthinking start shipping</p>
+          <p class="path"><code>output/carousel-instagram-guides/r214-stop-overthinking-start-shipping/slide-01.png</code></p>
+        </div>
+      </article>
+      <article class="card" data-section="guides">
+        <a class="thumb" href="output/carousel-instagram-guides/r215-focus-like-a-sloth/slide-01.png" target="_blank" rel="noopener" title="Open cover PNG">
+          <img src="output/carousel-instagram-guides/r215-focus-like-a-sloth/slide-01.png" alt="" width="1080" height="1350" loading="lazy" />
+        </a>
+        <div class="card-meta">
+          <span class="badge">guides</span>
+          <p class="label">r215 · focus like a sloth</p>
+          <p class="path"><code>output/carousel-instagram-guides/r215-focus-like-a-sloth/slide-01.png</code></p>
+        </div>
+      </article>
+      </div>
+    </div>
+
+    <h2>Exported video (9)</h2>
+    <div class="video-strip">
+        
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="002329199f2025aed0b9d4c478618f9e.webm">
+              <source src="output/002329199f2025aed0b9d4c478618f9e.webm" />
+            </video>
+            <figcaption><code>002329199f2025aed0b9d4c478618f9e.webm</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="076eac994cf8fb4c483f33bd82c03dcf.webm">
+              <source src="output/076eac994cf8fb4c483f33bd82c03dcf.webm" />
+            </video>
+            <figcaption><code>076eac994cf8fb4c483f33bd82c03dcf.webm</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="479625e9f355514965e862006effc490.webm">
+              <source src="output/479625e9f355514965e862006effc490.webm" />
+            </video>
+            <figcaption><code>479625e9f355514965e862006effc490.webm</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="6f70c51f4c379a30d34453d263e24d55.webm">
+              <source src="output/6f70c51f4c379a30d34453d263e24d55.webm" />
+            </video>
+            <figcaption><code>6f70c51f4c379a30d34453d263e24d55.webm</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="reel-01-strategic-sloth-2026-03-25T12-09-05.webm">
+              <source src="output/reel-01-strategic-sloth-2026-03-25T12-09-05.webm" />
+            </video>
+            <figcaption><code>reel-01-strategic-sloth-2026-03-25T12-09-05.webm</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="reel-01-strategic-sloth-2026-03-25T12-09-54.webm">
+              <source src="output/reel-01-strategic-sloth-2026-03-25T12-09-54.webm" />
+            </video>
+            <figcaption><code>reel-01-strategic-sloth-2026-03-25T12-09-54.webm</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="reel-01-strategic-sloth-2026-03-25T12-10-37.webm">
+              <source src="output/reel-01-strategic-sloth-2026-03-25T12-10-37.webm" />
+            </video>
+            <figcaption><code>reel-01-strategic-sloth-2026-03-25T12-10-37.webm</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="reel-01-strategic-sloth-2026-03-25T12-11-22.mp4">
+              <source src="output/reel-01-strategic-sloth-2026-03-25T12-11-22.mp4" />
+            </video>
+            <figcaption><code>reel-01-strategic-sloth-2026-03-25T12-11-22.mp4</code></figcaption>
+          </figure>
+          <figure class="video-card" data-section="video">
+            <video controls muted playsinline preload="metadata" title="reel-01-strategic-sloth-2026-03-25T12-11-22.webm">
+              <source src="output/reel-01-strategic-sloth-2026-03-25T12-11-22.webm" />
+            </video>
+            <figcaption><code>reel-01-strategic-sloth-2026-03-25T12-11-22.webm</code></figcaption>
+          </figure>
+      </div>
+  </div>
+  <script>
+    (function () {
+      var cards = [].slice.call(document.querySelectorAll(".card"));
+      var buttons = [].slice.call(document.querySelectorAll(".toolbar button"));
+      var host = document.getElementById("gridHost");
+      var plannerToggle = document.getElementById("plannerMode");
+
+      function setFilter(id) {
+        buttons.forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-filter") === id); });
+        cards.forEach(function (card) {
+          var sec = card.getAttribute("data-section");
+          var show = id === "all" || sec === id;
+          card.classList.toggle("hidden", !show);
+        });
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setFilter(btn.getAttribute("data-filter"));
+        });
+      });
+
+      plannerToggle.addEventListener("change", function () {
+        host.classList.toggle("planner", plannerToggle.checked);
+      });
+
+      setFilter("all");
+    })();
+  </script>
+</body>
+</html>

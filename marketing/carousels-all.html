@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Strategic Sloth — Carousels (on-brand)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Inter:ital,opsz,wght@0,14..32,400..900;1,14..32,400..900&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    /**
+     * Tokens aligned with site: src/components/Hero.astro, Navbar.astro, FunnelLayout.astro
+     * Navy #1B1B3D · Yellow #FFD600 · Cream #FFFDF7 · CTA navy #2C2D5D · Red #FF4D4D · Sky #E3F2FF
+     */
+    :root {
+      --ss-navy: #1b1b3d;
+      --ss-navy-cta: #2c2d5d;
+      --ss-yellow: #ffd600;
+      --ss-yellow-soft: #fff7e6;
+      --ss-cream: #fffdf7;
+      --ss-red: #ff4d4d;
+      --ss-sky: #e3f2ff;
+      --ss-black: #000;
+      --stage-w: 1080;
+      --stage-h: 1920;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100dvh;
+      background: var(--ss-yellow-soft);
+      color: var(--ss-navy);
+      font-family: "Inter", system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 12px 100px;
+    }
+
+    h1 {
+      font-family: "Bangers", cursive;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: var(--ss-navy);
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ss-navy);
+      max-width: 560px;
+    }
+
+    .controls select,
+    .controls button {
+      background: var(--ss-yellow);
+      border: 2px solid var(--ss-black);
+      color: var(--ss-navy);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ss-black);
+    }
+
+    .controls button:hover,
+    .controls select:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ss-black);
+    }
+
+    .hint {
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      color: var(--ss-navy);
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+
+    .carousel-wrap {
+      position: relative;
+      width: min(100vw - 24px, (100dvh - 220px) * (9 / 16));
+      aspect-ratio: 9 / 16;
+      max-height: calc(100dvh - 220px);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 3px solid var(--ss-black);
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+      touch-action: pan-y;
+    }
+
+    .carousel-viewport {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--ss-yellow);
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      will-change: transform;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* —— Stage (1080×1920) — homepage energy —— */
+    .stage {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      transform-origin: top left;
+      overflow: hidden;
+      background: linear-gradient(180deg, #ffe566 0%, var(--ss-yellow) 38%, #ffc400 100%);
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    .ss-zlayer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ss-z {
+      position: absolute;
+      opacity: 0.35;
+    }
+
+    .ss-z path {
+      stroke: var(--ss-navy-cta);
+      stroke-width: 4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ss-z.a {
+      top: 8%;
+      left: 8%;
+      width: 100px;
+      height: 100px;
+    }
+    .ss-z.b {
+      top: 14%;
+      right: 10%;
+      width: 120px;
+      height: 120px;
+    }
+    .ss-z.c {
+      bottom: 22%;
+      left: 6%;
+      width: 88px;
+      height: 88px;
+    }
+    .ss-z.d {
+      bottom: 18%;
+      right: 8%;
+      width: 96px;
+      height: 96px;
+    }
+
+    .ss-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 36px 48px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 2px solid var(--ss-black);
+      background: var(--ss-yellow-soft);
+    }
+
+    .ss-logo-ring {
+      flex-shrink: 0;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 3px solid var(--ss-black);
+      background: var(--ss-yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 4px 4px 0 var(--ss-black);
+    }
+
+    .ss-logo-ring img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+    }
+
+    .ss-brand-line {
+      font-weight: 900;
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      color: var(--ss-black);
+      line-height: 1.1;
+    }
+
+    .ss-brand-sub {
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 28px;
+      color: var(--ss-navy);
+      margin-top: 4px;
+    }
+
+    .ss-main {
+      position: absolute;
+      top: 148px;
+      bottom: 120px;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 40px;
+    }
+
+    .ss-card {
+      background: var(--ss-cream);
+      border: 3px solid var(--ss-black);
+      border-radius: 32px;
+      box-shadow: 8px 8px 0 var(--ss-black);
+      padding: 44px 36px;
+      width: 100%;
+      max-width: 920px;
+      max-height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ss-card-inner {
+      width: 100%;
+    }
+
+    .ss-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 16px;
+      border-top: 2px dashed rgba(27, 27, 61, 0.25);
+      background: linear-gradient(0deg, rgba(255, 253, 247, 0.95), transparent);
+    }
+
+    .ss-footer-emoji {
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .ss-footer-url {
+      font-weight: 900;
+      font-size: 28px;
+      color: var(--ss-navy-cta);
+      letter-spacing: 0.02em;
+    }
+
+    .line {
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.08;
+      color: var(--ss-navy);
+      font-style: italic;
+    }
+
+    .line.t96 {
+      font-size: 104px;
+    }
+    .line.t72 {
+      font-size: 80px;
+    }
+    .line.t64 {
+      font-size: 70px;
+    }
+    .line.t56 {
+      font-size: 62px;
+    }
+    .line.t52 {
+      font-size: 58px;
+    }
+    .line.t48 {
+      font-size: 54px;
+    }
+    .line.t44 {
+      font-size: 52px;
+    }
+    .line.mt8 {
+      margin-top: 8px;
+    }
+    .line.mt16 {
+      margin-top: 16px;
+    }
+    .line.mt24 {
+      margin-top: 24px;
+    }
+
+    .muted {
+      color: rgba(27, 27, 61, 0.55);
+      font-style: italic;
+    }
+
+    .pop-red {
+      color: var(--ss-red);
+    }
+
+    .pop-navy {
+      color: var(--ss-navy-cta);
+    }
+
+    .strike {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+
+    .emoji-lead {
+      font-size: 64px;
+      line-height: 1.2;
+      display: block;
+      margin-bottom: 12px;
+      font-style: normal;
+    }
+
+    .step-label {
+      display: inline-block;
+      font-family: "Bangers", cursive;
+      font-size: 44px;
+      letter-spacing: 0.08em;
+      color: var(--ss-navy);
+      background: var(--ss-yellow);
+      border: 2px solid var(--ss-black);
+      border-radius: 12px;
+      padding: 6px 18px;
+      margin-bottom: 16px;
+      box-shadow: 3px 3px 0 var(--ss-black);
+    }
+
+    .step-body {
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 54px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      font-style: normal;
+      color: var(--ss-navy);
+    }
+
+    .ss-cta-panel {
+      background: var(--ss-navy-cta);
+      color: #fff;
+      border: 3px solid var(--ss-black);
+      border-radius: 24px;
+      padding: 36px 32px;
+      box-shadow: 6px 6px 0 var(--ss-black);
+      text-align: center;
+    }
+
+    .ss-cta-panel .cta-main {
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 1.22;
+      text-transform: none;
+      font-style: normal;
+    }
+
+    .ss-cta-panel .cta-url {
+      margin-top: 20px;
+      font-weight: 900;
+      font-size: 36px;
+      color: var(--ss-yellow);
+      letter-spacing: 0.02em;
+    }
+
+    .ss-cta-panel .cta-sub {
+      margin-top: 14px;
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 30px;
+      color: var(--ss-sky);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ss-inline-url {
+      margin-top: 28px;
+      font-weight: 900;
+      font-size: 36px;
+      color: var(--ss-navy-cta);
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      max-width: 400px;
+    }
+
+    .dots button {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--ss-black);
+      background: #fff;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .dots button.on {
+      background: var(--ss-red);
+      transform: scale(1.15);
+    }
+
+    .nav-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .nav-row button {
+      background: var(--ss-cream);
+      border: 2px solid var(--ss-black);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ss-black);
+      font-family: "Inter", sans-serif;
+    }
+
+    .caption-panel {
+      margin-top: 20px;
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .caption-panel summary {
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ss-navy);
+      margin-bottom: 8px;
+      font-family: "Comic Neue", cursive;
+    }
+
+    .caption-panel pre {
+      font-family: "Inter", monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--ss-navy);
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid var(--ss-black);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    /* Instagram feed carousel: 1080×1350 (4:5) — center-crop from 1080×1920 stage */
+    #ig-export-root {
+      display: none;
+      width: 1080px;
+      height: 1350px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: var(--ss-yellow);
+      position: relative;
+    }
+
+    body.ss-export-mode {
+      padding: 0;
+      background: #222;
+    }
+
+    body.ss-export-mode > *:not(#ig-export-root) {
+      display: none !important;
+    }
+
+    body.ss-export-mode #ig-export-root {
+      display: block !important;
+    }
+
+    .ig-crop-wrap {
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+      position: relative;
+      background: var(--ss-yellow);
+    }
+
+    .ig-crop-wrap .stage {
+      position: absolute;
+      left: 0;
+      top: -285px;
+      width: 1080px;
+      height: 1920px;
+      transform: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="ig-export-root" aria-hidden="true"></div>
+
+  <h1 class="ss-ui">🦥 Strategic Sloth — carousel slides</h1>
+  <p class="hint ss-ui">Swipe ↔️ · arrow keys · matches strategicsloth.com colors &amp; fonts</p>
+
+  <div class="controls ss-ui">
+    <label>
+      Script
+      <select id="reelSelect" aria-label="Choose script"></select>
+    </label>
+    <button type="button" id="btnPng" title="Current slide as 1080×1920 PNG">PNG this slide</button>
+  </div>
+
+  <div class="carousel-wrap ss-ui" id="carouselWrap">
+    <div class="carousel-viewport" id="viewport">
+      <div class="carousel-track" id="track"></div>
+    </div>
+  </div>
+
+  <div class="nav-row ss-ui">
+    <button type="button" id="btnPrev">← Prev</button>
+    <button type="button" id="btnNext">Next →</button>
+  </div>
+  <div class="dots ss-ui" id="dots" aria-label="Slides"></div>
+
+  <div class="caption-panel ss-ui">
+    <details open>
+      <summary>Caption for this script (copy for IG)</summary>
+      <pre id="captionBox"></pre>
+    </details>
+  </div>
+
+  <script>
+    const STAGE_W = 1080;
+    const STAGE_H = 1920;
+    /** Same as Astro `public/` → `/images/…` when served from repo root; file:// uses relative path */
+    const SLOTH_LOGO =
+      location.protocol === "http:" || location.protocol === "https:"
+        ? "/images/slothlogo.png"
+        : new URL("../public/images/slothlogo.png", location.href).href;
+
+    const IG_W = 1080;
+    const IG_H = 1350;
+    const IG_CROP_Y = Math.floor((STAGE_H - IG_H) / 2);
+
+    const zPath = "M8 12H32L12 28H32";
+
+    function zSvg(cls) {
+      return `<svg class="ss-z ${cls}" viewBox="0 0 40 40" aria-hidden="true"><path d="${zPath}" /></svg>`;
+    }
+
+    function stageShell(innerHtml) {
+      return `
+        <div class="stage">
+          <div class="ss-zlayer" aria-hidden="true">
+            ${zSvg("a")}${zSvg("b")}${zSvg("c")}${zSvg("d")}
+          </div>
+          <header class="ss-header">
+            <div class="ss-logo-ring">
+              <img src="${SLOTH_LOGO}" width="72" height="72" alt="" decoding="async" />
+            </div>
+            <div>
+              <p class="ss-brand-line">STRATEGIC SLOTH</p>
+              <p class="ss-brand-sub">🌴 Calm systems · Lazy income</p>
+            </div>
+          </header>
+          <main class="ss-main">
+            <div class="ss-card">
+              <div class="ss-card-inner">${innerHtml}</div>
+            </div>
+          </main>
+          <footer class="ss-footer">
+            <span class="ss-footer-emoji" aria-hidden="true">🦥</span>
+            <span class="ss-footer-url">strategicsloth.com</span>
+          </footer>
+        </div>`;
+    }
+
+    /** @type {{ id: number; title: string; caption: string; slides: string[] }[]} */
+    const REELS = [
+      {
+        id: 1,
+        title: "18 Years. Their Wealth.",
+        caption: `18 years in games and design. I got really good at making other people money.
+
+Nobody warns you that "stable" can mean "stuck."
+
+So I stopped trading hours for their upside—and built something once that keeps selling.
+
+If you want the honest, lazy-smart version of how I did it, it's on the site.
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(
+            `<span class="emoji-lead" aria-hidden="true">💤</span><div class="line t72">I SPENT</div><div class="line t96 mt8">18 YEARS</div>`
+          ),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🏢</span><div class="line t64">BUILDING FOR</div><div class="line t64 mt16">OTHER PEOPLE.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">📈</span><div class="line t64">IT MADE THEM</div><div class="line t64 mt16">RICH.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🙃</span><div class="line t72"><span class="pop-red">NOT</span> ME.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">👀</span><div class="line t52">NOBODY TELLS</div><div class="line t52 mt8">YOU THIS:</div>`),
+          stageShell(`<div class="line t52">JOB SECURITY</div><div class="line t52 mt16 pop-navy">IS A TRAP.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🛠️</span><div class="line t52">SO I BUILT</div><div class="line t52 mt16">SOMETHING ONCE.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">😴</span><div class="line t52">NOW IT SELLS</div><div class="line t52 mt16 pop-navy">WHILE I SLEEP.</div>`),
+          stageShell(
+            `<div class="ss-cta-panel"><div class="cta-main">✅ Same system →</div><div class="cta-url">strategicsloth.com</div><div class="cta-sub">link in bio</div></div>`
+          ),
+        ],
+      },
+      {
+        id: 2,
+        title: "No “Big Idea” Required",
+        caption: `You're not missing a million-dollar idea.
+
+You're missing a simple container for what you already know.
+
+Write it. PDF it. Sell it again.
+
+I mapped the whole lazy-smart system on my site—no fluff, no fake guru energy.
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🧠</span><div class="line t52">YOU DON'T NEED</div><div class="line t52 mt8">A BUSINESS IDEA.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">👉</span><div class="line t64 pop-navy">YOU NEED THIS:</div>`),
+          stageShell(`<div class="step-label">01</div><div class="step-body">✏️ Write what you already know</div>`),
+          stageShell(`<div class="step-label">02</div><div class="step-body">📄 Turn it into a simple PDF</div>`),
+          stageShell(`<div class="step-label">03</div><div class="step-body">🔁 Sell it over and over</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">✨</span><div class="line t56 pop-red">THAT'S LITERALLY IT.</div>`),
+          stageShell(
+            `<div class="ss-cta-panel"><div class="cta-main">📚 Exact system →</div><div class="cta-url">strategicsloth.com</div><div class="cta-sub">link in bio</div></div>`
+          ),
+        ],
+      },
+      {
+        id: 3,
+        title: "Brand ≠ Money",
+        caption: `Hot take with love: your logo isn't the bottleneck.
+
+Speed to outcome is.
+
+Simple PDFs work because they're clear, fast, and easy to buy.
+
+I break down how I build and sell them on strategicsloth.com.
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🎯</span><div class="line t52">STOP TRYING TO BUILD</div><div class="line t52 mt8">A BRAND.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">😐</span><div class="line t52">NOBODY CARES ABOUT</div><div class="line t52 mt8">YOUR BRAND.</div>`),
+          stageShell(
+            `<span class="emoji-lead" aria-hidden="true">⚡</span><div class="line t52">PEOPLE CARE ABOUT</div><div class="line t52 mt8">SOLVING A <span class="pop-navy">PROBLEM FAST.</span></div>`
+          ),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">💸</span><div class="line t48">THAT'S WHY SIMPLE PDFS</div><div class="line t48 mt8">ARE PRINTING MONEY.</div>`),
+          stageShell(
+            `<div class="line t52">I SHOW HOW</div><div class="line t52 mt16">ON MY SITE.</div><div class="ss-inline-url">strategicsloth.com</div>`
+          ),
+        ],
+      },
+      {
+        id: 4,
+        title: "Hard Work ≠ Rich",
+        caption: `I tried to outwork the problem.
+
+Turns out the problem was the model.
+
+Build once. Sell repeatedly. Protect your energy.
+
+I wrote the full system out—link in bio → strategicsloth.com
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(`<span class="emoji-lead" aria-hidden="true">😤</span><div class="line t48">I THOUGHT WORKING HARDER</div><div class="line t48 mt8">WOULD MAKE ME RICH.</div>`),
+          stageShell(`<div class="line t72 muted">IT DIDN'T.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🥱</span><div class="line t56">IT JUST MADE ME</div><div class="line t72 mt8">TIRED.</div>`),
+          stageShell(`<div class="line t52 pop-navy">THE ONLY THING THAT WORKED:</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">📦</span><div class="line t56">BUILD SOMETHING</div><div class="line t56 mt8">ONCE.</div>`),
+          stageShell(`<div class="line t52">LET IT SELL</div><div class="line t52 mt16 pop-navy">OVER AND OVER.</div>`),
+          stageShell(
+            `<div class="ss-cta-panel"><div class="cta-main">📝 Full system →</div><div class="cta-url">strategicsloth.com</div><div class="cta-sub">link in bio</div></div>`
+          ),
+        ],
+      },
+      {
+        id: 5,
+        title: "One Step Ahead",
+        caption: `You're waiting to feel "qualified."
+
+Your buyer is waiting for a clear next step.
+
+One step ahead is enough—I started there too.
+
+Everything I use is on strategicsloth.com.
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🎓</span><div class="line t48">YOU DON'T NEED TO BE</div><div class="line t72 mt8">AN EXPERT.</div>`),
+          stageShell(
+            `<span class="emoji-lead" aria-hidden="true">👣</span><div class="line t48 muted">YOU JUST NEED TO BE</div><div class="line t52 mt16 pop-navy">ONE STEP AHEAD.</div>`
+          ),
+          stageShell(`<div class="line t48">THAT'S ENOUGH TO MAKE</div><div class="line t48 mt8">MONEY ONLINE.</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🌱</span><div class="line t52 pop-red">THAT'S LITERALLY HOW I STARTED.</div>`),
+          stageShell(
+            `<div class="line t56">IT'S ALL ON</div><div class="line t56 mt8">MY SITE.</div><div class="ss-inline-url">strategicsloth.com</div>`
+          ),
+        ],
+      },
+      {
+        id: 6,
+        title: "Buyers > Views",
+        caption: `Views are vanity if the offer's fuzzy.
+
+You need clarity, a simple product, and the right few people saying yes.
+
+I explain the whole buyer-first approach on strategicsloth.com.
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🎬</span><div class="line t52">STOP TRYING TO</div><div class="line t64 mt8 pop-red">GO VIRAL.</div>`),
+          stageShell(
+            `<div class="line t48">YOU DON'T NEED</div><div class="line t48 mt8"><span class="strike">MILLIONS OF VIEWS.</span></div>`
+          ),
+          stageShell(
+            `<span class="emoji-lead" aria-hidden="true">🛒</span><div class="line t48">YOU NEED A FEW PEOPLE</div><div class="line t48 mt8">WHO <span class="pop-navy">ACTUALLY BUY.</span></div>`
+          ),
+          stageShell(`<div class="line t56 pop-navy">THAT'S HOW THIS WORKS.</div>`),
+          stageShell(
+            `<div class="line t52">I BREAK IT DOWN</div><div class="line t52 mt8">ON MY SITE.</div><div class="ss-inline-url">strategicsloth.com</div>`
+          ),
+        ],
+      },
+      {
+        id: 7,
+        title: "$0 Start = Product First",
+        caption: `If the clock reset tomorrow, I'd skip the fantasy business plan.
+
+One product. One offer. One place to buy.
+
+Fastest path from zero to momentum—I lay it out on strategicsloth.com.
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(`<span class="emoji-lead" aria-hidden="true">0️⃣</span><div class="line t48">IF YOU HAD TO START FROM</div><div class="line t96 mt8 pop-navy">$0 TODAY…</div>`),
+          stageShell(`<div class="line t52">YOU WOULDN'T BUILD</div><div class="line t52 mt8">A BUSINESS.</div>`),
+          stageShell(
+            `<span class="emoji-lead" aria-hidden="true">📦</span><div class="line t48">YOU'D BUILD A SIMPLE</div><div class="line t48 mt8">PRODUCT AND SELL IT.</div>`
+          ),
+          stageShell(`<div class="line t56 pop-red">THAT'S THE FASTEST WAY.</div>`),
+          stageShell(`<div class="line t52">I SHOW EXACTLY HOW.</div><div class="ss-inline-url">strategicsloth.com</div>`),
+        ],
+      },
+      {
+        id: 8,
+        title: "Pick One. Let It Run.",
+        caption: `The algorithm isn't your problem.
+
+Restarting every Monday is.
+
+Pick one offer. Improve it. Let it compound.
+
+I wrote the focused version of my system—link in bio → strategicsloth.com
+
+https://www.strategicsloth.com`,
+        slides: [
+          stageShell(`<span class="emoji-lead" aria-hidden="true">📱</span><div class="line t44">MOST PEOPLE NEVER MAKE</div><div class="line t44 mt8">MONEY ONLINE</div>`),
+          stageShell(`<div class="line t48">BECAUSE THEY KEEP</div><div class="line t52 mt8 pop-red">STARTING OVER.</div>`),
+          stageShell(`<div class="line t56 muted">💡 NEW IDEAS</div>`),
+          stageShell(`<div class="line t56 muted">📋 NEW PLANS</div>`),
+          stageShell(`<div class="line t56 muted">🌀 NEW DISTRACTIONS</div>`),
+          stageShell(`<span class="emoji-lead" aria-hidden="true">🎯</span><div class="line t48">PICK ONE THING</div><div class="line t48 mt8 pop-navy">AND LET IT RUN.</div>`),
+          stageShell(`<div class="line t56 pop-navy">THAT'S WHEN IT WORKS.</div>`),
+          stageShell(
+            `<div class="ss-cta-panel"><div class="cta-main">🦥 Focused system →</div><div class="cta-url">strategicsloth.com</div><div class="cta-sub">link in bio</div></div>`
+          ),
+        ],
+      },
+    ];
+
+    function runExportMode() {
+      const qs = new URLSearchParams(location.search);
+      if (qs.get("export") !== "1") return false;
+      const reelId = parseInt(qs.get("reelId"), 10);
+      const slideIdx = parseInt(qs.get("slideIdx"), 10);
+      const reel = REELS.find((r) => r.id === reelId);
+      if (!reel || Number.isNaN(slideIdx) || slideIdx < 0 || slideIdx >= reel.slides.length) {
+        const root = document.getElementById("ig-export-root");
+        root.style.display = "block";
+        root.textContent = "Invalid export params: use reelId=1–8 and slideIdx=0…n-1";
+        document.body.classList.add("ss-export-mode");
+        return true;
+      }
+      const root = document.getElementById("ig-export-root");
+      root.innerHTML = `<div class="ig-crop-wrap">${reel.slides[slideIdx]}</div>`;
+      document.body.classList.add("ss-export-mode");
+      document.title = `SS export R${reelId} S${slideIdx + 1}`;
+      return true;
+    }
+
+    const isExportShot = runExportMode();
+
+    const track = document.getElementById("track");
+    const viewport = document.getElementById("viewport");
+    const carouselWrap = document.getElementById("carouselWrap");
+    const reelSelect = document.getElementById("reelSelect");
+    const dotsEl = document.getElementById("dots");
+    const captionBox = document.getElementById("captionBox");
+    const btnPrev = document.getElementById("btnPrev");
+    const btnNext = document.getElementById("btnNext");
+    const btnPng = document.getElementById("btnPng");
+
+    let reelIndex = 0;
+    let slideIndex = 0;
+    let touchStartX = null;
+
+    function scaleStages() {
+      const r = viewport.getBoundingClientRect();
+      const s = Math.min(r.width / STAGE_W, r.height / STAGE_H);
+      track.querySelectorAll(".stage").forEach((el) => {
+        el.style.transform = `scale(${s})`;
+      });
+    }
+
+    function buildDots(n) {
+      dotsEl.innerHTML = "";
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", `Slide ${i + 1}`);
+        b.addEventListener("click", () => goToSlide(i));
+        dotsEl.appendChild(b);
+      }
+    }
+
+    function updateDots() {
+      [...dotsEl.children].forEach((b, i) => b.classList.toggle("on", i === slideIndex));
+    }
+
+    function renderReel() {
+      const reel = REELS[reelIndex];
+      track.innerHTML = reel.slides.map((html) => `<div class="slide">${html}</div>`).join("");
+      slideIndex = 0;
+      buildDots(reel.slides.length);
+      captionBox.textContent = reel.caption;
+      applyTransform();
+      updateDots();
+      requestAnimationFrame(() => scaleStages());
+    }
+
+    function applyTransform() {
+      track.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+
+    function goToSlide(i) {
+      const n = REELS[reelIndex].slides.length;
+      slideIndex = Math.max(0, Math.min(n - 1, i));
+      applyTransform();
+      updateDots();
+    }
+
+    function next() {
+      const n = REELS[reelIndex].slides.length;
+      if (slideIndex < n - 1) goToSlide(slideIndex + 1);
+    }
+
+    function prev() {
+      if (slideIndex > 0) goToSlide(slideIndex - 1);
+    }
+
+    REELS.forEach((r) => {
+      const o = document.createElement("option");
+      o.value = String(r.id);
+      o.textContent = `${r.id}. ${r.title}`;
+      reelSelect.appendChild(o);
+    });
+
+    reelSelect.addEventListener("change", () => {
+      reelIndex = REELS.findIndex((r) => String(r.id) === reelSelect.value);
+      renderReel();
+    });
+
+    btnNext.addEventListener("click", next);
+    btnPrev.addEventListener("click", prev);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    });
+
+    carouselWrap.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true }
+    );
+
+    carouselWrap.addEventListener(
+      "touchend",
+      (e) => {
+        if (touchStartX == null) return;
+        const dx = e.changedTouches[0].screenX - touchStartX;
+        touchStartX = null;
+        if (dx < -48) next();
+        if (dx > 48) prev();
+      },
+      { passive: true }
+    );
+
+    function replaceImgsWithSlothEmoji(root) {
+      root.querySelectorAll("img").forEach((img) => {
+        const w = img.width || img.getAttribute("width") || 72;
+        const h = img.height || img.getAttribute("height") || 72;
+        const sp = document.createElement("span");
+        sp.setAttribute("aria-hidden", "true");
+        sp.textContent = "🦥";
+        sp.style.cssText = `display:inline-flex;align-items:center;justify-content:center;width:${w}px;height:${h}px;font-size:${Math.min(Number(w), Number(h)) * 0.72}px;line-height:1;`;
+        img.replaceWith(sp);
+      });
+    }
+
+    async function captureSlideToIgPng(stageEl) {
+      const clone = stageEl.cloneNode(true);
+      clone.style.cssText =
+        "position:fixed;left:0;top:0;width:1080px;height:1920px;transform:none!important;z-index:2147483646;opacity:0.01;pointer-events:none;";
+      replaceImgsWithSlothEmoji(clone);
+      document.body.appendChild(clone);
+      await document.fonts.ready;
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      let canvas;
+      try {
+        canvas = await html2canvas(clone, {
+          scale: 1,
+          width: STAGE_W,
+          height: STAGE_H,
+          useCORS: false,
+          allowTaint: false,
+          backgroundColor: "#ffd600",
+          logging: false,
+          onclone(clonedDoc) {
+            const root = clonedDoc.body?.querySelector(".stage") || clonedDoc.querySelector(".stage");
+            if (root) replaceImgsWithSlothEmoji(root);
+          },
+        });
+      } finally {
+        clone.remove();
+      }
+      const out = document.createElement("canvas");
+      out.width = IG_W;
+      out.height = IG_H;
+      const ctx = out.getContext("2d");
+      ctx.fillStyle = "#ffd600";
+      ctx.fillRect(0, 0, IG_W, IG_H);
+      ctx.drawImage(canvas, 0, IG_CROP_Y, IG_W, IG_H, 0, 0, IG_W, IG_H);
+      return out;
+    }
+
+    btnPng.addEventListener("click", async () => {
+      if (typeof html2canvas !== "function") {
+        alert("html2canvas failed to load (check network).");
+        return;
+      }
+      const slides = track.querySelectorAll(".slide .stage");
+      const stage = slides[slideIndex];
+      if (!stage) return;
+      btnPng.disabled = true;
+      try {
+        const out = await captureSlideToIgPng(stage);
+        await new Promise((resolve, reject) => {
+          out.toBlob(
+            (blob) => {
+              if (!blob) {
+                reject(new Error("toBlob returned null"));
+                return;
+              }
+              const a = document.createElement("a");
+              a.href = URL.createObjectURL(blob);
+              a.download = `ss-ig-45-r${REELS[reelIndex].id}-slide-${String(slideIndex + 1).padStart(2, "0")}.png`;
+              a.click();
+              URL.revokeObjectURL(a.href);
+              resolve();
+            },
+            "image/png",
+            1
+          );
+        });
+      } catch (err) {
+        console.error(err);
+        alert(
+          "PNG export failed. Tip: run from repo root `npm run export-carousel-slides` for guaranteed exports, or open this page via local HTTP (not file://) so the logo can load without tainting the canvas."
+        );
+      } finally {
+        btnPng.disabled = false;
+      }
+    });
+
+    if (!isExportShot) {
+      new ResizeObserver(() => scaleStages()).observe(viewport);
+
+      reelIndex = 0;
+      reelSelect.value = "1";
+      renderReel();
+    }
+  </script>
+</body>
+</html>

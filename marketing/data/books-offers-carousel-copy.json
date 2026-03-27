@@ -1,0 +1,326 @@
+[
+  {
+    "id": "first-100",
+    "title": "Your First $100 Online",
+    "price": "$9",
+    "poster": "book-first-100.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOU HAVEN'T MADE YOUR FIRST $100 ONLINE YET.", "sub": "Here's the exact path." },
+      "s2": { "headline": "You've watched tutorials. Read the threads. Thought about the right idea.", "sub": "But nothing sold." },
+      "s3": { "headline": "So every month resets to zero. And it feels like you're falling behind people who just started." },
+      "s4": { "headline": "The problem isn't your idea.", "sub": "It's that you haven't finished the path from idea to paid." },
+      "s5": { "headline": "You need the steps from zero to first payment. In the right order. Without skipping the awkward bits." },
+      "s6": { "lines": ["PICK AN IDEA PEOPLE ALREADY WANT", "PACKAGE IT IN AN AFTERNOON", "SELL IT — NO WEBSITE NEEDED"] },
+      "s8": { "headline": "The first $100 doesn't need followers. It doesn't need a website. It needs one finished product." },
+      "s9": { "headline": "Your First $100 Online covers every step — including the ones most guides skip entirely." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "zero-to-1k",
+    "title": "$0 to $1K Per Month",
+    "price": "$19",
+    "poster": "book-zero-to-1k.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "$0 TO $1K/MONTH. NO VIRAL MOMENT. NO AUDIENCE.", "sub": "Here's the real plan." },
+      "s2": { "headline": "You've heard the advice. 'Post consistently.' 'Build in public.' 'Be patient.'", "sub": "Still at zero." },
+      "s3": { "headline": "Every month you work hard and still make nothing. That's not a motivation problem. It's a system problem." },
+      "s4": { "headline": "You're optimising the wrong things.", "sub": "Followers don't pay the bills. Sales do." },
+      "s5": { "headline": "You need a stage-by-stage plan. What to do first. What to ignore. What to build when." },
+      "s6": { "lines": ["STAGE 1 — FIRST SALE", "STAGE 2 — FIRST REPEAT", "STAGE 3 — FIRST $1K MONTH"] },
+      "s8": { "headline": "People hit $1K/month with a single $19 guide and a simple email list. No big audience required." },
+      "s9": { "headline": "This guide breaks down every stage so you stop guessing and start moving." },
+      "s10": { "headline": "GET THE PLAN ($19)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "pricing",
+    "title": "Pricing That Sells",
+    "price": "$9",
+    "poster": "book-pricing.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOU'RE UNDERCHARGING. AND IT'S KILLING YOUR BUSINESS.", "sub": "Here's how to fix it." },
+      "s2": { "headline": "You priced it low to make it 'easier to sell.' But it didn't sell more.", "sub": "It sold less." },
+      "s3": { "headline": "Low prices signal low value. And you're working twice as hard for half the result." },
+      "s4": { "headline": "Pricing isn't about what feels fair.", "sub": "It's about what makes your offer feel worth it." },
+      "s5": { "headline": "You need a framework for pricing that makes buyers think 'that's a no-brainer' — not 'I'll think about it.'" },
+      "s6": { "lines": ["ANCHOR TO OUTCOMES, NOT HOURS", "CHARGE MORE, SELL LESS, EARN MORE", "PRICE TELLS THEM HOW TO FEEL"] },
+      "s8": { "headline": "Most creators double their revenue by raising prices — without getting a single new customer." },
+      "s9": { "headline": "Pricing That Sells shows you exactly how to price, test, and communicate your offer." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "not-making-money",
+    "title": "Why You're Not Making Money Online",
+    "price": "$9",
+    "poster": "book-not-making-money.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "WORKING HARD ONLINE BUT STILL NOT MAKING MONEY?", "sub": "It's not luck. It's a fixable problem." },
+      "s2": { "headline": "You're posting. Creating. Learning. Trying.", "sub": "But your bank account hasn't changed." },
+      "s3": { "headline": "Another month where the effort doesn't show up in the results. That's demoralising — and completely unnecessary." },
+      "s4": { "headline": "The issue isn't effort. It's that you're busy with the wrong things." },
+      "s5": { "headline": "You need to see the exact patterns that keep online creators stuck — and what shifts everything." },
+      "s6": { "lines": ["WRONG PRODUCT → FIX THE OFFER", "WRONG AUDIENCE → FIX THE MESSAGE", "WRONG PLATFORM → FIX THE CHANNEL"] },
+      "s8": { "headline": "One shift in how you think about your offer changes everything. Most creators find it on page 3." },
+      "s9": { "headline": "This guide diagnoses the real reason — so you stop repeating the same cycle." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "idea-to-pdf",
+    "title": "Idea to PDF in a Weekend",
+    "price": "$9",
+    "poster": "book-idea-to-pdf.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOUR IDEA HAS BEEN SITTING IN YOUR HEAD FOR MONTHS.", "sub": "Time to turn it into a PDF this weekend." },
+      "s2": { "headline": "You have an idea for a guide. A template. A mini-course.", "sub": "But it never gets finished." },
+      "s3": { "headline": "Every week that passes is a week your product isn't earning. That unfinished idea is costing you money." },
+      "s4": { "headline": "Perfectionism isn't protecting your idea.", "sub": "It's just another word for not shipping." },
+      "s5": { "headline": "You need a weekend deadline and a simple system to go from idea to published PDF." },
+      "s6": { "lines": ["SAT MORNING — OUTLINE + WRITE", "SAT AFTERNOON — DESIGN", "SUN — PUBLISH + PRICE + SELL"] },
+      "s8": { "headline": "A 15-page PDF made in a weekend can earn for years. The content doesn't need to be perfect — it needs to be useful." },
+      "s9": { "headline": "Idea to PDF in a Weekend gives you the exact process, layout, and publishing checklist." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "no-coding",
+    "title": "Sell Digital Products Without Coding",
+    "price": "$9",
+    "poster": "book-no-coding.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOU DON'T NEED TO CODE TO SELL ONLINE.", "sub": "Here's everything you actually need." },
+      "s2": { "headline": "You've looked at the tools. Felt overwhelmed.", "sub": "Closed the tab. Thought 'maybe later.'" },
+      "s3": { "headline": "Meanwhile someone with no technical background just launched a product and made their first sale." },
+      "s4": { "headline": "Tech is not the barrier.", "sub": "Overthinking the tech is the barrier." },
+      "s5": { "headline": "You need a simple tool stack that lets you sell today — without learning to code or hiring anyone." },
+      "s6": { "lines": ["1 PRODUCT HOST", "1 PAYMENT LINK", "1 DELIVERY METHOD"] },
+      "s8": { "headline": "People sell digital products using free tools in an afternoon. The complexity is optional — and usually counterproductive." },
+      "s9": { "headline": "This guide shows the exact non-technical setup — so you can focus on the product, not the platform." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "landing-pages",
+    "title": "Landing Pages That Convert",
+    "price": "$9",
+    "poster": "book-landing-pages.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOUR LANDING PAGE IS LOSING SALES EVERY DAY.", "sub": "Here's what actually converts." },
+      "s2": { "headline": "You built the page. Added the copy. Set the price.", "sub": "And people click away without buying." },
+      "s3": { "headline": "Every visitor who leaves without buying is real money walking out the door. And most landing pages bleed traffic." },
+      "s4": { "headline": "Good design doesn't convert.", "sub": "Good clarity converts." },
+      "s5": { "headline": "You need a page structure that removes friction, answers objections, and makes buying feel obvious." },
+      "s6": { "lines": ["HOOK THE READER IN ONE LINE", "REMOVE EVERY DOUBT", "MAKE THE NEXT STEP OBVIOUS"] },
+      "s8": { "headline": "A one-page rewrite can double conversions. The words matter more than the colours." },
+      "s9": { "headline": "Landing Pages That Convert shows you the structure, copy patterns, and CTA logic that actually works." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "offer-sells-itself",
+    "title": "The Offer That Sells Itself",
+    "price": "$9",
+    "poster": "book-offer-sells-itself.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "MOST OFFERS DON'T FAIL BECAUSE OF MARKETING.", "sub": "They fail because the offer is wrong." },
+      "s2": { "headline": "You've promoted it. Posted about it. Asked people to share.", "sub": "It barely moves." },
+      "s3": { "headline": "You're spending energy pushing something that isn't designed to pull. That's not a traffic problem — it's an offer problem." },
+      "s4": { "headline": "When the offer is right, it sells itself.", "sub": "You shouldn't have to convince people." },
+      "s5": { "headline": "You need an offer framed so clearly that your audience immediately thinks 'I need that.'" },
+      "s6": { "lines": ["SPECIFIC OUTCOME THEY WANT", "REMOVE EVERY RISK", "MAKE IT FEEL OBVIOUS TO BUY"] },
+      "s8": { "headline": "The best offers don't sell — they attract. People who need it find it and buy without being pushed." },
+      "s9": { "headline": "This guide breaks down the offer formula so you can rebuild yours — or build a new one that actually moves." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "sell-no-audience",
+    "title": "How to Sell Without an Audience",
+    "price": "$9",
+    "poster": "book-sell-no-audience.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "WAITING FOR AN AUDIENCE BEFORE YOU SELL? YOU'VE GOT IT BACKWARDS.", "sub": "Sell first. Audience follows." },
+      "s2": { "headline": "You've been told: build an audience, then monetise.", "sub": "So you waited. And waited." },
+      "s3": { "headline": "Meanwhile people with 200 followers are making consistent sales. And you're still 'building.'" },
+      "s4": { "headline": "You don't need an audience to make sales.", "sub": "You need the right message in the right place." },
+      "s5": { "headline": "You need the exact channels and approaches that work before you have any following at all." },
+      "s6": { "lines": ["FIND BUYERS, NOT FOLLOWERS", "USE WHAT YOU ALREADY HAVE", "CLOSE FIRST SALES TODAY"] },
+      "s8": { "headline": "People make their first online sales in communities they're already in. No feed. No followers. No waiting." },
+      "s9": { "headline": "How to Sell Without an Audience shows the specific places to start — and how to approach them." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "one-page-funnel",
+    "title": "The One-Page Funnel",
+    "price": "$9",
+    "poster": "book-one-page-funnel.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOU DON'T NEED A COMPLICATED FUNNEL.", "sub": "You need one page that works." },
+      "s2": { "headline": "You've looked at funnel builders, email sequences, upsells, downsells.", "sub": "It's exhausting before you start." },
+      "s3": { "headline": "The complexity isn't protecting your revenue. It's blocking it. Most creators never launch because the system is too heavy." },
+      "s4": { "headline": "A one-page funnel outperforms a ten-step sequence when you're starting out.", "sub": "Simplicity converts." },
+      "s5": { "headline": "You need one page that captures, converts, and delivers — without tools, subscriptions, or tech overwhelm." },
+      "s6": { "lines": ["ONE PAGE TO CAPTURE", "ONE OFFER TO CONVERT", "ONE DELIVERY — AUTOMATED"] },
+      "s8": { "headline": "A well-written one-page funnel can run for years on autopilot. No team. No monthly tool fees. No maintenance." },
+      "s9": { "headline": "This guide shows you exactly how to build it — and how to drive traffic to it without paid ads." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "email-list",
+    "title": "Build an Email List from Zero",
+    "price": "$9",
+    "poster": "book-email-list.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "AN EMAIL LIST IS THE ONLY AUDIENCE YOU ACTUALLY OWN.", "sub": "Here's how to build one from zero." },
+      "s2": { "headline": "You've heard it matters. But you don't know what to offer, where to put the form, or how to get subscribers.", "sub": "So you haven't started." },
+      "s3": { "headline": "Every day without a list is a day where your audience belongs to an algorithm you don't control." },
+      "s4": { "headline": "You don't need a big lead magnet or a complex welcome sequence.", "sub": "You need one clear reason to sign up." },
+      "s5": { "headline": "You need the basic structure: lead magnet, sign-up page, first email, and how to grow it consistently." },
+      "s6": { "lines": ["A REASON TO JOIN (LEAD MAGNET)", "A PLACE TO SIGN UP (ONE PAGE)", "A FIRST EMAIL THEY OPEN"] },
+      "s8": { "headline": "A 500-person email list outperforms 50,000 Instagram followers for sales. Every time." },
+      "s9": { "headline": "Build an Email List from Zero walks you through setup to first 100 subscribers — step by step." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "content-converts",
+    "title": "Content That Converts",
+    "price": "$9",
+    "poster": "book-content-converts.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "POSTING CONSTANTLY AND GETTING NOTHING FROM IT?", "sub": "Content should convert, not just perform." },
+      "s2": { "headline": "You're creating. Scheduling. Engaging.", "sub": "And you have nothing to show for it in sales." },
+      "s3": { "headline": "All that content is burning energy without building anything. You're feeding the algorithm, not your income." },
+      "s4": { "headline": "Content that gets likes isn't the same as content that gets sales.", "sub": "They need very different structures." },
+      "s5": { "headline": "You need a simple system for creating content that leads somewhere — to a product, a list, a sale." },
+      "s6": { "lines": ["ATTRACTION → PULLS THE RIGHT PEOPLE", "TRUST → MAKES THEM STAY", "CONVERSION → MAKES THEM BUY"] },
+      "s8": { "headline": "One piece of the right content can drive sales for months. Volume without direction is just noise." },
+      "s9": { "headline": "This guide shows you what converting content looks like — and how to create it without burning out." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "anti-hustle",
+    "title": "The Anti-Hustle Business",
+    "price": "$9",
+    "poster": "book-anti-hustle.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "HUSTLE ISN'T THE ANSWER. IT'S THE TRAP.", "sub": "Here's the slower, smarter path." },
+      "s2": { "headline": "You started the business to have freedom. But now it owns you.", "sub": "More hours. More stress. More 'just this week.'" },
+      "s3": { "headline": "You're building something that only works when you're in it. That's not a business. That's a harder job." },
+      "s4": { "headline": "The hustle model trades your time for money.", "sub": "The calm model builds things that earn without you." },
+      "s5": { "headline": "You need a business model designed around leverage — not effort. Assets, not activity." },
+      "s6": { "lines": ["FEWER PRODUCTS — BETTER BUILT", "SYSTEMS INSTEAD OF SCHEDULES", "INCOME WITHOUT PRESENCE"] },
+      "s8": { "headline": "The quieter creators are often the most profitable. They just don't perform their work on the internet." },
+      "s9": { "headline": "The Anti-Hustle Business lays out the model — calm, leveraged, and built to last without burning you out." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "stop-overthinking",
+    "title": "Stop Overthinking, Start Building",
+    "price": "$9",
+    "poster": "book-stop-overthinking.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOU'VE BEEN PLANNING FOR MONTHS. NOTHING IS BUILT.", "sub": "Thinking more won't fix this." },
+      "s2": { "headline": "You want to get it right. So you research more. Plan more. Wait for clarity.", "sub": "The clarity never comes." },
+      "s3": { "headline": "Every week spent thinking instead of building is a week your competitor ships and learns. They're ahead now." },
+      "s4": { "headline": "Clarity comes from doing, not planning.", "sub": "The thinking loop is the problem — not the lack of answers." },
+      "s5": { "headline": "You need a way to break the loop and move. Something small, finished, and real." },
+      "s6": { "lines": ["PICK THE SMALLEST VERSION", "SHIP IT THIS WEEK", "IMPROVE WITH FEEDBACK — NOT THEORY"] },
+      "s8": { "headline": "A bad product that ships beats a perfect product that doesn't. Every time. Without exception." },
+      "s9": { "headline": "Stop Overthinking, Start Building gives you the mindset shift and the steps to actually move." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "focus-sloth",
+    "title": "The Focus Sloth Method",
+    "price": "$9",
+    "poster": "book-focus-sloth.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOU DON'T NEED MORE PRODUCTIVITY. YOU NEED BETTER FOCUS.", "sub": "The sloth way: do less, finish more." },
+      "s2": { "headline": "Your to-do list grows every day. But the important work never gets done.", "sub": "Sound familiar?" },
+      "s3": { "headline": "Busyness is convincing you you're making progress. But the thing that actually moves the needle keeps getting pushed." },
+      "s4": { "headline": "Productivity systems don't solve focus problems.", "sub": "They make them worse by adding more to manage." },
+      "s5": { "headline": "You need one clear priority per day. And the permission to ignore everything else." },
+      "s6": { "lines": ["ONE THING EACH DAY THAT MATTERS", "PROTECT IT RUTHLESSLY", "EVERYTHING ELSE IS OPTIONAL"] },
+      "s8": { "headline": "Creators who ship consistently don't work more hours. They protect fewer, better ones." },
+      "s9": { "headline": "The Focus Sloth Method shows you how to identify the one thing and protect the time to do it." },
+      "s10": { "headline": "GET THE GUIDE ($9)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "bundle-starter",
+    "title": "Starter Bundle",
+    "price": "$29",
+    "poster": "bundle-starter-social.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "EVERYTHING YOU NEED TO LAUNCH YOUR FIRST DIGITAL PRODUCT. FOR $29.", "sub": "The Starter Bundle." },
+      "s2": { "headline": "You know you want to sell something online.", "sub": "But you don't know where to start — idea, product, platform, price." },
+      "s3": { "headline": "Every week without a product is a week without income. And the starting line keeps moving further away." },
+      "s4": { "headline": "You don't need a course. You need a fast, clear path from nothing to first sale." },
+      "s5": { "headline": "The Starter Bundle gives you 5 guides covering idea, product, setup, pricing, and first sale — in the right order." },
+      "s6": { "lines": ["YOUR FIRST $100 + IDEA TO PDF", "NO CODING + PRICING GUIDE", "SELL WITHOUT AN AUDIENCE"] },
+      "s8": { "headline": "5 guides. One bundle. The exact path from zero to your first sale online — no fluff, no padding." },
+      "s9": { "headline": "If you haven't launched yet, this is the bundle that gets you there — this week, not someday." },
+      "s10": { "headline": "GET THE BUNDLE ($29)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "bundle-builder",
+    "title": "Builder Bundle",
+    "price": "$49",
+    "poster": "bundle-builder-social.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "YOU'VE MADE A FEW SALES. NOW BUILD SOMETHING THAT KEEPS EARNING.", "sub": "The Builder Bundle." },
+      "s2": { "headline": "You've validated the idea. Made some money.", "sub": "But it's not consistent yet. It still depends on you showing up." },
+      "s3": { "headline": "A one-time sale is great. But a business that earns while you sleep is the point. You're not there yet." },
+      "s4": { "headline": "The next stage isn't more content.", "sub": "It's a funnel, a list, and an offer that keeps working." },
+      "s5": { "headline": "The Builder Bundle gives you 8 guides to take you from sporadic sales to a real, repeatable system." },
+      "s6": { "lines": ["FUNNEL + LANDING PAGE + EMAIL LIST", "CONTENT THAT CONVERTS", "OFFER THAT SELLS ITSELF"] },
+      "s8": { "headline": "8 guides. One bundle. The system that turns early wins into consistent monthly income." },
+      "s9": { "headline": "If you've made a sale and want to make it repeatable — this bundle is built for exactly that moment." },
+      "s10": { "headline": "GET THE BUNDLE ($49)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  },
+  {
+    "id": "bundle-full-freedom",
+    "title": "Full Freedom Bundle",
+    "price": "$79",
+    "poster": "bundle-full-freedom-social.png",
+    "url": "https://www.strategicsloth.com/books",
+    "slides": {
+      "s1": { "headline": "EVERY GUIDE WE'VE WRITTEN. EVERY SYSTEM. ONE PRICE.", "sub": "The Full Freedom Bundle." },
+      "s2": { "headline": "You want the complete picture — not just the first step, but the whole path from idea to sustainable income." },
+      "s3": { "headline": "Buying guides one at a time is fine. But you keep running into the next question and searching for the next thing." },
+      "s4": { "headline": "The whole system is worth more than the sum of its parts.", "sub": "Because it's designed to work together." },
+      "s5": { "headline": "The Full Freedom Bundle includes every guide — 15 in total — covering every stage of building a calm digital business." },
+      "s6": { "lines": ["FROM FIRST SALE TO FULL SYSTEM", "ANTI-HUSTLE + FOCUS + FREEDOM", "ALL 15 GUIDES — NOTHING MISSING"] },
+      "s8": { "headline": "15 guides at $79 total. If you bought them individually, you'd pay $135+. This is the complete toolkit." },
+      "s9": { "headline": "If you're serious about building something that earns without you — this is where it all lives." },
+      "s10": { "headline": "GET THE BUNDLE ($79)", "sub": "strategicsloth.com", "cta": "link in bio" }
+    }
+  }
+]

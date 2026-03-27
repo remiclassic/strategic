@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Strategic Sloth — Books / offers Instagram grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf9f6;
+      --card: #fff;
+      --border: #e8e6e1;
+      --ink: #1a1a18;
+      --muted: #6b6b66;
+      --brand: #c4a84a;
+      --tab-bg: #eeece8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+    h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.03em; margin: 0 0 0.35rem; }
+    .lede { color: var(--muted); font-size: 0.95rem; max-width: 42rem; margin: 0 0 1rem; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
+    .tabs button {
+      font-family: inherit; font-size: 0.85rem; font-weight: 600;
+      padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--tab-bg); color: var(--ink); cursor: pointer;
+    }
+    .tabs button[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .grid-preview-toolbar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem;
+      margin: 0 0 1.25rem; padding: 0.65rem 0.85rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: 8px; font-size: 0.82rem;
+    }
+    .grid-preview-toolbar__label { font-weight: 600; margin-right: 0.25rem; }
+    .grid-preview-toolbar__opts { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    .grid-preview-toolbar__opts button {
+      font-family: inherit; font-size: 0.78rem; font-weight: 600;
+      padding: 0.4rem 0.75rem; border: 1px solid var(--border); border-radius: 6px;
+      background: var(--tab-bg); cursor: pointer;
+    }
+    .grid-preview-toolbar__opts button.is-active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .grid-preview-toolbar__hint { color: var(--muted); font-size: 0.75rem; flex: 1 1 200px; line-height: 1.4; }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px;
+      background: #111;
+      border-radius: 6px;
+      overflow: hidden;
+      max-width: 720px;
+      margin: 0 auto 1.5rem;
+    }
+    body.grid-preview-portrait .books-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      max-width: 720px;
+    }
+    body.grid-preview-portrait .books-grid .cell {
+      aspect-ratio: 4/5;
+    }
+    @media (min-width: 720px) {
+      body.grid-preview-portrait .books-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        max-width: min(960px, 100%);
+      }
+    }
+    .cell {
+      position: relative;
+      aspect-ratio: 1;
+      background: #222;
+    }
+    .cell img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      display: block; cursor: pointer;
+    }
+    .cell-badge {
+      position: absolute; top: 5px; left: 5px;
+      font-size: 0.58rem; font-weight: 800; padding: 0.15rem 0.4rem;
+      border-radius: 3px; background: rgba(0,0,0,0.78); color: #fff;
+      max-width: calc(100% - 10px); line-height: 1.2;
+    }
+    .cell-badge--bundle { border-left: 3px solid #e8d48b; }
+    .cell-format {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.3rem 5px; font-size: 0.55rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.88));
+      color: rgba(255,255,255,0.92); text-align: center;
+    }
+
+    .detail-table {
+      width: 100%; border-collapse: collapse; font-size: 0.82rem;
+      background: var(--card); border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .detail-table th, .detail-table td {
+      padding: 0.55rem 0.65rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+    .detail-table th {
+      background: #f3f1ec; font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--muted);
+    }
+    .detail-table code { font-size: 0.68rem; background: #f0eeea; padding: 0.08rem 0.3rem; border-radius: 3px; word-break: break-all; }
+    .pill {
+      display: inline-block; font-size: 0.65rem; font-weight: 600;
+      padding: 0.12rem 0.4rem; border-radius: 4px; margin-right: 0.2rem;
+    }
+    .pill--static { background: #e7f0ff; color: #1a3a5c; }
+    .pill--carousel { background: #fff3cd; color: #664d03; }
+    .pill--reel { background: #f8d7da; color: #721c24; }
+
+    .funnel-intro {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.1rem; margin-bottom: 1.25rem; font-size: 0.92rem;
+    }
+
+    /* Preview modal (trimmed from instagram-grid-plan) */
+    .ig-feed-preview { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem; box-sizing: border-box; }
+    .ig-feed-preview[hidden] { display: none !important; }
+    .ig-feed-preview__backdrop { position: absolute; inset: 0; z-index: 0; background: rgba(0,0,0,0.72); cursor: pointer; }
+    .ig-feed-preview__sheet {
+      position: relative; z-index: 1; width: min(430px, 100%); max-height: min(92vh, 900px);
+      display: flex; flex-direction: column; background: #fff; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+    }
+    .ig-feed-preview__close {
+      position: absolute; top: 8px; right: 8px; z-index: 5; width: 36px; height: 36px;
+      border: none; border-radius: 50%; background: rgba(0,0,0,0.45); color: #fff;
+      font-size: 1.35rem; cursor: pointer;
+    }
+    .ig-feed-preview__header {
+      display: flex; align-items: center; gap: 10px; padding: 10px 44px 10px 12px;
+      border-bottom: 1px solid #efefef; flex-shrink: 0;
+    }
+    .ig-feed-preview__avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, #e8d48b, #c4a84a); flex-shrink: 0;
+    }
+    .ig-feed-preview__names { flex: 1; min-width: 0; }
+    .ig-feed-preview__names strong { display: block; font-size: 0.88rem; font-weight: 600; }
+    .ig-feed-preview__names span { font-size: 0.75rem; color: #8e8e8e; }
+    .ig-feed-preview__hint { text-align: center; font-size: 0.68rem; color: #8e8e8e; padding: 6px 12px 0; }
+    .ig-feed-preview__media { position: relative; flex: 1; min-height: 0; background: #000; display: flex; align-items: center; justify-content: center; }
+    .ig-feed-preview__media-frame { position: relative; width: 100%; max-width: 430px; aspect-ratio: 4/5; }
+    .ig-feed-preview__media-frame img { width: 100%; height: 100%; object-fit: contain; display: block; background: #111; }
+    .ig-feed-preview__caption {
+      padding: 10px 14px 14px; font-size: 0.82rem; line-height: 1.5; color: #262626;
+      white-space: pre-wrap; word-break: break-word; border-top: 1px solid #efefef;
+      max-height: min(36vh, 200px); overflow-y: auto; flex-shrink: 0;
+    }
+    footer { margin-top: 2rem; font-size: 0.78rem; color: var(--muted); }
+    footer a { color: #3d3d42; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Books &amp; offers — Instagram grid</h1>
+    <p class="lede">
+      One tile per guide from <code>/books</code> (<code>src/data/catalog-data.ts</code>), plus three bundle tiles (18 total). On-brand <strong>AI posters</strong> (portrait-friendly) are in <code>marketing/generated-books-grid/</code>; each <code>&lt;img&gt;</code> falls back to the matching catalog WebP if a PNG is missing. Toggle <strong>Portrait (4∶5)</strong> below to mimic a tall profile grid. Click any tile for caption + URLs (no hashtags). Use the <strong>Links &amp; formats</strong> tab for carousel vs reel notes.
+    </p>
+
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" aria-controls="panel-books-overview" id="tab-books-o">Plan</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="panel-books-grid" id="tab-books-g">Visual grid</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="panel-books-table" id="tab-books-t">Links &amp; formats</button>
+    </div>
+
+    <div class="grid-preview-toolbar" id="books-grid-preview-toolbar">
+      <span class="grid-preview-toolbar__label" id="books-grid-preview-label">Grid preview</span>
+      <div class="grid-preview-toolbar__opts" role="group" aria-labelledby="books-grid-preview-label">
+        <button type="button" class="is-active" data-preview="square" aria-pressed="true">Square (1∶1)</button>
+        <button type="button" data-preview="portrait" aria-pressed="false">Portrait (4∶5)</button>
+      </div>
+      <span class="grid-preview-toolbar__hint">Portrait matches tall Instagram profile grids; catalog WebP covers crop—prefer 4∶5 masters when you replace art.</span>
+    </div>
+
+    <div id="panel-books-overview" class="panel active" role="tabpanel" aria-labelledby="tab-books-o">
+      <div class="funnel-intro">
+        <p style="margin:0 0 0.5rem;"><strong>Posting mix</strong></p>
+        <ul style="margin:0; padding-left:1.2rem;">
+          <li><span class="pill pill--static">Static</span> Single 4∶5 image → fastest. Use AI poster or catalog cover.</li>
+          <li><span class="pill pill--carousel">Carousel</span> Slide 1 = hook poster, slides 2–3 = one “what’s inside” bullet each (from <code>whatsInside</code>), last = CTA “Link in bio → strategicsloth.com/books”.</li>
+          <li><span class="pill pill--reel">Reel</span> 9∶16 text-on-yellow motion; end card → same CTA. Optional duplicate as static cover.</li>
+        </ul>
+        <p style="margin:0.75rem 0 0;"><strong>Linking:</strong> Warm traffic → <code>https://www.strategicsloth.com/blog/&lt;slug&gt;</code> when a post exists. Direct buyers → <code>https://www.strategicsloth.com/books</code> or bundle <code>#bundles</code>. Lemon checkout links stay in your shop / link-in-bio tool—not pasted in captions.</p>
+      </div>
+    </div>
+
+    <div id="panel-books-grid" class="panel" role="tabpanel" aria-labelledby="tab-books-g" hidden>
+      <p style="font-size:0.85rem;color:var(--muted);margin:0 0 0.75rem;">Order: Make Money → Build → Sell → Mindset → Bundles.</p>
+      <div class="books-grid" aria-label="Books and bundles grid">
+        <!-- Make money -->
+        <div class="cell" data-id="first-100">
+          <span class="cell-badge">1 · $</span>
+          <img src="generated-books-grid/book-first-100.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/first-100.webp" />
+          <div class="cell-format">static · carousel · reel</div>
+        </div>
+        <div class="cell" data-id="zero-to-1k">
+          <span class="cell-badge">2 · $</span>
+          <img src="generated-books-grid/book-zero-to-1k.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/zero-to-1k.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <div class="cell" data-id="pricing">
+          <span class="cell-badge">3 · $</span>
+          <img src="generated-books-grid/book-pricing.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/pricing.webp" />
+          <div class="cell-format">static</div>
+        </div>
+        <div class="cell" data-id="not-making-money">
+          <span class="cell-badge">4 · $</span>
+          <img src="generated-books-grid/book-not-making-money.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/not-making-money.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <!-- Build -->
+        <div class="cell" data-id="idea-to-pdf">
+          <span class="cell-badge">5 · build</span>
+          <img src="generated-books-grid/book-idea-to-pdf.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/idea-to-pdf.webp" />
+          <div class="cell-format">static · reel</div>
+        </div>
+        <div class="cell" data-id="no-coding">
+          <span class="cell-badge">6 · build</span>
+          <img src="generated-books-grid/book-no-coding.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/no-coding.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <div class="cell" data-id="landing-pages">
+          <span class="cell-badge">7 · build</span>
+          <img src="generated-books-grid/book-landing-pages.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/landing-pages.webp" />
+          <div class="cell-format">static</div>
+        </div>
+        <div class="cell" data-id="offer-sells-itself">
+          <span class="cell-badge">8 · build</span>
+          <img src="generated-books-grid/book-offer-sells-itself.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/offer-sells-itself.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <!-- Sell -->
+        <div class="cell" data-id="sell-no-audience">
+          <span class="cell-badge">9 · sell</span>
+          <img src="generated-books-grid/book-sell-no-audience.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/sell-no-audience.webp" />
+          <div class="cell-format">static · reel</div>
+        </div>
+        <div class="cell" data-id="one-page-funnel">
+          <span class="cell-badge">10 · sell</span>
+          <img src="generated-books-grid/book-one-page-funnel.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/one-page-funnel.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <div class="cell" data-id="email-list">
+          <span class="cell-badge">11 · sell</span>
+          <img src="generated-books-grid/book-email-list.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/email-list.webp" />
+          <div class="cell-format">static</div>
+        </div>
+        <div class="cell" data-id="content-converts">
+          <span class="cell-badge">12 · sell</span>
+          <img src="generated-books-grid/book-content-converts.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/content-converts.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <!-- Mindset -->
+        <div class="cell" data-id="anti-hustle">
+          <span class="cell-badge">13 · mind</span>
+          <img src="generated-books-grid/book-anti-hustle.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/anti-hustle.webp" />
+          <div class="cell-format">static · reel</div>
+        </div>
+        <div class="cell" data-id="stop-overthinking">
+          <span class="cell-badge">14 · mind</span>
+          <img src="generated-books-grid/book-stop-overthinking.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/stop-overthinking.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <div class="cell" data-id="focus-sloth">
+          <span class="cell-badge">15 · mind</span>
+          <img src="generated-books-grid/book-focus-sloth.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/focus-sloth.webp" />
+          <div class="cell-format">static</div>
+        </div>
+        <!-- Bundles -->
+        <div class="cell" data-id="bundle-starter">
+          <span class="cell-badge cell-badge--bundle">16 · bundle</span>
+          <img src="generated-books-grid/bundle-starter-social.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/bundle-starter.webp" />
+          <div class="cell-format">static · carousel</div>
+        </div>
+        <div class="cell" data-id="bundle-builder">
+          <span class="cell-badge cell-badge--bundle">17 · bundle</span>
+          <img src="generated-books-grid/bundle-builder-social.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/bundle-builder.webp" />
+          <div class="cell-format">carousel</div>
+        </div>
+        <div class="cell" data-id="bundle-full-freedom">
+          <span class="cell-badge cell-badge--bundle">18 · bundle</span>
+          <img src="generated-books-grid/bundle-full-freedom-social.png" alt="" width="1080" height="1350" loading="lazy" data-fallback="../public/images/catalog/bundle-full-freedom.webp" />
+          <div class="cell-format">static · reel</div>
+        </div>
+      </div>
+      <p style="font-size:0.82rem;color:var(--muted);max-width:40rem;margin:0 auto;">Open this file from the repo (or serve <code>marketing/</code>) so <code>../public/</code> and <code>generated-books-grid/</code> resolve. Images with <code>data-fallback</code> swap to the catalog WebP if the PNG fails to load.</p>
+    </div>
+
+    <div id="panel-books-table" class="panel" role="tabpanel" aria-labelledby="tab-books-t" hidden>
+      <table class="detail-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Format ideas</th>
+            <th>Deep links</th>
+          </tr>
+        </thead>
+        <tbody id="books-table-body"></tbody>
+      </table>
+    </div>
+
+    <footer>
+      <a href="instagram-grid-plan.html">← Main funnel grid plan</a>
+      · <code>marketing/instagram-books-grid-plan.html</code>
+      · Site: <a href="https://www.strategicsloth.com/books" rel="noopener">strategicsloth.com/books</a>
+    </footer>
+  </div>
+
+  <div id="ig-feed-preview" class="ig-feed-preview" hidden role="dialog" aria-modal="true" aria-labelledby="ig-feed-preview-title">
+    <div class="ig-feed-preview__backdrop" data-close-ig tabindex="-1"></div>
+    <div class="ig-feed-preview__sheet">
+      <button type="button" class="ig-feed-preview__close" data-close-ig aria-label="Close">×</button>
+      <div class="ig-feed-preview__header">
+        <div class="ig-feed-preview__avatar" aria-hidden="true"></div>
+        <div class="ig-feed-preview__names">
+          <strong id="ig-feed-preview-title">thestrategicsloth</strong>
+          <span>Book / offer preview · 4∶5</span>
+        </div>
+      </div>
+      <p class="ig-feed-preview__hint">Esc or outside to close</p>
+      <div class="ig-feed-preview__media">
+        <div class="ig-feed-preview__media-frame">
+          <img id="ig-feed-preview-img" alt="Preview" width="1080" height="1350" />
+        </div>
+      </div>
+      <div class="ig-feed-preview__caption" id="ig-feed-preview-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var SITE = "https://www.strategicsloth.com";
+      var BOOKS = [
+        { id: "first-100", title: "Your First $100 Online", blog: "your-first-100-online", formats: "static · carousel · reel" },
+        { id: "zero-to-1k", title: "$0 to $1K Per Month (Simple Plan)", blog: "zero-to-1k-per-month", formats: "carousel" },
+        { id: "pricing", title: "Pricing Your Digital Products", blog: "pricing-your-digital-products", formats: "static" },
+        { id: "not-making-money", title: "Why You're Not Making Money Online (Yet)", blog: "why-youre-not-making-money-online-yet", formats: "carousel" },
+        { id: "idea-to-pdf", title: "Idea to PDF in 24 Hours", blog: "idea-to-pdf-in-24-hours", formats: "static · reel" },
+        { id: "no-coding", title: "Build Digital Products Without Coding", blog: "build-digital-products-without-coding", formats: "carousel" },
+        { id: "landing-pages", title: "Simple Landing Pages That Convert", blog: "simple-landing-pages-that-convert", formats: "static" },
+        { id: "offer-sells-itself", title: "The Offer That Sells Itself", blog: "the-offer-that-sells-itself", formats: "carousel" },
+        { id: "sell-no-audience", title: "Sell Without an Audience", blog: "sell-without-an-audience", formats: "static · reel" },
+        { id: "one-page-funnel", title: "The One-Page Sales Funnel", blog: "the-one-page-sales-funnel", formats: "carousel" },
+        { id: "email-list", title: "Email List for Creators (Simple Setup)", blog: "email-list-for-creators", formats: "static" },
+        { id: "content-converts", title: "Content That Actually Converts", blog: "content-that-actually-converts", formats: "carousel" },
+        { id: "anti-hustle", title: "The Anti-Hustle Playbook", blog: "the-anti-hustle-playbook", formats: "static · reel" },
+        { id: "stop-overthinking", title: "Stop Overthinking, Start Shipping", blog: "stop-overthinking-start-shipping", formats: "carousel" },
+        { id: "focus-sloth", title: "Focus Like a Sloth", blog: "focus-like-a-sloth", formats: "static" },
+        { id: "bundle-starter", title: "Starter System (bundle)", blog: null, formats: "static · carousel", bundle: true },
+        { id: "bundle-builder", title: "Builder System (bundle)", blog: null, formats: "carousel", bundle: true },
+        { id: "bundle-full-freedom", title: "Full Freedom System (bundle)", blog: null, formats: "static · reel", bundle: true },
+      ];
+
+      var CAPTIONS = {
+        "first-100": "Your First $100 Online — the full path from idea to first sale (including the awkward parts nobody posts).\n\nOverview on the blog, PDF on the site.\n\n" + SITE + "/blog/your-first-100-online\n" + SITE + "/books",
+        "zero-to-1k": "$0 to $1K Per Month — stage-by-stage: what to do and what to decide next.\n\n" + SITE + "/blog/zero-to-1k-per-month\n" + SITE + "/books",
+        "pricing": "Stop guessing your price. Anchoring, tiers, and how to present value before objections show up.\n\n" + SITE + "/blog/pricing-your-digital-products\n" + SITE + "/books",
+        "not-making-money": "Why income stalls — and a simple audit so you fix the real gap, not restart from zero.\n\n" + SITE + "/blog/why-youre-not-making-money-online-yet\n" + SITE + "/books",
+        "idea-to-pdf": "Blank page to shipped PDF in one focused pass: structure, cuts, and what to do after you ship.\n\n" + SITE + "/blog/idea-to-pdf-in-24-hours\n" + SITE + "/books",
+        "no-coding": "Tools and setup by product type — ship without hiring a dev.\n\n" + SITE + "/blog/build-digital-products-without-coding\n" + SITE + "/books",
+        "landing-pages": "Page structure + copy patterns that move people to buy (and mistakes that quietly kill sales).\n\n" + SITE + "/blog/simple-landing-pages-that-convert\n" + SITE + "/books",
+        "offer-sells-itself": "Make the offer feel obvious: positioning and framing so you sell less hard.\n\n" + SITE + "/blog/the-offer-that-sells-itself\n" + SITE + "/books",
+        "sell-no-audience": "Sales tactics that work before you have a following — without spamming.\n\n" + SITE + "/blog/sell-without-an-audience\n" + SITE + "/books",
+        "one-page-funnel": "One page, clear stages, light post-purchase flow — shippable in a day.\n\n" + SITE + "/blog/the-one-page-sales-funnel\n" + SITE + "/books",
+        "email-list": "Pick a platform, grow from subscriber one, send emails that sell without burning the list.\n\n" + SITE + "/blog/email-list-for-creators\n" + SITE + "/books",
+        "content-converts": "Formats and rhythms that lead to buys — not just likes.\n\n" + SITE + "/blog/content-that-actually-converts\n" + SITE + "/books",
+        "anti-hustle": "Design work so it compounds: what to cut and what to keep.\n\n" + SITE + "/blog/the-anti-hustle-playbook\n" + SITE + "/books",
+        "stop-overthinking": "Break the loop: ship imperfect, improve from reality.\n\n" + SITE + "/blog/stop-overthinking-start-shipping\n" + SITE + "/books",
+        "focus-sloth": "One thing long enough for it to compound — systems over motivation.\n\n" + SITE + "/blog/focus-like-a-sloth\n" + SITE + "/books",
+        "bundle-starter": "Starter System — first sales path: three guides, one price.\n\n" + SITE + "/books#bundles",
+        "bundle-builder": "Builder System — launch a real digital product (four guides).\n\n" + SITE + "/books#bundles",
+        "bundle-full-freedom": "Full Freedom — full library for build, sell, grow without guru theater.\n\n" + SITE + "/books#bundles",
+      };
+
+      var tbody = document.getElementById("books-table-body");
+      BOOKS.forEach(function (b) {
+        var tr = document.createElement("tr");
+        var blogCell = b.blog
+          ? '<a href="' + SITE + "/blog/" + b.blog + '">' + SITE + "/blog/" + b.blog + "</a>"
+          : "—";
+        if (b.bundle) blogCell = '<a href="' + SITE + '/books#bundles">' + SITE + "/books#bundles</a>";
+        tr.innerHTML =
+          "<td><code>" +
+          b.id +
+          "</code></td><td>" +
+          b.title +
+          "</td><td>" +
+          b.formats +
+          "</td><td>" +
+          blogCell +
+          "</td>";
+        tbody.appendChild(tr);
+      });
+
+      /* img error → fallback */
+      document.querySelectorAll("img[data-fallback]").forEach(function (img) {
+        img.addEventListener("error", function () {
+          var fb = img.getAttribute("data-fallback");
+          if (fb) img.src = fb;
+        });
+      });
+
+      /* tabs */
+      var tabs = [].slice.call(document.querySelectorAll('[role="tab"]'));
+      var panels = [].slice.call(document.querySelectorAll('[role="tabpanel"]'));
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var id = tab.getAttribute("aria-controls");
+          tabs.forEach(function (t) {
+            t.setAttribute("aria-selected", t === tab ? "true" : "false");
+          });
+          panels.forEach(function (p) {
+            var on = p.id === id;
+            p.classList.toggle("active", on);
+            p.hidden = !on;
+          });
+        });
+      });
+
+      /* grid preview size */
+      var key = "ss-books-grid-preview-aspect";
+      var body = document.body;
+      var toolbar = document.getElementById("books-grid-preview-toolbar");
+      var buttons = toolbar.querySelectorAll("[data-preview]");
+      function setPreview(mode) {
+        var portrait = mode === "portrait";
+        body.classList.toggle("grid-preview-portrait", portrait);
+        try {
+          localStorage.setItem(key, portrait ? "portrait" : "square");
+        } catch (e) {}
+        [].forEach.call(buttons, function (b) {
+          var on = b.getAttribute("data-preview") === mode;
+          b.classList.toggle("is-active", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+      }
+      var saved = "square";
+      try {
+        saved = localStorage.getItem(key) || "square";
+      } catch (e) {}
+      setPreview(saved === "portrait" ? "portrait" : "square");
+      [].forEach.call(buttons, function (b) {
+        b.addEventListener("click", function () {
+          setPreview(b.getAttribute("data-preview") || "square");
+        });
+      });
+
+      /* modal */
+      var modal = document.getElementById("ig-feed-preview");
+      var imgEl = document.getElementById("ig-feed-preview-img");
+      var capEl = document.getElementById("ig-feed-preview-caption");
+      function closeM() {
+        modal.hidden = true;
+        document.body.style.overflow = "";
+      }
+      document.querySelectorAll("[data-close-ig]").forEach(function (el) {
+        el.addEventListener("click", closeM);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (!modal.hidden && e.key === "Escape") closeM();
+      });
+      document.addEventListener(
+        "click",
+        function (e) {
+          var t = e.target;
+          if (!(t instanceof HTMLImageElement)) return;
+          var cell = t.closest(".books-grid .cell");
+          if (!cell || modal.contains(t)) return;
+          var id = cell.getAttribute("data-id");
+          imgEl.src = t.currentSrc || t.src;
+          capEl.textContent = (id && CAPTIONS[id]) || "";
+          modal.hidden = false;
+          document.body.style.overflow = "hidden";
+          e.preventDefault();
+        },
+        true
+      );
+    })();
+  </script>
+</body>
+</html>

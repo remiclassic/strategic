@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Strategic Sloth — 12-Post Instagram Grid (voice refresh)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --preview: min(28vw, 320px);
+      --brand-yellow: #e8d48b;
+      --brand-yellow-deep: #c4a84a;
+      --brand-ink: #1a1a18;
+      --value-bg: #0d0d0f;
+      --value-border: #2a2a2e;
+      --value-muted: #8a8a8e;
+      --paper: #f4f2ec;
+      --caption: #5c5c58;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--brand-ink);
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: calc(var(--preview) * 3 + 4rem);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: clamp(1.65rem, 4.5vw, 2.25rem);
+      letter-spacing: -0.03em;
+      margin: 0 0 0.5rem;
+      text-align: center;
+    }
+
+    header .tagline {
+      color: var(--caption);
+      font-size: 0.95rem;
+      max-width: 32em;
+      margin: 0 auto 1rem;
+      text-align: center;
+    }
+
+    header .source-note {
+      font-size: 0.8rem;
+      color: var(--caption);
+      max-width: 36rem;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    header .meta {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--caption);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, var(--preview));
+      gap: 2px;
+      width: fit-content;
+      margin: 2rem auto 0;
+      background: #1a1a1a;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.07);
+    }
+
+    .post {
+      position: relative;
+      width: var(--preview);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .post img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 8%;
+    }
+
+    /* Column 1: Brand — yellow, loud lines */
+    .col-brand .post-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        var(--brand-yellow) 0%,
+        #efe4bd 50%,
+        var(--brand-yellow-deep) 100%
+      );
+    }
+
+    .col-brand .post-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 90% 55% at 40% 0%, rgba(255, 255, 255, 0.38), transparent 50%);
+      pointer-events: none;
+    }
+
+    .col-brand .title {
+      position: relative;
+      z-index: 1;
+      font-weight: 800;
+      font-size: clamp(0.62rem, 2.65vw, 1rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--brand-ink);
+      text-transform: uppercase;
+      max-width: 94%;
+    }
+
+    .col-brand.brand-human .title {
+      font-weight: 700;
+      text-transform: none;
+      font-size: clamp(0.72rem, 3vw, 1.12rem);
+      line-height: 1.14;
+      letter-spacing: -0.025em;
+    }
+
+    /* Column 2: Lifestyle — real-photo energy, sans overlay */
+    .col-life .post-inner {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.08) 45%, transparent 72%);
+    }
+
+    .col-life .title {
+      position: relative;
+      z-index: 1;
+      font-weight: 700;
+      font-size: clamp(0.68rem, 2.9vw, 1.08rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+      max-width: 96%;
+    }
+
+    /* Column 3: Value — dark, plain, no corporate chrome */
+    .col-value .post-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--value-bg);
+    }
+
+    .col-value .post-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.4;
+      background: radial-gradient(ellipse 70% 50% at 80% 100%, rgba(232, 212, 139, 0.07), transparent);
+      pointer-events: none;
+    }
+
+    .col-value .ui-frame {
+      position: absolute;
+      inset: 6.5%;
+      border: 1px solid var(--value-border);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .col-value .title {
+      position: relative;
+      z-index: 1;
+      font-weight: 600;
+      font-size: clamp(0.62rem, 2.55vw, 0.98rem);
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      color: #f0f0f0;
+      max-width: 90%;
+    }
+
+    .col-value .ui-line {
+      position: absolute;
+      bottom: 18%;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--value-border), transparent 85%);
+    }
+
+    /* Captions + AI prompts */
+    .captions {
+      margin-top: 2.75rem;
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .captions h2 {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 0 0 1rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .caption-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .caption-list li {
+      padding: 1.15rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+      font-size: 0.9rem;
+      color: #3a3a38;
+    }
+
+    .caption-list strong {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--caption);
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+
+    .overlay-label {
+      font-weight: 700;
+      color: var(--brand-ink);
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .visual-dir {
+      font-size: 0.85rem;
+      color: var(--caption);
+      margin: 0.5rem 0 0;
+      line-height: 1.45;
+    }
+
+    .prompt-box {
+      margin-top: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .prompt-box dt {
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--caption);
+      margin-top: 0.65rem;
+    }
+
+    .prompt-box dt:first-child {
+      margin-top: 0;
+    }
+
+    .prompt-box dd {
+      margin: 0.2rem 0 0;
+    }
+
+    .prompt-box .full-prompt {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed rgba(0, 0, 0, 0.12);
+      font-style: normal;
+      color: #222;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      color: var(--caption);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --preview: min(30vw, 200px);
+      }
+
+      .page {
+        padding: 2rem 0.75rem 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Strategic Sloth</h1>
+      <p class="tagline">Make money without living at your desk. Build something once, sell it more than once. Freedom over hustle—systems beat effort.</p>
+      <p class="source-note">Hooks and beats pulled from <code>STRATEGIC_SLOTH_REELS_LAUNCH.md</code> (reels 1–8) and carousel copy in <code>carousels-batch2.html</code>, rewritten here in plain talk.</p>
+      <p class="meta">12 tiles · 1080 × 1080 · 3 × 4 grid</p>
+    </header>
+
+    <div class="grid" aria-label="Instagram grid preview">
+      <!-- Row 1 -->
+      <article class="post col-brand" data-slot="1">
+        <div class="post-bg" aria-hidden="true"></div>
+        <div class="post-inner">
+          <h2 class="title">MORE HOURS.<br />STILL BROKE.</h2>
+        </div>
+      </article>
+      <article class="post col-life" data-slot="2">
+        <img
+          src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1080&h=1080&fit=crop&q=80"
+          alt=""
+          width="1080"
+          height="1080"
+          loading="lazy"
+        />
+        <div class="post-inner">
+          <h2 class="title">NOT AT MY DESK.<br />STILL GOT PAID.</h2>
+        </div>
+      </article>
+      <article class="post col-value" data-slot="3">
+        <div class="post-bg"></div>
+        <span class="ui-frame" aria-hidden="true"></span>
+        <div class="post-inner">
+          <h2 class="title">YOU ALREADY KNOW<br />ENOUGH TO SELL<br />AS A PDF.</h2>
+        </div>
+        <span class="ui-line" aria-hidden="true"></span>
+      </article>
+
+      <!-- Row 2 -->
+      <article class="post col-brand brand-human" data-slot="4">
+        <div class="post-bg"></div>
+        <div class="post-inner">
+          <h2 class="title">I made them rich.<br />Not me.</h2>
+        </div>
+      </article>
+      <article class="post col-life" data-slot="5">
+        <img
+          src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1080&h=1080&fit=crop&q=80"
+          alt=""
+          width="1080"
+          height="1080"
+          loading="lazy"
+        />
+        <div class="post-inner">
+          <h2 class="title">QUIET MORNING.<br />REAL LIFE.</h2>
+        </div>
+      </article>
+      <article class="post col-value" data-slot="6">
+        <div class="post-bg"></div>
+        <span class="ui-frame"></span>
+        <div class="post-inner">
+          <h2 class="title">VIEWS MEAN NOTHING<br />IF NOBODY BUYS.</h2>
+        </div>
+        <span class="ui-line"></span>
+      </article>
+
+      <!-- Row 3 -->
+      <article class="post col-brand" data-slot="7">
+        <div class="post-bg"></div>
+        <div class="post-inner">
+          <h2 class="title">ONE STEP AHEAD<br />IS ENOUGH.</h2>
+        </div>
+      </article>
+      <article class="post col-life" data-slot="8">
+        <img
+          src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1080&h=1080&fit=crop&q=80"
+          alt=""
+          width="1080"
+          height="1080"
+          loading="lazy"
+        />
+        <div class="post-inner">
+          <h2 class="title">LAPTOP CLOSED.<br />DAY DONE.</h2>
+        </div>
+      </article>
+      <article class="post col-value" data-slot="9">
+        <div class="post-bg"></div>
+        <span class="ui-frame"></span>
+        <div class="post-inner">
+          <h2 class="title">THEY DON'T WANT<br />YOUR LOGO.<br />THEY WANT THE FIX.</h2>
+        </div>
+        <span class="ui-line"></span>
+      </article>
+
+      <!-- Row 4 -->
+      <article class="post col-brand brand-human" data-slot="10">
+        <div class="post-bg"></div>
+        <div class="post-inner">
+          <h2 class="title">Pick one thing.<br />Stop restarting.</h2>
+        </div>
+      </article>
+      <article class="post col-life" data-slot="11">
+        <img
+          src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1080&h=1080&fit=crop&q=80"
+          alt=""
+          width="1080"
+          height="1080"
+          loading="lazy"
+        />
+        <div class="post-inner">
+          <h2 class="title">SAME PDF.<br />NEW ZIP CODE.</h2>
+        </div>
+      </article>
+      <article class="post col-value" data-slot="12">
+        <div class="post-bg"></div>
+        <span class="ui-frame"></span>
+        <div class="post-inner">
+          <h2 class="title">UGLY AND CLEAR<br />BEATS PRETTY<br />AND VAGUE.</h2>
+        </div>
+        <span class="ui-line"></span>
+      </article>
+    </div>
+
+    <section class="captions" aria-labelledby="captions-heading">
+      <h2 id="captions-heading">Overlay · layout note · AI prompt (lifestyle) · caption</h2>
+      <ol class="caption-list">
+        <li>
+          <strong>1 · Brand (yellow)</strong>
+          <div class="overlay-label">MORE HOURS. STILL BROKE.</div>
+          <p class="visual-dir">Big type, bottom-left. Same yellow wash as before—nothing clever, just loud truth.</p>
+          <p>I tried to outwork the problem. The problem was the model. More hours didn’t fix my wallet. I wrote what actually worked on the site—link in bio.</p>
+        </li>
+        <li>
+          <strong>2 · Lifestyle</strong>
+          <div class="overlay-label">NOT AT MY DESK. STILL GOT PAID.</div>
+          <p class="visual-dir">Real cafe: small table, one latte, phone face-down, rainy or gray window behind you—not a “content creator” setup, just a normal afternoon out.</p>
+          <dl class="prompt-box">
+            <dt>Scene</dt>
+            <dd>Corner table in a plain neighborhood cafe. Ceramic mug, half-full latte with a little foam left. Smartphone lying face-down. Scuffed wood table, condensation ring. Gray daylight through the window; maybe a parked car and wet pavement outside. No ring light, no neon signs.</dd>
+            <dt>Camera</dt>
+            <dd>iPhone 14 Pro main lens, slight wide; handheld, natural micro-tilt. Not HDR-crushed—keep shadows soft.</dd>
+            <dt>Time</dt>
+            <dd>3–4 p.m., overcast.</dd>
+            <dt>Mood</dt>
+            <dd>Calm, “I’m not working right now,” ordinary life.</dd>
+            <dt class="full-prompt">Paste-ready prompt</dt>
+            <dd class="full-prompt">Photorealistic photo, shot on iPhone in a casual cafe, natural overcast daylight through a window. Small wooden table with a half-finished latte in a simple ceramic mug, smartphone face-down, no logos readable. Everyday neighborhood coffee shop, slightly worn furniture, rainy gray sky outside. Handheld framing, subtle noise, not staged, not stock photo, no text, no people posing—empty chair across optional. Calm, unpretentious, real life.</dd>
+          </dl>
+          <p>You don’t have to be at your desk to get a sale. I sell simple digital stuff that doesn’t need me babysitting it. How I set it up → strategicsloth.com</p>
+        </li>
+        <li>
+          <strong>3 · Value (dark)</strong>
+          <div class="overlay-label">YOU ALREADY KNOW ENOUGH TO SELL AS A PDF.</div>
+          <p class="visual-dir">Dark square, thin border, white type—like a sticky note on a black fridge. No fake “dashboard.”</p>
+          <p>You’re not missing a million-dollar idea. You’re missing a simple file people can buy. Write what you know, PDF it, sell it again. Steps are on the site.</p>
+        </li>
+        <li>
+          <strong>4 · Brand</strong>
+          <div class="overlay-label">I made them rich. Not me.</div>
+          <p class="visual-dir">Yellow again, but sentence case—sounds like a person, not a billboard.</p>
+          <p>18 years building for other people taught me that lesson the hard way. I stopped trading all my hours for their upside. Full story + how I sell while I’m off the clock → link in bio.</p>
+        </li>
+        <li>
+          <strong>5 · Lifestyle</strong>
+          <div class="overlay-label">QUIET MORNING. REAL LIFE.</div>
+          <p class="visual-dir">Small apartment balcony or patio: coffee mug, simple chair, plants a little imperfect, clothes drying or plain railing—lived-in, not a hotel ad.</p>
+          <dl class="prompt-box">
+            <dt>Scene</dt>
+            <dd>Modest apartment balcony in a city or suburb. Plastic or simple ceramic mug, folding chair, two potted plants (one a little leggy). Concrete floor, metal railing, ordinary buildings in the background. Maybe a towel on the rail—real life.</dd>
+            <dt>Camera</dt>
+            <dd>DSLR or mirrorless, 35mm lens at f/2.8, eye level; or iPhone main lens standing in the doorway.</dd>
+            <dt>Time</dt>
+            <dd>Early morning, soft sun, long gentle shadows.</dd>
+            <dt>Mood</dt>
+            <dd>Quiet, unhurried, “I don’t need to prove I’m grinding.”</dd>
+            <dt class="full-prompt">Paste-ready prompt</dt>
+            <dd class="full-prompt">Photorealistic morning on a small apartment balcony. Worn folding chair, steaming mug on concrete, two everyday houseplants, simple metal railing, background of normal brick buildings. Soft natural sunrise light, no filters, no golden-hour overload. Shot like a real photo a friend took—slight imperfections, dust on railing okay. No text, no logos, not luxury staging, calm and ordinary.</dd>
+          </dl>
+          <p>Freedom isn’t a flex post. It’s a slow morning and a business that doesn’t need you glued to a screen. If you want the lazy-smart setup, it’s all on strategicsloth.com.</p>
+        </li>
+        <li>
+          <strong>6 · Value</strong>
+          <div class="overlay-label">VIEWS MEAN NOTHING IF NOBODY BUYS.</div>
+          <p class="visual-dir">Same dark template. Short lines. Let the words do the work.</p>
+          <p>Chasing a viral hit is a trap if your offer is fuzzy. You need a few people who actually pay—not a million scrolls. I break that down on the site.</p>
+        </li>
+        <li>
+          <strong>7 · Brand</strong>
+          <div class="overlay-label">ONE STEP AHEAD IS ENOUGH.</div>
+          <p class="visual-dir">Yellow, all caps, tight—permission without fluff.</p>
+          <p>You’re waiting to feel “qualified.” Your buyer just wants a clear next step. I started one step ahead too. What I use is on the site—link in bio.</p>
+        </li>
+        <li>
+          <strong>8 · Lifestyle</strong>
+          <div class="overlay-label">LAPTOP CLOSED. DAY DONE.</div>
+          <p class="visual-dir">Kitchen or dining table at night: closed laptop, one lamp, maybe dishes in sink slightly out of focus—done working, house feels real.</p>
+          <dl class="prompt-box">
+            <dt>Scene</dt>
+            <dd>Home kitchen or dining nook after work. Laptop closed on a plain table, warm table lamp, water glass, maybe a banana peel or mail in soft blur—nothing styled.</dd>
+            <dt>Camera</dt>
+            <dd>iPhone, night mode off or low; 26mm main lens. Slight warm tungsten from the lamp mixed with cool window dark outside.</dd>
+            <dt>Time</dt>
+            <dd>9–10 p.m.</dd>
+            <dt>Mood</dt>
+            <dd>Relief, shutdown, “I’m allowed to stop.”</dd>
+            <dt class="full-prompt">Paste-ready prompt</dt>
+            <dd class="full-prompt">Photorealistic evening kitchen table, closed laptop, single warm desk lamp, dark window behind, everyday clutter softly blurred. Shot on smartphone, natural mixed lighting, no ring light, no aesthetic flat lay. Feels like a real home after a workday. No text, no logos, not a magazine kitchen—normal rental or suburban home.</dd>
+          </dl>
+          <p>I used to think rest was earned after burnout. Now checkout can run while I’m making tea. If you want that kind of setup without guru nonsense → strategicsloth.com.</p>
+        </li>
+        <li>
+          <strong>9 · Value</strong>
+          <div class="overlay-label">THEY DON'T WANT YOUR LOGO. THEY WANT THE FIX.</div>
+          <p class="visual-dir">Dark card, three short lines, lots of air.</p>
+          <p>Hot take with love: your logo isn’t the bottleneck. Speed to “here’s how I solve your problem” is. Simple PDFs work because they’re fast to buy. I show how I build them on the site.</p>
+        </li>
+        <li>
+          <strong>10 · Brand</strong>
+          <div class="overlay-label">Pick one thing. Stop restarting.</div>
+          <p class="visual-dir">Human voice on yellow—same gradient system.</p>
+          <p>New idea every Monday is why most people never see money hit. Pick one offer and let it run. Focused version of my system → link in bio.</p>
+        </li>
+        <li>
+          <strong>11 · Lifestyle</strong>
+          <div class="overlay-label">SAME PDF. NEW ZIP CODE.</div>
+          <p class="visual-dir">Train or regional rail: window light on a lap or tray table, laptop slightly open showing a boring doc (blur), commuter sneakers, scuffed floor—travel that’s normal, not first class flex.</p>
+          <dl class="prompt-box">
+            <dt>Scene</dt>
+            <dd>Inside a commuter train. Window with passing suburbs, fold-down tray or lap with laptop part-open (screen content blurred/unreadable), everyday backpack strap, fabric seat.</dd>
+            <dt>Camera</dt>
+            <dd>50mm full-frame equivalent, f/2; natural documentary. Or iPhone telephoto compressed from across the aisle—your call.</dd>
+            <dt>Time</dt>
+            <dd>Late morning or mid-afternoon, bright diffuse light through the window.</dd>
+            <dt>Mood</dt>
+            <dd>Low-key freedom—work fits in real travel, not a “digital nomad” postcard.</dd>
+            <dt class="full-prompt">Paste-ready prompt</dt>
+            <dd class="full-prompt">Photorealistic commuter train interior, natural daylight through large window, laptop on lap or tray (screen blurred, no readable UI), worn fabric seat, casual sneakers visible, backpack detail. Shot like documentary travel, not influencer airport lounge. DSLR 50mm look, shallow depth of field, true colors, no HDR glow. No text, no logos, ordinary regional rail, calm mood.</dd>
+          </dl>
+          <p>Same file can pay you in a different city. You don’t need a viral moment—just something clear people can buy. I mapped it on strategicsloth.com.</p>
+        </li>
+        <li>
+          <strong>12 · Value</strong>
+          <div class="overlay-label">UGLY AND CLEAR BEATS PRETTY AND VAGUE.</div>
+          <p class="visual-dir">Last dark tile—strong closer, no chart, no fake UI.</p>
+          <p>Perfect is expensive. Messy but clear gets the sale—and funds version two. That’s the whole vibe I teach. Site’s in the bio.</p>
+        </li>
+      </ol>
+    </section>
+
+    <footer>
+      Export squares at 1080×1080 for the feed. Placeholder photos are Unsplash stand-ins—swap for your own AI or camera shots using the prompts above. strategicsloth.com
+    </footer>
+  </div>
+</body>
+</html>

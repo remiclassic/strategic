@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Strategic Sloth — Reel 1 Preview (test)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    :root {
+      --void: #0b0c0e;
+      --charcoal: #14161a;
+      --paper: #f2f0ea;
+      --muted: #8a8780;
+      --accent: #6b8f71;
+      --wine: #8b3a3a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #050506;
+      color: var(--paper);
+      font-family: "Outfit", system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-bottom: 96px;
+    }
+
+    .toolbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 12px;
+      padding: 10px 12px 14px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      color: var(--muted);
+      background: linear-gradient(to top, rgba(5, 5, 6, 0.97), rgba(5, 5, 6, 0.85));
+      border-top: 1px solid #2a2d35;
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .toolbar button {
+      background: var(--charcoal);
+      border: 1px solid #2a2d35;
+      color: var(--paper);
+      padding: 7px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 11px;
+    }
+
+    .toolbar button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .toolbar button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .toolbar label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toolbar input[type="checkbox"] {
+      accent-color: var(--accent);
+    }
+
+    body.export-video {
+      padding: 0;
+      padding-bottom: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body.export-video .toolbar {
+      display: none !important;
+    }
+
+    body.export-video .viewport {
+      width: 1080px;
+      height: 1920px;
+      max-height: none;
+      max-width: none;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0;
+    }
+
+    .viewport {
+      position: relative;
+      width: min(100vw - 24px, (100vh - 120px) * (9 / 16));
+      aspect-ratio: 9 / 16;
+      max-height: calc(100vh - 120px);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+    }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      transform-origin: top left;
+      background: linear-gradient(165deg, var(--charcoal) 0%, var(--void) 45%, #060708 100%);
+      overflow: hidden;
+    }
+
+    .grain {
+      position: absolute;
+      inset: -20%;
+      opacity: 0.07;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: drift 8s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-2%, -2%); }
+    }
+
+    .rule {
+      position: absolute;
+      left: 64px;
+      top: 120px;
+      width: 48px;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0.9;
+    }
+
+    .mark {
+      position: absolute;
+      right: 56px;
+      bottom: 56px;
+      opacity: 0.35;
+    }
+
+    .safe-zones {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .safe-zones.on {
+      opacity: 1;
+    }
+
+    .safe-zones svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 64px;
+      text-align: left;
+      z-index: 2;
+    }
+
+    .cover-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+    }
+
+    .line {
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.22s ease-out, transform 0.22s ease-out;
+    }
+
+    .line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .line.l1 { font-size: 76px; }
+    .line.l2 { font-size: 56px; margin-top: 12px; color: var(--muted); }
+    .line.l3 { font-size: 64px; margin-top: 20px; }
+    .line.l4 { font-size: 72px; margin-top: 8px; }
+    .line.l5 { font-size: 52px; margin-top: 24px; line-height: 1.12; }
+
+    .cover-title {
+      font-size: 112px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .cover-sub {
+      margin-top: 20px;
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .cover-tag {
+      margin-top: 48px;
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--paper);
+      text-transform: none;
+      letter-spacing: 0.02em;
+      max-width: 920px;
+    }
+
+    .wine { color: var(--wine); }
+    .accent { color: var(--accent); }
+
+    .cta-block {
+      margin-top: 32px;
+    }
+
+    .cta-main {
+      font-size: 44px;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .cta-url {
+      margin-top: 20px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+
+    .cta-sub {
+      margin-top: 16px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 22px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .line.cta-block,
+    .line.cta-url {
+      text-transform: none;
+      letter-spacing: 0.02em;
+    }
+
+    .flash {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .flash.hit {
+      animation: flash 0.08s ease-out;
+    }
+
+    @keyframes flash {
+      0% { opacity: 0.12; }
+      100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .grain {
+        animation: none;
+      }
+
+      .line {
+        transition: opacity 0.12s ease-out, transform none;
+        transform: none;
+      }
+
+      .flash.hit {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport" id="viewport">
+    <div class="stage" id="stage">
+      <div class="grain" aria-hidden="true"></div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="safe-zones" id="safeZones" aria-hidden="true">
+        <svg viewBox="0 0 1080 1920" preserveAspectRatio="none">
+          <!-- IG-ish safe margins: inner content ~64px already; extra UI gutters -->
+          <rect x="48" y="200" width="984" height="1520" fill="none" stroke="#6b8f71" stroke-width="2" stroke-dasharray="12 10" opacity="0.55" />
+          <rect x="64" y="280" width="952" height="1360" fill="none" stroke="#f2f0ea" stroke-width="1" stroke-dasharray="6 8" opacity="0.25" />
+        </svg>
+      </div>
+      <svg class="mark" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="22" r="14" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <ellipse cx="20" cy="18" rx="10" ry="8" fill="currentColor" opacity="0.5" />
+      </svg>
+      <div class="flash" id="flash"></div>
+      <div class="content" id="content"></div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <button type="button" id="btnPlay">Play</button>
+      <button type="button" id="btnRestart">Restart (R)</button>
+      <button type="button" id="btnCover">Cover</button>
+      <button type="button" id="btnPng" title="1080×1920 PNG of current frame">PNG</button>
+      <span id="timeLabel">0.0s / 12s</span>
+    </div>
+    <div class="toolbar-row">
+      <label><input type="checkbox" id="chkLoop" /> Loop</label>
+      <label><input type="checkbox" id="chkAuto" /> Auto-play</label>
+      <label><input type="checkbox" id="chkSafe" /> Safe zones</label>
+      <label><input type="checkbox" id="chkSound" /> Sound</label>
+    </div>
+  </div>
+
+  <script>
+    const STAGE_W = 1080;
+    const STAGE_H = 1920;
+
+    const qs = new URLSearchParams(location.search);
+    const exportVideo = qs.get("export") === "video";
+    const exportCoverMs = Math.min(6000, Math.max(0, parseInt(qs.get("cover") || "900", 10) || 0));
+    const exportEndHoldMs = Math.min(8000, Math.max(0, parseInt(qs.get("end") || "1200", 10) || 0));
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionMult = reduceMotion ? 1.35 : 1;
+    const staggerBase = reduceMotion ? 0 : 200;
+
+    function scaleMs(ms) {
+      return Math.round(ms * motionMult);
+    }
+
+    /**
+     * lines: { class, html, delayMs?, flashBefore? }
+     * ms = total scene duration from t=0
+     */
+    const scenes = [
+      {
+        ms: 800,
+        lines: [
+          { cls: "l1", html: "I SPENT", delay: 0 },
+          { cls: "l4", html: "18 YEARS", delay: staggerBase, marginTop: "8px" },
+        ],
+        sfx: "cut",
+      },
+      {
+        ms: 800,
+        lines: [
+          { cls: "l3", html: "BUILDING FOR", delay: 0 },
+          { cls: "l3", html: "OTHER PEOPLE.", delay: staggerBase, marginTop: "12px" },
+        ],
+        sfx: "cut",
+      },
+      {
+        ms: 800,
+        lines: [
+          { cls: "l3", html: "IT MADE THEM", delay: 0 },
+          { cls: "l3", html: "RICH.", delay: staggerBase, marginTop: "12px" },
+        ],
+        sfx: "cut",
+      },
+      {
+        ms: 800,
+        lines: [{ cls: "l4", html: '<span class="wine">NOT</span> ME.', delay: 0 }],
+        flash: !reduceMotion,
+        sfx: "hit",
+      },
+      {
+        ms: 1300,
+        lines: [
+          { cls: "l5", html: "NOBODY TELLS", delay: 0 },
+          { cls: "l5", html: "YOU THIS:", delay: staggerBase, marginTop: "8px" },
+        ],
+        sfx: "cut",
+      },
+      {
+        ms: 1500,
+        lines: [
+          { cls: "l5", html: "JOB SECURITY", delay: 0 },
+          { cls: "l5", html: "IS A TRAP.", delay: staggerBase, marginTop: "12px", extraClass: "accent" },
+        ],
+        sfx: "cut",
+      },
+      {
+        ms: 2000,
+        lines: [
+          { cls: "l5", html: "SO I BUILT", delay: 0 },
+          { cls: "l5", html: "SOMETHING ONCE.", delay: staggerBase, marginTop: "12px" },
+        ],
+        sfx: "cut",
+      },
+      {
+        ms: 2000,
+        lines: [
+          { cls: "l5", html: "NOW IT SELLS", delay: 0 },
+          {
+            cls: "l5",
+            html: "WHILE I SLEEP.",
+            delay: staggerBase,
+            marginTop: "12px",
+            extraClass: "accent",
+          },
+        ],
+        sfx: "cut",
+      },
+      {
+        ms: 2000,
+        lines: [
+          {
+            cls: "line cta-block",
+            html: '<span class="cta-main">Same system →</span>',
+            delay: 0,
+            noUpper: true,
+          },
+          { cls: "line cta-url", html: "strategicsloth.com", delay: staggerBase, noUpper: true },
+          {
+            cls: "line cta-sub",
+            html: "link in bio",
+            delay: Math.round(staggerBase * 1.25),
+            noUpper: true,
+          },
+        ],
+        sfx: "cta",
+      },
+    ];
+
+    const scaledScenes = scenes.map((s) => ({
+      ...s,
+      ms: scaleMs(s.ms),
+      lines: s.lines.map((ln) => ({
+        ...ln,
+        delay: scaleMs(ln.delay),
+      })),
+    }));
+
+    const totalMs = scaledScenes.reduce((a, s) => a + s.ms, 0);
+    const contentEl = document.getElementById("content");
+    const flashEl = document.getElementById("flash");
+    const stageEl = document.getElementById("stage");
+    const viewportEl = document.getElementById("viewport");
+    const timeLabel = document.getElementById("timeLabel");
+    const btnPlay = document.getElementById("btnPlay");
+    const btnRestart = document.getElementById("btnRestart");
+    const btnCover = document.getElementById("btnCover");
+    const btnPng = document.getElementById("btnPng");
+    const chkLoop = document.getElementById("chkLoop");
+    const chkAuto = document.getElementById("chkAuto");
+    const chkSafe = document.getElementById("chkSafe");
+    const chkSound = document.getElementById("chkSound");
+    const safeZonesEl = document.getElementById("safeZones");
+
+    let playing = false;
+    let cancelToken = 0;
+    let audioCtx = null;
+
+    timeLabel.textContent = `0.0s / ${(totalMs / 1000).toFixed(0)}s`;
+
+    function scaleStage() {
+      const r = viewportEl.getBoundingClientRect();
+      const s = Math.min(r.width / STAGE_W, r.height / STAGE_H);
+      stageEl.style.transform = `scale(${s})`;
+    }
+
+    new ResizeObserver(scaleStage).observe(viewportEl);
+    scaleStage();
+
+    function ensureAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSfx(kind) {
+      if (!chkSound.checked) return;
+      const ctx = ensureAudio();
+      const t = ctx.currentTime;
+      const master = ctx.createGain();
+      master.gain.value = 0.09;
+      master.connect(ctx.destination);
+
+      if (kind === "hit") {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.setValueAtTime(55, t);
+        o.frequency.exponentialRampToValueAtTime(38, t + 0.12);
+        g.gain.setValueAtTime(0.001, t);
+        g.gain.exponentialRampToValueAtTime(0.7, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+        o.connect(g);
+        g.connect(master);
+        o.start(t);
+        o.stop(t + 0.25);
+      } else if (kind === "cta") {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.setValueAtTime(196, t);
+        o.frequency.exponentialRampToValueAtTime(130, t + 0.18);
+        g.gain.setValueAtTime(0.001, t);
+        g.gain.exponentialRampToValueAtTime(0.45, t + 0.03);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+        o.connect(g);
+        g.connect(master);
+        o.start(t);
+        o.stop(t + 0.3);
+      } else {
+        const bufferSize = ctx.sampleRate * 0.06;
+        const noise = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = noise.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.35;
+        const src = ctx.createBufferSource();
+        src.buffer = noise;
+        const bp = ctx.createBiquadFilter();
+        bp.type = "lowpass";
+        bp.frequency.value = 900;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.001, t);
+        g.gain.exponentialRampToValueAtTime(0.85, t + 0.008);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.055);
+        src.connect(bp);
+        bp.connect(g);
+        g.connect(master);
+        src.start(t);
+        src.stop(t + 0.07);
+      }
+    }
+
+    function triggerFlash() {
+      if (reduceMotion) return;
+      flashEl.classList.remove("hit");
+      void flashEl.offsetWidth;
+      flashEl.classList.add("hit");
+    }
+
+    function showCover() {
+      btnPlay.textContent = "Play";
+      timeLabel.textContent = `0.0s / ${(totalMs / 1000).toFixed(0)}s`;
+      contentEl.innerHTML = `
+        <div class="cover-wrap">
+          <div class="cover-title">18 YEARS</div>
+          <div class="cover-sub">For them</div>
+          <p class="cover-tag">Job security is a trap.</p>
+        </div>
+      `;
+    }
+
+    function revealLine(el) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => el.classList.add("visible"));
+      });
+    }
+
+    function runScene(scene) {
+      contentEl.innerHTML = "";
+      return new Promise((resolve) => {
+        scene.lines.forEach((ln) => {
+          setTimeout(() => {
+            const div = document.createElement("div");
+            div.className = ln.noUpper ? ln.cls : `line ${ln.cls}`;
+            if (ln.marginTop) div.style.marginTop = ln.marginTop;
+            if (ln.extraClass) div.classList.add(ln.extraClass);
+            div.innerHTML = ln.html;
+            contentEl.appendChild(div);
+            revealLine(div);
+          }, ln.delay);
+        });
+        setTimeout(resolve, scene.ms);
+      });
+    }
+
+    async function runReel(token) {
+      let elapsed = 0;
+      for (let i = 0; i < scaledScenes.length; i++) {
+        if (token !== cancelToken) return;
+        const sc = scaledScenes[i];
+        if (sc.flash) triggerFlash();
+        if (sc.sfx) playSfx(sc.sfx);
+
+        await runScene(sc);
+        if (token !== cancelToken) return;
+
+        elapsed += sc.ms;
+        timeLabel.textContent = `${(elapsed / 1000).toFixed(1)}s / ${(totalMs / 1000).toFixed(0)}s`;
+      }
+
+      timeLabel.textContent = `${(totalMs / 1000).toFixed(1)}s / ${(totalMs / 1000).toFixed(0)}s`;
+      playing = false;
+      btnPlay.textContent = chkLoop.checked ? "Play again" : "Play";
+
+      if (token !== cancelToken) return;
+      if (chkLoop.checked) {
+        playing = true;
+        btnPlay.textContent = "Playing…";
+        await new Promise((r) => setTimeout(r, scaleMs(500)));
+        if (token !== cancelToken) return;
+        contentEl.innerHTML = "";
+        await runReel(token);
+      } else if (exportVideo) {
+        await new Promise((r) => setTimeout(r, exportEndHoldMs));
+        if (token !== cancelToken) return;
+        window.dispatchEvent(new CustomEvent("ss-reel-complete"));
+      }
+    }
+
+    function start() {
+      cancelToken += 1;
+      const token = cancelToken;
+      playing = true;
+      btnPlay.textContent = "Playing…";
+      timeLabel.textContent = `0.0s / ${(totalMs / 1000).toFixed(0)}s`;
+      contentEl.innerHTML = "";
+      if (chkSound.checked) ensureAudio();
+      runReel(token);
+    }
+
+    function restart() {
+      cancelToken += 1;
+      playing = false;
+      showCover();
+    }
+
+    btnPlay.addEventListener("click", () => {
+      if (playing) return;
+      start();
+    });
+
+    btnRestart.addEventListener("click", restart);
+    btnCover.addEventListener("click", () => {
+      if (playing) cancelToken += 1;
+      playing = false;
+      showCover();
+    });
+
+    chkSafe.addEventListener("change", () => {
+      safeZonesEl.classList.toggle("on", chkSafe.checked);
+    });
+
+    btnPng.addEventListener("click", async () => {
+      if (typeof html2canvas !== "function") {
+        alert("html2canvas failed to load. Check your network and refresh.");
+        return;
+      }
+      const safeWasOn = chkSafe.checked;
+      safeZonesEl.classList.remove("on");
+      chkSafe.checked = false;
+      btnPng.disabled = true;
+      try {
+        const canvas = await html2canvas(stageEl, {
+          scale: 1,
+          width: STAGE_W,
+          height: STAGE_H,
+          useCORS: true,
+          backgroundColor: "#0b0c0e",
+          logging: false,
+        });
+        canvas.toBlob((blob) => {
+          if (!blob) return;
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = `strategic-sloth-reel1-frame-${Date.now()}.png`;
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }, "image/png");
+      } catch (e) {
+        console.error(e);
+        alert("PNG export failed. Try pausing on a stable frame or check the console.");
+      } finally {
+        btnPng.disabled = false;
+        if (safeWasOn) {
+          chkSafe.checked = true;
+          safeZonesEl.classList.add("on");
+        }
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (exportVideo) return;
+      if (e.key === "r" || e.key === "R") restart();
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        if (!playing) start();
+      }
+    });
+
+    if (exportVideo) {
+      document.body.classList.add("export-video");
+      chkLoop.checked = false;
+      chkSound.checked = false;
+    } else {
+      showCover();
+    }
+
+    async function runExportVideo() {
+      await document.fonts.ready;
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      scaleStage();
+      if (exportCoverMs > 0) {
+        showCover();
+        scaleStage();
+        await new Promise((r) => setTimeout(r, exportCoverMs));
+      }
+      start();
+    }
+
+    window.addEventListener("load", () => {
+      if (exportVideo) {
+        runExportVideo();
+        return;
+      }
+      if (chkAuto.checked) start();
+    });
+  </script>
+</body>
+</html>

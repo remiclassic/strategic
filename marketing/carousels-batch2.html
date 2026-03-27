@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Strategic Sloth — Carousels batch 2 (IG 4:5 + art)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Inter:ital,opsz,wght@0,14..32,400..900;1,14..32,400..900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    :root {
+      --b2-navy: #1b1b3d;
+      --b2-ink: #0d0d14;
+      --b2-cream: #fffdf7;
+      --b2-yellow: #ffd600;
+      --b2-red: #ff4d4d;
+      --b2-mint: #d5f5f0;
+      --b2-lilac: #ede7f6;
+      --b2-coral: #ffccbc;
+      --b2-sky: #b3e5fc;
+      --stage-w: 1080;
+      --stage-h: 1350;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100dvh;
+      background: #e8e6e1;
+      color: var(--b2-navy);
+      font-family: "Inter", system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 12px 96px;
+    }
+
+    h1 {
+      font-family: "Bangers", cursive;
+      font-size: 1.35rem;
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .hint {
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 10px;
+      max-width: 420px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .controls select,
+    .controls button {
+      font-family: "Inter", sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 8px 12px;
+      border: 2px solid #000;
+      border-radius: 8px;
+      background: var(--b2-yellow);
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .carousel-wrap {
+      width: min(100vw - 24px, (100dvh - 200px) * (4 / 5));
+      aspect-ratio: 4 / 5;
+      max-height: calc(100dvh - 200px);
+      border: 3px solid #000;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .carousel-viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #333;
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* —— Native 1080×1350 stages (sloth art in safe zones — never cropped) —— */
+    .b2-stage {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1350px;
+      transform-origin: top left;
+      overflow: hidden;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    .b2-mark {
+      position: absolute;
+      top: 18px;
+      left: 22px;
+      z-index: 20;
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      color: var(--b2-navy);
+      text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .b2-stage--dark .b2-mark {
+      color: #ffe082;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .b2-h1 {
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.05;
+      color: var(--b2-navy);
+      letter-spacing: -0.02em;
+    }
+
+    .b2-h1.t44 {
+      font-size: 54px;
+    }
+    .b2-h1.t40 {
+      font-size: 48px;
+    }
+    .b2-h1.t36 {
+      font-size: 44px;
+    }
+    .b2-h1.t32 {
+      font-size: 40px;
+    }
+
+    .b2-body {
+      margin-top: 16px;
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1.32;
+      color: var(--b2-navy);
+    }
+
+    .b2-accent {
+      color: var(--b2-red);
+    }
+
+    .b2-cta {
+      margin-top: 22px;
+      padding: 20px 22px;
+      background: var(--b2-navy);
+      color: #fff;
+      border: 3px solid #000;
+      border-radius: 16px;
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1.2;
+      text-align: center;
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .b2-cta small {
+      display: block;
+      margin-top: 10px;
+      font-size: 28px;
+      line-height: 1.2;
+      color: var(--b2-yellow);
+    }
+
+    /* T1 Split */
+    .b2-split__inner {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      padding-top: 52px;
+    }
+
+    .b2-split__copy {
+      width: 500px;
+      flex-shrink: 0;
+      padding: 28px 28px 28px 26px;
+      background: var(--b2-cream);
+      border-right: 3px solid #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .b2-split__photo {
+      flex: 1;
+      background: var(--split-bg, #90caf9);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 16px 12px 24px;
+    }
+
+    .b2-split__photo img {
+      max-width: 100%;
+      max-height: 1220px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(4px 8px 0 rgba(0, 0, 0, 0.12));
+    }
+
+    /* T2 Top band */
+    .b2-band__top {
+      height: 340px;
+      padding-top: 48px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: linear-gradient(180deg, var(--band-top, #ffe082) 0%, var(--band-bot, #ffd600) 100%);
+      border-bottom: 3px solid #000;
+    }
+
+    .b2-band__top img {
+      max-height: 280px;
+      max-width: 92%;
+      width: auto;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(3px 6px 0 rgba(0, 0, 0, 0.15));
+    }
+
+    .b2-band__body {
+      height: calc(100% - 340px);
+      padding: 28px 36px;
+      background: var(--b2-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .b2-band__card {
+      width: 100%;
+      max-width: 960px;
+    }
+
+    /* T3 Navy */
+    .b2-navy__wrap {
+      height: 100%;
+      padding-top: 50px;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(165deg, #1a1a2e 0%, #12121c 100%);
+    }
+
+    .b2-navy__copy {
+      flex: 1;
+      padding: 20px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .b2-navy__copy .b2-h1,
+    .b2-navy__copy .b2-body {
+      color: var(--b2-cream);
+    }
+
+    .b2-navy__copy .b2-h1.b2-accent,
+    .b2-navy__copy .b2-accent {
+      color: #ffab91;
+    }
+
+    .b2-navy__mascot {
+      height: 400px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 16px;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), transparent);
+    }
+
+    .b2-navy__mascot img {
+      max-height: 360px;
+      max-width: 90%;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    /* T4 Mint stack */
+    .b2-mint__wrap {
+      height: 100%;
+      padding-top: 48px;
+      display: flex;
+      flex-direction: column;
+      background: var(--b2-mint);
+    }
+
+    .b2-mint__card {
+      flex: 1;
+      margin: 0 28px;
+      padding: 32px 28px;
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 24px;
+      box-shadow: 6px 6px 0 #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .b2-mint__mascot {
+      height: 420px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px 20px 20px;
+    }
+
+    .b2-mint__mascot img {
+      max-height: 380px;
+      max-width: 85%;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    /* T5 Lilac sticker */
+    .b2-lilac__wrap {
+      height: 100%;
+      padding: 52px 36px 28px;
+      background: var(--b2-lilac);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .b2-lilac__main {
+      flex: 1;
+      padding: 24px;
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 20px;
+      box-shadow: 5px 5px 0 #000;
+      position: relative;
+    }
+
+    .b2-lilac__text {
+      padding-right: 268px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .b2-lilac__sticker {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 240px;
+      height: 240px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .b2-lilac__sticker img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 10px;
+      max-width: 400px;
+    }
+
+    .dots button {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .dots button.on {
+      background: #7e57c2;
+    }
+
+    .nav-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .nav-row button {
+      padding: 8px 14px;
+      font-weight: 800;
+      border: 2px solid #000;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .caption-panel {
+      margin-top: 16px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .caption-panel summary {
+      font-family: "Comic Neue", cursive;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .caption-panel pre {
+      margin-top: 8px;
+      font-size: 10px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      background: #fff;
+      padding: 10px;
+      border: 2px solid #000;
+      border-radius: 8px;
+    }
+
+    #ig-export-root {
+      display: none;
+      width: 1080px;
+      height: 1350px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: #222;
+    }
+
+    body.ss-export-mode {
+      padding: 0;
+      background: #111;
+    }
+
+    body.ss-export-mode > *:not(#ig-export-root) {
+      display: none !important;
+    }
+
+    body.ss-export-mode #ig-export-root {
+      display: block !important;
+    }
+
+    .ig-flat-wrap {
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+    }
+
+    .ig-flat-wrap .b2-stage {
+      position: relative;
+      transform: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="ig-export-root" aria-hidden="true"></div>
+
+  <h1 class="b2-ui">Batch 2 — 10 fresh carousels</h1>
+  <p class="hint b2-ui">1080×1350 native · sloth art in safe zones · swipe ↔</p>
+
+  <div class="controls b2-ui">
+    <label>
+      Carousel
+      <select id="reelSelect"></select>
+    </label>
+    <button type="button" id="btnPng">PNG (IG 4:5)</button>
+  </div>
+
+  <div class="carousel-wrap b2-ui" id="carouselWrap">
+    <div class="carousel-viewport" id="viewport">
+      <div class="carousel-track" id="track"></div>
+    </div>
+  </div>
+
+  <div class="nav-row b2-ui">
+    <button type="button" id="btnPrev">←</button>
+    <button type="button" id="btnNext">→</button>
+  </div>
+  <div class="dots b2-ui" id="dots"></div>
+
+  <div class="caption-panel b2-ui">
+    <details open>
+      <summary>IG caption</summary>
+      <pre id="captionBox"></pre>
+    </details>
+  </div>
+
+  <script>
+    const STAGE_W = 1080;
+    const STAGE_H = 1350;
+
+    function imgPath(file) {
+      return location.protocol === "http:" || location.protocol === "https:"
+        ? "/images/" + file
+        : new URL("../public/images/" + file, location.href).href;
+    }
+
+    function mark(dark) {
+      return `<div class="b2-mark${dark ? " b2-mark--lite" : ""}">🦥 Strategic Sloth</div>`;
+    }
+
+    function tplSplit(splitBg, imgFile, darkMark, inner) {
+      return `<div class="b2-stage" style="--split-bg:${splitBg}">
+        ${mark(darkMark)}
+        <div class="b2-split__inner">
+          <div class="b2-split__copy">${inner}</div>
+          <div class="b2-split__photo"><img src="${imgPath(imgFile)}" alt="" decoding="async" /></div>
+        </div>
+      </div>`;
+    }
+
+    function tplBand(topCol, botCol, imgFile, inner) {
+      return `<div class="b2-stage" style="--band-top:${topCol};--band-bot:${botCol}">
+        ${mark(false)}
+        <div class="b2-band__top"><img src="${imgPath(imgFile)}" alt="" decoding="async" /></div>
+        <div class="b2-band__body"><div class="b2-band__card">${inner}</div></div>
+      </div>`;
+    }
+
+    function tplNavy(imgFile, inner) {
+      return `<div class="b2-stage b2-stage--dark">
+        ${mark(true)}
+        <div class="b2-navy__wrap">
+          <div class="b2-navy__copy">${inner}</div>
+          <div class="b2-navy__mascot"><img src="${imgPath(imgFile)}" alt="" decoding="async" /></div>
+        </div>
+      </div>`;
+    }
+
+    function tplMint(imgFile, inner) {
+      return `<div class="b2-stage">
+        ${mark(false)}
+        <div class="b2-mint__wrap">
+          <div class="b2-mint__card">${inner}</div>
+          <div class="b2-mint__mascot"><img src="${imgPath(imgFile)}" alt="" decoding="async" /></div>
+        </div>
+      </div>`;
+    }
+
+    function tplLilac(imgFile, inner) {
+      return `<div class="b2-stage">
+        ${mark(false)}
+        <div class="b2-lilac__wrap">
+          <div class="b2-lilac__main">
+            <div class="b2-lilac__text">${inner}</div>
+            <div class="b2-lilac__sticker"><img src="${imgPath(imgFile)}" alt="" decoding="async" /></div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    const REELS = [
+      {
+        id: 101,
+        title: "The Lazy Advantage",
+        caption: `Slow isn't stupid. It's strategic.
+
+When you stop reacting to every notification, you finally have space to build something that sells without you glued to the screen.
+
+That's the whole vibe at Strategic Sloth — lazy-smart systems, not hustle theater.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplSplit("#81d4fa", "heroslothhammock.webp", false, `<div class="b2-h1 t40">THE LAZY ADVANTAGE</div><p class="b2-body">Hustle culture wants you <span class="b2-accent">busy</span>. Buyers want you <span class="b2-accent">clear</span>.</p>`),
+          tplSplit("#81d4fa", "heroslothhammock.webp", false, `<div class="b2-h1 t36">YOUR BRAIN ON "GRIND"</div><p class="b2-body">Decision fatigue = weak offers. Rest = sharper positioning.</p>`),
+          tplSplit("#81d4fa", "heroslothhammock.webp", false, `<div class="b2-h1 t36">SLOWER INPUTS</div><p class="b2-body">Fewer tabs. One product. One checkout. Repeat.</p>`),
+          tplSplit("#81d4fa", "heroslothhammock.webp", false, `<div class="b2-h1 t32">I BUILD THAT WAY ON PURPOSE</div><p class="b2-body">Games taught me systems. Sloth mode taught me sustainability.</p>`),
+          tplSplit("#81d4fa", "heroslothhammock.webp", false, `<div class="b2-h1 t36">YOU DON'T NEED MORE HOURS</div><p class="b2-body">You need a simple asset + boring delivery.</p>`),
+          tplSplit("#81d4fa", "heroslothhammock.webp", false, `<div class="b2-cta">Nap-friendly systems 🦥<small>strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 102,
+        title: "PDFs Beat Perfection",
+        caption: `Perfect is the enemy of paid.
+
+A clear PDF today beats a "real business" deck that never ships.
+
+I break down how to package what you know — without the guru cosplay.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplMint("freelancer.webp", `<div class="b2-h1 t40">PDFs BEAT PERFECTION</div><p class="b2-body">Ugly but <span class="b2-accent">clear</span> outsells pretty but vague.</p>`),
+          tplMint("freelancer.webp", `<div class="b2-h1 t36">SHIP THE MESSY V1</div><p class="b2-body">You learn what people pay for from receipts — not from overthinking.</p>`),
+          tplMint("freelancer.webp", `<div class="b2-h1 t32">ONE PDF. ONE PROMISE.</div><p class="b2-body">"Here's how I solve X" beats "I'm building a brand."</p>`),
+          tplMint("freelancer.webp", `<div class="b2-h1 t36">REFINE AFTER REVENUE</div><p class="b2-body">Version 2 funded by version 1 hits different.</p>`),
+          tplMint("freelancer.webp", `<div class="b2-h1 t32">THIS IS HOW I TEACH IT</div><p class="b2-body">No fake luxury. Just steps.</p>`),
+          tplMint("freelancer.webp", `<div class="b2-cta">Grab the lazy-smart stack 🦥<small>strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 103,
+        title: "Your 9–5 Is R&D",
+        caption: `Your job can fund your escape hatch — if you treat it like R&D, not your whole identity.
+
+Build the product on the side. Let checkout run while you're in a meeting you didn't call.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplNavy("corporatesloth.webp", `<div class="b2-h1 t40">YOUR 9–5 IS R&D</div><p class="b2-body">Steady cash = runway for <span class="b2-accent">your</span> asset.</p>`),
+          tplNavy("corporatesloth.webp", `<div class="b2-h1 t36">STOP WAITING TO QUIT</div><p class="b2-body">Start waiting to <span class="b2-accent">launch</span>. Small. Quiet. Repeatable.</p>`),
+          tplNavy("corporatesloth.webp", `<div class="b2-h1 t32">NIGHTS &amp; WEEKENDS COUNT</div><p class="b2-body">One PDF. One page. One link. That's a real prototype.</p>`),
+          tplNavy("corporatesloth.webp", `<div class="b2-h1 t36">THE GOAL ISN'T DRAMA</div><p class="b2-body">It's a second income line that doesn't need your face 24/7.</p>`),
+          tplNavy("corporatesloth.webp", `<div class="b2-h1 t32">I DID 18 YEARS BUILDING FOR OTHERS</div><p class="b2-body">Now I build for me — same skills, different owner.</p>`),
+          tplNavy("corporatesloth.webp", `<div class="b2-h1 t36">USE THE JOB. DON'T LET IT USE YOU.</div><p class="b2-body">Strategic, not spiteful.</p>`),
+          tplNavy("corporatesloth.webp", `<div class="b2-cta" style="background:#3949ab;border-color:#000;color:#fff">Side-door system 🦥<small style="color:#ffeb3b">strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 104,
+        title: "One Offer, Many Doors",
+        caption: `Same PDF. Email welcome. DM script. Pinned post. Blog footer.
+
+One offer can walk in through a lot of doors — if the message stays tight.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplBand("#fff59d", "#ffee58", "slothloungehero.webp", `<div class="b2-h1 t40">ONE OFFER</div><p class="b2-body"><span class="b2-accent">MANY DOORS.</span></p>`),
+          tplBand("#fff59d", "#ffee58", "slothloungehero.webp", `<div class="b2-h1 t36">DON'T REBUILD THE PRODUCT</div><p class="b2-body">Rebuild the <span class="b2-accent">entry points</span>.</p>`),
+          tplBand("#fff59d", "#ffee58", "slothloungehero.webp", `<div class="b2-h1 t32">EMAIL · DM · PIN · BIO LINK</div><p class="b2-body">Same link. Same checkout. Less chaos.</p>`),
+          tplBand("#fff59d", "#ffee58", "slothloungehero.webp", `<div class="b2-h1 t36">CONFUSION KILLS SALES</div><p class="b2-body">Clarity is the real conversion hack.</p>`),
+          tplBand("#fff59d", "#ffee58", "slothloungehero.webp", `<div class="b2-h1 t32">I MAP THIS OUT</div><p class="b2-body">So you're not inventing a new funnel every Monday.</p>`),
+          tplBand("#fff59d", "#ffee58", "slothloungehero.webp", `<div class="b2-cta">One link army 🦥<small>strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 105,
+        title: "Energy Is Inventory",
+        caption: `Treat attention like inventory — it runs out.
+
+Protect it for building and improving the thing that pays you, not for performing busy online.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplSplit("#ffab91", "latteasloth.webp", false, `<div class="b2-h1 t40">ENERGY IS INVENTORY</div><p class="b2-body">Every "quick call" is a <span class="b2-accent">SKU</span> you can't restock today.</p>`),
+          tplSplit("#ffab91", "latteasloth.webp", false, `<div class="b2-h1 t36">STOP SPENDING IT ON PERFORMING</div><p class="b2-body">The feed eats hours. Your PDF doesn't.</p>`),
+          tplSplit("#ffab91", "latteasloth.webp", false, `<div class="b2-h1 t32">BATCH. AUTOMATE. IGNORE.</div><p class="b2-body">Three boring words that protect deep work.</p>`),
+          tplSplit("#ffab91", "latteasloth.webp", false, `<div class="b2-h1 t36">YOUR BUYER DOESN'T CARE</div><p class="b2-body">How many stories you posted. They care if you solve the pain.</p>`),
+          tplSplit("#ffab91", "latteasloth.webp", false, `<div class="b2-h1 t32">I KEEP IT CALM ON PURPOSE</div><p class="b2-body">Strategic Sloth isn't aesthetic — it's allocation.</p>`),
+          tplSplit("#ffab91", "latteasloth.webp", false, `<div class="b2-cta">Protect the tank 🦥<small>strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 106,
+        title: "The Anti-Hustle Stack",
+        caption: `Stack: idea → PDF → checkout → email delivery → small improvements.
+
+No 12-step funnel cosplay required.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplMint("starterpackage.webp", `<div class="b2-h1 t36">THE ANTI-HUSTLE STACK</div><p class="b2-body">1) What you know<br>2) One PDF<br>3) Checkout<br>4) Delivery email</p>`),
+          tplMint("starterpackage.webp", `<div class="b2-h1 t32">THAT'S THE CORE</div><p class="b2-body">Everything else is optional seasoning.</p>`),
+          tplMint("starterpackage.webp", `<div class="b2-h1 t36">YOU DON'T NEED</div><p class="b2-body">Webinar funnels on day one. You need <span class="b2-accent">proof someone pays</span>.</p>`),
+          tplMint("starterpackage.webp", `<div class="b2-h1 t32">AUTOMATE THE BORING PARTS</div><p class="b2-body">So you're not manually emailing files at midnight.</p>`),
+          tplMint("starterpackage.webp", `<div class="b2-h1 t36">IMPROVE IN SMALL LOOPS</div><p class="b2-body">Better headline. Clearer section. One new testimonial.</p>`),
+          tplMint("starterpackage.webp", `<div class="b2-h1 t32">COMPLEXITY IS A TAX</div><p class="b2-body">Simple stacks compound.</p>`),
+          tplMint("starterpackage.webp", `<div class="b2-cta">Build the stack 🦥<small>strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 107,
+        title: "Selling While Offline",
+        caption: `The point isn't to disappear — it's to have checkout and delivery happen without you refreshing a tab.
+
+That's the sloth endgame.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplNavy("livingthedream.webp", `<div class="b2-h1 t40">SELLING WHILE OFFLINE</div><p class="b2-body">Not magic. <span class="b2-accent">Setup.</span></p>`),
+          tplNavy("livingthedream.webp", `<div class="b2-h1 t36">IF IT NEEDS YOU AWAKE</div><p class="b2-body">It's still a job wearing a hoodie.</p>`),
+          tplNavy("livingthedream.webp", `<div class="b2-h1 t32">CHECKOUT + DELIVERY = NON-NEGOTIABLE</div><p class="b2-body">Glue them once. Fix when it breaks.</p>`),
+          tplNavy("livingthedream.webp", `<div class="b2-h1 t36">YOU STILL IMPROVE</div><p class="b2-body">But you're not the bottleneck on every sale.</p>`),
+          tplNavy("livingthedream.webp", `<div class="b2-h1 t32">THAT'S WHAT I TEACH</div><p class="b2-body">Realistic "runs in the background" — not lottery tickets.</p>`),
+          tplNavy("livingthedream.webp", `<div class="b2-cta" style="background:#5c6bc0">Offline-friendly setup 🦥<small style="color:#fff59d">strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 108,
+        title: "Minimum Lovable Product",
+        caption: `Not corporate MVP jargon — the smallest thing someone will happily pay for and tell a friend about.
+
+Ship that. Learn. Repeat.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplBand("#e1bee7", "#ce93d8", "speechlazi.webp", `<div class="b2-h1 t36">MINIMUM LOVABLE PRODUCT</div><p class="b2-body">Small enough to ship. <span class="b2-accent">Human</span> enough to share.</p>`),
+          tplBand("#e1bee7", "#ce93d8", "speechlazi.webp", `<div class="b2-h1 t32">IF NO ONE SAYS "THANK YOU"</div><p class="b2-body">You didn't hit lovable yet — you hit "meh."</p>`),
+          tplBand("#e1bee7", "#ce93d8", "speechlazi.webp", `<div class="b2-h1 t36">LOVABLE ≠ PERFECT</div><p class="b2-body">It means clear outcome + honest delivery.</p>`),
+          tplBand("#e1bee7", "#ce93d8", "speechlazi.webp", `<div class="b2-h1 t32">PRICE IT LIKE A TEST</div><p class="b2-body">Data beats ego. Adjust after receipts.</p>`),
+          tplBand("#e1bee7", "#ce93d8", "speechlazi.webp", `<div class="b2-h1 t36">I PREFER BORING REVENUE</div><p class="b2-body">Over exciting plans that never ship.</p>`),
+          tplBand("#e1bee7", "#ce93d8", "speechlazi.webp", `<div class="b2-cta" style="background:#6a1b9a;color:#fff">Ship lovable 🦥<small style="color:#ffeb3b">strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 109,
+        title: "Permission to Be Boring",
+        caption: `Boring checkout. Boring email. Boring file name.
+
+Boring systems are how money shows up when you're not performing for the algorithm.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplLilac("junglevibes.webp", `<div class="b2-h1 t36">PERMISSION TO BE BORING</div><p class="b2-body">Excitement is for launches. <span class="b2-accent">Boring</span> is for bank notifications.</p>`),
+          tplLilac("junglevibes.webp", `<div class="b2-h1 t32">YOUR FUNNEL DOESN'T NEED A PERSONALITY</div><p class="b2-body">It needs a yes/no and a receipt.</p>`),
+          tplLilac("junglevibes.webp", `<div class="b2-h1 t36">REPEATABLE BEATS CLEVER</div><p class="b2-body">Every clever twist is future-you fixing bugs.</p>`),
+          tplLilac("junglevibes.webp", `<div class="b2-h1 t32">I CELEBRATE THE DULL PARTS</div><p class="b2-body">That's where sloth mode wins.</p>`),
+          tplLilac("junglevibes.webp", `<div class="b2-h1 t36">STABLE &gt; SPICY</div><p class="b2-body">For the infrastructure that pays rent.</p>`),
+          tplLilac("junglevibes.webp", `<div class="b2-cta" style="background:#4527a0;color:#fff">Boring = strategic 🦥<small style="color:#ffeb3b">strategicsloth.com</small></div>`),
+        ],
+      },
+      {
+        id: 110,
+        title: "Sloth Mode: ON",
+        caption: `Sloth mode isn't checked out — it's dialed in on the few things that actually move money.
+
+Turn it on. Build once. Let it run.
+
+https://www.strategicsloth.com`,
+        slides: [
+          tplSplit("#a5d6a7", "scaletofreedom.webp", false, `<div class="b2-h1 t44">SLOTH MODE: ON</div><p class="b2-body">Calm. Focused. <span class="b2-accent">Dangerous</span> to your old grind habits.</p>`),
+          tplSplit("#a5d6a7", "scaletofreedom.webp", false, `<div class="b2-h1 t36">FEWER TABS. FEWER HEROES.</div><p class="b2-body">More reps on the thing that checks out.</p>`),
+          tplSplit("#a5d6a7", "scaletofreedom.webp", false, `<div class="b2-h1 t32">BUILD THE NEST</div><p class="b2-body">Then rest smarter — Strategic Sloth in one sentence.</p>`),
+          tplSplit("#a5d6a7", "scaletofreedom.webp", false, `<div class="b2-h1 t36">YOU DON'T OWE THE INTERNET YOUR ANXIETY</div><p class="b2-body">You owe yourself a system.</p>`),
+          tplSplit("#a5d6a7", "scaletofreedom.webp", false, `<div class="b2-cta">Start sloth mode 🦥<small>strategicsloth.com</small></div>`),
+        ],
+      },
+    ];
+
+    function runExportMode() {
+      const qs = new URLSearchParams(location.search);
+      if (qs.get("export") !== "1") return false;
+      const reelId = parseInt(qs.get("reelId"), 10);
+      const slideIdx = parseInt(qs.get("slideIdx"), 10);
+      const reel = REELS.find((r) => r.id === reelId);
+      if (!reel || Number.isNaN(slideIdx) || slideIdx < 0 || slideIdx >= reel.slides.length) {
+        const root = document.getElementById("ig-export-root");
+        root.style.display = "block";
+        root.textContent = "Invalid export params";
+        document.body.classList.add("ss-export-mode");
+        return true;
+      }
+      document.getElementById("ig-export-root").innerHTML = `<div class="ig-flat-wrap">${reel.slides[slideIdx]}</div>`;
+      document.body.classList.add("ss-export-mode");
+      document.title = `B2 export R${reelId} S${slideIdx + 1}`;
+      return true;
+    }
+
+    const isExportShot = runExportMode();
+
+    const track = document.getElementById("track");
+    const viewport = document.getElementById("viewport");
+    const carouselWrap = document.getElementById("carouselWrap");
+    const reelSelect = document.getElementById("reelSelect");
+    const dotsEl = document.getElementById("dots");
+    const captionBox = document.getElementById("captionBox");
+    const btnPrev = document.getElementById("btnPrev");
+    const btnNext = document.getElementById("btnNext");
+    const btnPng = document.getElementById("btnPng");
+
+    let reelIndex = 0;
+    let slideIndex = 0;
+    let touchStartX = null;
+
+    function scaleStages() {
+      const r = viewport.getBoundingClientRect();
+      const s = Math.min(r.width / STAGE_W, r.height / STAGE_H);
+      track.querySelectorAll(".b2-stage").forEach((el) => {
+        el.style.transform = `scale(${s})`;
+      });
+    }
+
+    function buildDots(n) {
+      dotsEl.innerHTML = "";
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.addEventListener("click", () => goToSlide(i));
+        dotsEl.appendChild(b);
+      }
+    }
+
+    function updateDots() {
+      [...dotsEl.children].forEach((b, i) => b.classList.toggle("on", i === slideIndex));
+    }
+
+    function renderReel() {
+      const reel = REELS[reelIndex];
+      track.innerHTML = reel.slides.map((h) => `<div class="slide">${h}</div>`).join("");
+      slideIndex = 0;
+      buildDots(reel.slides.length);
+      captionBox.textContent = reel.caption;
+      applyTransform();
+      updateDots();
+      requestAnimationFrame(() => scaleStages());
+    }
+
+    function applyTransform() {
+      track.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+
+    function goToSlide(i) {
+      const n = REELS[reelIndex].slides.length;
+      slideIndex = Math.max(0, Math.min(n - 1, i));
+      applyTransform();
+      updateDots();
+    }
+
+    function next() {
+      const n = REELS[reelIndex].slides.length;
+      if (slideIndex < n - 1) goToSlide(slideIndex + 1);
+    }
+
+    function prev() {
+      if (slideIndex > 0) goToSlide(slideIndex - 1);
+    }
+
+    REELS.forEach((r) => {
+      const o = document.createElement("option");
+      o.value = String(r.id);
+      o.textContent = `${r.id - 100}. ${r.title}`;
+      reelSelect.appendChild(o);
+    });
+
+    reelSelect.addEventListener("change", () => {
+      reelIndex = REELS.findIndex((r) => String(r.id) === reelSelect.value);
+      renderReel();
+    });
+
+    btnNext.addEventListener("click", next);
+    btnPrev.addEventListener("click", prev);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    });
+
+    carouselWrap.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true }
+    );
+    carouselWrap.addEventListener(
+      "touchend",
+      (e) => {
+        if (touchStartX == null) return;
+        const dx = e.changedTouches[0].screenX - touchStartX;
+        touchStartX = null;
+        if (dx < -48) next();
+        if (dx > 48) prev();
+      },
+      { passive: true }
+    );
+
+    function replaceImgs(root) {
+      root.querySelectorAll("img").forEach((img) => {
+        const sp = document.createElement("span");
+        sp.textContent = "🦥";
+        sp.setAttribute("aria-hidden", "true");
+        sp.style.cssText =
+          "display:inline-flex;align-items:center;justify-content:center;font-size:120px;line-height:1;";
+        img.replaceWith(sp);
+      });
+    }
+
+    btnPng.addEventListener("click", async () => {
+      if (typeof html2canvas !== "function") return alert("html2canvas missing");
+      const stages = track.querySelectorAll(".slide .b2-stage");
+      const el = stages[slideIndex];
+      if (!el) return;
+      const clone = el.cloneNode(true);
+      clone.style.cssText =
+        "position:fixed;left:0;top:0;width:1080px;height:1350px;transform:none!important;z-index:99999;opacity:0.01;";
+      replaceImgs(clone);
+      document.body.appendChild(clone);
+      await document.fonts.ready;
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      try {
+        const canvas = await html2canvas(clone, {
+          width: STAGE_W,
+          height: STAGE_H,
+          scale: 1,
+          useCORS: false,
+          backgroundColor: null,
+          logging: false,
+          onclone(doc) {
+            const st = doc.querySelector(".b2-stage");
+            if (st) replaceImgs(st);
+          },
+        });
+        canvas.toBlob((blob) => {
+          if (!blob) return;
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = `ss-b2-r${REELS[reelIndex].id}-slide-${String(slideIndex + 1).padStart(2, "0")}.png`;
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }, "image/png");
+      } catch (e) {
+        console.error(e);
+        alert("PNG failed — run npm run export-carousel-batch2");
+      } finally {
+        clone.remove();
+      }
+    });
+
+    if (!isExportShot) {
+      new ResizeObserver(() => scaleStages()).observe(viewport);
+      reelIndex = 0;
+      reelSelect.value = String(REELS[0].id);
+      renderReel();
+    }
+  </script>
+</body>
+</html>

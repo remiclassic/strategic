@@ -56,6 +56,10 @@ const useLemonOverlay =
     <a
       href={book.checkoutUrl}
       class:list={["book-card__cta", { "lemonsqueezy-button": useLemonOverlay }]}
+      data-track="checkout_click"
+      data-track-location={`catalog-book-${book.id}`}
+      data-track-price={book.price}
+      data-track-product={book.id}
     >
       Buy Now
     </a>

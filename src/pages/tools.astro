@@ -144,6 +144,8 @@ import SalesPageModal from '../components/SalesPageModal.astro';
 </div>
 
 <script>
+  import { trackEvent } from '../utils/tracking';
+
   (function () {
     const overlay = document.getElementById('waitlist-modal-overlay') as HTMLElement;
     const card = document.getElementById('waitlist-modal-card') as HTMLElement;
@@ -250,6 +252,13 @@ import SalesPageModal from '../components/SalesPageModal.astro';
         emailInput.value = '';
         defaultState.classList.add('hidden');
         successState.classList.remove('hidden');
+
+        trackEvent('email_signup_click', {
+          button_text: submitBtnDefaultText,
+          location: 'tools-waitlist',
+          section: 'tools-waitlist',
+          tool_name: titleEl.textContent ?? undefined,
+        });
       } catch {
         submitError.classList.remove('hidden');
       } finally {

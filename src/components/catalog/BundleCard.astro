@@ -64,7 +64,7 @@ const isFullFreedom = bundle.id === 'full-freedom';
     </div>
 
     <!-- CTA -->
-    <a href={bundle.checkoutUrl} class:list={['bundle-cta', 'lemonsqueezy-button', { 'bundle-cta--highlighted': isHighlighted }]}>
+    <a href={bundle.checkoutUrl} class:list={['bundle-cta', 'lemonsqueezy-button', { 'bundle-cta--highlighted': isHighlighted }]} data-track="checkout_click" data-track-location={`catalog-bundle-${bundle.id}`} data-track-price={bundle.price} data-track-product={bundle.id}>
       {bundle.cta}
     </a>
 

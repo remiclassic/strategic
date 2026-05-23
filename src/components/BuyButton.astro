@@ -6,6 +6,9 @@ interface Props {
 	text?: string;
 	/** Adds `lemonsqueezy-button` for Lemon.js checkout overlay */
 	lemonCheckout?: boolean;
+	trackLocation?: string;
+	trackPrice?: string | number;
+	trackProduct?: string;
 }
 
 const { 
@@ -14,6 +17,9 @@ const {
 	size = 'md',
 	text = 'Buy Now',
 	lemonCheckout = false,
+	trackLocation,
+	trackPrice,
+	trackProduct,
 } = Astro.props;
 
 const variantClasses = {
@@ -35,6 +41,10 @@ const sizeClasses = {
 	class={`${lemonCheckout ? 'lemonsqueezy-button ' : ''}rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${variantClasses[variant]} ${sizeClasses[size]}`}
 	target="_blank"
 	rel="noopener noreferrer"
+	{...(lemonCheckout ? { 'data-track': 'checkout_click' } : {})}
+	{...(trackLocation ? { 'data-track-location': trackLocation } : {})}
+	{...(trackPrice !== undefined ? { 'data-track-price': String(trackPrice) } : {})}
+	{...(trackProduct ? { 'data-track-product': trackProduct } : {})}
 >
 	{text}
 </a> 

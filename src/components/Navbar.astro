@@ -133,6 +133,8 @@ function isPageNavActive(href: string) {
         href="/#get-started"
         class="nav-get-started group relative inline-flex rounded-lg outline-none ring-black/0 transition-[box-shadow] focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF7E6]"
         aria-label="Get started: open the homepage getting started section with bundles and the five dollar guide"
+        data-track="cta_click"
+        data-track-location="navbar"
       >
         <span class="flex items-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-2 text-[#1B1B3D] transition-colors duration-200 group-hover:bg-[#1B1B3D] group-hover:text-white">
           <span aria-hidden="true">🎯</span>
@@ -271,6 +273,8 @@ function isPageNavActive(href: string) {
           class="nav-get-started nav-get-started--mobile group relative mx-auto mt-4 block w-full max-w-md rounded-lg outline-none ring-black/0 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFF7E6]"
           aria-label="Get started: homepage getting started section"
           onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+          data-track="cta_click"
+          data-track-location="navbar-mobile"
         >
           <span class="flex items-center justify-center space-x-2 rounded-lg border-2 border-[#1B1B3D] bg-white px-6 py-3 text-[#1B1B3D] transition-colors duration-200 group-hover:bg-[#1B1B3D] group-hover:text-white">
             <span aria-hidden="true">🎯</span>

@@ -131,7 +131,7 @@ if (endTime < new Date()) {
 		<p class="text-xl text-[#1B1B3D] max-w-2xl mx-auto">
 			Simple digital guides for turning your knowledge into products that can sell in the background while you focus on the rest of your life.
 		</p>
-		<a href="/reading-guide" class="inline-flex items-center gap-2 mt-4 text-[#1B1B3D] font-bold hover:underline transition-colors">
+		<a href="/reading-guide" class="inline-flex items-center gap-2 mt-4 text-[#1B1B3D] font-bold hover:underline transition-colors" data-track="pricing_click" data-track-location="pricing-footer">
 			📖 See what's inside every package
 			<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
 		</a>
@@ -221,6 +221,10 @@ if (endTime < new Date()) {
 					<a
 						href={tier.checkoutUrl}
 						class={`lemonsqueezy-button cta-button w-full block text-center ${tier.id === 'best-value' ? 'bg-[#4D9FFF] hover:bg-[#3D8FEF] text-white' : tier.id === 'scale-freedom' ? 'bg-[#FFB800] text-[#1B1B3D] hover:bg-[#FFA800]' : 'bg-[#1B1B3D] text-white hover:bg-[#2C2D5D]'} font-bold py-3 rounded-xl border-2 border-black transition-colors`}
+						data-track="checkout_click"
+						data-track-location={`pricing-${tier.id}`}
+						data-track-price={tier.price.current}
+						data-track-product={tier.id}
 					>
 						{tier.buttonText}
 					</a>

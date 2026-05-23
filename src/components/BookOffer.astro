@@ -172,7 +172,7 @@ const bookDetails = {
                     <div class="relative">
                         <div class="flex flex-col sm:flex-row items-center gap-4 mb-8 sm:mb-16">
                             <!-- Main Price Tag -->
-                            <a href={starterGuideCheckoutUrl} class="lemonsqueezy-button price-bubble bg-[#fcd34d] text-black transform -rotate-2 w-full sm:w-auto cursor-pointer no-underline hover:scale-105 transition-transform duration-150 block">
+                            <a href={starterGuideCheckoutUrl} class="lemonsqueezy-button price-bubble bg-[#fcd34d] text-black transform -rotate-2 w-full sm:w-auto cursor-pointer no-underline hover:scale-105 transition-transform duration-150 block" data-track="checkout_click" data-track-location="book-offer" data-track-price="5" data-track-product="starter-guide-5">
                                 <div class="flex flex-col items-center p-4 sm:p-6">
                                     <div class="text-center">
                                         <div class="text-3xl sm:text-4xl font-black mb-1 sm:mb-2">ONLY</div>
@@ -181,7 +181,6 @@ const bookDetails = {
                                     </div>
                                 </div>
                             </a>
-                            <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 
                             <!-- Discount Badge -->
                             <div class="discount-bubble bg-[#7e22ce] text-white transform rotate-2 px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto">
@@ -222,7 +221,7 @@ const bookDetails = {
 
                     <!-- CTA Section -->
                     <div class="space-y-4">
-                        <a href={starterGuideCheckoutUrl} class="lemonsqueezy-button comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 animate-button-shine">
+                        <a href={starterGuideCheckoutUrl} class="lemonsqueezy-button comic-button bg-[#fcd34d] text-black hover:bg-[#fbbf24] transform hover:scale-105 hover:-rotate-2 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 animate-button-shine" data-track="checkout_click" data-track-location="book-offer" data-track-price="5" data-track-product="starter-guide-5">
                             <span class="text-xl sm:text-2xl font-black px-6 sm:px-8 py-3 sm:py-4">Buy Lazy Genius Starter Kit</span>
                             <span class="text-xl sm:text-2xl animate-bounce-horizontal">👉</span>
                         </a>
@@ -236,7 +235,7 @@ const bookDetails = {
                         <!-- Additional CTA with Enhanced Styling -->
                         <div class="mt-6 text-center">
                             <p class="font-bold text-white text-xl mb-3 animate-text-shadow">{bookDetails.cta}</p>
-                            <a href={bookDetails.ctaLink} class="inline-flex flex-col items-center text-yellow-300 hover:text-yellow-200 transition-colors">
+                            <a href={bookDetails.ctaLink} class="inline-flex flex-col items-center text-yellow-300 hover:text-yellow-200 transition-colors" data-track="pricing_click" data-track-location="book-offer">
                                 <span class="text-4xl animate-bounce">⬇️</span>
                                 <span class="text-lg font-bold">View Pricing</span>
                             </a>

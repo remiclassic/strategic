@@ -73,7 +73,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 		<script>
 			import { initSectionAnimations } from '../utils/scrollAnimations';
+			import { initTracking } from '../utils/tracking';
 
+			initTracking();
 			document.querySelectorAll('section').forEach(section => {
 				initSectionAnimations(section);
 			});

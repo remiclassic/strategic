@@ -96,6 +96,20 @@
       stamp.height = Math.max(1, Math.round(rect.height / 3));
       collageCtx.clearRect(0, 0, collage.width, collage.height);
       cover(collageCtx, photos[0], 0, 0, collage.width, collage.height, 0.5, 0.28);
+      // Fine paired diagonal strokes, revealed and faded with the photo.
+      collageCtx.save();
+      collageCtx.scale(dpr, dpr);
+      collageCtx.lineWidth = 0.8;
+      for (const [offset, color] of [[0, 'rgba(65, 96, 65, 0.42)'], [1, 'rgba(245, 244, 239, 0.25)']]) {
+        collageCtx.strokeStyle = color;
+        collageCtx.beginPath();
+        for (let x = -rect.height + offset; x < rect.width; x += 5) {
+          collageCtx.moveTo(x, 0);
+          collageCtx.lineTo(x + rect.height, rect.height);
+        }
+        collageCtx.stroke();
+      }
+      collageCtx.restore();
     };
 
     const clear = () => {

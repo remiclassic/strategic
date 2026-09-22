@@ -1,0 +1,97 @@
+---
+import { modernImages } from "../data/modern-gallery";
+import { orbitalImages } from "../data/orbital-gallery";
+import { duskImages } from "../data/dusk-gallery";
+import { neonImages } from "../data/neon-gallery";
+import { havenImages } from "../data/haven-gallery";
+import { pirateImages } from "../data/pirate-gallery";
+import { militaryImages } from "../data/military-gallery";
+import { cozyImages } from "../data/cozy-gallery";
+import { ashImages } from "../data/ash-gallery";
+const { modern = false, orbital = false, dusk = false, neon = false, haven = false, ash = false, cozy = false, military = false, pirate = false } = Astro.props;
+const name = pirate ? "Brass & Tide" : military ? "Fieldline" : cozy ? "Clover & Clay" : ash ? "Ashfall Outpost" : haven ? "Havenworks" : neon ? "Neon Breach" : dusk ? "Duskbound Raiders" : orbital ? "Orbital Command" : modern ? "Modern Essentials" : "Fantasy Adventurer";
+const folder = pirate ? "brass-and-tide" : military ? "fieldline" : cozy ? "clover-and-clay" : ash ? "ashfall-outpost" : haven ? "havenworks" : neon ? "neon-breach" : dusk ? "duskbound-raiders" : orbital ? "orbital-command" : modern ? "modern-essentials" : "fantasy-adventurer";
+const fantasyImages = [
+  ['01-collection', 'Collection overview'], ['02-main-menu', 'Main menu'],
+  ['03-inventory', 'Inventory'], ['04-equipment', 'Equipment & comparison'],
+  ['05-quests', 'Quest journal'], ['06-hud', 'Gameplay HUD'],
+  ['07-rewards', 'Rewards & confirmation'], ['08-world-map', 'World map'],
+  ['09-settings', 'Settings & controls'], ['10-save-load', 'Save & load'],
+  ['11-components', 'Components & states'], ['12-icons', 'Icons & item slots'],
+  ['13-loading', 'Loading & progress'], ['14-difficulty', 'Difficulty selection'],
+  ['15-home-hub', 'Adventure home hub'], ['16-radial', 'Pause & radial menu'],
+  ['17-control-variants', 'Expanded control variants'], ['18-shop', 'Merchant & currency shop'],
+  ['19-glyphs', 'Navigation glyphs & crests'], ['20-input-prompts', 'Keyboard & controller prompts'],
+  ['21-confirmations', 'Confirmations & recovery'], ['22-death-retry', 'Death & retry'],
+].map(([slug, title]) => ({slug, title}));
+const images = (pirate ? pirateImages : military ? militaryImages : cozy ? cozyImages : ash ? ashImages : haven ? havenImages : neon ? neonImages : dusk ? duskImages : orbital ? orbitalImages : modern ? modernImages : fantasyImages).map(({slug, title}) => ({src: `/images/game-ui/${folder}/${slug}.webp`, title}));
+---
+<div class="fantasy-gallery" data-fantasy-gallery data-pack-name={name} class:list={[modern && "modern-gallery", orbital && "orbital-gallery", dusk && "dusk-gallery", neon && "neon-gallery", haven && "haven-gallery", ash && "ash-gallery", cozy && "cozy-gallery", military && "military-gallery", pirate && "pirate-gallery"]}>
+  <button class="featured" type="button" data-enlarge aria-label="Enlarge Collection overview">
+    <img data-featured src={images[0].src} alt={`${name} — Collection overview, UI concept`} width="1536" height="1024" fetchpriority="high"/>
+    <span class="enlarge-label">View full size ↗</span>
+  </button>
+  <div class="gallery-caption"><div aria-live="polite"><span data-counter>01 / {images.length}</span><strong data-gallery-title>{images[0].title}</strong></div><div class="arrows"><button type="button" data-previous aria-label="Previous mockup">←</button><button type="button" data-next aria-label="Next mockup">→</button></div></div>
+  <div class="thumbnails" aria-label={`${name} mockups`}>{images.map((img, index) => <button type="button" data-gallery-index={index} data-src={img.src} data-title={img.title} aria-label={`View ${img.title}`} aria-pressed={index === 0}><img src={img.src.replace('.webp', '-thumb.webp')} alt="" width="1536" height="1024" loading="lazy"/><span>{img.title}</span></button>)}</div>
+  <p class="gallery-note">{images.length} presentation mockups exploring the collection. These are visual concepts, not finished assets or engine screenshots. Additional screens shown are proposed extensions. Any prices inside the store mockup are illustrative game UI content.</p>
+  <dialog aria-label={`Enlarged ${name} mockup`}><div class="lightbox-toolbar"><strong data-lightbox-title>{images[0].title}</strong><button type="button" data-close aria-label="Close enlarged preview">Close ×</button></div><img data-lightbox-image src={images[0].src} alt={`${name} — Collection overview, UI concept`} width="1536" height="1024"/><div class="lightbox-toolbar"><button type="button" data-previous aria-label="Previous enlarged mockup">← Previous</button><span>Design concept</span><button type="button" data-next aria-label="Next enlarged mockup">Next →</button></div></dialog>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-fantasy-gallery]').forEach(gallery => {
+    const thumbs = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-gallery-index]'));
+    const featured = gallery.querySelector<HTMLImageElement>('[data-featured]')!;
+    const large = gallery.querySelector<HTMLImageElement>('[data-lightbox-image]')!;
+    const dialog = gallery.querySelector('dialog')!;
+    const opener = gallery.querySelector<HTMLButtonElement>('[data-enlarge]')!;
+    let current = 0;
+    const select = (index: number) => {
+      current = (index + thumbs.length) % thumbs.length;
+      const thumb = thumbs[current];
+      [featured, large].forEach(img => { img.src = thumb.dataset.src!; img.alt = `${gallery.dataset.packName} — ${thumb.dataset.title}, UI concept`; });
+      gallery.querySelector('[data-counter]')!.textContent = `${String(current + 1).padStart(2, '0')} / ${thumbs.length}`;
+      gallery.querySelector('[data-gallery-title]')!.textContent = thumb.dataset.title!;
+      gallery.querySelector('[data-lightbox-title]')!.textContent = thumb.dataset.title!;
+      opener.setAttribute('aria-label', `Enlarge ${thumb.dataset.title}`);
+      thumbs.forEach((button, i) => button.setAttribute('aria-pressed', String(i === current)));
+    };
+    thumbs.forEach((button, index) => button.addEventListener('click', () => select(index)));
+    gallery.querySelectorAll('[data-previous]').forEach(button => button.addEventListener('click', () => select(current - 1)));
+    gallery.querySelectorAll('[data-next]').forEach(button => button.addEventListener('click', () => select(current + 1)));
+    opener.addEventListener('click', () => dialog.showModal());
+    gallery.querySelector('[data-close]')!.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => opener.focus());
+    select(0);
+    gallery.dataset.ready = 'true';
+    dialog.addEventListener('keydown', event => { if(event.key === 'ArrowRight' || event.key === 'ArrowLeft') { event.preventDefault(); select(current + (event.key === 'ArrowRight' ? 1 : -1)); } });
+    dialog.addEventListener('click', event => { if(event.target === dialog) { const rect = dialog.getBoundingClientRect(); if(event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close(); } });
+  });
+</script>
+<style>
+  .fantasy-gallery{min-width:0}.featured{display:block;position:relative;padding:0;border:0;border-radius:14px;overflow:hidden;background:#17261d;width:100%;cursor:zoom-in}.featured img{width:100%;aspect-ratio:3/2;object-fit:contain}.enlarge-label{position:absolute;right:12px;bottom:12px;background:#13241ee8;color:#f7edd9;padding:7px 12px;border:1px solid #c3a87770;border-radius:5px;font-size:11px}.gallery-caption{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:16px 0}.gallery-caption>div:first-child{display:flex;gap:15px;align-items:center}.gallery-caption strong{font-size:14px;font-weight:500}.gallery-caption [data-counter]{font:10px monospace;color:var(--muted);white-space:nowrap}.arrows{display:flex;gap:6px}.arrows button{background:transparent;border:1px solid var(--line);border-radius:6px;width:36px;height:36px}.thumbnails{padding:2px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.thumbnails button{padding:4px;text-align:left;background:transparent;border:1px solid var(--line);border-radius:7px;overflow:hidden}.thumbnails button[aria-pressed=true]{border-color:#456b46;box-shadow:0 0 0 1px #456b46;background:#e4ebdb}.thumbnails img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px}.thumbnails span{display:block;font-size:10px;line-height:1.4;padding:7px 3px 3px}.gallery-note{font-size:11px;line-height:1.6;margin-top:15px}.fantasy-gallery dialog{padding:16px;background:#14231c;color:#fff3dc;border:1px solid #8f805b;border-radius:12px;width:min(1320px,96vw);max-width:96vw;max-height:94dvh;overflow:auto}.fantasy-gallery dialog::backdrop{background:#08120deb}.fantasy-gallery dialog img{max-height:74dvh;width:100%;object-fit:contain}.lightbox-toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:5px 0 15px;font-size:12px}.lightbox-toolbar:last-child{padding:15px 0 0}.lightbox-toolbar button{background:#ffffff0c;color:inherit;border:1px solid #ffffff40;padding:9px 14px;border-radius:6px}.lightbox-toolbar strong{font-size:14px;font-weight:500}@media(max-width:480px){.thumbnails{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.gallery-caption>div:first-child{gap:9px}.gallery-caption strong{font-size:12px}.lightbox-toolbar{font-size:10px;gap:8px}.lightbox-toolbar button{padding:8px}.fantasy-gallery dialog{padding:10px}}
+.modern-gallery .featured{background:#1b2327}.modern-gallery dialog{background:#1b2327;color:#f4f5ef;border-color:#52616b}.modern-gallery .enlarge-label{background:#1b2327ed;color:#f4f5ef;border-color:#c8ef7970}
+.orbital-gallery .featured{background:#101e30}.orbital-gallery dialog{background:#101e30;color:#edf6ff;border-color:#568399}.orbital-gallery .enlarge-label{background:#101e30ed;color:#edf6ff;border-color:#88d9f070}.orbital-gallery .thumbnails button[aria-pressed=true]{border-color:#407c96;box-shadow:0 0 0 1px #407c96;background:#e0edf1}
+.dusk-gallery .featured{background:#241c32}.dusk-gallery dialog{background:#241c32;color:#fff2de;border-color:#8c718f}.dusk-gallery .enlarge-label{background:#241c32ed;color:#fff2de;border-color:#f1ae6170}.dusk-gallery .thumbnails button[aria-pressed=true]{border-color:#a97539;box-shadow:0 0 0 1px #a97539;background:#f1e7d8}
+</style>
+<style>
+.neon-gallery .featured{background:#101e27}.neon-gallery dialog{background:#101e27;color:#effbff;border-color:#4ac7de}.neon-gallery .enlarge-label{background:#101e27ed;color:#effbff;border-color:#4ac7de}.neon-gallery .thumbnails button[aria-pressed=true]{border-color:#267d91;box-shadow:0 0 0 1px #267d91;background:#e0eef0}
+</style>
+
+<style>
+.haven-gallery .featured{background:#194f50}.haven-gallery dialog{background:#f3ecd9;color:#163c3d;border-color:#397575}.haven-gallery .enlarge-label{background:#194f50ed;color:#fff5dc;border-color:#e9b34e}.haven-gallery .thumbnails button[aria-pressed=true]{border-color:#347477;box-shadow:0 0 0 1px #347477;background:#e1ece7}
+</style>
+
+<style>
+.ash-gallery .featured{background:#292a23}.ash-gallery dialog{background:#292a23;color:#f3ead7;border-color:#b1834c}.ash-gallery .enlarge-label{background:#292a23ed;color:#f3ead7;border-color:#d39a48}.ash-gallery .thumbnails button[aria-pressed=true]{border-color:#916f40;box-shadow:0 0 0 1px #916f40;background:#eee6d8}
+</style>
+
+<style>
+.cozy-gallery .featured{background:#eeddc5}.cozy-gallery dialog{background:#fff3df;color:#4b3022;border-color:#b58c64}.cozy-gallery .enlarge-label{background:#614831ed;color:#fff5e6;border-color:#dbb98c}.cozy-gallery .thumbnails button[aria-pressed=true]{border-color:#708c4e;box-shadow:0 0 0 1px #708c4e;background:#edf0df}
+</style>
+
+<style>
+.military-gallery .featured{background:#20221d}.military-gallery dialog{background:#20221d;color:#e5e2d4;border-color:#7e8267}.military-gallery .enlarge-label{background:#20221ded;color:#e5e2d4;border-color:#aaa58e}.military-gallery .thumbnails button[aria-pressed=true]{border-color:#717955;box-shadow:0 0 0 1px #717955;background:#e8e9de}
+</style>
+
+<style>
+.pirate-gallery .featured{background:#2d261d}.pirate-gallery dialog{background:#2d261d;color:#f5e4bd;border-color:#b68c46}.pirate-gallery .enlarge-label{background:#2d261ded;color:#f5e4bd;border-color:#b68c46}.pirate-gallery .thumbnails button[aria-pressed=true]{border-color:#397c79;box-shadow:0 0 0 1px #397c79;background:#e6eeea}
+</style>

@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CheckoutLink from '../../components/CheckoutLink.astro';
+import samples from '../../data/book-samples.json';
+import { books } from '../../data/catalog-data';
+import { starterGuideCheckoutUrl, starterGuidePricing } from '../../data/starter-guide-offer';
+export function getStaticPaths(){return samples.map(sample=>({params:{slug:sample.slug},props:{sample}}));}
+const {sample}=Astro.props;
+const book=books.find(book=>book.id==='sell-no-audience');
+const starter=sample.slug==='dont-do-anything';
+const href=starter?starterGuideCheckoutUrl:book!.checkoutUrl;
+const price=starter?starterGuidePricing.currentPrice:book!.price;
+const product=starter?'starter-guide-5':book!.id;
+---
+<Layout title={`${sample.title}: sample chapter — Strategic Sloth`} description={`Read ${sample.chapter}, an actual chapter from ${sample.title}, before buying the complete digital guide.`}>
+<section class="container page-intro"><p class="eyebrow">READ BEFORE YOU BUY / REAL BOOK SAMPLE</p><h1>{sample.chapter}</h1><p class="lede">From <strong>{sample.title}</strong>. These are the original pages from the book, with a text version available below each page.</p><div class="hero-actions"><CheckoutLink href={href} price={price} product={product} location={`sample-${sample.slug}-top`} label="Get the complete guide"/><a class="text-link" href="#sample-pages">Read the sample ↓</a></div><p class="small-note">{sample.totalPages} pages in the source edition · Sample pages {sample.pages[0].number}–{sample.pages.at(-1).number} · No email required</p></section>
+<section class="sample-reader" id="sample-pages" aria-label="Sample chapter">{sample.pages.map(page=><figure><img src={page.image} alt={`Original book page ${page.number}. A text version follows.`} width="827" height="1070" loading="lazy"/><figcaption><span>PAGE {page.number} / {sample.title}</span><details><summary>Read this page as text</summary><div class="sample-transcript">{page.text}</div></details></figcaption></figure>)}</section>
+<section class="container sample-close"><p class="eyebrow">THAT’S ONE CHAPTER. KEEP BUILDING.</p><h2>Put the whole guide to work.</h2><p>{starter?'Continue with creating your PDF, selling it, finding traffic, and improving the system over time.':'Continue with community participation, distribution channels, direct outreach, and the zero-audience sales checklist.'}</p><CheckoutLink href={href} price={price} product={product} location={`sample-${sample.slug}-bottom`} label="Get the complete guide"/><p class="purchase-reassurance">Digital delivery · One-time purchase · 30-day money-back guarantee</p><p class="small-note">This sample reproduces the source edition. Examples and frameworks are educational; they do not guarantee demand, sales, or earnings.</p></section>
+</Layout>

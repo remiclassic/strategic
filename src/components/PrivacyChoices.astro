@@ -1,0 +1,57 @@
+<aside class="privacy-banner" id="privacy-banner" aria-label="Privacy choices" hidden><h2>Your privacy choices</h2><p>Essential services keep the site and checkout working. With your permission, we use analytics to understand visits and advertising tools to measure campaigns. <a href="/legal/privacy/">Read the privacy policy</a>.</p><div class="privacy-actions"><button type="button" data-consent-reject>Essential only</button><button type="button" data-consent-accept>Accept optional</button><button type="button" data-privacy-settings>Choose settings</button></div></aside>
+<dialog class="legal-dialog" id="privacy-settings" aria-labelledby="privacy-settings-title"><div class="legal-dialog-heading"><div><p class="eyebrow">YOUR CHOICE / THIS BROWSER</p><h2 id="privacy-settings-title">Privacy choices</h2></div><button type="button" data-close-privacy aria-label="Close privacy choices">✕</button></div><div class="legal-dialog-body"><p class="legal-summary">You can read, use the creator tools, and buy books without optional tracking.</p><label class="privacy-option"><input type="checkbox" checked disabled/><span><strong>Essential services</strong>Site delivery, security, checkout, and remembering your privacy choice. Always available.</span></label><label class="privacy-option"><input id="consent-analytics" type="checkbox"/><span><strong>Analytics</strong>Google Analytics measures visits, interactions, and purchase attribution to help improve the site.</span></label><label class="privacy-option"><input id="consent-marketing" type="checkbox"/><span><strong>Advertising</strong>Meta Pixel measures visits and conversions for advertising campaigns.</span></label><p class="privacy-note" id="gpc-note" hidden>Your browser’s Global Privacy Control signal keeps advertising disabled.</p><p class="privacy-note">Saved for up to six months in this browser. Changing a choice reloads the page to apply it. <a href="/legal/privacy/">Privacy policy</a></p><div class="privacy-actions"><button type="button" data-consent-reject>Essential only</button><button type="button" id="save-privacy">Save choices</button></div></div></dialog>
+<script>
+import { initTracking } from '../utils/tracking';
+type Choice={analytics:boolean;marketing:boolean;updated:number};
+const key='strategicSlothPrivacyV1';
+const lifetime=180*24*60*60*1000;
+const gpc=(navigator as Navigator & {globalPrivacyControl?:boolean}).globalPrivacyControl===true;
+const banner=document.querySelector<HTMLElement>('#privacy-banner')!;
+const dialog=document.querySelector<HTMLDialogElement>('#privacy-settings')!;
+const analytics=document.querySelector<HTMLInputElement>('#consent-analytics')!;
+const marketing=document.querySelector<HTMLInputElement>('#consent-marketing')!;
+let saved:Choice|null=null;
+try { const value=JSON.parse(localStorage.getItem(key)||'null');if(value&&typeof value.analytics==='boolean'&&typeof value.marketing==='boolean'&&Number.isFinite(value.updated)&&value.updated<=Date.now()&&Date.now()-value.updated<lifetime)saved=value; } catch {}
+const current:Choice={analytics:saved?.analytics||false,marketing:!gpc&&(saved?.marketing||false),updated:saved?.updated||0};
+function removeOptionalStorage(){
+  try { localStorage.removeItem('strategicSlothUtm');sessionStorage.removeItem('strategicSlothLastCheckout');Object.keys(sessionStorage).filter(k=>k.startsWith('strategicSlothPurchase')).forEach(k=>sessionStorage.removeItem(k)); } catch {}
+}
+function removeCookies(prefixes:string[]){
+  const names=document.cookie.split(';').map(c=>c.trim().split('=')[0]).filter(name=>prefixes.some(prefix=>name.startsWith(prefix)));
+  const parts=location.hostname.split('.');
+  for(const name of names){ document.cookie=`${name}=; Max-Age=0; path=/`;for(let i=0;i<parts.length-1;i++)document.cookie=`${name}=; Max-Age=0; path=/; domain=.${parts.slice(i).join('.')}`; }
+}
+if(!current.analytics&&!current.marketing)removeOptionalStorage();
+if(!current.analytics)removeCookies(['_ga','_gid','_gat']);
+if(!current.marketing)removeCookies(['_fbp','_fbc']);
+function loadScript(src:string){const script=document.createElement('script');script.async=true;script.src=src;document.head.append(script);}
+if(current.analytics){
+  const w=window as any;w.dataLayer=w.dataLayer||[];w.gtag=w.gtag||function(){w.dataLayer.push(arguments);};
+  w.gtag('js',new Date());w.gtag('config','G-WWR13DW58L',{allow_google_signals:false,allow_ad_personalization_signals:false});
+  loadScript('https://www.googletagmanager.com/gtag/js?id=G-WWR13DW58L');
+}
+if(current.marketing){
+  const w=window as any;
+  if(!w.fbq){const fbq:any=function(){fbq.callMethod?fbq.callMethod.apply(fbq,arguments):fbq.queue.push(arguments);};fbq.push=fbq;fbq.loaded=true;fbq.version='2.0';fbq.queue=[];w.fbq=fbq;w._fbq=fbq;}
+  w.fbq('init','1442389786809344');w.fbq('track','PageView');
+  loadScript('https://connect.facebook.net/en_US/fbevents.js');
+}
+if(current.analytics||current.marketing)initTracking();
+banner.hidden=!!saved;
+let oldOverflow='';
+function openSettings(){analytics.checked=current.analytics;marketing.checked=current.marketing;marketing.disabled=gpc;document.querySelector<HTMLElement>('#gpc-note')!.hidden=!gpc;oldOverflow=document.body.style.overflow;dialog.showModal();document.body.style.overflow='hidden';}
+document.querySelectorAll('[data-privacy-settings]').forEach(button=>button.addEventListener('click',openSettings));
+dialog.querySelector('[data-close-privacy]')!.addEventListener('click',()=>dialog.close());
+dialog.addEventListener('close',()=>{document.body.style.overflow=oldOverflow;});
+function save(choice:Choice){
+  try { localStorage.setItem(key,JSON.stringify(choice)); } catch { banner.querySelector('p')!.textContent='Your browser cannot save this choice. Your existing settings still apply. Allow site storage to save a new preference.';dialog.close();return; }
+  if(!choice.analytics&&!choice.marketing)removeOptionalStorage();
+  if(!choice.analytics)removeCookies(['_ga','_gid','_gat']);
+  if(!choice.marketing)removeCookies(['_fbp','_fbc']);
+  window.__strategicSlothTrackingCleanup?.();location.reload();
+}
+document.querySelectorAll('[data-consent-reject]').forEach(button=>button.addEventListener('click',()=>save({analytics:false,marketing:false,updated:Date.now()})));
+document.querySelectorAll('[data-consent-accept]').forEach(button=>button.addEventListener('click',()=>save({analytics:true,marketing:!gpc,updated:Date.now()})));
+document.querySelector('#save-privacy')!.addEventListener('click',()=>save({analytics:analytics.checked,marketing:marketing.checked&&!gpc,updated:Date.now()}));
+window.addEventListener('storage',event=>{if(event.key===key)location.reload();});
+</script>

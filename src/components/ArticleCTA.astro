@@ -1,59 +1,14 @@
 ---
-interface Props {
-	category: 'starter' | 'builder' | 'scale';
-}
-
+import CheckoutLink from './CheckoutLink.astro';
+import { books } from '../data/catalog-data';
+const related = books.find(book => book.blogSlug && Astro.url.pathname.replace(/\/$/,'').endsWith('/'+book.blogSlug));
 const { category } = Astro.props;
-
-const ctas = {
-	starter: {
-		emoji: '🌱',
-		heading: 'Want the full playbook?',
-		text: 'This article scratches the surface. The Starter Package gives you the complete system for building digital income that runs on autopilot, plus a life design blueprint to actually enjoy the freedom.',
-		button: 'Get the Starter Package - $17',
-		bg: 'bg-amber-50',
-		buttonBg: 'bg-[#1B1B3D] text-white',
-		badge: 'bg-[#FFE066]',
-		badgeText: 'STARTER',
-		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/35c6242c-4da1-40a6-8821-dae46243e1fd?embed=1',
-	},
-	builder: {
-		emoji: '🏗️',
-		heading: 'Ready to go sovereign?',
-		text: 'This article is the tip of the iceberg. The Best Value Package gives you the full sovereignty architecture: tax positioning, residency strategies, global business structures, and the income engine to fund it all.',
-		button: 'Get the Best Value Package - $47',
-		bg: 'bg-blue-50',
-		buttonBg: 'bg-[#4D9FFF] text-white',
-		badge: 'bg-[#4D9FFF] text-white',
-		badgeText: 'BEST VALUE',
-		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/79792bc4-e1aa-47a8-948b-1058c47d0288?embed=1',
-	},
-	scale: {
-		emoji: '🚀',
-		heading: 'Want the complete global toolkit?',
-		text: 'This article introduces the concepts. The Scale to Freedom Path gives you the full system: banking infrastructure, asset protection, second passports, plus everything in the Starter and Builder tiers.',
-		button: 'Get the Scale to Freedom Path - $97',
-		bg: 'bg-red-50',
-		buttonBg: 'bg-[#FF4D4D] text-white',
-		badge: 'bg-[#FF4D4D] text-white',
-		badgeText: 'PREMIUM',
-		checkoutUrl: 'https://strategicsloth.lemonsqueezy.com/checkout/buy/64915b54-7f09-4184-add3-1f87b83a5cd0?embed=1',
-	},
+const offers = {
+ starter: {name:'Starter Package',price:17,url:'https://strategicsloth.lemonsqueezy.com/checkout/buy/35c6242c-4da1-40a6-8821-dae46243e1fd?embed=1'},
+ builder: {name:'Best Value Package',price:47,url:'https://strategicsloth.lemonsqueezy.com/checkout/buy/79792bc4-e1aa-47a8-948b-1058c47d0288?embed=1'},
+ scale: {name:'Scale to Freedom Path',price:97,url:'https://strategicsloth.lemonsqueezy.com/checkout/buy/64915b54-7f09-4184-add3-1f87b83a5cd0?embed=1'}
 };
-
-const cta = ctas[category];
+const offer = offers[category as keyof typeof offers];
 ---
-
-<div class={`${cta.bg} border-4 border-black rounded-2xl p-8 md:p-10 shadow-[6px_6px_0_rgba(0,0,0,0.15)] mt-12`}>
-	<div class="flex items-start gap-4 mb-4">
-		<span class="text-4xl">{cta.emoji}</span>
-		<div>
-			<div class={`inline-block ${cta.badge} border-2 border-black rounded-full px-3 py-0.5 text-xs font-black tracking-wide mb-2`}>{cta.badgeText}</div>
-			<h3 class="text-2xl font-black" style="font-family:'Inter',system-ui,sans-serif;">{cta.heading}</h3>
-		</div>
-	</div>
-	<p class="text-gray-700 mb-6 text-lg">{cta.text}</p>
-	<a href={cta.checkoutUrl} class={`lemonsqueezy-button inline-flex items-center gap-2 ${cta.buttonBg} font-bold px-8 py-4 rounded-xl border-4 border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 text-lg`} data-track="checkout_click" data-track-location={`article-cta-${category}`} data-track-product={category}>
-		{cta.button}
-	</a>
-</div>
+{related && <aside class="learning-note article-offer"><p class="eyebrow">PUT THIS TOPIC INTO PRACTICE</p><h3>{related.title}</h3><p>{related.detail}</p><ul>{related.whatsInside?.map(item=><li>{item}</li>)}</ul><div class="hero-actions"><CheckoutLink href={related.checkoutUrl} price={related.price} product={related.id} location={`article-book-${related.id}`} label="Get the guide"/><a class="text-link" href={related.id==='sell-no-audience'?'/samples/sell-without-an-audience/':`/books/#${related.id}`}>{related.id==='sell-no-audience'?'Read a real chapter →':'See book details →'}</a></div><p class="purchase-reassurance">Digital delivery · One-time purchase · 30-day money-back guarantee</p></aside>}
+{!related && offer && <aside class="learning-note"><p class="eyebrow">TAKE THE NEXT STEP</p><h3>{offer.name}</h3><p>Move from individual articles to a connected reading path. See exactly which books are included and choose the subjects that matter to your plans.</p><a class="text-link" href="/reading-guide/">Compare contents →</a><div><CheckoutLink href={offer.url} price={offer.price} product={category} location={`article-cta-${category}`} label="Buy package"/></div></aside>}

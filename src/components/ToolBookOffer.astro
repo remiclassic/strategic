@@ -1,0 +1,7 @@
+---
+import { books } from '../data/catalog-data';
+import CheckoutLink from './CheckoutLink.astro';
+const { bookId, purpose, location }=Astro.props;
+const book=books.find(item=>item.id===bookId)!;
+---
+<aside class="tool-book-offer"><p class="eyebrow">TAKE THE NEXT STEP / OPTIONAL PAID GUIDE</p><h3>{book.title}</h3><p>{purpose}</p><div><CheckoutLink href={book.checkoutUrl} price={book.price} product={book.id} location={`tool-${location}-book`} label="Get the guide"/><a class="text-link" href={`/books/#${book.id}`}>See what’s included →</a></div><small>Your generated draft is free. The book is a separate, one-time purchase.</small></aside>

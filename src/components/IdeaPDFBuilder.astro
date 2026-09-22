@@ -33,7 +33,7 @@ const sampleTopics = [
 ];
 ---
 
-<section id="idea-builder" class="idea-builder-wrap relative overflow-hidden border-t-[3px] border-black bg-gradient-to-b from-white via-[#fafbff] to-white py-20">
+<section id="idea-builder" class="idea-builder-wrap relative overflow-hidden border-t-[3px] border-[#d6dbcc] bg-gradient-to-b from-white via-[#fafbff] to-white py-20">
   <div class="idea-builder-deco" aria-hidden="true">
     <span class="idea-builder-float idea-builder-float--1">💡</span>
     <span class="idea-builder-float idea-builder-float--2">📄</span>
@@ -42,29 +42,29 @@ const sampleTopics = [
 
     <!-- Section label -->
     <div class="mb-10 text-center">
-      <div class="mb-4 inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#FFD600] px-4 py-1.5 shadow-[2px_2px_0_#000]">
-        <span class="text-xs font-black uppercase tracking-widest text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">⭐ Featured Tool</span>
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#d6dbcc] bg-[#dce6cf] px-4 py-1.5 ">
+        <span class="text-xs font-semibold uppercase tracking-widest text-[#29342a]" style="font-family:'DM Sans',sans-serif;">01 / START WITH AN IDEA</span>
       </div>
-      <h2 class="mb-3 text-[clamp(1.9rem,4.5vw,2.75rem)] font-black leading-tight text-[#1B1B3D]" style="font-family: Bangers, cursive; letter-spacing: 0.03em;">Idea to PDF Builder</h2>
-      <p class="mx-auto max-w-xl text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Answer four quick questions and walk away with a sellable product idea you can build today.</p>
+      <h2 class="mb-3 text-[clamp(1.9rem,4.5vw,2.75rem)] font-semibold leading-tight text-[#29342a]" style="font-family: Manrope, sans-serif; letter-spacing: 0.03em;">Idea to PDF Builder</h2>
+      <p class="mx-auto max-w-xl text-[#59664f]" style="font-family:'DM Sans',sans-serif;">Answer four questions to draft a product idea you can explore and test.</p>
     </div>
 
     <!-- Main builder card -->
     <div class="max-w-3xl mx-auto">
-      <div class="bg-[#FFFBF2] border-[3px] border-black rounded-2xl shadow-[6px_6px_0_#000] overflow-hidden">
+      <div class="bg-[#f6f5ef] border border-[#d6dbcc] rounded-2xl  overflow-hidden">
 
         <!-- Card header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b-2 border-black bg-white">
+        <div class="flex items-center justify-between px-6 py-4 border-b-2 border-[#d6dbcc] bg-white">
           <div class="flex items-center gap-3">
             <span class="text-2xl">💡</span>
-            <span class="font-black text-[#1B1B3D] text-lg" style="font-family:'Inter',system-ui,sans-serif;">Idea Builder</span>
+            <span class="font-semibold text-[#29342a] text-lg" style="font-family:'DM Sans',sans-serif;">Idea Builder</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-3 py-1 shadow-[2px_2px_0_#000]">
+            <span class="inline-flex items-center gap-1 bg-[#526c43] text-white text-xs font-semibold border border-[#d6dbcc] rounded-full px-3 py-1 ">
               <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
-              LIVE
+              FREE
             </span>
-            <span class="text-xs text-[#8888A4] font-medium" style="font-family:'Inter',system-ui,sans-serif;">Powered by NarriaFlow</span>
+            <span class="text-xs text-[#59664f] font-medium" style="font-family:'DM Sans',sans-serif;">No account needed</span>
           </div>
         </div>
 
@@ -74,24 +74,24 @@ const sampleTopics = [
 
             <!-- Topic input -->
             <div>
-              <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="topic-input" style="font-family:'Inter',system-ui,sans-serif;">
+              <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="topic-input" style="font-family:'DM Sans',sans-serif;">
                 What do you know about?
               </label>
               <input
                 id="topic-input"
                 type="text"
                 placeholder="e.g. travel, freelancing, design, budgeting, fitness…"
-                class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
-                style="font-family:'Inter',system-ui,sans-serif;"
+                class="w-full px-4 py-3 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] placeholder-[#63705c] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] focus:border-[#dce6cf] transition-all duration-150"
+                style="font-family:'DM Sans',sans-serif;"
               />
               <!-- Sample chips -->
               <div class="flex flex-wrap gap-2 mt-3" id="topic-chips">
                 {sampleTopics.map(t => (
                   <button
                     type="button"
-                    class="topic-chip text-xs font-bold bg-white border-2 border-black rounded-full px-3 py-1 hover:bg-[#FFD600] hover:shadow-[2px_2px_0_#000] transition-all duration-150 cursor-pointer"
+                    class="topic-chip text-xs font-bold bg-white border border-[#d6dbcc] rounded-full px-3 py-1 hover:bg-[#dce6cf]  transition-all duration-150 cursor-pointer"
                     data-topic={t}
-                    style="font-family:'Inter',system-ui,sans-serif;"
+                    style="font-family:'DM Sans',sans-serif;"
                   >
                     {t}
                   </button>
@@ -103,14 +103,14 @@ const sampleTopics = [
             <div class="grid sm:grid-cols-3 gap-4">
               <!-- Audience -->
               <div>
-                <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="audience-select" style="font-family:'Inter',system-ui,sans-serif;">
+                <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="audience-select" style="font-family:'DM Sans',sans-serif;">
                   Who is it for?
                 </label>
                 <div class="relative">
                   <select
                     id="audience-select"
-                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150 cursor-pointer"
-                    style="font-family:'Inter',system-ui,sans-serif;"
+                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] focus:border-[#dce6cf] transition-all duration-150 cursor-pointer"
+                    style="font-family:'DM Sans',sans-serif;"
                   >
                     {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
                   </select>
@@ -124,14 +124,14 @@ const sampleTopics = [
 
               <!-- Outcome -->
               <div>
-                <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="outcome-select" style="font-family:'Inter',system-ui,sans-serif;">
+                <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="outcome-select" style="font-family:'DM Sans',sans-serif;">
                   What outcome do they want?
                 </label>
                 <div class="relative">
                   <select
                     id="outcome-select"
-                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150 cursor-pointer"
-                    style="font-family:'Inter',system-ui,sans-serif;"
+                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] focus:border-[#dce6cf] transition-all duration-150 cursor-pointer"
+                    style="font-family:'DM Sans',sans-serif;"
                   >
                     {outcomeOptions.map(o => <option value={o.value}>{o.label}</option>)}
                   </select>
@@ -145,14 +145,14 @@ const sampleTopics = [
 
               <!-- Product type -->
               <div>
-                <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="type-select" style="font-family:'Inter',system-ui,sans-serif;">
+                <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="type-select" style="font-family:'DM Sans',sans-serif;">
                   Product type
                 </label>
                 <div class="relative">
                   <select
                     id="type-select"
-                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150 cursor-pointer"
-                    style="font-family:'Inter',system-ui,sans-serif;"
+                    class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] focus:border-[#dce6cf] transition-all duration-150 cursor-pointer"
+                    style="font-family:'DM Sans',sans-serif;"
                   >
                     {productTypeOptions.map(o => <option value={o.value}>{o.label}</option>)}
                   </select>
@@ -170,8 +170,8 @@ const sampleTopics = [
               <button
                 id="generate-btn"
                 type="button"
-                class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                style="font-family:'Inter',system-ui,sans-serif;"
+                class="w-full flex items-center justify-center gap-2 bg-[#dce6cf] text-black font-semibold text-base px-8 py-4 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'DM Sans',sans-serif;"
               >
                 <span id="generate-btn-icon">✨</span>
                 <span id="generate-btn-text">Generate My Idea</span>
@@ -180,23 +180,23 @@ const sampleTopics = [
           </div>
 
           <!-- Empty state (default) -->
-          <div id="empty-state" class="mt-8 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+          <div id="empty-state" class="mt-8 flex flex-col items-center justify-center py-10 border border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
             <span class="text-5xl mb-4">📄</span>
-            <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your product idea will appear here</p>
-            <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above, then hit Generate</p>
+            <p class="font-bold text-[#59664f] text-center" style="font-family:'DM Sans',sans-serif;">Your product idea will appear here</p>
+            <p class="text-sm text-[#63705c] mt-1" style="font-family:'DM Sans',sans-serif;">Fill in the fields above, then hit Generate</p>
           </div>
 
           <!-- Result card (hidden until generated) -->
           <div id="result-card" class="mt-8 hidden">
-            <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+            <div class="border border-[#d6dbcc] rounded-2xl overflow-hidden bg-white ">
 
               <!-- Result header -->
-              <div class="bg-[#1B1B3D] px-6 py-4 flex items-start justify-between gap-3">
+              <div class="bg-[#29342a] px-6 py-4 flex items-start justify-between gap-3">
                 <div>
-                  <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-1" style="font-family:'Inter',system-ui,sans-serif;">Your Product Idea</p>
-                  <h3 id="result-title" class="text-white text-xl sm:text-2xl font-black leading-tight" style="font-family:'Inter',system-ui,sans-serif;">The Freelancer's Client Onboarding Starter Kit</h3>
+                  <p class="text-[#dce6cf] text-xs font-semibold uppercase tracking-widest mb-1" style="font-family:'DM Sans',sans-serif;">Your Product Idea</p>
+                  <h3 id="result-title" class="text-white text-xl sm:text-2xl font-semibold leading-tight" style="font-family:'DM Sans',sans-serif;">The Freelancer's Client Onboarding Starter Kit</h3>
                 </div>
-                <span class="shrink-0 inline-flex items-center gap-1 bg-[#FFD600] text-black text-xs font-black border-2 border-black rounded-full px-3 py-1 mt-1">
+                <span class="shrink-0 inline-flex items-center gap-1 bg-[#dce6cf] text-black text-xs font-semibold border border-[#d6dbcc] rounded-full px-3 py-1 mt-1">
                   ✦ Ready
                 </span>
               </div>
@@ -206,39 +206,39 @@ const sampleTopics = [
 
                 <div class="grid sm:grid-cols-2 gap-5">
                   <!-- Hook -->
-                  <div class="sm:col-span-2 bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
-                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">The Hook</p>
-                    <p id="result-hook" class="font-bold text-[#1B1B3D] text-base leading-snug" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  <div class="sm:col-span-2 bg-[#f6f5ef] border border-[#d6dbcc] rounded-xl p-4">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">The Hook</p>
+                    <p id="result-hook" class="font-bold text-[#29342a] text-base leading-snug" style="font-family:'DM Sans',sans-serif;"></p>
                   </div>
 
                   <!-- Best for -->
-                  <div class="bg-[#E3F9ED] border-2 border-black rounded-xl p-4">
-                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Best For</p>
-                    <p id="result-audience" class="font-bold text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  <div class="bg-[#E3F9ED] border border-[#d6dbcc] rounded-xl p-4">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">Best For</p>
+                    <p id="result-audience" class="font-bold text-[#29342a]" style="font-family:'DM Sans',sans-serif;"></p>
                   </div>
 
                   <!-- Problem -->
-                  <div class="bg-[#FFF3CD] border-2 border-black rounded-xl p-4">
-                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Problem It Solves</p>
-                    <p id="result-problem" class="font-bold text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  <div class="bg-[#e9ecdf] border border-[#d6dbcc] rounded-xl p-4">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">Problem It Solves</p>
+                    <p id="result-problem" class="font-bold text-[#29342a]" style="font-family:'DM Sans',sans-serif;"></p>
                   </div>
                 </div>
 
                 <!-- Sections -->
-                <div class="bg-white border-2 border-black rounded-xl p-4">
-                  <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">What to Include</p>
+                <div class="bg-white border border-[#d6dbcc] rounded-xl p-4">
+                  <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-3" style="font-family:'DM Sans',sans-serif;">What to Include</p>
                   <ul id="result-sections" class="space-y-2"></ul>
                 </div>
 
                 <!-- Price + Format row -->
                 <div class="grid grid-cols-2 gap-4">
-                  <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
-                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1" style="font-family:'Inter',system-ui,sans-serif;">Price Range</p>
-                    <p id="result-price" class="font-black text-[#1B1B3D] text-lg" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  <div class="bg-[#edf0e6] border border-[#d6dbcc] rounded-xl p-4">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1" style="font-family:'DM Sans',sans-serif;">Price Range</p>
+                    <p id="result-price" class="font-semibold text-[#29342a] text-lg" style="font-family:'DM Sans',sans-serif;"></p>
                   </div>
-                  <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
-                    <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1" style="font-family:'Inter',system-ui,sans-serif;">Format</p>
-                    <p id="result-format" class="font-black text-[#1B1B3D] text-lg" style="font-family:'Inter',system-ui,sans-serif;"></p>
+                  <div class="bg-[#edf0e6] border border-[#d6dbcc] rounded-xl p-4">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1" style="font-family:'DM Sans',sans-serif;">Format</p>
+                    <p id="result-format" class="font-semibold text-[#29342a] text-lg" style="font-family:'DM Sans',sans-serif;"></p>
                   </div>
                 </div>
 
@@ -246,17 +246,17 @@ const sampleTopics = [
                 <div class="flex flex-col sm:flex-row gap-3 pt-2">
                   <a
                     id="build-narriaflow-btn"
-                    href="#narriaflow"
-                    class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                    style="font-family:'Inter',system-ui,sans-serif;"
+                    href="/samples/dont-do-anything/"
+                    class="flex-1 inline-flex items-center justify-center gap-2 bg-[#29342a] text-white font-semibold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                    style="font-family:'DM Sans',sans-serif;"
                   >
-                    🚀 Build This in NarriaFlow
+                    Read the topic-selection chapter →
                   </a>
                   <button
                     id="copy-btn"
                     type="button"
-                    class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                    style="font-family:'Inter',system-ui,sans-serif;"
+                    class="inline-flex items-center justify-center gap-2 bg-white text-[#29342a] font-bold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                    style="font-family:'DM Sans',sans-serif;"
                   >
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -266,8 +266,8 @@ const sampleTopics = [
                   <button
                     id="regenerate-btn"
                     type="button"
-                    class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                    style="font-family:'Inter',system-ui,sans-serif;"
+                    class="inline-flex items-center justify-center gap-2 bg-white text-[#29342a] font-bold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                    style="font-family:'DM Sans',sans-serif;"
                   >
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -276,8 +276,8 @@ const sampleTopics = [
                   </button>
                 </div>
 
-                <p class="text-xs text-[#B0B0C8] text-center pt-1" style="font-family:'Inter',system-ui,sans-serif;">
-                  Want to turn this into a full product? NarriaFlow is being built to help you do exactly that.
+                <p class="text-xs text-[#63705c] text-center pt-1" style="font-family:'DM Sans',sans-serif;">
+                  Explore the free sample, or choose a related guide below to work through the next step.
                 </p>
               </div>
             </div>
@@ -527,8 +527,8 @@ function renderResult(data: ReturnType<typeof generateIdea>) {
 
   const sectionsList = document.getElementById('result-sections')!;
   sectionsList.innerHTML = data.sections.map((s: string) => `
-    <li class="flex items-start gap-2 text-sm font-medium text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
-      <span class="mt-0.5 w-5 h-5 rounded-full bg-[#FFD600] border-2 border-black flex items-center justify-center text-xs font-black shrink-0">✓</span>
+    <li class="flex items-start gap-2 text-sm font-medium text-[#29342a]" style="font-family:'DM Sans',sans-serif;">
+      <span class="mt-0.5 w-5 h-5 rounded-full bg-[#dce6cf] border border-[#d6dbcc] flex items-center justify-center text-xs font-semibold shrink-0">✓</span>
       ${s}
     </li>
   `).join('');

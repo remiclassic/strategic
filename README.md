@@ -1,3 +1,24 @@
+# Strategic Sloth Studio
+
+Local rebuild of the tools/game studio and learning library. See [rebuild notes](docs/STUDIO-LEARNING-REBUILD.md) for the route map, preserved commerce, and verification details.
+
+The current preview is the built site at `http://127.0.0.1:4321/`. The earlier plain HTML prototype remains in the parent directory; this folder is the cloned Astro repository.
+
+```sh
+npm ci
+npm run dev -- --host 127.0.0.1 --port 4321
+```
+
+For a production build and checks:
+
+```sh
+npm run test:all
+```
+
+No deployment has been performed. The original deployment notes below are retained for reference; confirm the active hosting setup before publishing.
+
+---
+
 # Strategic Sloth Landing Page
 
 A landing page for the Strategic Sloth business, built with Astro and Tailwind CSS.

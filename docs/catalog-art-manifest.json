@@ -1,0 +1,93 @@
+{
+  "mode": "built-in image tool",
+  "prompt": "Remake the FIRST reference image in the low-poly 3D art style of the SECOND approved reference. This is a faithful style transfer, NOT a new concept. Preserve the original subjects (sloth or humans as shown), their number, recognizable hair/headwear/outfits, expressions, poses, object arrangement, main props, setting, framing, symbols and original color relationships. Keep the original story and composition immediately recognizable. Convert flat ink outlines and halftone into dimensional sculpted polygonal forms, visible planar facets, tactile matte surfaces, soft warm studio lighting and shadows matching the approved reference. Keep natural skin tones for humans as in approved reference. Do not add new characters, replace sloths with humans, replace humans with sloths, invent scenes, add headings, or add text. Keep source aspect ratio wide landscape approximately 16:9. Preserve essential visual motifs while simplifying only tiny background clutter. High-quality cohesive faceted 3D illustration, no black cartoon outlines or photorealism.",
+  "additionalPromptForIdeaToPdf": "Preserve the four-panel comic layout exactly and keep all protagonists SLOTHS.",
+  "styleReference": "public/images/catalog/offer-sells-itself-lowpoly-v1.webp",
+  "assets": [
+    {
+      "id": "first-100",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-5e7b400d-e920-4d36-ae9d-7cd9d560bdce.png",
+      "output": "public/images/catalog/first-100-lowpoly-v1.webp"
+    },
+    {
+      "id": "zero-to-1k",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-9fb21d5f-043c-4b6f-acb4-008030831045.png",
+      "output": "public/images/catalog/zero-to-1k-lowpoly-v1.webp"
+    },
+    {
+      "id": "pricing",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-1d96c215-d6e8-49b9-9451-36e2a4df4000.png",
+      "output": "public/images/catalog/pricing-lowpoly-v1.webp"
+    },
+    {
+      "id": "not-making-money",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-336ae55a-09cd-4489-8302-4ae9885ea912.png",
+      "output": "public/images/catalog/not-making-money-lowpoly-v1.webp"
+    },
+    {
+      "id": "idea-to-pdf",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-4022d800-1f7c-4d40-bde0-a3379c5bd240.png",
+      "output": "public/images/catalog/idea-to-pdf-lowpoly-v1.webp"
+    },
+    {
+      "id": "no-coding",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-eae4a64d-13ac-49a1-aa86-0b89abb9ee66.png",
+      "output": "public/images/catalog/no-coding-lowpoly-v1.webp"
+    },
+    {
+      "id": "landing-pages",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-4664493a-8d76-465b-a7c3-bc30852f0407.png",
+      "output": "public/images/catalog/landing-pages-lowpoly-v1.webp"
+    },
+    {
+      "id": "sell-no-audience",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-385fd3b3-28eb-4725-8fb4-6316e7e466d1.png",
+      "output": "public/images/catalog/sell-no-audience-lowpoly-v1.webp"
+    },
+    {
+      "id": "one-page-funnel",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-3f8e1e7b-7660-4e62-8be6-d461ffb81ab0.png",
+      "output": "public/images/catalog/one-page-funnel-lowpoly-v1.webp"
+    },
+    {
+      "id": "email-list",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-ca74523f-48b4-4ee8-8771-7d4c390c33fb.png",
+      "output": "public/images/catalog/email-list-lowpoly-v1.webp"
+    },
+    {
+      "id": "content-converts",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-bf28efbf-1784-4af6-9e42-7cc475e812de.png",
+      "output": "public/images/catalog/content-converts-lowpoly-v1.webp"
+    },
+    {
+      "id": "anti-hustle",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-7d7aab25-e216-4177-ad15-af2ade425fc2.png",
+      "output": "public/images/catalog/anti-hustle-lowpoly-v1.webp"
+    },
+    {
+      "id": "stop-overthinking",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-9cd182df-55f3-4481-ba9f-9ee2b13563bd.png",
+      "output": "public/images/catalog/stop-overthinking-lowpoly-v1.webp"
+    },
+    {
+      "id": "focus-sloth",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-3021e3a5-6eb3-4b53-9923-5fd76e5f3c5f.png",
+      "output": "public/images/catalog/focus-sloth-lowpoly-v1.webp"
+    },
+    {
+      "id": "bundle-starter",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-1c8c9f24-e29d-4928-a786-7956b6b4f0a9.png",
+      "output": "public/images/catalog/bundle-starter-lowpoly-v1.webp"
+    },
+    {
+      "id": "bundle-builder",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-b6d95fed-67e8-4080-843f-22752ab53389.png",
+      "output": "public/images/catalog/bundle-builder-lowpoly-v1.webp"
+    },
+    {
+      "id": "bundle-full-freedom",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-bc917f88-2a7c-48c2-8758-bef9b1ba4697.png",
+      "output": "public/images/catalog/bundle-full-freedom-lowpoly-v1.webp"
+    }
+  ]
+}

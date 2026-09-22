@@ -66,6 +66,7 @@ describe('tracking', () => {
 	let sessionStorageMock: StorageMock;
 
 	beforeEach(() => {
+		vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
 		window.__strategicSlothTrackingCleanup?.();
 
 		localStorageMock = createStorage();
@@ -86,6 +87,9 @@ describe('tracking', () => {
 	});
 
 	afterEach(() => {
+		window.__strategicSlothTrackingCleanup?.();
+		vi.clearAllTimers();
+		vi.useRealTimers();
 		vi.restoreAllMocks();
 		vi.unstubAllGlobals();
 		document.body.innerHTML = '';

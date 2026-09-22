@@ -1,0 +1,28 @@
+---
+import LowPolyEmoji from './LowPolyEmoji.astro';
+import '../styles/learning-story.css';
+const { practical = false } = Astro.props;
+const steps = [
+  { icon: 'idea', label: '01 / FIND THE IDEA', title: 'You already help someone.', text: 'The question you keep answering. The checklist you send to a friend. Start with one useful thing you know.', task: 'Write down one question people ask you, who asks it, and what they need to do next.', image: 'library-starter.webp' },
+  { icon: 'book', label: '02 / MAKE IT USEFUL', title: 'Give that answer a shape.', text: 'A short guide, checklist, or template. Something a reader can open, follow, and put to work.', task: 'Outline the steps, add a worked example, and ask someone to try your first draft.', image: 'library-builder.webp' },
+  { icon: 'sloth', label: '03 / GIVE IT A HOME', title: 'Make it easy to buy.', text: 'Explain who it helps, set a price, and connect checkout to delivery. Then share it where the right people look.', task: 'Create one clear product page. Test checkout and delivery, then improve from reader feedback.', image: 'library-scale.webp' },
+];
+---
+<section class="section container learning-story" id="steps">
+  <div class="section-heading"><div><p class="eyebrow">A SMALL IDEA. A REAL NEXT STEP.</p><h2>You don’t need a whole new life.<br/>Start with one useful thing.</h2></div><p>Build the branch before the nap. <br/>Here’s what that looks like.</p></div>
+  <div class="story-steps">{steps.map(step => <article class="story-step" data-story-reveal>
+    <img src={`/studio-images/${step.image}`} alt="" width="720" height="720" loading="lazy"/>
+    <div><span class="eyebrow"><LowPolyEmoji name={step.icon} size={32}/> {step.label}</span><h3>{step.title}</h3><p>{step.text}</p>{practical && <p class="story-task"><strong>Try this:</strong> {step.task}</p>}</div>
+  </article>)}</div>
+  <div class="story-reality"><p><strong>The sloth still does the work.</strong> Creating, testing, and finding buyers takes effort. Checkout and file delivery can be automated; useful products still need your attention.</p><a class="text-link" href={practical ? '/tools/' : '/start/#steps'}>{practical ? 'Shape your first draft with the free tools' : 'Try the free first steps'} →</a></div>
+</section>
+<script>
+const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+if (!motion.matches && 'IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('story-arrived'); observer.unobserve(entry.target); }
+  }), { threshold: 0.12 });
+  document.querySelectorAll('[data-story-reveal]').forEach(el => observer.observe(el));
+  motion.addEventListener('change', () => { if (motion.matches) observer.disconnect(); });
+}
+</script>

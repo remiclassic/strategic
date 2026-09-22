@@ -1,0 +1,13 @@
+---
+import LowPolyEmoji from './LowPolyEmoji.astro';
+const examples = [
+  { icon: 'recipes', title: 'The recipes everyone asks for', kind: 'A focused recipe collection', text: 'Turn five reliable weeknight recipes into a PDF with a shopping list, substitutions, and your own photos.', result: 'A small collection someone can cook from, with a clear theme and useful instructions.', link: '/books/#idea-to-pdf', label: 'Explore Idea to PDF' },
+  { icon: 'checklist', title: 'The checklist you use with clients', kind: 'A reusable onboarding pack', text: 'Organize your repeat questions, preparation steps, and handoff checklist into a reusable resource. Use fictional examples and remove private client details.', result: 'A practical starting point another freelancer can adapt to their work.', link: '/books/#offer-sells-itself', label: 'Learn to frame the offer' },
+  { icon: 'music', title: 'The music workflow you figured out', kind: 'A home-studio quick-start guide', text: 'Explain one workflow you know well: organizing a session, preparing a DJ set, or exporting a mix. Include screenshots and a final checklist.', result: 'A step-by-step answer to one specific beginner question.', link: '/books/#sell-no-audience', label: 'Explore ways to find readers' },
+];
+---
+<section class="possibilities-band"><div class="container section">
+  <div class="section-heading"><div><p class="eyebrow">WHAT COULD YOU MAKE?</p><h2>That thing you keep sharing?<br/>There might be a product in it.</h2></div><p>Illustrative ideas, not customer results.<br/>Open one to see how it could take shape.</p></div>
+  <div class="possibility-grid">{examples.map(example => <details class="possibility-card" data-story-reveal><summary><span class="possibility-icon" aria-hidden="true"><LowPolyEmoji name={example.icon} size={56}/></span><h3>{example.title}</h3><span class="possibility-toggle">Explore the idea <b aria-hidden="true">+</b></span></summary><div class="possibility-detail"><p class="eyebrow">{example.kind}</p><p>{example.text}</p><p><strong>What you could make:</strong> {example.result}</p><a class="text-link" href={example.link}>{example.label} →</a></div></details>)}</div>
+  <div class="possibility-next"><p>You don’t have to pick perfectly. Explore one idea, then ask whether it would help someone.</p><a class="button" href="/tools/">Try the free idea builder <span>↗</span></a></div>
+</div></section>

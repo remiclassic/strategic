@@ -1,0 +1,4 @@
+---
+const { href, price, product, location = 'learn', label = 'Buy digital guide' } = Astro.props;
+---
+<a href={href} class="button lemonsqueezy-button" target="_blank" rel="noopener noreferrer" data-track="checkout_click" data-track-product={product} data-track-price={price} data-track-location={location}>{label} · ${price}<span aria-hidden="true">↗</span></a>

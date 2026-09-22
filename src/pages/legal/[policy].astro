@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/StudioLayout.astro';
+import { legalDocuments, legalUpdated, legalMailingAddress } from '../../data/legal';
+export function getStaticPaths() { return legalDocuments.map(doc=>({params:{policy:doc.id},props:{doc}})); }
+const { doc } = Astro.props;
+---
+<Layout title={`${doc.title} — Strategic Sloth`} description={doc.summary}>
+<article class="legal-page container"><header><p class="eyebrow">STRATEGIC SLOTH LLC / LEGAL</p><h1>{doc.title}</h1><p class="legal-summary">{doc.summary}</p><p class="legal-updated">Updated <time datetime="2026-09-21">{legalUpdated}</time></p></header><nav class="legal-page-nav" aria-label="Legal documents">{legalDocuments.map(item=><a href={`/legal/${item.id}/`} aria-current={item.id===doc.id?'page':undefined}>{item.title}</a>)}<button type="button" data-privacy-settings>Privacy choices</button></nav><div class="legal-page-body">{doc.sections.map(section=><section><h2>{section.title}</h2><Fragment set:html={section.body}/></section>)}<address class="legal-company"><strong>Strategic Sloth LLC</strong><br/>{legalMailingAddress}<br/><a href="mailto:privacy@strategicsloth.com">privacy@strategicsloth.com</a></address></div></article>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import '../styles/studio.css';
+import '../styles/learn.css';
+import '../styles/legal.css';
+import PrivacyChoices from '../components/PrivacyChoices.astro';
+
+import StudioHeader from '../components/StudioHeader.astro';
+import LegalModals from '../components/LegalModals.astro';
+const { title, description = 'Independent tools and game development by Strategic Sloth LLC.', education = false, noindex = false } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonicalURL}/><meta name="theme-color" content="#f6f5ef"/>
+{noindex && <meta name="robots" content="noindex,follow"/>}
+<meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonicalURL}/><meta property="og:type" content="website"/>
+<link rel="icon" href="/studio-images/slothlogo.png"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+</head><body class:list={[education && 'education-site']}>
+<a class="skip-link" href="#main">Skip to content</a><StudioHeader/>
+{education && <div class="learning-bar"><nav class="container" aria-label="Learning library"><a class="learning-brand" href="/learn/">Learn <span>by Strategic Sloth</span></a><div><a href="/blog/">Articles</a><a href="/books/">Creator books</a><a href="/reading-guide/">Freedom Library</a><a href="/tools/">Creator tools</a></div></nav></div>}
+<main id="main"><slot/></main>
+<footer class="site-footer"><div class="container"><div class="footer-top"><div><a class="brand" href="/">strategic sloth<span class="brand-dot" aria-hidden="true">✳</span></a><p>Independent minds.<br/>Thoughtfully made tools and games.</p></div><nav aria-label="Studio links"><span>Studio</span><a href="/products/">Our products</a><a href="/free-tools/">Free game dev tools</a><a href="/games/">Games & experiments</a><a href="/studio/">About the studio</a><a href="/contact/">Work together</a></nav><nav aria-label="Learning links"><span>Learn</span><a href="/learn/">Explore the library</a><a href="/blog/">Free articles</a><a href="/books/">Creator books</a><a href="/reading-guide/">Freedom Library</a><a href="/tools/">Free creator tools</a></nav></div><div class="footer-bottom"><p>© {new Date().getFullYear()} Strategic Sloth LLC</p><nav aria-label="Legal"><a href="/legal/privacy/" data-legal="privacy">Privacy</a><a href="/legal/terms/" data-legal="terms">Terms & refunds</a><a href="/legal/disclaimer/" data-legal="disclaimer">Disclaimer</a><button type="button" data-privacy-settings>Privacy choices</button></nav></div></div></footer>
+<LegalModals/><PrivacyChoices/><script is:inline src="/studio.js" defer></script>
+
+<script is:inline>
+if (location.pathname === '/') {
+const destinations = {'#book-offer':'/start/','#get-started':'/reading-guide/#packages','#pricing':'/reading-guide/#packages','#how-it-works':'/start/','#faq':'/learn/#questions'};
+const destination = destinations[location.hash];
+if (destination) { const target = new URL(destination, location.origin); target.search = location.search; location.replace(target.href); }
+}
+</script>
+</body></html>

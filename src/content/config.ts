@@ -6,6 +6,7 @@ const blog = defineCollection({
 		title: z.string(),
 		description: z.string(),
 		publishDate: z.date(),
+		reviewDate: z.date().optional(),
 		category: z.enum(['starter', 'builder', 'scale']),
 		heroEmoji: z.string(),
 		readTime: z.number(),

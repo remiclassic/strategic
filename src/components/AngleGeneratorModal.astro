@@ -1,4 +1,5 @@
 ---
+import ToolBookOffer from './ToolBookOffer.astro';
 const audienceOptions = [
   { value: "beginners", label: "Beginners" },
   { value: "busy_professionals", label: "Busy Professionals" },
@@ -43,14 +44,14 @@ const sampleTopics = [
 >
   <div
     id="angle-modal-card"
-    class="relative w-full max-w-3xl bg-[#FFFBF2] border-[3px] border-black rounded-[24px] overflow-hidden shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+    class="relative w-full max-w-3xl bg-[#f6f5ef] border border-[#d6dbcc] rounded-[24px] overflow-hidden  scale-95 transition-transform duration-200"
   >
   <div class="modal-scroll max-h-[90vh] overflow-y-auto overflow-x-hidden">
     <!-- Close -->
     <button
       id="angle-modal-close"
       type="button"
-      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border border-[#d6dbcc] rounded-full  hover:bg-[#dce6cf] transition-colors duration-150 text-black font-semibold text-lg leading-none"
       aria-label="Close"
     >
       ✕
@@ -59,16 +60,16 @@ const sampleTopics = [
     <div class="p-7 sm:p-8 clear-both">
       <!-- Header -->
       <div class="flex items-center gap-3 mb-1">
-        <div class="w-10 h-10 rounded-xl border-2 border-black bg-[#FFF3CD] flex items-center justify-center text-xl shadow-[2px_2px_0_#000]">🎯</div>
+        <div class="w-10 h-10 rounded-xl border border-[#d6dbcc] bg-[#e9ecdf] flex items-center justify-center text-xl ">🎯</div>
         <div>
           <div class="flex items-center gap-2 mb-0.5">
-            <h2 id="angle-modal-title" class="text-xl font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Product Angle Generator</h2>
-            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-2.5 py-0.5 shadow-[2px_2px_0_#000]">
+            <h2 id="angle-modal-title" class="text-xl font-semibold text-[#29342a]" style="font-family:'DM Sans',sans-serif;">Product Angle Generator</h2>
+            <span class="inline-flex items-center gap-1 bg-[#526c43] text-white text-xs font-semibold border border-[#d6dbcc] rounded-full px-2.5 py-0.5 ">
               <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
-              LIVE
+              FREE
             </span>
           </div>
-          <p class="text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Find the right hook, promise, and positioning for your product.</p>
+          <p class="text-sm text-[#59664f]" style="font-family:'DM Sans',sans-serif;">Find the right hook, promise, and positioning for your product.</p>
         </div>
       </div>
 
@@ -78,23 +79,23 @@ const sampleTopics = [
       <div class="space-y-5" id="angle-form">
         <!-- Topic -->
         <div>
-          <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-topic" style="font-family:'Inter',system-ui,sans-serif;">
+          <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="angle-topic" style="font-family:'DM Sans',sans-serif;">
             What is your product about?
           </label>
           <input
             id="angle-topic"
             type="text"
             placeholder="e.g. travel, freelancing, budgeting, fitness..."
-            class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
-            style="font-family:'Inter',system-ui,sans-serif;"
+            class="w-full px-4 py-3 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] placeholder-[#63705c] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] focus:border-[#dce6cf] transition-all duration-150"
+            style="font-family:'DM Sans',sans-serif;"
           />
           <div class="flex flex-wrap gap-2 mt-2.5">
             {sampleTopics.map(t => (
               <button
                 type="button"
-                class="angle-topic-chip text-xs font-bold bg-white border-2 border-black rounded-full px-3 py-1 hover:bg-[#FFD600] hover:shadow-[2px_2px_0_#000] transition-all duration-150"
+                class="angle-topic-chip text-xs font-bold bg-white border border-[#d6dbcc] rounded-full px-3 py-1 hover:bg-[#dce6cf]  transition-all duration-150"
                 data-topic={t}
-                style="font-family:'Inter',system-ui,sans-serif;"
+                style="font-family:'DM Sans',sans-serif;"
               >{t}</button>
             ))}
           </div>
@@ -104,9 +105,9 @@ const sampleTopics = [
         <div class="grid sm:grid-cols-3 gap-4">
           <!-- Audience -->
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-audience" style="font-family:'Inter',system-ui,sans-serif;">Who is it for?</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="angle-audience" style="font-family:'DM Sans',sans-serif;">Who is it for?</label>
             <div class="relative">
-              <select id="angle-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              <select id="angle-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] transition-all duration-150 cursor-pointer" style="font-family:'DM Sans',sans-serif;">
                 {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
@@ -117,9 +118,9 @@ const sampleTopics = [
 
           <!-- Outcome -->
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-outcome" style="font-family:'Inter',system-ui,sans-serif;">Desired outcome</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="angle-outcome" style="font-family:'DM Sans',sans-serif;">Desired outcome</label>
             <div class="relative">
-              <select id="angle-outcome" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              <select id="angle-outcome" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] transition-all duration-150 cursor-pointer" style="font-family:'DM Sans',sans-serif;">
                 {outcomeOptions.map(o => <option value={o.value}>{o.label}</option>)}
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
@@ -130,9 +131,9 @@ const sampleTopics = [
 
           <!-- Tone -->
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="angle-tone" style="font-family:'Inter',system-ui,sans-serif;">Angle / tone</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="angle-tone" style="font-family:'DM Sans',sans-serif;">Angle / tone</label>
             <div class="relative">
-              <select id="angle-tone" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              <select id="angle-tone" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] transition-all duration-150 cursor-pointer" style="font-family:'DM Sans',sans-serif;">
                 {toneOptions.map(o => <option value={o.value}>{o.label}</option>)}
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
@@ -146,8 +147,8 @@ const sampleTopics = [
         <button
           id="angle-generate-btn"
           type="button"
-          class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-          style="font-family:'Inter',system-ui,sans-serif;"
+          class="w-full flex items-center justify-center gap-2 bg-[#dce6cf] text-black font-semibold text-base px-8 py-4 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'DM Sans',sans-serif;"
         >
           <span id="angle-btn-icon">🎯</span>
           <span id="angle-btn-text">Generate Angles</span>
@@ -155,49 +156,49 @@ const sampleTopics = [
       </div>
 
       <!-- Empty state -->
-      <div id="angle-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+      <div id="angle-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
         <span class="text-4xl mb-3">🎯</span>
-        <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your angles will appear here</p>
-        <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above and hit Generate</p>
+        <p class="font-bold text-[#59664f] text-center" style="font-family:'DM Sans',sans-serif;">Your angles will appear here</p>
+        <p class="text-sm text-[#63705c] mt-1" style="font-family:'DM Sans',sans-serif;">Fill in the fields above and hit Generate</p>
       </div>
 
       <!-- Result -->
       <div id="angle-result" class="mt-6 hidden">
-        <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+        <div class="border border-[#d6dbcc] rounded-2xl overflow-hidden bg-white ">
           <!-- Result header -->
-          <div class="bg-[#1B1B3D] px-6 py-4 flex items-center justify-between gap-3">
+          <div class="bg-[#29342a] px-6 py-4 flex items-center justify-between gap-3">
             <div>
-              <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-0.5" style="font-family:'Inter',system-ui,sans-serif;">Your Angles</p>
-              <p id="angle-result-label" class="text-white font-bold text-sm" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              <p class="text-[#dce6cf] text-xs font-semibold uppercase tracking-widest mb-0.5" style="font-family:'DM Sans',sans-serif;">Your Angles</p>
+              <p id="angle-result-label" class="text-white font-bold text-sm" style="font-family:'DM Sans',sans-serif;"></p>
             </div>
-            <span class="shrink-0 inline-flex items-center gap-1 bg-[#FFD600] text-black text-xs font-black border-2 border-black rounded-full px-3 py-1">
+            <span class="shrink-0 inline-flex items-center gap-1 bg-[#dce6cf] text-black text-xs font-semibold border border-[#d6dbcc] rounded-full px-3 py-1">
               ✦ Ready
             </span>
           </div>
 
           <div class="p-6 sm:p-7 space-y-5">
             <!-- Hooks -->
-            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
-              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Hook Ideas</p>
+            <div class="bg-[#f6f5ef] border border-[#d6dbcc] rounded-xl p-4">
+              <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-3" style="font-family:'DM Sans',sans-serif;">Hook Ideas</p>
               <ul id="angle-hooks" class="space-y-2.5"></ul>
             </div>
 
             <!-- Promises -->
-            <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
-              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Promise Angles</p>
+            <div class="bg-[#edf0e6] border border-[#d6dbcc] rounded-xl p-4">
+              <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-3" style="font-family:'DM Sans',sans-serif;">Promise Angles</p>
               <ul id="angle-promises" class="space-y-2.5"></ul>
             </div>
 
             <!-- Positioning -->
-            <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
-              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-3" style="font-family:'Inter',system-ui,sans-serif;">Positioning Directions</p>
+            <div class="bg-[#edf0e6] border border-[#d6dbcc] rounded-xl p-4">
+              <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-3" style="font-family:'DM Sans',sans-serif;">Positioning Directions</p>
               <ul id="angle-positions" class="space-y-2.5"></ul>
             </div>
 
             <!-- Best pick -->
-            <div class="bg-[#FFD600] border-2 border-black rounded-xl p-4">
-              <p class="text-xs font-black uppercase tracking-widest text-black mb-2" style="font-family:'Inter',system-ui,sans-serif;">Best Pick for Your Combo</p>
-              <p id="angle-best-pick" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            <div class="bg-[#dce6cf] border border-[#d6dbcc] rounded-xl p-4">
+              <p class="text-xs font-semibold uppercase tracking-widest text-black mb-2" style="font-family:'DM Sans',sans-serif;">Best Pick for Your Combo</p>
+              <p id="angle-best-pick" class="font-bold text-[#29342a] text-sm leading-relaxed" style="font-family:'DM Sans',sans-serif;"></p>
             </div>
 
             <!-- Action buttons -->
@@ -205,16 +206,16 @@ const sampleTopics = [
               <button
                 id="angle-use-outline"
                 type="button"
-                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                style="font-family:'Inter',system-ui,sans-serif;"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#29342a] text-white font-semibold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'DM Sans',sans-serif;"
               >
                 📐 Use This in Outline Builder
               </button>
               <button
                 id="angle-copy-btn"
                 type="button"
-                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                style="font-family:'Inter',system-ui,sans-serif;"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#29342a] font-bold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'DM Sans',sans-serif;"
               >
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -224,8 +225,8 @@ const sampleTopics = [
               <button
                 id="angle-regen-btn"
                 type="button"
-                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                style="font-family:'Inter',system-ui,sans-serif;"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#29342a] font-bold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'DM Sans',sans-serif;"
               >
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -233,6 +234,7 @@ const sampleTopics = [
                 Regenerate
               </button>
             </div>
+            <ToolBookOffer bookId="offer-sells-itself" purpose="Turn the angle into a clearly positioned offer, with a purpose and value your reader can understand." location="angle"/>
           </div>
         </div>
       </div>
@@ -550,8 +552,8 @@ function renderAngles(data: ReturnType<typeof generateAngles>) {
 
   const makeList = (items: string[]) =>
     items.map((item, i) => `
-      <li class="flex items-start gap-2.5 text-sm text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">
-        <span class="mt-0.5 w-5 h-5 rounded-full bg-[#1B1B3D] border-2 border-black flex items-center justify-center text-white text-xs font-black shrink-0">${i + 1}</span>
+      <li class="flex items-start gap-2.5 text-sm text-[#29342a]" style="font-family:'DM Sans',sans-serif;">
+        <span class="mt-0.5 w-5 h-5 rounded-full bg-[#29342a] border border-[#d6dbcc] flex items-center justify-center text-white text-xs font-semibold shrink-0">${i + 1}</span>
         <span class="font-medium leading-relaxed">${item}</span>
       </li>`).join('');
 

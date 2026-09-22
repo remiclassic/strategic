@@ -64,7 +64,7 @@ export const books: Book[] = [
     bundleIds: ["starter"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/a12fdf67-c30a-4fb0-9a16-ea2beae633c8?embed=1",
-    coverImage: "/images/catalog/first-100.webp",
+    coverImage: "/images/catalog/first-100-lowpoly-v1.webp",
     blogSlug: "your-first-100-online",
   },
   {
@@ -84,7 +84,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/11225ee1-380b-4046-9a94-6ff3360dc0cd?embed=1",
-    coverImage: "/images/catalog/zero-to-1k.webp",
+    coverImage: "/images/catalog/zero-to-1k-lowpoly-v1.webp",
     blogSlug: "zero-to-1k-per-month",
   },
   {
@@ -104,7 +104,7 @@ export const books: Book[] = [
     bundleIds: ["starter"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/dddd09c9-4eb4-463e-bdb2-daf5ffd0139f?embed=1",
-    coverImage: "/images/catalog/pricing.webp",
+    coverImage: "/images/catalog/pricing-lowpoly-v1.webp",
     blogSlug: "pricing-your-digital-products",
   },
   {
@@ -124,7 +124,7 @@ export const books: Book[] = [
     bundleIds: ["starter"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/d7bb8d03-59a9-4aae-a1dc-03c9d6ca9eb6?embed=1",
-    coverImage: "/images/catalog/not-making-money.webp",
+    coverImage: "/images/catalog/not-making-money-lowpoly-v1.webp",
     blogSlug: "why-youre-not-making-money-online-yet",
   },
   // Build
@@ -145,7 +145,7 @@ export const books: Book[] = [
     bundleIds: ["builder"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/57ac803a-31a3-4a7b-b666-3154d9cf0914?embed=1",
-    coverImage: "/images/catalog/idea-to-pdf.webp",
+    coverImage: "/images/catalog/idea-to-pdf-lowpoly-v1.webp",
     blogSlug: "idea-to-pdf-in-24-hours",
   },
   {
@@ -165,7 +165,7 @@ export const books: Book[] = [
     bundleIds: ["builder"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/2d2694c3-92b6-4e3b-a06c-1d94b40de13e?embed=1",
-    coverImage: "/images/catalog/no-coding.webp",
+    coverImage: "/images/catalog/no-coding-lowpoly-v1.webp",
     blogSlug: "build-digital-products-without-coding",
   },
   {
@@ -185,7 +185,7 @@ export const books: Book[] = [
     bundleIds: ["builder"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/c519b27a-18a0-4ad0-8a2d-a9fa9dda0c51?embed=1",
-    coverImage: "/images/catalog/landing-pages.webp",
+    coverImage: "/images/catalog/landing-pages-lowpoly-v1.webp",
     blogSlug: "simple-landing-pages-that-convert",
   },
   {
@@ -205,7 +205,7 @@ export const books: Book[] = [
     bundleIds: ["builder"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/893cbcb0-46a6-4068-943d-835862afa5bc?embed=1",
-    coverImage: "/images/catalog/offer-sells-itself.webp",
+    coverImage: "/images/catalog/offer-sells-itself-lowpoly-v1.webp",
     blogSlug: "the-offer-that-sells-itself",
   },
   // Sell
@@ -226,7 +226,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/e6f6a449-b1cf-4084-8afc-d2e54c9f5631?embed=1",
-    coverImage: "/images/catalog/sell-no-audience.webp",
+    coverImage: "/images/catalog/sell-no-audience-lowpoly-v1.webp",
     blogSlug: "sell-without-an-audience",
   },
   {
@@ -246,7 +246,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/cdce397c-b20b-45e1-bdf9-7f881b21f397?embed=1",
-    coverImage: "/images/catalog/one-page-funnel.webp",
+    coverImage: "/images/catalog/one-page-funnel-lowpoly-v1.webp",
     blogSlug: "the-one-page-sales-funnel",
   },
   {
@@ -266,7 +266,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/d038056b-c2d7-4058-af6b-44ea05a5bcd9?embed=1",
-    coverImage: "/images/catalog/email-list.webp",
+    coverImage: "/images/catalog/email-list-lowpoly-v1.webp",
     blogSlug: "email-list-for-creators",
   },
   {
@@ -286,7 +286,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/7c5cb5e4-19f5-4c9c-ad7d-26c3d3927e10?embed=1",
-    coverImage: "/images/catalog/content-converts.webp",
+    coverImage: "/images/catalog/content-converts-lowpoly-v1.webp",
     blogSlug: "content-that-actually-converts",
   },
   // Mindset
@@ -307,7 +307,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/370c7e1f-107f-40cf-832f-ffddb6ed8dd6?embed=1",
-    coverImage: "/images/catalog/anti-hustle.webp",
+    coverImage: "/images/catalog/anti-hustle-lowpoly-v1.webp",
     blogSlug: "the-anti-hustle-playbook",
   },
   {
@@ -327,7 +327,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/590af509-f26f-4e4b-aed1-760638d78313?embed=1",
-    coverImage: "/images/catalog/stop-overthinking.webp",
+    coverImage: "/images/catalog/stop-overthinking-lowpoly-v1.webp",
     blogSlug: "stop-overthinking-start-shipping",
   },
   {
@@ -347,7 +347,7 @@ export const books: Book[] = [
     bundleIds: ["full-freedom"],
     checkoutUrl:
       "https://strategicsloth.lemonsqueezy.com/checkout/buy/65be9b9c-973e-49ea-bf26-87c4f61ed16d?embed=1",
-    coverImage: "/images/catalog/focus-sloth.webp",
+    coverImage: "/images/catalog/focus-sloth-lowpoly-v1.webp",
     blogSlug: "focus-like-a-sloth",
   },
 ];
@@ -365,7 +365,7 @@ export const bundles: Bundle[] = [
     cta: "Buy Starter Package",
     highlighted: false,
     checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/80a08444-b7c2-48aa-a4a8-cec1575dc6f3?embed=1",
-    coverImage: "/images/catalog/bundle-starter.webp",
+    coverImage: "/images/catalog/bundle-starter-lowpoly-v1.webp",
   },
   {
     id: "builder",
@@ -379,7 +379,7 @@ export const bundles: Bundle[] = [
     cta: "Get Builder System",
     highlighted: true,
     checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/b600de67-1151-4cd8-83af-2cfa1ae73968?embed=1",
-    coverImage: "/images/catalog/bundle-builder.webp",
+    coverImage: "/images/catalog/bundle-builder-lowpoly-v1.webp",
   },
   {
     id: "full-freedom",
@@ -398,7 +398,7 @@ export const bundles: Bundle[] = [
     cta: "Unlock Full Library",
     highlighted: false,
     checkoutUrl: "https://strategicsloth.lemonsqueezy.com/checkout/buy/8b30bcb3-7242-4091-b155-bae2a222ae45?embed=1",
-    coverImage: "/images/catalog/bundle-full-freedom.webp",
+    coverImage: "/images/catalog/bundle-full-freedom-lowpoly-v1.webp",
   },
 ];
 

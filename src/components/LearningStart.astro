@@ -1,0 +1,14 @@
+---
+import LowPolyEmoji from './LowPolyEmoji.astro';
+import LearningJourney from './LearningJourney.astro';
+import ProductPossibilities from './ProductPossibilities.astro';
+import LearningFounder from './LearningFounder.astro';
+import StarterOffer from './StarterOffer.astro';
+import CheckoutLink from './CheckoutLink.astro';
+import { starterGuideCheckoutUrl, starterGuidePricing } from '../data/starter-guide-offer';
+---
+<section class="page-intro container"><p class="eyebrow">LEARN / YOUR FIRST SMALL PROJECT</p><h1>Start small.<br/>Make something useful.</h1><p class="lede">A practical starting point for turning what you know<br/>into a digital resource someone can use.</p><div class="hero-actions"><CheckoutLink href={starterGuideCheckoutUrl} price={starterGuidePricing.currentPrice} product="starter-guide-5" location="starter-hero" label="Get the 98-page guide"/><a class="text-link" href="#steps" data-track="cta_click" data-track-location="hero">Explore the free first steps ↓</a></div><p class="purchase-reassurance">One-time purchase · Instant digital delivery · 30-day money-back guarantee</p></section>
+<LearningJourney practical/><ProductPossibilities/>
+<div id="book-offer"><StarterOffer location="starter-guide"/></div>
+<section class="container story-sample"><div><p class="eyebrow">TAKE A LOOK BEFORE YOU BUY · <LowPolyEmoji name="book" size={30}/></p><h2>Start with a real chapter.</h2><p>Read “Finding Your Winning Topic” from the guide. Use it to consider who your idea helps and what problem it solves, then decide whether you want the full book.</p></div><a class="text-link" href="/samples/dont-do-anything/">Open the free sample chapter →</a></section>
+<LearningFounder/>

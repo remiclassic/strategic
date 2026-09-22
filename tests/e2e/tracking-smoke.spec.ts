@@ -27,14 +27,17 @@ test.describe('tracking smoke', () => {
 
 		await page.addInitScript(() => {
 			localStorage.setItem('strategicSlothTrackingDebug', 'true');
+            localStorage.setItem('strategicSlothPrivacyV1', JSON.stringify({analytics:true,marketing:true,updated:Date.now()}));
+			(window as any).__pixelCalls = [];
+			(window as any).fbq = (...args: unknown[]) => (window as any).__pixelCalls.push(args);
 		});
 	});
 
-	test('loads homepage, emits debug tracking on CTA and checkout clicks, and avoids duplicate PageViews', async ({
+	test('loads the learning start page, emits debug tracking on CTA and checkout clicks, and avoids duplicate PageViews', async ({
 		page,
 	}) => {
 		const debugMessages: string[] = [];
-		const pageViewRequests: string[] = [];
+
 
 		page.on('console', (msg) => {
 			if (msg.type() === 'debug') {
@@ -42,18 +45,11 @@ test.describe('tracking smoke', () => {
 			}
 		});
 
-		await page.route('**/*', (route) => {
-			const url = route.request().url();
-			if (url.includes('facebook.com/tr') && url.includes('PageView')) {
-				pageViewRequests.push(url);
-			}
-			route.continue();
-		});
 
-		await page.goto('/');
+		await page.goto('/start/');
 
 		await expect.poll(() => debugMessages.some((line) => line.includes('[tracking] initialized'))).toBeTruthy();
-		expect(pageViewRequests).toHaveLength(1);
+		expect(await page.evaluate(() => (window as any).__pixelCalls.filter((args: string[]) => args[0] === 'track' && args[1] === 'PageView'))).toHaveLength(1);
 
 		const heroCta = page.locator('[data-track="cta_click"][data-track-location="hero"]').first();
 		await heroCta.click();
@@ -77,11 +73,11 @@ test.describe('tracking smoke', () => {
 		const checkoutHref = await checkoutButton.getAttribute('href');
 		expect(checkoutHref).toContain('lemonsqueezy.com/checkout/');
 
-		expect(pageViewRequests).toHaveLength(1);
+		expect(await page.evaluate(() => (window as any).__pixelCalls.filter((args: string[]) => args[0] === 'track' && args[1] === 'PageView'))).toHaveLength(1);
 	});
 
 	test('stores UTMs and appends them to Lemon checkout URLs', async ({ page }) => {
-		await page.goto('/?utm_source=qa&utm_campaign=tracking-test&utm_medium=cpc');
+		await page.goto('/start/?utm_source=qa&utm_campaign=tracking-test&utm_medium=cpc');
 
 		const checkoutButton = page
 			.locator('[data-track="checkout_click"][data-track-product="starter-guide-5"]')

@@ -1,0 +1,41 @@
+{
+  "mode": "built-in image tool",
+  "assets": [
+    {
+      "id": "idea",
+      "prompt": "Create ONE isolated low-poly 3D emoji icon on a genuinely transparent background with alpha, no backdrop, no tile, no ground plane, no checkerboard. Use the reference ONLY for faceted matte material style, soft lighting and cohesive sage/ochre/ivory/brown palette. Chunky clean silhouette, minimal large polygon facets, readable at 32-48 pixels, polished playful professional icon. Centered square with 12 percent transparent margin, subject fills the remaining area, no text or watermark, no outlines, no other objects. A golden faceted light bulb with a short forest-green screw base and three tiny gold idea rays.",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-3911f166-5d16-4461-ae70-fcea1a55cbf3.png",
+      "output": "public/studio-images/emoji/idea.webp"
+    },
+    {
+      "id": "book",
+      "prompt": "Create ONE isolated low-poly 3D emoji icon on a genuinely transparent background with alpha, no backdrop, no tile, no ground plane, no checkerboard. Use the reference ONLY for faceted matte material style, soft lighting and cohesive sage/ochre/ivory/brown palette. Chunky clean silhouette, minimal large polygon facets, readable at 32-48 pixels, polished playful professional icon. Centered square with 12 percent transparent margin, subject fills the remaining area, no text or watermark, no outlines, no other objects. An open forest-green book with warm ivory pages and a small ochre bookmark, slightly angled toward viewer.",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-bba7e3db-4850-43d7-b6bc-4bfd75fc41b3.png",
+      "output": "public/studio-images/emoji/book.webp"
+    },
+    {
+      "id": "sloth",
+      "prompt": "Create ONE isolated low-poly 3D emoji icon on a genuinely transparent background with alpha, no backdrop, no tile, no ground plane, no checkerboard. Use the reference ONLY for faceted matte material style, soft lighting and cohesive sage/ochre/ivory/brown palette. Chunky clean silhouette, minimal large polygon facets, readable at 32-48 pixels, polished playful professional icon. Centered square with 12 percent transparent margin, subject fills the remaining area, no text or watermark, no outlines, no other objects. Only the cheerful brown sloth HEAD from the reference, cream face, dark eye patches, glossy dark eyes, friendly small smile. No glasses, no body or props.",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-700cb065-2dfa-49a1-9254-86ace5735b28.png",
+      "output": "public/studio-images/emoji/sloth.webp"
+    },
+    {
+      "id": "recipes",
+      "prompt": "Create ONE isolated low-poly 3D emoji icon on a genuinely transparent background with alpha, no backdrop, no tile, no ground plane, no checkerboard. Use the reference ONLY for faceted matte material style, soft lighting and cohesive sage/ochre/ivory/brown palette. Chunky clean silhouette, minimal large polygon facets, readable at 32-48 pixels, polished playful professional icon. Centered square with 12 percent transparent margin, subject fills the remaining area, no text or watermark, no outlines, no other objects. A small sage-green bowl of warm ochre soup with two simple ivory steam curls and a few green herb shapes, no spoon or other props.",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-f12c5c4c-cc22-40f4-8172-662fbab4ee53.png",
+      "output": "public/studio-images/emoji/recipes.webp"
+    },
+    {
+      "id": "checklist",
+      "prompt": "Create ONE isolated low-poly 3D emoji icon on a genuinely transparent background with alpha, no backdrop, no tile, no ground plane, no checkerboard. Use the reference ONLY for faceted matte material style, soft lighting and cohesive sage/ochre/ivory/brown palette. Chunky clean silhouette, minimal large polygon facets, readable at 32-48 pixels, polished playful professional icon. Centered square with 12 percent transparent margin, subject fills the remaining area, no text or watermark, no outlines, no other objects. A forest-green clipboard with ivory paper, gold clip and three large sage-green check marks beside short raised line shapes. No letters.",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-2aa86499-9876-41d1-84ed-d8173e3f3147.png",
+      "output": "public/studio-images/emoji/checklist.webp"
+    },
+    {
+      "id": "music",
+      "prompt": "Create ONE isolated low-poly 3D emoji icon on a genuinely transparent background with alpha, no backdrop, no tile, no ground plane, no checkerboard. Use the reference ONLY for faceted matte material style, soft lighting and cohesive sage/ochre/ivory/brown palette. Chunky clean silhouette, minimal large polygon facets, readable at 32-48 pixels, polished playful professional icon. Centered square with 12 percent transparent margin, subject fills the remaining area, no text or watermark, no outlines, no other objects. A single connected pair of chunky lavender musical eighth notes, with one small ochre accent on the beam. No extra props.",
+      "source": "C:\\Users\\Remi Couture\\.codex\\generated_images\\01a0c5f5-ca51-75d3-808d-52d6af1f24ed\\exec-4db75b9d-c070-4a08-b751-f632d6b893b0.png",
+      "output": "public/studio-images/emoji/music.webp"
+    }
+  ]
+}

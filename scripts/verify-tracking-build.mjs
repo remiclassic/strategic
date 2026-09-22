@@ -5,11 +5,10 @@ const distDir = 'dist';
 const samplePages = ['index.html', 'books/index.html', 'scale-to-freedom/index.html'];
 
 const checks = [
-	{ name: 'fbq PageView', pattern: /fbq\('track', 'PageView'\)/g, expected: 1 },
-	{ name: 'gtag config', pattern: /gtag\('config'/g, expected: 1 },
-	{ name: 'lemon.js script', pattern: /assets\.lemonsqueezy\.com\/lemon\.js/g, expected: 1 },
-	{ name: 'Meta Pixel ID', pattern: /1442389786809344/g, expected: 2 },
-	{ name: 'GA4 measurement ID', pattern: /G-WWR13DW58L/g, expected: 2 },
+ { name: 'unconditional analytics script', pattern: /<script[^>]+src="https:\/\/www\.googletagmanager\.com/g, expected: 0 },
+ { name: 'unconditional Meta pixel image', pattern: /<img[^>]+src="https:\/\/www\.facebook\.com\/tr/g, expected: 0 },
+ { name: 'lemon.js script', pattern: /assets\.lemonsqueezy\.com\/lemon\.js/g, expected: 1 },
+ { name: 'privacy settings dialog', pattern: /id="privacy-settings"/g, expected: 1 },
 ];
 
 let failed = false;
@@ -40,8 +39,10 @@ if (!existsSync(assetsDir)) {
 	console.error('Missing dist/_assets directory');
 	failed = true;
 } else {
-	const trackingBundle = readdirSync(assetsDir).find(
-		(file) => file.startsWith('tracking.') && file.endsWith('.js'),
+	const allSource = readdirSync(assetsDir).filter(file=>file.endsWith('.js')).map(file=>readFileSync(join(assetsDir,file),'utf8')).join('\n');
+ for(const marker of ['strategicSlothPrivacyV1','G-WWR13DW58L','1442389786809344','globalPrivacyControl']) {if(!allSource.includes(marker)){console.error('Missing consent/tracking marker: '+marker);failed=true;}}
+ const trackingBundle = readdirSync(assetsDir).find(
+		(file) => file.endsWith('.js') && readFileSync(join(assetsDir, file), 'utf8').includes('strategicSlothUtm'),
 	);
 
 	if (!trackingBundle) {

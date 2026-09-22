@@ -9,7 +9,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/scale-to-freedom')
+      filter: (page) => !['/scale-to-freedom', '/promo', '/upsell', '/buy-buttons'].some(route => page.includes(route))
     })
   ],
   build: {

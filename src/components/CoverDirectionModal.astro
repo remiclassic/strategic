@@ -1,4 +1,5 @@
 ---
+import ToolBookOffer from './ToolBookOffer.astro';
 const audienceOptions = [
   { value: "beginners", label: "Beginners" },
   { value: "busy_professionals", label: "Busy Professionals" },
@@ -45,14 +46,14 @@ const colorMoodOptions = [
 >
   <div
     id="cover-modal-card"
-    class="relative w-full max-w-3xl bg-[#FFFBF2] border-[3px] border-black rounded-[24px] overflow-hidden shadow-[6px_6px_0_#000] scale-95 transition-transform duration-200"
+    class="relative w-full max-w-3xl bg-[#f6f5ef] border border-[#d6dbcc] rounded-[24px] overflow-hidden  scale-95 transition-transform duration-200"
   >
   <div class="modal-scroll max-h-[90vh] overflow-y-auto overflow-x-hidden">
     <!-- Close -->
     <button
       id="cover-modal-close"
       type="button"
-      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border-2 border-black rounded-full shadow-[2px_2px_0_#000] hover:bg-[#FFD600] transition-colors duration-150 text-black font-black text-lg leading-none"
+      class="sticky top-4 float-right mr-4 z-10 w-9 h-9 flex items-center justify-center bg-white border border-[#d6dbcc] rounded-full  hover:bg-[#dce6cf] transition-colors duration-150 text-black font-semibold text-lg leading-none"
       aria-label="Close"
     >
       ✕
@@ -61,16 +62,16 @@ const colorMoodOptions = [
     <div class="p-7 sm:p-8 clear-both">
       <!-- Header -->
       <div class="flex items-center gap-3 mb-1">
-        <div class="w-10 h-10 rounded-xl border-2 border-black bg-[#E3F4FF] flex items-center justify-center text-xl shadow-[2px_2px_0_#000]">🎨</div>
+        <div class="w-10 h-10 rounded-xl border border-[#d6dbcc] bg-[#edf0e6] flex items-center justify-center text-xl ">🎨</div>
         <div>
           <div class="flex items-center gap-2 mb-0.5">
-            <h2 id="cover-modal-title" class="text-xl font-black text-[#1B1B3D]" style="font-family:'Inter',system-ui,sans-serif;">Cover Direction Generator</h2>
-            <span class="inline-flex items-center gap-1 bg-[#2ECC71] text-white text-xs font-black border-2 border-black rounded-full px-2.5 py-0.5 shadow-[2px_2px_0_#000]">
+            <h2 id="cover-modal-title" class="text-xl font-semibold text-[#29342a]" style="font-family:'DM Sans',sans-serif;">Cover Direction Generator</h2>
+            <span class="inline-flex items-center gap-1 bg-[#526c43] text-white text-xs font-semibold border border-[#d6dbcc] rounded-full px-2.5 py-0.5 ">
               <span class="w-1.5 h-1.5 rounded-full bg-white inline-block animate-pulse"></span>
-              LIVE
+              FREE
             </span>
           </div>
-          <p class="text-sm text-[#5C5C7A]" style="font-family:'Inter',system-ui,sans-serif;">Get a complete visual direction for your PDF cover, plus a ready-to-paste AI image prompt.</p>
+          <p class="text-sm text-[#59664f]" style="font-family:'DM Sans',sans-serif;">Get a complete visual direction for your PDF cover, plus a ready-to-paste AI image prompt.</p>
         </div>
       </div>
 
@@ -81,19 +82,19 @@ const colorMoodOptions = [
         <!-- Topic + audience row -->
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-topic" style="font-family:'Inter',system-ui,sans-serif;">What is your PDF about?</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="cover-topic" style="font-family:'DM Sans',sans-serif;">What is your PDF about?</label>
             <input
               id="cover-topic"
               type="text"
               placeholder="e.g. budgeting, freelancing, fitness..."
-              class="w-full px-4 py-3 rounded-xl border-2 border-black bg-white text-[#1B1B3D] placeholder-[#B0B0C8] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] focus:border-[#FFD600] transition-all duration-150"
-              style="font-family:'Inter',system-ui,sans-serif;"
+              class="w-full px-4 py-3 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] placeholder-[#63705c] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] focus:border-[#dce6cf] transition-all duration-150"
+              style="font-family:'DM Sans',sans-serif;"
             />
           </div>
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-audience" style="font-family:'Inter',system-ui,sans-serif;">Who is it for?</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="cover-audience" style="font-family:'DM Sans',sans-serif;">Who is it for?</label>
             <div class="relative">
-              <select id="cover-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              <select id="cover-audience" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] transition-all duration-150 cursor-pointer" style="font-family:'DM Sans',sans-serif;">
                 {audienceOptions.map(o => <option value={o.value}>{o.label}</option>)}
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
@@ -106,9 +107,9 @@ const colorMoodOptions = [
         <!-- Visual direction row -->
         <div class="grid sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-vibe" style="font-family:'Inter',system-ui,sans-serif;">Vibe</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="cover-vibe" style="font-family:'DM Sans',sans-serif;">Vibe</label>
             <div class="relative">
-              <select id="cover-vibe" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              <select id="cover-vibe" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] transition-all duration-150 cursor-pointer" style="font-family:'DM Sans',sans-serif;">
                 {vibeOptions.map(o => <option value={o.value}>{o.label}</option>)}
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
@@ -117,9 +118,9 @@ const colorMoodOptions = [
             </div>
           </div>
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-style" style="font-family:'Inter',system-ui,sans-serif;">Visual Style</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="cover-style" style="font-family:'DM Sans',sans-serif;">Visual Style</label>
             <div class="relative">
-              <select id="cover-style" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              <select id="cover-style" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] transition-all duration-150 cursor-pointer" style="font-family:'DM Sans',sans-serif;">
                 {styleOptions.map(o => <option value={o.value}>{o.label}</option>)}
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
@@ -128,9 +129,9 @@ const colorMoodOptions = [
             </div>
           </div>
           <div>
-            <label class="block text-sm font-black text-[#1B1B3D] mb-1.5" for="cover-color" style="font-family:'Inter',system-ui,sans-serif;">Color Mood</label>
+            <label class="block text-sm font-semibold text-[#29342a] mb-1.5" for="cover-color" style="font-family:'DM Sans',sans-serif;">Color Mood</label>
             <div class="relative">
-              <select id="cover-color" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border-2 border-black bg-white text-[#1B1B3D] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFD600] transition-all duration-150 cursor-pointer" style="font-family:'Inter',system-ui,sans-serif;">
+              <select id="cover-color" class="w-full appearance-none px-4 py-3 pr-10 rounded-xl border border-[#d6dbcc] bg-white text-[#29342a] font-medium focus:outline-none focus:ring-2 focus:ring-[#dce6cf] transition-all duration-150 cursor-pointer" style="font-family:'DM Sans',sans-serif;">
                 {colorMoodOptions.map(o => <option value={o.value}>{o.label}</option>)}
               </select>
               <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
@@ -144,8 +145,8 @@ const colorMoodOptions = [
         <button
           id="cover-generate-btn"
           type="button"
-          class="w-full flex items-center justify-center gap-2 bg-[#FFD600] text-black font-black text-base px-8 py-4 rounded-xl border-[3px] border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-          style="font-family:'Inter',system-ui,sans-serif;"
+          class="w-full flex items-center justify-center gap-2 bg-[#dce6cf] text-black font-semibold text-base px-8 py-4 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+          style="font-family:'DM Sans',sans-serif;"
         >
           <span id="cover-btn-icon">🎨</span>
           <span id="cover-btn-text">Generate Cover Direction</span>
@@ -153,61 +154,61 @@ const colorMoodOptions = [
       </div>
 
       <!-- Empty state -->
-      <div id="cover-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border-2 border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
+      <div id="cover-empty-state" class="mt-6 flex flex-col items-center justify-center py-10 border border-dashed border-[#D0D0E4] rounded-xl bg-white/60">
         <span class="text-4xl mb-3">🖼️</span>
-        <p class="font-bold text-[#8888A4] text-center" style="font-family:'Inter',system-ui,sans-serif;">Your cover brief will appear here</p>
-        <p class="text-sm text-[#B0B0C8] mt-1" style="font-family:'Inter',system-ui,sans-serif;">Fill in the fields above and hit Generate</p>
+        <p class="font-bold text-[#59664f] text-center" style="font-family:'DM Sans',sans-serif;">Your cover brief will appear here</p>
+        <p class="text-sm text-[#63705c] mt-1" style="font-family:'DM Sans',sans-serif;">Fill in the fields above and hit Generate</p>
       </div>
 
       <!-- Result -->
       <div id="cover-result" class="mt-6 hidden">
-        <div class="border-[3px] border-black rounded-2xl overflow-hidden bg-white shadow-[4px_4px_0_#000]">
+        <div class="border border-[#d6dbcc] rounded-2xl overflow-hidden bg-white ">
           <!-- Result header -->
-          <div class="bg-[#1B1B3D] px-6 py-4">
-            <p class="text-[#FFD600] text-xs font-black uppercase tracking-widest mb-1" style="font-family:'Inter',system-ui,sans-serif;">Your Cover Direction</p>
-            <h3 id="cover-concept-title" class="text-white text-xl font-black leading-tight" style="font-family:'Inter',system-ui,sans-serif;"></h3>
+          <div class="bg-[#29342a] px-6 py-4">
+            <p class="text-[#dce6cf] text-xs font-semibold uppercase tracking-widest mb-1" style="font-family:'DM Sans',sans-serif;">Your Cover Direction</p>
+            <h3 id="cover-concept-title" class="text-white text-xl font-semibold leading-tight" style="font-family:'DM Sans',sans-serif;"></h3>
           </div>
 
           <div class="p-6 sm:p-7 space-y-4">
             <!-- Visual direction -->
-            <div class="bg-[#FFFBF2] border-2 border-black rounded-xl p-4">
-              <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Visual Direction</p>
-              <p id="cover-visual-summary" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+            <div class="bg-[#f6f5ef] border border-[#d6dbcc] rounded-xl p-4">
+              <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">Visual Direction</p>
+              <p id="cover-visual-summary" class="font-bold text-[#29342a] text-sm leading-relaxed" style="font-family:'DM Sans',sans-serif;"></p>
             </div>
 
             <!-- Color + Typography -->
             <div class="grid sm:grid-cols-2 gap-4">
-              <div class="bg-[#FFF3CD] border-2 border-black rounded-xl p-4">
-                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Color Direction</p>
-                <p id="cover-color-direction" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              <div class="bg-[#e9ecdf] border border-[#d6dbcc] rounded-xl p-4">
+                <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">Color Direction</p>
+                <p id="cover-color-direction" class="font-bold text-[#29342a] text-sm leading-relaxed" style="font-family:'DM Sans',sans-serif;"></p>
               </div>
-              <div class="bg-[#F0EEFF] border-2 border-black rounded-xl p-4">
-                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Typography</p>
-                <p id="cover-typography" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              <div class="bg-[#edf0e6] border border-[#d6dbcc] rounded-xl p-4">
+                <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">Typography</p>
+                <p id="cover-typography" class="font-bold text-[#29342a] text-sm leading-relaxed" style="font-family:'DM Sans',sans-serif;"></p>
               </div>
             </div>
 
             <!-- Layout + Best for -->
             <div class="grid sm:grid-cols-2 gap-4">
-              <div class="bg-[#E3F4FF] border-2 border-black rounded-xl p-4">
-                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Layout</p>
-                <p id="cover-layout" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              <div class="bg-[#edf0e6] border border-[#d6dbcc] rounded-xl p-4">
+                <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">Layout</p>
+                <p id="cover-layout" class="font-bold text-[#29342a] text-sm leading-relaxed" style="font-family:'DM Sans',sans-serif;"></p>
               </div>
-              <div class="bg-[#E3F9ED] border-2 border-black rounded-xl p-4">
-                <p class="text-xs font-black uppercase tracking-widest text-[#8888A4] mb-1.5" style="font-family:'Inter',system-ui,sans-serif;">Best For</p>
-                <p id="cover-best-for" class="font-bold text-[#1B1B3D] text-sm leading-relaxed" style="font-family:'Inter',system-ui,sans-serif;"></p>
+              <div class="bg-[#E3F9ED] border border-[#d6dbcc] rounded-xl p-4">
+                <p class="text-xs font-semibold uppercase tracking-widest text-[#59664f] mb-1.5" style="font-family:'DM Sans',sans-serif;">Best For</p>
+                <p id="cover-best-for" class="font-bold text-[#29342a] text-sm leading-relaxed" style="font-family:'DM Sans',sans-serif;"></p>
               </div>
             </div>
 
             <!-- AI Image Prompt -->
-            <div class="bg-[#1B1B3D] border-2 border-black rounded-xl p-4">
+            <div class="bg-[#29342a] border border-[#d6dbcc] rounded-xl p-4">
               <div class="flex items-center justify-between mb-2">
-                <p class="text-xs font-black uppercase tracking-widest text-[#FFD600]" style="font-family:'Inter',system-ui,sans-serif;">AI Image Prompt</p>
+                <p class="text-xs font-semibold uppercase tracking-widest text-[#dce6cf]" style="font-family:'DM Sans',sans-serif;">AI Image Prompt</p>
                 <button
                   id="cover-copy-prompt-btn"
                   type="button"
-                  class="inline-flex items-center gap-1.5 bg-[#FFD600] text-black font-black text-xs px-3 py-1.5 rounded-lg border-2 border-[#FFD600] shadow-[2px_2px_0_rgba(255,214,0,0.3)] hover:shadow-[1px_1px_0_rgba(255,214,0,0.3)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all duration-150"
-                  style="font-family:'Inter',system-ui,sans-serif;"
+                  class="inline-flex items-center gap-1.5 bg-[#dce6cf] text-black font-semibold text-xs px-3 py-1.5 rounded-lg border border-[#dce6cf]   hover:translate-x-[1px] hover:translate-y-[1px] transition-all duration-150"
+                  style="font-family:'DM Sans',sans-serif;"
                 >
                   <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -215,7 +216,7 @@ const colorMoodOptions = [
                   <span id="cover-copy-prompt-text">Copy Prompt</span>
                 </button>
               </div>
-              <p id="cover-image-prompt" class="text-[#B8B8D4] text-sm leading-relaxed font-mono" style="font-size:0.8rem;"></p>
+              <p id="cover-image-prompt" class="text-[#d3ddca] text-sm leading-relaxed font-mono" style="font-size:0.8rem;"></p>
             </div>
 
             <!-- Action buttons -->
@@ -223,8 +224,8 @@ const colorMoodOptions = [
               <button
                 id="cover-copy-brief-btn"
                 type="button"
-                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#1B1B3D] text-white font-black text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                style="font-family:'Inter',system-ui,sans-serif;"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-[#29342a] text-white font-semibold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'DM Sans',sans-serif;"
               >
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -234,8 +235,8 @@ const colorMoodOptions = [
               <button
                 id="cover-regen-btn"
                 type="button"
-                class="inline-flex items-center justify-center gap-2 bg-white text-[#1B1B3D] font-bold text-sm px-5 py-3.5 rounded-xl border-[3px] border-black shadow-[3px_3px_0_#000] hover:shadow-[1px_1px_0_#000] hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
-                style="font-family:'Inter',system-ui,sans-serif;"
+                class="inline-flex items-center justify-center gap-2 bg-white text-[#29342a] font-bold text-sm px-5 py-3.5 rounded-xl border border-[#d6dbcc]   hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-150"
+                style="font-family:'DM Sans',sans-serif;"
               >
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -244,9 +245,10 @@ const colorMoodOptions = [
               </button>
             </div>
 
-            <p class="text-xs text-[#B0B0C8] text-center pt-1" style="font-family:'Inter',system-ui,sans-serif;">
+            <p class="text-xs text-[#63705c] text-center pt-1" style="font-family:'DM Sans',sans-serif;">
               Paste the image prompt into Midjourney, DALL-E, or Canva AI to generate a cover visual.
             </p>
+            <ToolBookOffer bookId="idea-to-pdf" purpose="Keep the cover connected to the product inside. Explore the structure and presentation decisions behind a finished PDF." location="cover"/>
           </div>
         </div>
       </div>
@@ -357,7 +359,7 @@ const visualSummaryByVibeStyle: Record<string, Record<string, string[]>> = {
 
 const colorDirections: Record<string, string[]> = {
   warm: [
-    "Cream or off-white background (#FFFBF2 or similar). Warm amber accents (#F5A623). Deep brown or charcoal for type. The palette feels like morning light, paper, and good coffee.",
+    "Cream or off-white background (#f6f5ef or similar). Warm amber accents (#F5A623). Deep brown or charcoal for type. The palette feels like morning light, paper, and good coffee.",
     "Sand and terracotta tones. A warm beige base with burnt orange or rust as the accent color. Type in dark espresso brown. Feels grounded and welcoming.",
     "Warm white background with golden yellow as the primary accent. Honey tones for secondary elements. Deep navy or charcoal for body type. Bright but never cold.",
   ],
@@ -372,7 +374,7 @@ const colorDirections: Record<string, string[]> = {
     "Off-white base with concrete grey accents. One muted accent color (dusty blue, soft olive, or blush). Type in near-black. Restrained and professional.",
   ],
   bright: [
-    "White or light background with a vivid primary accent: bright yellow (#FFD600), electric blue (#4D9FFF), or lime green (#2ECC71). High contrast type in near-black. Energetic and clear.",
+    "White or light background with a vivid primary accent: bright yellow (#dce6cf), electric blue (#4D9FFF), or lime green (#526c43). High contrast type in near-black. Energetic and clear.",
     "A saturated background color as the primary field, with white or light type on top. Bold, direct, and impossible to miss. Pick one strong color and commit to it.",
     "Bright accent on a neutral base. The accent color does all the work. Keep everything else white and black for maximum punch.",
   ],
@@ -436,7 +438,7 @@ const layoutSuggestions: Record<string, string[]> = {
 const imagePromptsByVibeColorStyle: Record<string, Record<string, Record<string, string[]>>> = {
   clean: {
     warm: {
-      text_first:   ["PDF cover design, clean typography layout, warm cream background #FFFBF2, single bold sans-serif title in dark charcoal, small subtitle below, generous white space, golden amber accent line, professional but friendly, A4 portrait ratio, flat design, no photography, vector style"],
+      text_first:   ["PDF cover design, clean typography layout, warm cream background #f6f5ef, single bold sans-serif title in dark charcoal, small subtitle below, generous white space, golden amber accent line, professional but friendly, A4 portrait ratio, flat design, no photography, vector style"],
       icon_based:   ["PDF cover design, single clean line icon centered, warm white background, small charcoal title below icon, minimal layout, golden yellow accent, generous padding, professional, A4 portrait, flat vector illustration"],
       illustration: ["PDF cover design, warm minimal line illustration as hero, cream background, clean sans-serif title above illustration, plenty of white space, amber and warm brown tones, no clutter, A4 portrait, flat illustration style"],
       photo_text:   ["PDF cover design, warm photography background with light cream overlay at top third, bold clean title over overlay, charcoal text, warm tones, amber accents, editorial layout, A4 portrait"],

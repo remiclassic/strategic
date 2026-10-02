@@ -92,10 +92,10 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 					</div>
 				) : s.id === 'minigames' ? (
 					<div class="tr-games" aria-hidden="true">
-						<div class="tr-game"><b>Spot the phish</b><small>8 min · Awareness</small><i style="--w:80%"></i></div>
-						<div class="tr-game"><b>Passphrase lab</b><small>6 min · Awareness</small><i style="--w:55%"></i></div>
-						<div class="tr-game"><b>Triage desk</b><small>10 min · Analyst</small><i style="--w:40%"></i></div>
-						<div class="tr-game"><b>Log hunt</b><small>12 min · Analyst</small><i style="--w:65%"></i></div>
+						<div class="tr-game"><b>Inspect traffic</b><small>Review the evidence</small><i style="--w:80%"></i></div>
+						<div class="tr-game"><b>Apply access rules</b><small>Keep services available</small><i style="--w:55%"></i></div>
+						<div class="tr-game"><b>Add a backup route</b><small>Recover the connection</small><i style="--w:40%"></i></div>
+						<div class="tr-game"><b>Review decisions</b><small>Replay and debrief</small><i style="--w:65%"></i></div>
 					</div>
 				) : (
 					<div class="focus-demo" aria-hidden="true"><div class="demo-top"><span>FOCUSRAIL / UMG</span><span>FOCUS MEMORY</span></div><div class="demo-menu"><span>Mission briefing</span><span class="selected">Network map <b>← Focus restored</b></span><span>Submit report</span></div><div class="demo-bottom">Keyboard and controller, one focus model.</div></div>
@@ -105,7 +105,9 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 				<span class:list={['status', s.id !== 'tools' && 'launch']}>{s.status}</span>
 				<h3>{s.name}</h3>
 				<p>{s.body}</p>
-				{s.link ? (
+				{s.id === 'minigames' ? (
+					<a class="text-link" href="#minigame-example">Play the example <span aria-hidden="true">↓</span></a>
+				) : s.link ? (
 					<a class="text-link" href={s.link} target="_blank" rel="noopener">View on Fab <span aria-hidden="true">↗</span></a>
 				) : (
 					<a class="text-link" href={bookHref(`${s.name} demo`)} {...external}>Book a demo <span aria-hidden="true">↗</span></a>
@@ -115,14 +117,60 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	))}
 </section>
 
+<section class="section container compact" id="minigame-example" aria-labelledby="minigame-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">PLAYABLE MINIGAME</p><h2 id="minigame-title">Keep Finance Online</h2></div>
+		<p>Protect the network while keeping essential services available.</p>
+	</div>
+	<div class="tr-playable">
+		<div class="tr-playable-intro" id="game-intro">
+			<div class="tr-game-preview">
+				<img src="/training/work/network-defense-game.webp" alt="Network Defense gameplay: an isometric network with a gateway, inspection point, core server, and Finance connection to restore." width="1600" height="1000" loading="lazy" />
+				<span class="tr-preview-badge">ACTUAL GAMEPLAY</span>
+				<div class="tr-preview-signal" aria-hidden="true"><span>●</span> FINANCE OFFLINE · YOUR MOVE</div>
+			</div>
+			<div class="tr-game-invitation">
+			<span class="status launch">Playable prototype · About 5 minutes</span>
+			<h3>The network is yours.<br />Keep it online.</h3>
+			<p>Finance is offline. Traffic is coming in. Can you restore the connection without letting a threat through?</p>
+			<button class="button" type="button" id="play-network-defense"><span class="tr-play-icon" aria-hidden="true">▶</span> Play the example</button>
+			<small class="tr-game-note">3 rounds · No sign-up · Play in your browser</small>
+			<div class="tr-preview-actions" role="group" aria-label="Explore the game mechanics">
+				<button type="button" aria-pressed="true" data-preview-detail="Inspect traffic to uncover evidence. You decide what belongs on the network.">01 Inspect</button>
+				<button type="button" aria-pressed="false" data-preview-detail="Configure access rules to stop prohibited activity while keeping essential services available.">02 Protect</button>
+				<button type="button" aria-pressed="false" data-preview-detail="Build a backup route when a link fails, then replay your decisions in the debrief.">03 Recover</button>
+			</div>
+			<p class="tr-preview-detail" aria-live="polite">Inspect traffic to uncover evidence. You decide what belongs on the network.</p>
+			</div>
+		</div>
+		<iframe id="network-defense-game" title="Keep Finance Online playable example" data-game-src="/training/games/network-defense/index.html" allow="fullscreen" hidden></iframe>
+		<p class="tr-demo-loading" role="status" hidden>Loading the game…</p>
+	</div>
+	<div class="tr-proto-meta">
+		<div><strong>Keep Finance Online</strong><span>Beginner cybersecurity practice · Three rounds · Decision replay and debrief</span></div>
+		<a class="text-link" href="/training/games/network-defense/index.html" target="_blank" rel="noopener">Open full screen <span aria-hidden="true">↗</span></a>
+	</div>
+</section>
+
 <section class="section container compact" id="selected-work" aria-labelledby="work-title">
 	<div class="section-heading">
 		<div><p class="eyebrow">SELECTED WORK</p><h2 id="work-title">A first-time experience for a gamified cyber range.</h2></div>
 		<p>From first login to first activity. Client branding removed.</p>
 	</div>
 	<figure class="tr-work-lead">
-		<a href={workLead.src} target="_blank" rel="noopener"><img src={workLead.src} alt={workLead.alt} width="1600" height="900" loading="lazy" /></a>
-		<figcaption>{workLead.caption}</figcaption>
+		<div class="tr-proto-frame tr-work-interactive">
+			<iframe data-src="/training/live-globe/demo.html" title="Cyber range — live animated globe and location demo" allow="fullscreen"></iframe>
+			<img src={workLead.src} alt={workLead.alt} width="1600" height="900" loading="lazy" />
+			<div class="tr-demo-cover"><button class="button tr-demo-start" type="button">Load and play the globe <span aria-hidden="true">→</span></button></div>
+			<p class="tr-demo-loading" role="status" hidden>Loading the animated globe…</p>
+		</div>
+		<figcaption>
+			<p>{workLead.caption} Explore the spinning globe, select a module, and zoom into its location.</p>
+			<div class="tr-work-actions">
+				<a href="/training/live-globe/demo.html" target="_blank" rel="noopener">Open full screen ↗</a>
+				<a href="/training/proto/globe/01-choose.html" target="_blank" rel="noopener">Start the walkthrough ↗</a>
+			</div>
+		</figcaption>
 	</figure>
 	<div class="tr-work-facts">
 		{workFacts.map((f) => <div><strong>{f.title}</strong><span>{f.body}</span></div>)}
@@ -152,6 +200,8 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 			<div class="tr-proto-frame">
 				<iframe data-src={p.src} title={`${p.tab} prototype`} loading="lazy" allow="fullscreen"></iframe>
 				<img src={p.poster} alt="" width="1600" height="900" loading="lazy" />
+				<div class="tr-demo-cover"><button class="button tr-demo-start" type="button">Load and play {p.tab} <span aria-hidden="true">→</span></button></div>
+				<p class="tr-demo-loading" role="status" hidden>Loading {p.tab}…</p>
 			</div>
 			<div class="tr-proto-meta">
 				<div><strong>{p.title}</strong><span>{p.note}</span></div>
@@ -219,10 +269,51 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 
 <script is:inline>
 (() => {
-	const load = (panel) => {
-		const f = panel && panel.querySelector('iframe[data-src]');
-		if (f && window.matchMedia('(min-width: 801px)').matches) { f.src = f.dataset.src; f.removeAttribute('data-src'); }
+	document.querySelectorAll('[data-preview-detail]').forEach((button) => {
+		button.addEventListener('click', () => {
+			document.querySelectorAll('[data-preview-detail]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+			document.querySelector('.tr-preview-detail').textContent = button.dataset.previewDetail;
+		});
+	});
+	const game = document.getElementById('network-defense-game');
+	const startDemo = (frame, source, cover) => {
+		const holder = frame.parentElement;
+		const status = holder.querySelector('.tr-demo-loading');
+		cover.hidden = true;
+		status.hidden = false;
+		frame.hidden = false;
+		frame.addEventListener('load', () => {
+			const started = Date.now();
+			const check = () => {
+				const globe = frame.contentDocument?.getElementById('globe');
+				const ready = !globe || globe.contentDocument?.getElementById('app')?.dataset.ready === 'true';
+				if (ready) { status.hidden = true; holder.classList.add('demo-ready'); return; }
+				if (Date.now() - started > 120000) { status.textContent = 'Still loading imagery. You can also open the demo full screen below.'; return; }
+				setTimeout(check, 250);
+			};
+			check();
+		}, { once: true });
+		frame.src = source;
+		frame.removeAttribute('data-src');
 	};
+	document.getElementById('play-network-defense').addEventListener('click', () => {
+		startDemo(game, game.dataset.gameSrc, document.getElementById('game-intro'));
+		game.focus();
+	});
+	document.querySelectorAll('.tr-demo-start').forEach((button) => {
+		button.addEventListener('click', () => {
+			const holder = button.closest('.tr-proto-frame');
+			const frame = holder.querySelector('iframe');
+			startDemo(frame, frame.dataset.src, button.parentElement);
+		}, { once: true });
+	});
+	// The prototype delegates course navigation to its embedding host.
+	window.addEventListener('message', (event) => {
+		if (event.origin !== window.location.origin || event.source !== game.contentWindow) return;
+		if (event.data?.type !== 'ares:practice:navigate') return;
+		if (event.data.payload?.target === 'study') game.src = game.dataset.gameSrc;
+		if (event.data.payload?.target === 'mission') game.contentDocument?.getElementById('go-mission')?.click();
+	});
 	document.querySelectorAll('.tr-tabs').forEach((list) => {
 		const tabs = [...list.querySelectorAll('[role=tab]')];
 		const show = (tab, focus) => {
@@ -232,7 +323,6 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 				t.setAttribute('aria-selected', String(on));
 				t.tabIndex = on ? 0 : -1;
 				panel.hidden = !on;
-				if (on) load(panel);
 			});
 			if (focus) tab.focus();
 		};
@@ -245,14 +335,9 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 			});
 		});
 		const first = tabs[0];
-		const panel = document.getElementById(first.getAttribute('aria-controls'));
-		if (panel.querySelector('iframe[data-src]') && 'IntersectionObserver' in window) {
-			tabs.forEach((t) => { document.getElementById(t.getAttribute('aria-controls')).hidden = t !== first; });
-			const io = new IntersectionObserver((entries) => { if (entries.some((e) => e.isIntersecting)) { show(tabs.find((t) => t.getAttribute('aria-selected') === 'true') || first, false); io.disconnect(); } }, { rootMargin: '300px' });
-			io.observe(list);
-		} else {
-			show(first, false);
-		}
+		show(first, false);
 	});
 })();
 </script>
+
+

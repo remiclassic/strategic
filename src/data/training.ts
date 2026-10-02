@@ -96,9 +96,9 @@ export const showcase = [
 	{
 		id: 'minigames',
 		tab: 'Minigames',
-		name: 'Security minigames', // TODO: named titles
-		status: 'Demo available',
-		body: 'Short, replayable games for phishing, password hygiene, and incident triage. Each one fits a ten-minute slot in a workshop or LMS module and reports a score you can track.', // TODO: confirm features
+		name: 'Keep Finance Online',
+		status: 'Playable example',
+		body: 'A short strategy exercise for beginner cybersecurity learners. Inspect traffic, configure access rules, and maintain service availability, then review your decisions in a replay and debrief.',
 		shots: [] as { src: string; alt: string }[],
 	},
 	{
@@ -192,8 +192,10 @@ export const workShots = [
 
 // Click-through prototypes, built by scripts/build-training-prototypes.py into /public/training/proto.
 export const prototypes = [
-	{ id: 'globe', tab: 'Globe', src: '/training/proto/globe/01-choose.html', poster: '/training/work/proto-globe.webp', title: 'Globe: choose training, pick a path, launch from the map', note: 'Start with a certification plan or a single path, then follow the module onto the globe.' },
+	{ id: 'globe', tab: 'Globe', src: '/training/live-globe/demo.html', poster: '/training/work/proto-globe.webp', title: 'Live globe: orbit, select a module, zoom into its location', note: 'Animated Cesium globe with camera flights, location views, and mission briefings. Internet connection required for imagery.' },
 	{ id: 'worldmap', tab: 'World map', src: '/training/proto/ftue-world-map/01-choose.html', poster: '/training/work/proto-worldmap.webp', title: 'World map: mission control and a live campaign map', note: 'Browse paths in mission control, read the briefing, and see progress across the map.' },
 	{ id: 'soc', tab: 'SOC direct', src: '/training/proto/soc-direct/01-paths.html', poster: '/training/work/proto-soc.webp', title: 'SOC direct: from path choice to first activity in two screens', note: 'The shortest route: pick a path, see every module, begin.' },
 	{ id: 'onboarding', tab: 'Onboarding', src: '/training/proto/ftue-v2/01-welcome.html', poster: '/training/work/proto-onboarding.webp', title: 'Onboarding: six steps from welcome to ready', note: 'Account setup, security, identity, and a starting path, one decision per screen.' },
 ];
+
+

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/training/live-globe/cesium/Widgets/widgets.css">
+    <script src="/training/live-globe/cesium/Cesium.js"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cyber Range World Map — Prototype</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Rajdhani:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="module" crossorigin src="/training/live-globe/assets/index-BqEYvtCn.js"></script>
+    <link rel="modulepreload" crossorigin href="/training/live-globe/assets/globeTheme-CMGm8wlG.js">
+    <link rel="stylesheet" crossorigin href="/training/live-globe/assets/globeTheme-CDfSbH2x.css">
+  </head>
+  <body>
+    <div id="app" data-ready="false" data-hud="false" data-mission="false" data-trajectory="false" data-site="false" data-intel="false" data-sensor="reconstruction">
+      <div id="cesiumContainer"></div>
+      <canvas id="acquire"></canvas>
+      <canvas id="campaignOverlay"></canvas>
+      <div id="credits"></div>
+      <div id="bootStatus" class="boot" aria-live="polite">
+        <div class="boot-panel">
+          <div class="boot-banner">CYBER RANGE  ·  SURFACE OBSERVATION</div>
+          <div class="boot-grid">
+            <div>
+              <span>PHASE</span>
+              <strong id="bootPhase">PRELOAD</strong>
+            </div>
+            <div>
+              <span>ALTITUDE</span>
+              <strong id="bootAlt">9800 KM</strong>
+            </div>
+            <div>
+              <span>STATUS</span>
+              <strong id="bootState">STANDBY</strong>
+            </div>
+            <div>
+              <span>SENSOR</span>
+              <strong id="bootSensor">INIT</strong>
+            </div>
+          </div>
+          <div class="boot-meter" aria-hidden="true"><i id="bootMeter"></i></div>
+          <p class="boot-readout" id="bootLine">LOADING SURFACE CACHE</p>
+        </div>
+      </div>
+
+      <header id="hud" class="hud"></header>
+      <aside id="sigDock" class="sig-dock" aria-label="Intercept"></aside>
+      <button class="orbit-return" id="orbitReturn" type="button">Return to orbit</button>
+      <button class="globe-theme" id="globeTheme" type="button" aria-pressed="false">Network globe</button>
+
+      <section id="sensorPlates" class="sensor-plates" hidden aria-hidden="true"></section>
+      <section id="siteIntel" class="site-intel" aria-hidden="true">
+        <figure class="intel-plate is-facility">
+          <img id="intelFacility" alt="" />
+          <i class="intel-frame" aria-hidden="true"></i>
+          <i class="intel-reticle" aria-hidden="true"><i class="intel-reticle-box"></i></i>
+          <i class="intel-noise" aria-hidden="true"></i>
+          <figcaption><span class="intel-kind">WIDE</span> <span id="intelPlace">FACILITY</span></figcaption>
+        </figure>
+        <figure class="intel-plate is-objective" id="intelObjectivePlate">
+          <img id="intelObjective" alt="" />
+          <i class="intel-frame" aria-hidden="true"></i>
+          <i class="intel-reticle" aria-hidden="true"><i class="intel-reticle-box"></i></i>
+          <i class="intel-noise" aria-hidden="true"></i>
+          <figcaption><span class="intel-kind">TIGHT</span> <span id="intelTag">INT 01</span></figcaption>
+        </figure>
+      </section>
+
+      <article class="mission-card" id="mission" data-anchored="true">
+        <p class="card-prompt">
+          <span class="card-prompt-user">analyst@soc</span>:<span class="card-prompt-path">~/obj</span>$
+          <span id="cardCmd"></span><i class="tty-cursor" hidden></i>
+        </p>
+        <header class="card-head">
+          <span class="card-index"></span>
+          <span class="card-status"></span>
+          <button class="card-close" id="cardClose" type="button">Close</button>
+        </header>
+        <h1></h1>
+        <dl class="card-meta">
+          <div><dt>difficulty</dt><dd></dd></div>
+          <div><dt>duration</dt><dd></dd></div>
+        </dl>
+        <p class="card-objective"></p>
+        <button class="arm-btn" id="armBtn" type="button" disabled hidden>Initialize Module</button>
+      </article>
+
+      <footer class="trajectory" id="trajectory">
+        <div class="traj-head">
+          <span class="traj-kicker">Campaign trajectory</span>
+          <p class="traj-focus" id="trajDetail"></p>
+          <strong class="traj-progress">0 of 15 · 0%</strong>
+        </div>
+        <div class="traj-scroller">
+          <ol class="traj-track" id="trajTrack"></ol>
+        </div>
+      </footer>
+
+      <section id="assetProof" class="asset-proof" hidden>
+        <header>Asset proof</header>
+        <div id="proofCards" class="proof-cards"></div>
+      </section>
+      <aside id="soloStage" class="solo-stage" hidden>
+        <p id="soloName"></p>
+        <img id="soloImage" alt="" />
+        <button type="button" id="soloClose">Close solo</button>
+      </aside>
+      <aside id="plateReadout" class="plate-readout" hidden></aside>
+
+      <button class="skip-acq" id="skipAcq" type="button" hidden>Skip reconstruction</button>
+
+      <aside class="debug" id="debug" data-open="false">
+        <button class="debug-toggle" id="debugToggle" type="button">Art direction</button>
+        <form class="debug-body" id="debugForm">
+          <label>SENSOR MODE
+            <select name="mode">
+              <option value="clean">Clean</option>
+              <option value="reconstruction" selected>Reconstruction</option>
+            </select>
+          </label>
+          <p class="debug-hint">V toggles Clean / Reconstruction</p>
+          <button type="button" id="replayAcq">Replay Acquisition</button>
+          <label>Overlay strength <input name="overlayStrength" type="range" min="0" max="1" step="0.01" value="1" /></label>
+          <label>Reconstruction mix <input name="intensity" type="range" min="0" max="1" step="0.01" value="0.56" /></label>
+          <label>Desaturation <input name="desaturate" type="range" min="0" max="1" step="0.01" value="0.68" /></label>
+          <label>Split-tone <input name="splitTone" type="range" min="0" max="1" step="0.01" value="0.56" /></label>
+          <label>Terrain contrast <input name="terrainContrast" type="range" min="0" max="1" step="0.01" value="0.24" /></label>
+          <label>Fine contamination <input name="fineAmt" type="range" min="0" max="0.16" step="0.005" value="0.042" /></label>
+          <label>Heavy contamination <input name="heavyAmt" type="range" min="0" max="0.2" step="0.005" value="0" /></label>
+          <label>Terrain print <input name="printAmt" type="range" min="0" max="0.3" step="0.01" value="0.16" /></label>
+          <label>Exposure modulation <input name="exposureAmt" type="range" min="0" max="0.3" step="0.01" value="0.11" /></label>
+          <label>Regional plate <input name="regionalOpacity" type="range" min="0" max="1" step="0.01" value="0.38" /></label>
+          <label>Objective plate <input name="objectiveOpacity" type="range" min="0" max="1" step="0.01" value="0.80" /></label>
+          <label>Scan plate <input name="scanOpacity" type="range" min="0" max="1" step="0.01" value="0.22" /></label>
+          <label>Regional mask
+            <select name="maskRegional">
+              <option value="plate-mask-01.png" selected>plate-mask-01</option>
+              <option value="plate-mask-02.png">plate-mask-02</option>
+            </select>
+          </label>
+          <label>Objective mask
+            <select name="maskObjective">
+              <option value="plate-mask-04.png" selected>plate-mask-04</option>
+              <option value="plate-mask-02.png">plate-mask-02</option>
+            </select>
+          </label>
+          <label>Scan mask
+            <select name="maskScan">
+              <option value="plate-mask-03.png" selected>plate-mask-03</option>
+              <option value="plate-mask-06.png">plate-mask-06</option>
+            </select>
+          </label>
+          <label>Plate update Hz <input name="plateFps" type="range" min="4" max="8" step="1" value="6" /></label>
+          <label>Signal-loss frequency <input name="signalFreq" type="range" min="0" max="3" step="0.1" value="1" /></label>
+          <label>Edge-damage strength <input name="edgeAmt" type="range" min="0" max="0.7" step="0.01" value="0.27" /></label>
+          <label>UV drift <input name="driftAmt" type="range" min="0" max="2" step="0.05" value="1" /></label>
+          <label>Grain <input name="grainAmt" type="range" min="0" max="0.12" step="0.005" value="0.016" /></label>
+          <label>Scanlines <input name="scanAmt" type="range" min="0" max="0.08" step="0.005" value="0.010" /></label>
+          <label>Chromatic offset <input name="chromaPx" type="range" min="0" max="2" step="0.05" value="0.28" /></label>
+          <label>Signal tearing <input name="tearAmt" type="range" min="0" max="1" step="0.01" value="0.04" /></label>
+          <label>Objective pulse <input name="pulse" type="range" min="0" max="1" step="0.01" value="0.55" /></label>
+          <label>Split comparison <input name="split" type="range" min="0" max="1" step="0.01" value="0" /></label>
+          <label>Legacy look
+            <select name="sensor">
+              <option value="noir" selected>Noir</option>
+              <option value="retro">CRT</option>
+              <option value="surveillance">NVG</option>
+              <option value="thermal">FLIR</option>
+            </select>
+          </label>
+          <label>Legacy intensity <input name="sensorIntensity" type="range" min="0" max="1" step="0.01" value="0.46" /></label>
+          <label>Sharpen <input name="sharpen" type="range" min="0" max="1" step="0.01" value="0.36" /></label>
+          <label class="check"><input name="networkGlobe" type="checkbox" /> Network globe</label>
+          <label class="check"><input name="motion" type="checkbox" checked /> Ambient orbit</label>
+          <label class="check"><input name="plateDebug" type="checkbox" /> Show plate bounds</label>
+          <label class="check"><input name="showProof" type="checkbox" /> Show asset proof</label>
+          <label class="check"><input name="soloOverMap" type="checkbox" /> Solo over map</label>
+          <label class="check"><input name="reducedFx" type="checkbox" /> Reduced effects</label>
+          <label class="check"><input name="reduced" type="checkbox" /> Reduced motion</label>
+          <p id="fpsReadout" class="fps">— FPS</p>
+          <p id="packStatus" class="debug-hint">Pack: loading</p>
+        </form>
+      </aside>
+    </div>
+
+  </body>
+</html>

@@ -1,9 +1,9 @@
 # Third-party notices
 
-Project Ares did **not** create God's Eye View. This prototype adapts a
+The authors of this prototype did **not** create God's Eye View. This prototype adapts a
 minimum subset of God's Eye View source under MIT, then replaces product
-identity, information architecture, and live-intelligence features with an
-Ares campaign interface.
+identity, information architecture, and live-intelligence features with a
+cyber range campaign interface.
 
 ## God's Eye View (source code)
 
@@ -34,7 +34,8 @@ and permission notice pointing here:
 | `src/adapted/styles/surveillance.js` | `src/styles/surveillance.js` |
 | `src/adapted/styles/thermal.js` | `src/styles/thermal.js` |
 
-Patterned after God's Eye View, but written as Ares-owned code (not a copy):
+Patterned after God's Eye View, but written as original code for this
+prototype (not a copy):
 
 - `src/viewer.js` — Cesium Viewer chrome / atmosphere values from `src/app/viewer.js`
 - `src/effects.js` — post-process stage ownership from `src/ui/visualEffects.js`
@@ -70,8 +71,8 @@ prototype does not bundle or commit provider data.
 No API keys are required or committed. Google Photorealistic 3D and Cesium Ion
 are not used.
 
-## Ares-owned files
+## Original prototype files
 
 Campaign copy, HUD chrome, mission card, trajectory, cinematic descent,
 synthetic network reconstruction, and this prototype's Vite shell are
-Project Ares work and are not God's Eye View.
+original work for this prototype and are not God's Eye View.

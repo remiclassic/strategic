@@ -17,3 +17,6 @@ marketing/output/
 .astro/
 test-results/
 playwright-report/
+
+# Client names used by scripts/build-training-prototypes.py
+scripts/brand-terms.local.json

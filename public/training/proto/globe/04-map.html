@@ -1,0 +1,285 @@
+<!doctype html><html lang="en" data-range-fit-wrapper><head><style>[class*="logo" i] img,[class*="range-mark"],[class*="range-logo"],[class*="logo--range"],[class*="range-sig-mark"]{visibility:hidden!important}</style><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cyber Range · Screen preview</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080e14}#stage{position:fixed;inset:0;overflow:hidden}#canvas{position:absolute;left:50%;top:50%;width:1920px;height:1080px;border:0;transform-origin:center}#tools{position:fixed;z-index:20;right:12px;bottom:12px;display:flex;gap:8px;opacity:0;transition:opacity .15s}#tools[hidden]{display:none}#tools:focus-within,body:hover #tools{opacity:1}#tools a,#tools button{font:12px Arial;color:#fff;background:#17232e;border:1px solid #75848e;padding:8px 12px;text-decoration:none;cursor:pointer}@media(hover:none){#tools{opacity:1}}</style></head><body><div id="stage"><iframe name="range-canvas" id="canvas" title="Full screen training preview" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;style&gt;[class*=&quot;logo&quot; i] img,[class*=&quot;range-mark&quot;],[class*=&quot;range-logo&quot;],[class*=&quot;logo--range&quot;],[class*=&quot;range-sig-mark&quot;]{visibility:hidden!important}&lt;/style&gt;&lt;meta name=&quot;range-screen-id&quot; content=&quot;04-map.html&quot;&gt;&lt;base target=&quot;_top&quot;&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;meta content=&quot;width=device-width,initial-scale=1&quot; name=&quot;viewport&quot;/&gt;&lt;title&gt;Personal branch · 04-map&lt;/title&gt;&lt;link href=&quot;https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;amp;family=Rajdhani:wght@400;500;600;700&amp;amp;display=swap&quot; rel=&quot;stylesheet&quot;/&gt;&lt;link href=&quot;styles.css&quot; rel=&quot;stylesheet&quot;/&gt;&lt;link href=&quot;overwatch.css&quot; rel=&quot;stylesheet&quot;/&gt;&lt;link href=&quot;personal.css&quot; rel=&quot;stylesheet&quot;/&gt;&lt;link href=&quot;responsive.css&quot; rel=&quot;stylesheet&quot;/&gt;&lt;style id=&quot;canvas-fit-tuning&quot;&gt;html,body{margin:0!important;overflow:hidden!important;width:1920px!important;height:1080px!important}body&gt;.shell{height:1080px;min-height:0!important}.shell .content{padding-top:12px!important;padding-bottom:8px!important;max-width:1480px!important}.shell .crumb{margin-bottom:16px!important}.shell .split .list li{padding-top:10px!important;padding-bottom:10px!important}.shell .course-head{padding-top:18px!important;padding-bottom:18px!important;margin-bottom:18px!important}.shell .module-button{padding-top:13px!important;padding-bottom:13px!important;min-height:0!important}.shell .list-head{padding-top:12px!important;padding-bottom:12px!important}.shell .section-line{margin-bottom:14px!important}.shell .detail{padding-top:22px!important;padding-bottom:22px!important}.shell .detail .divider{margin:16px 0!important}.shell .bottom-note{margin-top:14px!important}.shell .module-list{max-height:none!important}.shell .topbar{min-height:50px}.shell .steps{margin-bottom:16px!important}.shell .intro{margin-bottom:20px}.shell .choice{min-height:300px}.shell .list li{padding-top:12px!important;padding-bottom:12px!important}dialog{max-height:1000px!important}#preview-acknowledgement{display:none!important}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;(()=&gt;{const q=new URLSearchParams(parent.location.search);for(const key of [&#x27;theme&#x27;,&#x27;layout&#x27;]){const value=q.get(key);if(value)try{localStorage.setItem(key===&#x27;theme&#x27;?&#x27;range-enterprise-theme&#x27;:&#x27;range-military-layout&#x27;,value)}catch{}}})();&lt;/script&gt;&lt;div class=&quot;shell&quot; data-environment=&quot;false&quot; data-ftue=&quot;map&quot; data-globe-theme=&quot;standard&quot; data-ready=&quot;true&quot; data-trajectory=&quot;true&quot; id=&quot;app&quot;&gt;
+&lt;img alt=&quot;Earth viewed from orbit&quot; id=&quot;globe-scene&quot; src=&quot;assets/globe.png&quot;/&gt;
+&lt;img alt=&quot;&quot; id=&quot;campaignOverlay&quot; src=&quot;assets/overlay.png&quot;/&gt;
+&lt;div aria-hidden=&quot;true&quot; class=&quot;track-overlay&quot; data-idle=&quot;true&quot; data-stage=&quot;tracking&quot; id=&quot;trackOverlay&quot;&gt;
+&lt;div class=&quot;track-reticle&quot; style=&quot;left: 630.078px; top: 703.478px;&quot;&gt;
+&lt;i&gt;&lt;/i&gt;
+&lt;i&gt;&lt;/i&gt;
+&lt;i&gt;&lt;/i&gt;
+&lt;i&gt;&lt;/i&gt;
+&lt;/div&gt;
+&lt;div class=&quot;track-ticks-x&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;track-ticks-y&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;track-target&quot; style=&quot;left: 702.078px; top: 617.478px;&quot;&gt;
+&lt;span&gt;TARGET&lt;/span&gt;
+&lt;strong id=&quot;trackTarget&quot;&gt;01&lt;/strong&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;header class=&quot;player-nav&quot;&gt;
+&lt;div class=&quot;player-nav-id&quot;&gt;
+&lt;a aria-label=&quot;Cyber Range&quot; class=&quot;player-brand&quot; href=&quot;#&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.3&quot; viewbox=&quot;0 0 24 24&quot;&gt;
+&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;&gt;&lt;/circle&gt;
+&lt;circle cx=&quot;19&quot; cy=&quot;5&quot; r=&quot;2&quot;&gt;&lt;/circle&gt;
+&lt;path d=&quot;M10.4 21.9a10 10 0 0 0 9.8-13.2&quot;&gt;&lt;/path&gt;
+&lt;path d=&quot;M13.5 2.1a10 10 0 0 0-9.8 13.2&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;strong&gt;CYBER RANGE&lt;/strong&gt;
+&lt;/a&gt;
+&lt;span class=&quot;player-location&quot;&gt;SURFACE OBSERVATION&lt;/span&gt;
+&lt;/div&gt;
+&lt;nav aria-label=&quot;Player navigation&quot; class=&quot;player-links&quot;&gt;
+&lt;a href=&quot;#&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z&quot;&gt;&lt;/path&gt;&lt;path d=&quot;M9 21v-8h6v8&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span&gt;Home&lt;/span&gt;
+&lt;/a&gt;
+&lt;a aria-current=&quot;page&quot; href=&quot;04-map.html&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;&lt;polygon points=&quot;3,6 9,3 15,6 21,3 21,18 15,21 9,18 3,21&quot;&gt;&lt;/polygon&gt;&lt;line x1=&quot;9&quot; x2=&quot;9&quot; y1=&quot;3&quot; y2=&quot;18&quot;&gt;&lt;/line&gt;&lt;line x1=&quot;15&quot; x2=&quot;15&quot; y1=&quot;6&quot; y2=&quot;21&quot;&gt;&lt;/line&gt;&lt;/svg&gt;
+&lt;span&gt;Map&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M4 19.5A2.5 2.5 0 016.5 17H20&quot;&gt;&lt;/path&gt;&lt;path d=&quot;M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z&quot;&gt;&lt;/path&gt;&lt;line x1=&quot;9&quot; x2=&quot;16&quot; y1=&quot;7&quot; y2=&quot;7&quot;&gt;&lt;/line&gt;&lt;line x1=&quot;9&quot; x2=&quot;14&quot; y1=&quot;11&quot; y2=&quot;11&quot;&gt;&lt;/line&gt;&lt;/svg&gt;
+&lt;span&gt;Catalog&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;&lt;rect height=&quot;12&quot; rx=&quot;1&quot; width=&quot;20&quot; x=&quot;2&quot; y=&quot;6&quot;&gt;&lt;/rect&gt;&lt;path d=&quot;M8 12h4M10 10v4&quot;&gt;&lt;/path&gt;&lt;circle cx=&quot;16&quot; cy=&quot;11&quot; fill=&quot;currentColor&quot; r=&quot;0.8&quot; stroke=&quot;none&quot;&gt;&lt;/circle&gt;&lt;circle cx=&quot;18&quot; cy=&quot;13&quot; fill=&quot;currentColor&quot; r=&quot;0.8&quot; stroke=&quot;none&quot;&gt;&lt;/circle&gt;&lt;/svg&gt;
+&lt;span&gt;Games&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;&gt;&lt;/path&gt;&lt;path d=&quot;m9 12 2 2 4-4&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span&gt;Certs&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;&lt;rect height=&quot;7&quot; width=&quot;4&quot; x=&quot;2&quot; y=&quot;14&quot;&gt;&lt;/rect&gt;&lt;rect height=&quot;12&quot; width=&quot;4&quot; x=&quot;10&quot; y=&quot;9&quot;&gt;&lt;/rect&gt;&lt;rect height=&quot;17&quot; width=&quot;4&quot; x=&quot;18&quot; y=&quot;4&quot;&gt;&lt;/rect&gt;&lt;/svg&gt;
+&lt;span&gt;Leaderboard&lt;/span&gt;
+&lt;/a&gt;
+&lt;/nav&gt;
+&lt;div class=&quot;player-tools&quot;&gt;
+&lt;button class=&quot;player-tool&quot; data-preview-only=&quot;true&quot; id=&quot;liveEvents&quot; type=&quot;button&quot;&gt;Live Events&lt;/button&gt;
+&lt;button class=&quot;player-tool&quot; data-go=&quot;01-choose.html&quot; data-preview-only=&quot;true&quot; id=&quot;socControl&quot; type=&quot;button&quot;&gt;SOC Control&lt;/button&gt;
+&lt;i aria-hidden=&quot;true&quot; class=&quot;player-tools-split&quot;&gt;&lt;/i&gt;
+&lt;a aria-label=&quot;Player dashboard&quot; class=&quot;player-icon&quot; href=&quot;#&quot; title=&quot;Player dashboard&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;
+&lt;rect height=&quot;9&quot; rx=&quot;1&quot; width=&quot;7&quot; x=&quot;3&quot; y=&quot;3&quot;&gt;&lt;/rect&gt;
+&lt;rect height=&quot;5&quot; rx=&quot;1&quot; width=&quot;7&quot; x=&quot;14&quot; y=&quot;3&quot;&gt;&lt;/rect&gt;
+&lt;rect height=&quot;9&quot; rx=&quot;1&quot; width=&quot;7&quot; x=&quot;14&quot; y=&quot;12&quot;&gt;&lt;/rect&gt;
+&lt;rect height=&quot;5&quot; rx=&quot;1&quot; width=&quot;7&quot; x=&quot;3&quot; y=&quot;16&quot;&gt;&lt;/rect&gt;
+&lt;/svg&gt;
+&lt;/a&gt;
+&lt;a aria-label=&quot;Settings&quot; class=&quot;player-icon&quot; href=&quot;#&quot; title=&quot;Settings&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; viewbox=&quot;0 0 24 24&quot;&gt;
+&lt;path d=&quot;M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z&quot;&gt;&lt;/path&gt;
+&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;&gt;&lt;/circle&gt;
+&lt;/svg&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;/header&gt;
+&lt;div class=&quot;left-cluster&quot; id=&quot;leftCluster&quot;&gt;
+&lt;aside aria-label=&quot;Operator&quot; class=&quot;operator-plate&quot; id=&quot;operatorPlate&quot;&gt;
+&lt;div aria-hidden=&quot;true&quot; class=&quot;op-crest&quot;&gt;
+&lt;svg fill=&quot;none&quot; viewbox=&quot;0 0 48 48&quot;&gt;
+&lt;polygon fill=&quot;rgba(0,211,243,0.06)&quot; points=&quot;24,2 43,13 43,35 24,46 5,35 5,13&quot;&gt;&lt;/polygon&gt;
+&lt;polygon fill=&quot;none&quot; points=&quot;24,2 43,13 43,35 24,46 5,35 5,13&quot; stroke=&quot;rgba(0,211,243,0.18)&quot; stroke-width=&quot;1.5&quot;&gt;&lt;/polygon&gt;
+&lt;polygon fill=&quot;none&quot; points=&quot;24,2 43,13 43,35 24,46 5,35 5,13&quot; stroke=&quot;rgba(0,211,243,0.9)&quot; stroke-dasharray=&quot;131.8&quot; stroke-dashoffset=&quot;98.85&quot; stroke-linecap=&quot;round&quot; stroke-width=&quot;2.5&quot;&gt;&lt;/polygon&gt;
+&lt;line stroke=&quot;rgba(0,211,243,0.9)&quot; stroke-width=&quot;1.5&quot; x1=&quot;24&quot; x2=&quot;24&quot; y1=&quot;2&quot; y2=&quot;5.5&quot;&gt;&lt;/line&gt;
+&lt;line stroke=&quot;rgba(0,211,243,0.9)&quot; stroke-width=&quot;1.5&quot; x1=&quot;24&quot; x2=&quot;24&quot; y1=&quot;42.5&quot; y2=&quot;46&quot;&gt;&lt;/line&gt;
+&lt;polygon fill=&quot;none&quot; points=&quot;24,7 38,15.5 38,32.5 24,41 10,32.5 10,15.5&quot; stroke=&quot;rgba(0,211,243,0.1)&quot; stroke-width=&quot;0.75&quot;&gt;&lt;/polygon&gt;
+&lt;/svg&gt;
+&lt;span&gt;4&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;op-identity&quot;&gt;
+&lt;p class=&quot;op-level&quot;&gt;Level 4&lt;/p&gt;
+&lt;p class=&quot;op-role&quot;&gt;Preview operator&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;
+&lt;div class=&quot;view-tools&quot;&gt;
+&lt;div aria-label=&quot;Map view&quot; class=&quot;view-seg&quot; role=&quot;group&quot;&gt;
+&lt;button class=&quot;orbit-return&quot; data-preview-only=&quot;true&quot; id=&quot;viewWorld&quot; type=&quot;button&quot;&gt;World&lt;/button&gt;
+&lt;button class=&quot;orbit-return&quot; data-preview-only=&quot;true&quot; id=&quot;viewEnvironment&quot; type=&quot;button&quot;&gt;Environment&lt;/button&gt;
+&lt;/div&gt;
+&lt;button class=&quot;preview-route&quot; data-preview-only=&quot;true&quot; id=&quot;previewRoute&quot; type=&quot;button&quot;&gt;Preview route&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;header class=&quot;hud&quot; id=&quot;hud&quot;&gt;
+&lt;div class=&quot;hud-grid&quot;&gt;
+&lt;div&gt;
+&lt;span&gt;PATH&lt;/span&gt;
+&lt;strong id=&quot;hudPath&quot;&gt;Cybersecurity Basics&lt;/strong&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;span&gt;PROGRESS&lt;/span&gt;
+&lt;strong id=&quot;hudProgress&quot;&gt;0 of 5&lt;/strong&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;span&gt;MODULE&lt;/span&gt;
+&lt;strong id=&quot;hudModule&quot;&gt;01  ·  The threat landscape&lt;/strong&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;span&gt;VIEW&lt;/span&gt;
+&lt;strong id=&quot;hudView&quot;&gt;WORLD&lt;/strong&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;hud-readout&quot;&gt;
+&lt;span id=&quot;hudCoords&quot;&gt;3.823  18.000&lt;/span&gt;
+&lt;span id=&quot;hudAlt&quot;&gt;ALT  9772 KM&lt;/span&gt;
+&lt;span id=&quot;hudPhase&quot;&gt;PHASE  OBSERVE&lt;/span&gt;
+&lt;span id=&quot;hudSensor&quot;&gt;SENSOR  RECONSTRUCTION&lt;/span&gt;
+&lt;/div&gt;
+&lt;/header&gt;
+&lt;aside aria-label=&quot;Module overview&quot; class=&quot;detail-panel&quot; id=&quot;detailPanel&quot;&gt;
+&lt;header class=&quot;detail-head&quot;&gt;
+&lt;p class=&quot;detail-heading&quot;&gt;
+&lt;span id=&quot;panelStatus&quot;&gt;UP NEXT&lt;/span&gt;
+&lt;span id=&quot;panelIndex&quot;&gt;01&lt;/span&gt;
+&lt;/p&gt;
+&lt;p class=&quot;detail-type&quot; id=&quot;panelType&quot;&gt;Video&lt;/p&gt;
+&lt;h2 id=&quot;panelTitle&quot;&gt;The threat landscape&lt;/h2&gt;
+&lt;div aria-hidden=&quot;true&quot; class=&quot;detail-dial&quot;&gt;
+&lt;svg viewbox=&quot;0 0 120 120&quot;&gt;
+&lt;circle class=&quot;detail-dial-track&quot; cx=&quot;60&quot; cy=&quot;60&quot; r=&quot;46&quot;&gt;&lt;/circle&gt;
+&lt;circle class=&quot;detail-dial-value&quot; cx=&quot;60&quot; cy=&quot;60&quot; id=&quot;panelDial&quot; pathlength=&quot;100&quot; r=&quot;46&quot; stroke-dasharray=&quot;0 100&quot;&gt;&lt;/circle&gt;
+&lt;/svg&gt;
+&lt;div class=&quot;detail-dial-readout&quot;&gt;
+&lt;strong id=&quot;panelPct&quot;&gt;0&lt;small&gt;%&lt;/small&gt;&lt;/strong&gt;
+&lt;span id=&quot;panelFrac&quot;&gt;0 / 5&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;detail-meta&quot;&gt;
+&lt;span id=&quot;panelDiff&quot;&gt;Entry&lt;/span&gt;
+&lt;span id=&quot;panelTime&quot;&gt;15 min&lt;/span&gt;
+&lt;span id=&quot;panelXp&quot;&gt;300 XP&lt;/span&gt;
+&lt;/p&gt;
+&lt;/header&gt;
+&lt;section aria-label=&quot;Overview&quot; class=&quot;detail-overview&quot;&gt;
+&lt;h3&gt;Overview&lt;/h3&gt;
+&lt;p id=&quot;panelOverview&quot;&gt;Explore the threat landscape as part of Cybersecurity Basics. This module develops your understanding of security fundamentals.&lt;/p&gt;
+&lt;/section&gt;
+&lt;div class=&quot;detail-actions&quot;&gt;
+&lt;button class=&quot;detail-brief&quot; data-go=&quot;03-briefing.html&quot; data-preview-only=&quot;true&quot; id=&quot;viewBriefing&quot; type=&quot;button&quot;&gt;View briefing&lt;/button&gt;
+&lt;button class=&quot;detail-launch&quot; data-begin=&quot;true&quot; data-preview-only=&quot;true&quot; id=&quot;panelLaunch&quot; type=&quot;button&quot;&gt;Begin activity&lt;/button&gt;
+&lt;/div&gt;
+&lt;/aside&gt;
+&lt;button class=&quot;site-callout&quot; data-go=&quot;03-briefing.html&quot; data-preview-only=&quot;true&quot; data-side=&quot;right&quot; id=&quot;siteCallout&quot; style=&quot;left: 630.078px; top: 703.478px;&quot; type=&quot;button&quot;&gt;
+&lt;span class=&quot;site-callout-kicker&quot; id=&quot;calloutKicker&quot;&gt;Current module&lt;/span&gt;
+&lt;strong id=&quot;calloutTitle&quot;&gt;The threat landscape&lt;/strong&gt;
+&lt;span class=&quot;site-callout-meta&quot; id=&quot;calloutMeta&quot;&gt;Video  ·  15 min  ·  300 XP&lt;/span&gt;
+&lt;span class=&quot;site-callout-go&quot; id=&quot;calloutGo&quot;&gt;Start&lt;/span&gt;
+&lt;/button&gt;
+&lt;footer class=&quot;trajectory&quot; id=&quot;trajectory&quot;&gt;
+&lt;div class=&quot;rail-float&quot; id=&quot;railFloat&quot; style=&quot;left: 169.195px;&quot;&gt;
+&lt;p class=&quot;rail-caption&quot;&gt;
+&lt;strong id=&quot;railFloatTitle&quot;&gt;The threat landscape&lt;/strong&gt;
+&lt;em id=&quot;railFloatRole&quot;&gt;Current module&lt;/em&gt;
+&lt;/p&gt;
+&lt;button class=&quot;orbit-launch&quot; data-go=&quot;03-briefing.html&quot; data-preview-only=&quot;true&quot; id=&quot;orbitLaunch&quot; type=&quot;button&quot;&gt;
+&lt;span class=&quot;orbit-launch-copy&quot;&gt;
+&lt;span class=&quot;orbit-launch-kicker&quot; id=&quot;orbitLaunchKicker&quot;&gt;Current module&lt;/span&gt;
+&lt;strong id=&quot;orbitLaunchTitle&quot;&gt;The threat landscape&lt;/strong&gt;
+&lt;/span&gt;
+&lt;span class=&quot;orbit-launch-go&quot; id=&quot;orbitLaunchGo&quot;&gt;Start&lt;/span&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class=&quot;traj-head&quot;&gt;
+&lt;div aria-label=&quot;Learning path progress&quot; class=&quot;path-progress&quot;&gt;
+&lt;span class=&quot;path-progress-label&quot;&gt;Learning path progress&lt;/span&gt;
+&lt;span class=&quot;path-progress-count&quot; id=&quot;pathCount&quot;&gt;0 of 5 modules complete&lt;/span&gt;
+&lt;/div&gt;
+&lt;div aria-label=&quot;Module navigation&quot; class=&quot;rail-controls&quot; role=&quot;group&quot;&gt;
+&lt;div class=&quot;rail-step&quot;&gt;
+&lt;button aria-label=&quot;Previous module&quot; data-preview-only=&quot;true&quot; disabled=&quot;&quot; id=&quot;railPrev&quot; type=&quot;button&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; viewbox=&quot;0 0 24 24&quot;&gt;
+&lt;path d=&quot;M15 18l-6-6 6-6&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/button&gt;
+&lt;span aria-hidden=&quot;true&quot;&gt;&lt;b id=&quot;railStepIndex&quot;&gt;01&lt;/b&gt; / &lt;i id=&quot;railStepTotal&quot;&gt;5&lt;/i&gt;&lt;/span&gt;
+&lt;button aria-label=&quot;Next module&quot; data-preview-only=&quot;true&quot; id=&quot;railNext&quot; type=&quot;button&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; viewbox=&quot;0 0 24 24&quot;&gt;
+&lt;path d=&quot;M9 18l6-6-6-6&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;button aria-label=&quot;Jump to current&quot; class=&quot;rail-ctrl&quot; data-preview-only=&quot;true&quot; id=&quot;railJump&quot; type=&quot;button&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; viewbox=&quot;0 0 24 24&quot;&gt;
+&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;7&quot;&gt;&lt;/circle&gt;
+&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;2.2&quot;&gt;&lt;/circle&gt;
+&lt;path d=&quot;M12 2v3M12 19v3M2 12h3M19 12h3&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;span&gt;Jump to current&lt;/span&gt;
+&lt;/button&gt;
+&lt;button aria-label=&quot;All modules&quot; class=&quot;rail-ctrl is-all&quot; data-preview-only=&quot;true&quot; id=&quot;railAll&quot; type=&quot;button&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; viewbox=&quot;0 0 24 24&quot;&gt;
+&lt;path d=&quot;M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;span&gt;All modules&lt;/span&gt;
+&lt;em id=&quot;railAllCount&quot;&gt;5&lt;/em&gt;
+&lt;/button&gt;
+&lt;button class=&quot;rail-more&quot; data-preview-only=&quot;true&quot; hidden=&quot;&quot; id=&quot;railOverflow&quot; type=&quot;button&quot;&gt;
+&lt;b id=&quot;railMoreCount&quot;&gt;+0&lt;/b&gt;
+&lt;span&gt;Modules&lt;/span&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;p class=&quot;traj-focus&quot; hidden=&quot;&quot; id=&quot;railFocus&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;traj-scroller&quot;&gt;
+&lt;ol aria-label=&quot;Learning path modules&quot; class=&quot;traj-track&quot; id=&quot;roster&quot;&gt;&lt;li&gt;&lt;button aria-pressed=&quot;true&quot; class=&quot;traj-node is-available is-selected&quot; data-id=&quot;basics-0&quot; data-preview-only=&quot;true&quot; data-status=&quot;available&quot; type=&quot;button&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;traj-dot&quot;&gt;&lt;/i&gt;&lt;span&gt;01&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button aria-pressed=&quot;false&quot; class=&quot;traj-node is-locked&quot; data-id=&quot;basics-1&quot; data-preview-only=&quot;true&quot; data-status=&quot;locked&quot; type=&quot;button&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;traj-dot&quot;&gt;&lt;/i&gt;&lt;span&gt;02&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button aria-pressed=&quot;false&quot; class=&quot;traj-node is-locked&quot; data-id=&quot;basics-2&quot; data-preview-only=&quot;true&quot; data-status=&quot;locked&quot; type=&quot;button&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;traj-dot&quot;&gt;&lt;/i&gt;&lt;span&gt;03&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button aria-pressed=&quot;false&quot; class=&quot;traj-node is-locked&quot; data-id=&quot;basics-3&quot; data-preview-only=&quot;true&quot; data-status=&quot;locked&quot; type=&quot;button&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;traj-dot&quot;&gt;&lt;/i&gt;&lt;span&gt;04&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;&lt;button aria-pressed=&quot;false&quot; class=&quot;traj-node is-locked&quot; data-id=&quot;basics-4&quot; data-preview-only=&quot;true&quot; data-status=&quot;locked&quot; type=&quot;button&quot;&gt;&lt;i aria-hidden=&quot;true&quot; class=&quot;traj-dot&quot;&gt;&lt;/i&gt;&lt;span&gt;05&lt;/span&gt;&lt;/button&gt;&lt;/li&gt;&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div aria-valuemax=&quot;100&quot; aria-valuemin=&quot;0&quot; aria-valuenow=&quot;0&quot; aria-valuetext=&quot;0 of 5 modules complete&quot; class=&quot;path-bar&quot; id=&quot;pathBar&quot; role=&quot;progressbar&quot;&gt;
+&lt;span id=&quot;pathBarFill&quot; style=&quot;width: 0%;&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;/footer&gt;
+&lt;/div&gt;&lt;script src=&quot;personal.js&quot;&gt;&lt;/script&gt;&lt;div class=&quot;map-credit&quot;&gt;Imagery: Esri, Maxar, Earthstar Geographics, and the GIS User Community · Rendered with CesiumJS&lt;/div&gt;
+
+&lt;style&gt;
+#preview-acknowledgement{box-sizing:border-box;position:fixed;inset:0;margin:auto;width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:28px;border:2px solid #c5a361;border-radius:10px;background:#111c24;color:#edf2f5;font:15px/1.6 Inter,Arial,sans-serif;box-shadow:0 24px 100px #0009;text-align:left;z-index:2147483647}
+#preview-acknowledgement::backdrop{background:#050b10f5}
+#preview-acknowledgement h2{font:700 25px/1.25 Inter,Arial,sans-serif;color:#fff;margin:0 0 18px;letter-spacing:0;text-transform:none}
+#preview-acknowledgement p{color:#d5dfe5;font:15px/1.6 Inter,Arial,sans-serif;max-width:none;margin:0 0 16px}
+#preview-acknowledgement .gate-label{color:#e3c58e;font:700 11px/1.5 Inter,Arial,sans-serif;letter-spacing:.08em;margin-bottom:12px}
+#preview-acknowledgement label{display:flex;align-items:flex-start;gap:12px;padding:16px 0;border-top:1px solid #41515c;color:#fff;cursor:pointer;font:14px/1.6 Inter,Arial,sans-serif}
+#preview-acknowledgement input{appearance:auto;position:static;width:19px;height:19px;margin:3px 0 0;flex:none;accent-color:#d3b374;opacity:1}
+#preview-acknowledgement button{display:block;width:100%;min-height:46px;padding:12px 16px;border:0;border-radius:5px;background:#d3b374;color:#171a1d;font:700 14px/1.5 Inter,Arial,sans-serif;cursor:pointer;opacity:1}
+#preview-acknowledgement button:disabled{background:#3a4650;color:#a1afb9;cursor:not-allowed}
+#preview-acknowledgement :focus-visible{outline:3px solid #edcd92;outline-offset:4px}
+@media(max-width:500px){#preview-acknowledgement{padding:20px}#preview-acknowledgement h2{font-size:22px}}
+&lt;/style&gt;
+&lt;dialog closedby=&quot;none&quot; id=&quot;preview-acknowledgement&quot; aria-labelledby=&quot;preview-gate-title&quot; aria-describedby=&quot;preview-gate-purpose preview-gate-navigation preview-gate-status&quot;&gt;
+&lt;p class=&quot;gate-label&quot;&gt;REQUIRED ACKNOWLEDGEMENT · SECTION DEMONSTRATION ONLY&lt;/p&gt;
+&lt;h2 id=&quot;preview-gate-title&quot;&gt;This is not the intended or final layout.&lt;/h2&gt;
+&lt;p id=&quot;preview-gate-purpose&quot;&gt;I am showing the content and purpose of each section. I am &lt;strong&gt;not&lt;/strong&gt; presenting the intended layout, a final layout, or an approved interface.&lt;/p&gt;
+&lt;p id=&quot;preview-gate-navigation&quot;&gt;I added the navigation &lt;strong&gt;only so reviewers can open and inspect each section&lt;/strong&gt;. Its labels, placement, grouping, and order do &lt;strong&gt;not&lt;/strong&gt; specify the app’s intended navigation or user journey.&lt;/p&gt;
+&lt;p id=&quot;preview-gate-status&quot;&gt;Do not treat the screen arrangement, styling, sample content, or preview interactions as approved requirements. The final layout and navigation still need to be designed and agreed.&lt;/p&gt;
+&lt;label&gt;&lt;input id=&quot;preview-gate-check&quot; type=&quot;checkbox&quot; autocomplete=&quot;off&quot;&gt; &lt;span&gt;I have read this notice. I understand this is a section demonstration, not the intended or final layout, and that its navigation is for demonstration only.&lt;/span&gt;&lt;/label&gt;
+&lt;button id=&quot;preview-gate-continue&quot; type=&quot;button&quot; disabled&gt; acknowledge and view the sections&lt;/button&gt;
+&lt;/dialog&gt;
+&lt;script&gt;
+(()=&gt;{const gate=document.getElementById(&#x27;preview-acknowledgement&#x27;);if(window.self!==window.top){gate.remove();return}const check=document.getElementById(&#x27;preview-gate-check&#x27;),next=document.getElementById(&#x27;preview-gate-continue&#x27;);next.textContent=&#x27;I acknowledge — view the sections&#x27;;let priorOverflow=&#x27;&#x27;,acknowledged=false;function openGate(){acknowledged=false;check.checked=false;next.disabled=true;priorOverflow=document.documentElement.style.overflow;document.documentElement.style.overflow=&#x27;hidden&#x27;;if(!gate.open)gate.showModal()}gate.addEventListener(&#x27;cancel&#x27;,e=&gt;e.preventDefault());gate.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x27;){e.preventDefault();e.stopPropagation()}},true);gate.addEventListener(&#x27;close&#x27;,()=&gt;{if(!acknowledged)gate.showModal()});check.addEventListener(&#x27;change&#x27;,()=&gt;{next.disabled=!check.checked});next.addEventListener(&#x27;click&#x27;,()=&gt;{if(!check.checked)return;acknowledged=true;gate.close();document.documentElement.style.overflow=priorOverflow});openGate();window.addEventListener(&#x27;pageshow&#x27;,e=&gt;{if(e.persisted)openGate()})})();
+&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe></div><nav id="tools" aria-label="Preview controls"><a href="/training/#prototypes" target="_top">All examples</a><button id="full">Full screen</button></nav><script>const canvas=document.getElementById('canvas');function fit(){const scale=Math.min(innerWidth/1920,innerHeight/1080);canvas.style.transform='translate(-50%,-50%) scale('+scale+')'}addEventListener('resize',fit);fit();document.getElementById('full').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen().catch(()=>{})};if(self!==top)document.getElementById('tools').hidden=true;</script>
+<style>
+#preview-acknowledgement{box-sizing:border-box;position:fixed;inset:0;margin:auto;width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:28px;border:2px solid #c5a361;border-radius:10px;background:#111c24;color:#edf2f5;font:15px/1.6 Inter,Arial,sans-serif;box-shadow:0 24px 100px #0009;text-align:left;z-index:2147483647}
+#preview-acknowledgement::backdrop{background:#050b10f5}
+#preview-acknowledgement h2{font:700 25px/1.25 Inter,Arial,sans-serif;color:#fff;margin:0 0 18px;letter-spacing:0;text-transform:none}
+#preview-acknowledgement p{color:#d5dfe5;font:15px/1.6 Inter,Arial,sans-serif;max-width:none;margin:0 0 16px}
+#preview-acknowledgement .gate-label{color:#e3c58e;font:700 11px/1.5 Inter,Arial,sans-serif;letter-spacing:.08em;margin-bottom:12px}
+#preview-acknowledgement label{display:flex;align-items:flex-start;gap:12px;padding:16px 0;border-top:1px solid #41515c;color:#fff;cursor:pointer;font:14px/1.6 Inter,Arial,sans-serif}
+#preview-acknowledgement input{appearance:auto;position:static;width:19px;height:19px;margin:3px 0 0;flex:none;accent-color:#d3b374;opacity:1}
+#preview-acknowledgement button{display:block;width:100%;min-height:46px;padding:12px 16px;border:0;border-radius:5px;background:#d3b374;color:#171a1d;font:700 14px/1.5 Inter,Arial,sans-serif;cursor:pointer;opacity:1}
+#preview-acknowledgement button:disabled{background:#3a4650;color:#a1afb9;cursor:not-allowed}
+#preview-acknowledgement :focus-visible{outline:3px solid #edcd92;outline-offset:4px}
+@media(max-width:500px){#preview-acknowledgement{padding:20px}#preview-acknowledgement h2{font-size:22px}}
+</style>
+<dialog closedby="none" id="preview-acknowledgement" aria-labelledby="preview-gate-title" aria-describedby="preview-gate-purpose preview-gate-navigation preview-gate-status">
+<p class="gate-label">REQUIRED ACKNOWLEDGEMENT · SECTION DEMONSTRATION ONLY</p>
+<h2 id="preview-gate-title">This is not the intended or final layout.</h2>
+<p id="preview-gate-purpose">I am showing the content and purpose of each section. I am <strong>not</strong> presenting the intended layout, a final layout, or an approved interface.</p>
+<p id="preview-gate-navigation">I added the navigation <strong>only so reviewers can open and inspect each section</strong>. Its labels, placement, grouping, and order do <strong>not</strong> specify the app’s intended navigation or user journey.</p>
+<p id="preview-gate-status">Do not treat the screen arrangement, styling, sample content, or preview interactions as approved requirements. The final layout and navigation still need to be designed and agreed.</p>
+<label><input id="preview-gate-check" type="checkbox" autocomplete="off"> <span>I have read this notice. I understand this is a section demonstration, not the intended or final layout, and that its navigation is for demonstration only.</span></label>
+<button id="preview-gate-continue" type="button" disabled> acknowledge and view the sections</button>
+</dialog>
+<script>
+(()=>{const gate=document.getElementById('preview-acknowledgement');if(window.self!==window.top){gate.remove();return}const check=document.getElementById('preview-gate-check'),next=document.getElementById('preview-gate-continue');next.textContent='I acknowledge — view the sections';const acknowledgementKey='range-preview-notice-acknowledged-v1';let priorOverflow='',acknowledged=false;function wasAcknowledged(){try{return localStorage.getItem(acknowledgementKey)==='yes'||true}catch{return acknowledged}}function openGate(){acknowledged=false;check.checked=false;next.disabled=true;priorOverflow=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';if(!gate.open)gate.showModal()}gate.addEventListener('cancel',e=>e.preventDefault());gate.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation()}},true);gate.addEventListener('close',()=>{if(!acknowledged)gate.showModal()});check.addEventListener('change',()=>{next.disabled=!check.checked});next.addEventListener('click',()=>{if(!check.checked)return;acknowledged=true;try{localStorage.setItem(acknowledgementKey,'yes')}catch{}gate.close();document.documentElement.style.overflow=priorOverflow});if(!wasAcknowledged())openGate();window.addEventListener('pageshow',e=>{if(e.persisted&&!wasAcknowledged())openGate()})})();
+</script>
+</body></html>

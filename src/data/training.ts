@@ -28,8 +28,8 @@ export const proof = [
 		detail: 'Onboarding, learning paths, and mission flow for a gamified cyber training platform.',
 	},
 	{
-		title: 'Our own cyber range', // TODO: product name once public
-		detail: 'A browser range for guided, hands-on security exercises.',
+		title: 'Unreal interface tooling',
+		detail: 'UMG and CommonUI work, including a focus navigation plugin available on Fab.',
 	},
 	{
 		title: 'Security minigames', // TODO: add the count, e.g. "6 security minigames"

@@ -2,6 +2,19 @@
 .tr{--slate:#2b3133;--slate-2:#363d40;--slate-line:#ffffff17;--signal:#d6eab8;--flag:#f3b58b}
 
 /* Hero */
+.tr-studio-intro{background:#e4ebd9;padding:38px;border-radius:16px;border:1px solid #c8cfbd}
+.tr-studio-intro ol{list-style:none;margin:24px 0;padding:0;display:grid;gap:24px}
+.tr-studio-intro li{padding-bottom:22px;border-bottom:1px solid #b8c3aa}
+.tr-studio-intro b{display:block;font-size:22px;letter-spacing:-.03em}
+.tr-studio-intro span{display:block;color:var(--muted);margin-top:8px;font-size:13px}
+.tr-hiring-hero-art{display:block;border:1px solid #2f3a35;border-radius:16px;overflow:hidden;background:#0d1417;color:#d6eab8;box-shadow:0 24px 60px #24301818}
+.tr-hiring-links{display:flex;gap:24px;flex-wrap:wrap;margin-top:18px;font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.tr-hiring-hero-art img{width:100%;height:auto;display:block}
+.tr-hiring-hero-art>span{display:flex;justify-content:space-between;gap:16px;padding:18px;font-size:10px;letter-spacing:.08em}
+.tr-hiring-hero-art b{font-weight:500;letter-spacing:0;font-size:12px}
+.tr-case-context{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:30px;padding:26px 0;border-block:1px solid var(--line)}
+.tr-case-context p:not(.eyebrow){font-size:14px;margin-top:12px;line-height:1.8;color:var(--muted)}
+@media(max-width:800px){.tr-case-context{grid-template-columns:1fr;gap:20px}}
 .tr-hero{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center;padding-block:56px 72px}
 .tr-hero h1{font-size:clamp(46px,5.2vw,76px);line-height:1.05;max-width:12ch}
 .tr-hero .lede{font-size:17px;margin-top:28px;max-width:520px}

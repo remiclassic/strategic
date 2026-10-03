@@ -3,45 +3,33 @@ import StudioLayout from '../layouts/StudioLayout.astro';
 import '../styles/training.css';
 import {
 	bookHref, isCalendar, CONTACT_EMAIL, PORTFOLIO_URL, LINKEDIN_URL,
-	proof, offers, showcase, steps, workFacts, workLead, workShots, prototypes, forList, notForList, capabilities, faqs,
+	proof, showcase, workFacts, workLead, workShots, prototypes, capabilities,
 } from '../data/training';
 
 const external = isCalendar() ? { target: '_blank', rel: 'noopener' } : {};
-const demo = bookHref('Training demo');
+const demo = bookHref('Training and simulation project');
+const portfolioShowcase = showcase.filter((item) => item.id === 'tools');
 const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools: 'peach' };
 ---
 <StudioLayout
-	title="Training & simulation UX | Strategic Sloth"
-	description="Training UX for cyber ranges and serious games, from onboarding to mission flow, plus our own range and minigames to pilot. Book a 20-minute demo."
+	title="Training & simulation interfaces | Strategic Sloth"
+	description="Strategic Sloth designs and builds training interfaces, interactive simulations, and security minigames. Explore the demos and discuss your project."
 >
 <div class="tr">
 
 <section class="container tr-hero" aria-labelledby="tr-title">
 	<div>
-		<p class="eyebrow">TRAINING &amp; SIMULATION</p>
-		<h1 id="tr-title">Cyber training your trainees finish.</h1>
-		<p class="lede">We design and build UX for cyber ranges, serious games, and Unreal training products. Commercial cyber range experience, plus our own range and minigames you can pilot with your learners.</p>
+		<p class="eyebrow">STRATEGIC SLOTH · TRAINING &amp; SIMULATION</p>
+		<h1 id="tr-title">Make the next step clear.<br />Make practice playable.</h1>
+		<p class="lede">Strategic Sloth brings game interface craft to cyber training and simulation. We build learner journeys, mission interfaces, and playable practice that turn complex tasks into clear decisions.</p>
 		<div class="hero-actions">
-			<a class="button" href={demo} {...external}>Book a 20-min demo <span aria-hidden="true">↗</span></a>
-			<a class="text-link" href="#film" data-track="training_film_hero_click"><span class="tr-play-glyph" aria-hidden="true">▶</span> Watch the 60-sec film</a>
+			<a class="button" href={demo} {...external}>Discuss your project <span aria-hidden="true">↗</span></a>
+			<a class="text-link" href="#selected-work">Explore the demos ↓</a>
 		</div>
-		<p class="tr-hero-note">Founder-led by Rémi Couture. Nearly 20 years in game UI and UX.</p>
+		<p class="tr-hero-note">UI / UX design · Interactive prototyping · Unreal UMG &amp; CommonUI</p>
+
 	</div>
-	<div class="tr-canvas" role="img" aria-label="Illustration of a trainer console. Four trainees are on objective 3 of 5, and one is flagged as needing a hint.">
-		<div class="tr-console" aria-hidden="true">
-			<div class="tr-console-bar"><strong>Contain the beacon</strong><span>Cohort B · 42 min</span></div>
-			<div class="tr-objectives"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
-			<p class="tr-objective-label">Objective 3 of 5: isolate the infected host</p>
-			<ul class="tr-roster">
-				<li><span class="tr-avatar">JM</span><span><b>J. Moreno</b><small>Firewall rule applied</small></span><span class="tr-meter"><i style="width:72%"></i></span><em>On track</em></li>
-				<li class="stuck"><span class="tr-avatar">AK</span><span><b>A. Kim</b><small>No progress for 9 min</small></span><span class="tr-meter"><i style="width:38%"></i></span><em>Needs a hint</em></li>
-				<li><span class="tr-avatar">SP</span><span><b>S. Patel</b><small>Reviewing logs</small></span><span class="tr-meter"><i style="width:60%"></i></span><em>On track</em></li>
-				<li><span class="tr-avatar">LT</span><span><b>L. Tran</b><small>Objective 4 unlocked</small></span><span class="tr-meter"><i style="width:84%"></i></span><em>Ahead</em></li>
-			</ul>
-		</div>
-		<p class="tr-callout" aria-hidden="true"><strong>Send hint 2 of 3</strong>Points to the DNS logs without giving the answer.</p>
-		<span class="image-label" aria-hidden="true">TRAINER VIEW · ILLUSTRATION</span>
-	</div>
+<div class="tr-studio-intro"><p class="eyebrow">FROM FIRST LOGIN TO FIRST ACTIVITY</p><ol><li><b>01 / Find your path</b><span>Onboarding and learning journeys</span></li><li><b>02 / Understand the mission</b><span>Briefings, objectives, and feedback</span></li><li><b>03 / Learn by doing</b><span>Playable practice and simulation</span></li></ol><a class="text-link" href="#minigame-example">Try a playable example ↓</a></div>
 </section>
 
 <section class="container" aria-label="Experience">
@@ -50,72 +38,48 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	</div>
 </section>
 
-<section class="section container compact" id="film" aria-labelledby="film-title">
+<section class="section container compact" id="selected-work" aria-labelledby="work-title">
 	<div class="section-heading">
-		<div><p class="eyebrow">THE 60-SECOND VERSION</p><h2 id="film-title">The work, in one minute.</h2></div>
-		<p>Playable minigames, trainer dashboards, onboarding, and Unreal UI. Real footage from the products on this page.</p>
+		<div><p class="eyebrow">SELECTED WORK</p><h2 id="work-title">A first-time experience for a gamified cyber range.</h2></div>
+		<p>Onboarding, learning paths, and mission entry. Portfolio examples use sample content and neutral branding.</p>
 	</div>
-	<div class="tr-film">
-		<div class="tr-film-frame">
-			<video id="training-film" poster="/training/video/training-film-poster.jpg" preload="none" playsinline controls aria-describedby="film-desc">
-				<source src="/training/video/training-film-60s.mp4" type="video/mp4" />
-			</video>
-			<button class="tr-film-play" type="button" data-track="training_film_play"><span aria-hidden="true">▶</span> Play the 60-sec film</button>
-			<div class="tr-film-end" hidden>
-				<p class="eyebrow">LEVEL COMPLETE</p>
-				<h3>Want this for your learners?</h3>
-				<div class="tr-film-end-actions">
-					<a class="button" href={demo} {...external} data-track="training_film_book_click">Book a 20-min demo <span aria-hidden="true">↗</span></a>
-					<a class="text-link" href="#minigame-example">Play Keep Finance Online <span aria-hidden="true">↓</span></a>
-				</div>
-				<button class="tr-film-replay" type="button">↺ Watch again</button>
+	<div class="tr-case-context">
+        <div><p class="eyebrow">THE PROBLEM</p><p>How does a new learner get from choosing a training path to understanding—and starting—the next activity?</p></div>
+        <div><p class="eyebrow">DESIGN APPROACH</p><p>Learner flow, interface design, and interactive prototyping: compare onboarding directions, make module status clear, and connect the map to the briefing.</p></div>
+        <div><p class="eyebrow">WHAT TO EXPLORE</p><p>Try the animated globe and location zoom, then compare the path selection and onboarding flows below. These are design prototypes with sample progress.</p></div>
+    </div>
+	<figure class="tr-work-lead">
+		<div class="tr-proto-frame tr-work-interactive">
+			<iframe data-src="/training/live-globe/demo.html" title="Cyber range — live animated globe and location demo" allow="fullscreen"></iframe>
+			<img src={workLead.src} alt={workLead.alt} width="1600" height="900" loading="lazy" />
+			<div class="tr-demo-cover"><button class="button tr-demo-start" type="button">Load and play the globe <span aria-hidden="true">→</span></button></div>
+			<p class="tr-demo-loading" role="status" hidden>Loading the animated globe…</p>
+		</div>
+		<figcaption>
+			<p>{workLead.caption} Explore the spinning globe, select a module, and zoom into its location.</p>
+			<div class="tr-work-actions">
+				<a href="/training/live-globe/demo.html" target="_blank" rel="noopener">Open full screen ↗</a>
+				<a href="/training/proto/globe/01-choose.html" target="_blank" rel="noopener">Start the walkthrough ↗</a>
 			</div>
-		</div>
-		<div class="tr-chapters">
-			<p class="eyebrow">CHAPTERS</p>
-			<ol>
-				<li><button type="button" data-t="0"><span>0:00</span>Why training stalls</button></li>
-				<li><button type="button" data-t="13.2"><span>0:13</span>Playable minigames</button></li>
-				<li><button type="button" data-t="22.2"><span>0:22</span>Trainer view</button></li>
-				<li><button type="button" data-t="29.2"><span>0:29</span>Onboarding and globe</button></li>
-				<li><button type="button" data-t="36.2"><span>0:36</span>Unreal and web UI</button></li>
-				<li><button type="button" data-t="42.2"><span>0:42</span>Ways to start</button></li>
-			</ol>
-			<p class="tr-film-note">No sound needed. Every line is on screen.</p>
-		</div>
+		</figcaption>
+	</figure>
+	<div class="tr-work-facts">
+		{workFacts.map((f) => <div><strong>{f.title}</strong><span>{f.body}</span></div>)}
 	</div>
-	<p id="film-desc" class="sr-only">A silent 60-second film with on-screen text. It shows why cyber training stalls, then four examples of the work: the Keep Finance Online minigame, a trainer view that flags a stuck trainee, onboarding and globe prototypes for a commercial cyber range, and Unreal CommonUI and web interface work. It ends with the three ways to start: a UX sprint, a retainer, or a platform pilot.</p>
-</section>
 
-<section class="section container" id="offers" aria-labelledby="offers-title">
-	<div class="section-heading">
-		<div><p class="eyebrow">WAYS TO START</p><h2 id="offers-title">Start small. Keep what works.</h2></div>
-		<p>Every engagement starts with a fixed scope and a clear end point.</p>
-	</div>
-	<div class="tr-offers">
-		{offers.map((o) => (
-			<article class:list={['tr-offer', o.id === 'pilot' && 'pilot']}>
-				<div class="tr-offer-head"><h3>{o.title}</h3><span class="tr-offer-length">{o.length}</span></div>
-				<p class="tr-offer-price">{o.price}</p>
-				<p class="tr-offer-outcome">{o.outcome}</p>
-				<ul>{o.includes.map((i) => <li>{i}</li>)}</ul>
-				<a class="button" href={bookHref(o.title)} {...external}>{o.cta} <span aria-hidden="true">↗</span></a>
-			</article>
-		))}
-	</div>
 </section>
 
 <section class="section container compact" id="showcase" aria-labelledby="showcase-title">
 	<div class="section-heading">
-		<div><p class="eyebrow">OUR PLATFORM</p><h2 id="showcase-title">Built, running, and ready to demo.</h2></div>
-		<p>Our own training products, available to pilot or license.</p>
+		<div><p class="eyebrow">INTERFACE TOOLING</p><h2 id="showcase-title">From interface design to working tools.</h2></div>
+		<p>Playable practice and Unreal tooling you can explore yourself.</p>
 	</div>
 	<div class="tr-tabs" role="tablist" aria-label="Products">
-		{showcase.map((s, i) => (
+		{portfolioShowcase.map((s, i) => (
 			<button type="button" role="tab" id={`tab-${s.id}`} aria-controls={`panel-${s.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{s.tab}</button>
 		))}
 	</div>
-	{showcase.map((s) => (
+	{portfolioShowcase.map((s) => (
 		<article class="tr-panel" id={`panel-${s.id}`} role="tabpanel" aria-labelledby={`tab-${s.id}`}>
 			<div class:list={['tr-panel-art', artClass[s.id]]}>
 				{s.shots.length > 0 ? (
@@ -147,7 +111,7 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 				) : s.link ? (
 					<a class="text-link" href={s.link} target="_blank" rel="noopener">View on Fab <span aria-hidden="true">↗</span></a>
 				) : (
-					<a class="text-link" href={bookHref(`${s.name} demo`)} {...external}>Book a demo <span aria-hidden="true">↗</span></a>
+					<a class="text-link" href={bookHref(`${s.name} demo`)} {...external}>Discuss this work <span aria-hidden="true">↗</span></a>
 				)}
 			</div>
 		</article>
@@ -189,38 +153,7 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	</div>
 </section>
 
-<section class="section container compact" id="selected-work" aria-labelledby="work-title">
-	<div class="section-heading">
-		<div><p class="eyebrow">SELECTED WORK</p><h2 id="work-title">A first-time experience for a gamified cyber range.</h2></div>
-		<p>From first login to first activity. Client branding removed.</p>
-	</div>
-	<figure class="tr-work-lead">
-		<div class="tr-proto-frame tr-work-interactive">
-			<iframe data-src="/training/live-globe/demo.html" title="Cyber range — live animated globe and location demo" allow="fullscreen"></iframe>
-			<img src={workLead.src} alt={workLead.alt} width="1600" height="900" loading="lazy" />
-			<div class="tr-demo-cover"><button class="button tr-demo-start" type="button">Load and play the globe <span aria-hidden="true">→</span></button></div>
-			<p class="tr-demo-loading" role="status" hidden>Loading the animated globe…</p>
-		</div>
-		<figcaption>
-			<p>{workLead.caption} Explore the spinning globe, select a module, and zoom into its location.</p>
-			<div class="tr-work-actions">
-				<a href="/training/live-globe/demo.html" target="_blank" rel="noopener">Open full screen ↗</a>
-				<a href="/training/proto/globe/01-choose.html" target="_blank" rel="noopener">Start the walkthrough ↗</a>
-			</div>
-		</figcaption>
-	</figure>
-	<div class="tr-work-facts">
-		{workFacts.map((f) => <div><strong>{f.title}</strong><span>{f.body}</span></div>)}
-	</div>
-	<div class="tr-work-grid">
-		{workShots.map((s) => (
-			<figure>
-				<a href={s.src} target="_blank" rel="noopener" aria-label={`Open full size: ${s.caption}`}><img src={s.src} alt={s.alt} width="1600" height="900" loading="lazy" /></a>
-				<figcaption>{s.caption}</figcaption>
-			</figure>
-		))}
-	</div>
-</section>
+
 
 <section class="section container compact" id="prototypes" aria-labelledby="proto-title">
 	<div class="section-heading">
@@ -228,11 +161,11 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 		<p>Working HTML prototypes with sample content. Click the buttons inside the frame to move through each flow.</p>
 	</div>
 	<div class="tr-tabs tr-proto-tabs" role="tablist" aria-label="Prototypes">
-		{prototypes.map((p, i) => (
+		{prototypes.filter((item) => item.id !== 'globe').map((p, i) => (
 			<button type="button" role="tab" id={`ptab-${p.id}`} aria-controls={`proto-${p.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{p.tab}</button>
 		))}
 	</div>
-	{prototypes.map((p, i) => (
+	{prototypes.filter((item) => item.id !== 'globe').map((p, i) => (
 		<article class="tr-proto" id={`proto-${p.id}`} role="tabpanel" aria-labelledby={`ptab-${p.id}`}>
 			<div class="tr-proto-frame">
 				<iframe data-src={p.src} title={`${p.tab} prototype`} loading="lazy" allow="fullscreen"></iframe>
@@ -248,54 +181,29 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	))}
 </section>
 
-<section class="section container compact" aria-labelledby="how-title">
-	<div class="engagement-process">
-		<p class="eyebrow">HOW IT WORKS</p>
-		<h2 id="how-title">From first call to pilot in weeks.</h2>
-		<ol>{steps.map((s) => <li><strong>{s.title}</strong><p>{s.body}</p></li>)}</ol>
-	</div>
-</section>
-
-<section class="section container compact" aria-labelledby="fit-title">
-	<h2 id="fit-title" class="sr-only">Who this is for</h2>
-	<div class="tr-fit">
-		<div class="yes"><h3>A good fit</h3><ul>{forList.map((i) => <li>{i}</li>)}</ul></div>
-		<div class="no"><h3>Not a fit</h3><ul>{notForList.map((i) => <li>{i}</li>)}</ul></div>
-	</div>
-</section>
-
 <section class="studio-section" aria-labelledby="cap-title">
 	<div class="container tr-capability">
 		<div>
 			<p class="eyebrow">CAPABILITY</p>
-			<h2 id="cap-title">What cyber training UX actually needs.</h2>
-			<p>Training platforms serve two people at once: the trainee working through a hard problem, and the instructor keeping a whole cohort moving. Most of the work is making both feel in control.</p>
-			<div class="tr-capability-links">
-				<a class="text-link" href={PORTFOLIO_URL} target="_blank" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
-				<a class="text-link" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-			</div>
+			<h2 id="cap-title">Interfaces built for training.</h2>
+			<p>Training platforms serve two people at once: the trainee working through a hard problem, and the instructor keeping a whole cohort moving. Our design approach keeps both in control, from the first screen to the next decision.</p>
+
 		</div>
 		<dl>{capabilities.map((c) => <div><dt>{c.title}</dt><dd>{c.body}</dd></div>)}</dl>
-	</div>
-</section>
-
-<section class="section container" aria-labelledby="faq-title">
-	<div class="project-faq">
-		<p class="eyebrow">QUESTIONS</p>
-		<h2 id="faq-title">Before you book.</h2>
-		{faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
 	</div>
 </section>
 
 <section class="container" style="padding-bottom:100px" aria-labelledby="final-title">
 	<div class="contact-panel tr-final">
 		<div>
-			<p class="eyebrow">BOOK A DEMO</p>
-			<h2 id="final-title">See it running in 20 minutes.</h2>
-			<p>We’ll walk through the range and minigames, look at what you’re building, and tell you honestly whether a sprint or pilot makes sense. Prefer email? Send your company name and what you want to improve.</p>
+			<p class="eyebrow">LET’S TALK</p>
+			<h2 id="final-title">Building a training experience? Let’s talk.</h2>
+			<p>Tell us about your learners, platform, and the experience you want to improve. We can discuss interface design, interactive prototyping, or a playable training exercise for your project.</p>
 		</div>
 		<div class="tr-final-actions">
-			<a class="button" href={demo} {...external}>Book a 20-min demo <span aria-hidden="true">↗</span></a>
+			<a class="button" href={demo} {...external}>Discuss your project <span aria-hidden="true">↗</span></a>
+			<a class="text-link" href={PORTFOLIO_URL} target="_blank" rel="noopener">Meet the designer ↗</a>
+			
 			<a class="contact-address" href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('[StrategicSloth] Training')}`}>{CONTACT_EMAIL}</a>
 		</div>
 	</div>
@@ -345,42 +253,6 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 		}, { once: true });
 	});
 	// 60-second film: custom play button, chapter seeking, and an end card.
-	const film = document.getElementById('training-film');
-	const filmFrame = film.parentElement;
-	const filmPlay = filmFrame.querySelector('.tr-film-play');
-	const filmEnd = filmFrame.querySelector('.tr-film-end');
-	const chapterButtons = [...document.querySelectorAll('.tr-chapters [data-t]')];
-	const filmEvent = (name, extra = {}) => { try { window.gtag?.('event', name, { video: 'training-film-60s', ...extra }); } catch {} };
-	let filmStarted = false;
-	const playFilm = (at) => {
-		if (typeof at === 'number') film.currentTime = at;
-		filmEnd.hidden = true;
-		film.play();
-	};
-	filmPlay.addEventListener('click', () => playFilm());
-	filmFrame.querySelector('.tr-film-replay').addEventListener('click', () => playFilm(0));
-	chapterButtons.forEach((button) => button.addEventListener('click', () => {
-		filmEvent('training_film_chapter', { chapter: button.textContent.trim() });
-		const seek = () => playFilm(Number(button.dataset.t));
-		if (film.readyState >= 1) seek(); else { film.addEventListener('loadedmetadata', seek, { once: true }); film.load(); }
-	}));
-	film.addEventListener('play', () => {
-		filmPlay.hidden = true;
-		if (!filmStarted) { filmStarted = true; filmEvent('training_film_start'); }
-	});
-	film.addEventListener('timeupdate', () => {
-		const now = film.currentTime;
-		chapterButtons.forEach((button, i) => {
-			const next = chapterButtons[i + 1];
-			button.setAttribute('aria-current', String(now >= Number(button.dataset.t) && (!next || now < Number(next.dataset.t))));
-		});
-	});
-	film.addEventListener('ended', () => {
-		filmEnd.hidden = false;
-		filmEvent('training_film_complete');
-		filmEnd.querySelector('.button').focus({ preventScroll: true });
-	});
-
 	// The prototype delegates course navigation to its embedding host.
 	window.addEventListener('message', (event) => {
 		if (event.origin !== window.location.origin || event.source !== game.contentWindow) return;

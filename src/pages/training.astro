@@ -23,7 +23,7 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 		<p class="lede">We design and build UX for cyber ranges, serious games, and Unreal training products. Commercial cyber range experience, plus our own range and minigames you can pilot with your learners.</p>
 		<div class="hero-actions">
 			<a class="button" href={demo} {...external}>Book a 20-min demo <span aria-hidden="true">↗</span></a>
-			<a class="text-link" href="#selected-work">See the work <span aria-hidden="true">↓</span></a>
+			<a class="text-link" href="#film" data-track="training_film_hero_click"><span class="tr-play-glyph" aria-hidden="true">▶</span> Watch the 60-sec film</a>
 		</div>
 		<p class="tr-hero-note">Founder-led by Rémi Couture. Nearly 20 years in game UI and UX.</p>
 	</div>
@@ -48,6 +48,43 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	<div class="tr-proof">
 		{proof.map((p) => <div><strong>{p.title}</strong><span>{p.detail}</span></div>)}
 	</div>
+</section>
+
+<section class="section container compact" id="film" aria-labelledby="film-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">THE 60-SECOND VERSION</p><h2 id="film-title">The work, in one minute.</h2></div>
+		<p>Playable minigames, trainer dashboards, onboarding, and Unreal UI. Real footage from the products on this page.</p>
+	</div>
+	<div class="tr-film">
+		<div class="tr-film-frame">
+			<video id="training-film" poster="/training/video/training-film-poster.jpg" preload="none" playsinline controls aria-describedby="film-desc">
+				<source src="/training/video/training-film-60s.mp4" type="video/mp4" />
+			</video>
+			<button class="tr-film-play" type="button" data-track="training_film_play"><span aria-hidden="true">▶</span> Play the 60-sec film</button>
+			<div class="tr-film-end" hidden>
+				<p class="eyebrow">LEVEL COMPLETE</p>
+				<h3>Want this for your learners?</h3>
+				<div class="tr-film-end-actions">
+					<a class="button" href={demo} {...external} data-track="training_film_book_click">Book a 20-min demo <span aria-hidden="true">↗</span></a>
+					<a class="text-link" href="#minigame-example">Play Keep Finance Online <span aria-hidden="true">↓</span></a>
+				</div>
+				<button class="tr-film-replay" type="button">↺ Watch again</button>
+			</div>
+		</div>
+		<div class="tr-chapters">
+			<p class="eyebrow">CHAPTERS</p>
+			<ol>
+				<li><button type="button" data-t="0"><span>0:00</span>Why training stalls</button></li>
+				<li><button type="button" data-t="13.2"><span>0:13</span>Playable minigames</button></li>
+				<li><button type="button" data-t="22.2"><span>0:22</span>Trainer view</button></li>
+				<li><button type="button" data-t="29.2"><span>0:29</span>Onboarding and globe</button></li>
+				<li><button type="button" data-t="36.2"><span>0:36</span>Unreal and web UI</button></li>
+				<li><button type="button" data-t="42.2"><span>0:42</span>Ways to start</button></li>
+			</ol>
+			<p class="tr-film-note">No sound needed. Every line is on screen.</p>
+		</div>
+	</div>
+	<p id="film-desc" class="sr-only">A silent 60-second film with on-screen text. It shows why cyber training stalls, then four examples of the work: the Keep Finance Online minigame, a trainer view that flags a stuck trainee, onboarding and globe prototypes for a commercial cyber range, and Unreal CommonUI and web interface work. It ends with the three ways to start: a UX sprint, a retainer, or a platform pilot.</p>
 </section>
 
 <section class="section container" id="offers" aria-labelledby="offers-title">
@@ -307,6 +344,43 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 			startDemo(frame, frame.dataset.src, button.parentElement);
 		}, { once: true });
 	});
+	// 60-second film: custom play button, chapter seeking, and an end card.
+	const film = document.getElementById('training-film');
+	const filmFrame = film.parentElement;
+	const filmPlay = filmFrame.querySelector('.tr-film-play');
+	const filmEnd = filmFrame.querySelector('.tr-film-end');
+	const chapterButtons = [...document.querySelectorAll('.tr-chapters [data-t]')];
+	const filmEvent = (name, extra = {}) => { try { window.gtag?.('event', name, { video: 'training-film-60s', ...extra }); } catch {} };
+	let filmStarted = false;
+	const playFilm = (at) => {
+		if (typeof at === 'number') film.currentTime = at;
+		filmEnd.hidden = true;
+		film.play();
+	};
+	filmPlay.addEventListener('click', () => playFilm());
+	filmFrame.querySelector('.tr-film-replay').addEventListener('click', () => playFilm(0));
+	chapterButtons.forEach((button) => button.addEventListener('click', () => {
+		filmEvent('training_film_chapter', { chapter: button.textContent.trim() });
+		const seek = () => playFilm(Number(button.dataset.t));
+		if (film.readyState >= 1) seek(); else { film.addEventListener('loadedmetadata', seek, { once: true }); film.load(); }
+	}));
+	film.addEventListener('play', () => {
+		filmPlay.hidden = true;
+		if (!filmStarted) { filmStarted = true; filmEvent('training_film_start'); }
+	});
+	film.addEventListener('timeupdate', () => {
+		const now = film.currentTime;
+		chapterButtons.forEach((button, i) => {
+			const next = chapterButtons[i + 1];
+			button.setAttribute('aria-current', String(now >= Number(button.dataset.t) && (!next || now < Number(next.dataset.t))));
+		});
+	});
+	film.addEventListener('ended', () => {
+		filmEnd.hidden = false;
+		filmEvent('training_film_complete');
+		filmEnd.querySelector('.button').focus({ preventScroll: true });
+	});
+
 	// The prototype delegates course navigation to its embedding host.
 	window.addEventListener('message', (event) => {
 		if (event.origin !== window.location.origin || event.source !== game.contentWindow) return;

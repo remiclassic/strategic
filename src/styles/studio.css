@@ -244,3 +244,7 @@
 .unrevealed-wishlist{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding-block:75px 60px}.unrevealed-wishlist>div{max-width:520px}
 @media(max-width:800px){.unrevealed-cycles{grid-template-columns:1fr;gap:24px}.unrevealed-gallery{grid-template-columns:repeat(2,1fr)}.unrevealed-wishlist{flex-direction:column;align-items:flex-start}.unrevealed-world-head{padding-block:40px 26px}.unrevealed-feature-art.has-still{min-height:240px}}
 @media(max-width:540px){.unrevealed-gallery{grid-template-columns:1fr}}
+
+/* Unrevealed game: what the game is (four pillars) */
+.unrevealed-life{background:#202824;color:#ebe5d8;padding-block:10px 70px;border-top:1px solid #c0c5ac22}.unrevealed-pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:38px 60px}.unrevealed-pillars h3{font-family:Georgia,serif;font-weight:400;font-size:23px;color:#c2af88}.unrevealed-pillars p{font-size:14px;line-height:1.9;color:#b2bcac;margin-top:10px}.unrevealed-wishlist p.unrevealed-fineprint{font-size:11px;color:#969e8b;margin-top:14px;letter-spacing:.03em}
+@media(max-width:800px){.unrevealed-pillars{grid-template-columns:1fr;gap:28px}.unrevealed-life{padding-bottom:50px}}

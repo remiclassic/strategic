@@ -261,3 +261,7 @@
 @keyframes naRise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @media(max-width:800px){.na-hero{min-height:auto}.na-hero-shade{background:linear-gradient(180deg,#0c0f0dcc 0%,#0c0f0daa 45%,#202824 100%)}.na-hero-copy{padding-block:40px 34px}.na-hero h1 img{margin-left:-6px}.na-hero-note{position:static;margin-top:8px}.na-btn{padding:14px 20px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){.na-hero-copy{animation:none}}
+
+/* Norman Ascension page: the studio's arms */
+.na-maker{display:grid;grid-template-columns:260px 1fr;gap:44px;align-items:center;padding-block:10px 60px}.na-maker img{width:100%;height:auto;border-radius:50%;-webkit-mask-image:radial-gradient(circle closest-side,#000 82%,transparent 100%);mask-image:radial-gradient(circle closest-side,#000 82%,transparent 100%);filter:drop-shadow(0 18px 36px #0009)}.na-maker .eyebrow{color:#d2ad63;font-size:10px;letter-spacing:.19em}.na-maker h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);line-height:1.1;letter-spacing:-.03em;color:#ebe5d8;margin-top:12px}.na-maker-motto{font-family:Georgia,serif;font-style:italic;font-size:20px;color:#f0d9a0;margin-top:12px}.na-maker div>p:last-child{font-size:14px;line-height:1.85;color:#b2bcac;margin-top:12px;max-width:460px}
+@media(max-width:700px){.na-maker{grid-template-columns:1fr;gap:22px;text-align:center;justify-items:center}.na-maker img{width:220px}.na-maker div>p:last-child{margin-inline:auto}}

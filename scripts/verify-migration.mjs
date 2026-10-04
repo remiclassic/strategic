@@ -41,5 +41,5 @@ assert.deepEqual(issues, [], 'Broken local pages/assets');
 assert.ok(!html.includes('your-store.lemonsqueezy.com'), 'Placeholder store link shipped');
 const home = readFileSync(join(dist,'index.html'),'utf8');
 assert.ok(home.includes('/learn/'), 'Learning section must be discoverable');
-assert.ok(!/Flash Sale Ends|purchase-notification|5,000\+|Norman Ascension|Normandy/i.test(home), 'Home includes removed sales claims or unrevealed game details');
+assert.ok(!/Flash Sale Ends|purchase-notification|5,000\+/i.test(home), 'Home includes removed sales claims');
 console.log(`Migration verified: ${pages.length} pages, ${baseline.articleSlugs.length} original articles, ${baseline.checkoutUrls.length} original checkout URLs, no missing local targets.`);

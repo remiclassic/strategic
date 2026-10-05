@@ -24,8 +24,8 @@ export const isCalendar = () => Boolean(CALENDAR_URL);
 
 export const proof = [
 	{
-		title: '7 cyber minigames',
-		detail: 'Six built for a commercial cyber range, plus one you can play on this page.',
+		title: '8 training games',
+		detail: 'Designed and built by us, each playable from briefing to debrief, with 209 passing tests.',
 	},
 	{
 		title: 'Nearly 20 years of game UI', // TODO: confirm the figure
@@ -39,6 +39,82 @@ export const proof = [
 		title: 'Built to embed',
 		detail: 'Self-contained web modules with a simple contract for reporting score and completion to the host.',
 	},
+];
+
+// Games we designed and built ourselves. Media lives in /public/training/my-games.
+export const myGames = [
+	{
+		"id": "network-defense",
+		"name": "Network Defense: Keep Finance Online",
+		"genre": "Isometric strategy",
+		"teaches": "How routes and dependencies keep a service up, how to read evidence, and how to write an access rule that stops the attacker without stopping the business.",
+		"mistake": "“You connected Finance straight to the Gateway. Invoices reached Finance, but Finance couldn’t reach its database on the Core server, so each one failed. Services depend on other services — a path from the internet isn’t enough.”",
+		"proof": "“Blanket blocking cannot earn the best result” and “backup routes preserve the access policy”, each checked on 8 seeds. 32 tests.",
+		"fits": "Firewall and access rules, taught through consequences."
+	},
+	{
+		"id": "phishing",
+		"name": "Phishing Speed Drill: The Payroll Request",
+		"genre": "Timed inbox drill",
+		"teaches": "Reading the sender, the reply-to and the real link destination, backing a call with evidence, and knowing when only a phone check can settle it.",
+		"mistake": "“This was a real payslip notice. External mail and a generic greeting are not evidence by themselves; the domain, link, and timing all matched. False alarms slow down real work.”",
+		"proof": "Always-report, always-safe and always-verify each “stay out of the top two ratings”. “Slow but correct play still earns the top rating.” 53 tests.",
+		"fits": "Awareness training for every employee, not only analysts."
+	},
+	{
+		"id": "triage",
+		"name": "Incident Triage Race: The Busy Morning",
+		"genre": "Alert triage board",
+		"teaches": "Setting priority from evidence and business impact, linking alerts that are one incident, and revising when new facts arrive.",
+		"mistake": "“The severity tag says so.”",
+		"proof": "“Never treats the severity tag as a valid justification.” “Rewards revising when evidence changes, not standing still.” 13 tests.",
+		"fits": "A natural team game for workshops and live events."
+	},
+	{
+		"id": "soc",
+		"name": "SOC Dashboard Challenge: A Strange Login",
+		"genre": "SOC investigation case",
+		"teaches": "Separating evidence that discriminates between explanations from evidence that fits both, and responding in proportion while data is leaving.",
+		"mistake": "“You had strong evidence that this was approved work and contained anyway. The business paid for an interruption the evidence did not support.”",
+		"proof": "“No single blind opening wins in both variants.” “Investigating first is not always right: delay lets the incident progress.” 13 tests.",
+		"fits": "A warm-up before a hands-on investigation lab."
+	},
+	{
+		"id": "dispatch",
+		"name": "Cyber Dispatch: First Shift",
+		"genre": "Dispatcher desk",
+		"teaches": "Asking the questions that matter, giving the safe next step before harm lands, and handing off only what the evidence confirms.",
+		"mistake": "“Reply to the email and ask them to confirm the new details.” → “The sender ‘confirmed’ their own request, and Elena queued the payment.”",
+		"proof": "“Escalating everything as high scores poorly.” “Asking every question before acting is not the best run.” 24 tests.",
+		"fits": "First response and handoff, for help desks and non-specialists."
+	},
+	{
+		"id": "queryhunt",
+		"name": "Query Hunt: Unusual Access",
+		"genre": "SQL investigation",
+		"teaches": "Filtering, aggregating and joining real log tables, reading the result correctly, and telling a suspicious observation from a confirmed conclusion.",
+		"mistake": "“Repeated failed logins alone do not establish compromise: they show attempts. Which evidence shows what happened after them?”",
+		"proof": "“Accepts equivalent queries written differently.” “Never grants evidence for running a query.” Real SQLite runs in the tests. 31 tests.",
+		"fits": "Log analysis practice with real SQL in the browser."
+	},
+	{
+		"id": "cloud",
+		"name": "Cloud Command: First Orbit",
+		"genre": "Arcade flight",
+		"teaches": "Finding the real capacity constraint through a dependency, balancing availability against cost, least privilege, and who is responsible for what on IaaS.",
+		"mistake": "Checkout “has enough capacity, but each request calls” the Payments API, “which can serve only” 1,200 rps. More checkout instances “cannot help until” it has capacity.",
+		"proof": "“Adding capacity helps only where capacity is the constraint.” “Does not let a high score hide a failed security objective.” 18 tests.",
+		"fits": "Cloud fundamentals in a lighter, arcade style."
+	},
+	{
+		"id": "privilege",
+		"name": "Privilege Path Puzzle: Who Can Read Payroll",
+		"genre": "Access graph puzzle",
+		"teaches": "Tracing nested groups and inherited grants to find every route to a file, then making the smallest change that closes it without breaking business access.",
+		"mistake": "“Signing in is authentication: it proves who Alex is. What Alex may open is authorization, and that came from a grant.”",
+		"proof": "“Never treats connectivity as authorization.” Each puzzle “cannot be solved with fewer changes than par” and “fails when access is removed for everyone”. 25 tests.",
+		"fits": "Identity and access reasoning as a visual puzzle."
+	}
 ];
 
 // Games grid. Client-built games are shown under neutral names: no client, platform,

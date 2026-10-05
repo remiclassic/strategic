@@ -1,7 +1,7 @@
 # Keep Finance Online: network defense example
 
 The playable section at `/training#minigame-example` uses a static build of
-`C:\Users\Remi Couture\Ares Games`. Source remains in that project; the website
+the network defense game project. Source remains in that project; the website
 ships its compiled HTML, JavaScript, CSS, and sprites in
 `public/training/games/network-defense/`.
 
@@ -23,4 +23,4 @@ does not send it to a training backend.
 The original game README credits Blender-rendered sprites and the seeded RNG
 adaptation to GridWatch: Signal Breach, reused with the owner's go-ahead:
 https://github.com/remeadows/gridwatch-signal-breach . Educational rules are from
-the Ares prototype and still await SME review and learner playtesting.
+the game prototype and still await SME review and learner playtesting.

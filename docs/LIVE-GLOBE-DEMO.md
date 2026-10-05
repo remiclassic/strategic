@@ -6,9 +6,8 @@ when rebuilding. Remove the `player-brand` anchor from generated overwatch HTML
 to retain the portfolio's neutral branding. Provider credits remain visible.
 
 `public/training/live-globe/overwatch.html` ships the real Cesium cinematic map
-prototype from the preserved Project Ares worktree at
-`C:/Users/Remi Couture/.codex/worktrees/ftue-backup-review/prototypes/ares-cinematic-map`.
-The main Project Ares checkout retains only part of this standalone prototype.
+prototype from the preserved cinematic map worktree. The main project checkout
+retains only part of this standalone prototype.
 
 Build from that source directory:
 

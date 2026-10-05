@@ -3,44 +3,241 @@ import StudioLayout from '../layouts/StudioLayout.astro';
 import '../styles/training.css';
 import {
 	bookHref, isCalendar, CONTACT_EMAIL, PORTFOLIO_URL, LINKEDIN_URL,
-	proof, showcase, workFacts, workLead, workShots, prototypes, capabilities,
+	proof, showcase, workFacts, workLead, prototypes, capabilities,
+	games, services, offers, designRules, learnerOutcomes, whyUs, steps, forList, notForList, faqs, PLAYABLE_ANCHOR,
 } from '../data/training';
 
 const external = isCalendar() ? { target: '_blank', rel: 'noopener' } : {};
 const demo = bookHref('Training and simulation project');
+const demoLabel = isCalendar() ? 'Book a 20-minute demo' : 'Discuss your project';
+const pitch = bookHref('A minigame for our platform');
 const portfolioShowcase = showcase.filter((item) => item.id === 'tools');
 const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools: 'peach' };
 ---
 <StudioLayout
-	title="Training & simulation interfaces | Strategic Sloth"
-	description="Strategic Sloth designs and builds training interfaces, interactive simulations, and security minigames. Explore the demos and discuss your project."
+	title="Cyber training games & product design | Strategic Sloth"
+	description="Strategic Sloth designs and builds educational cyber minigames and training interfaces for cyber ranges and security training platforms. Play one and see the rest."
 >
 <div class="tr">
 
-<section class="container tr-hero" aria-labelledby="tr-title">
-	<div>
-		<p class="eyebrow">STRATEGIC SLOTH · TRAINING &amp; SIMULATION</p>
-		<h1 id="tr-title">Make the next step clear.<br />Make practice playable.</h1>
-		<p class="lede">Strategic Sloth brings game interface craft to cyber training and simulation. We build learner journeys, mission interfaces, and playable practice that turn complex tasks into clear decisions.</p>
+<div class="tr-stage">
+<section class="container tr-pitch" aria-labelledby="tr-title">
+	<p class="eyebrow">STRATEGIC SLOTH · CYBER TRAINING GAMES &amp; PRODUCT DESIGN</p>
+	<h1 id="tr-title">Cyber training that plays like a game.</h1>
+	<div class="tr-pitch-row">
+		<p class="lede">We design and build educational minigames, and the interfaces around them, for cyber ranges and security training platforms. Seven games so far. One is playable right here.</p>
 		<div class="hero-actions">
-			<a class="button" href={demo} {...external}>Discuss your project <span aria-hidden="true">↗</span></a>
-			<a class="text-link" href="#selected-work">Explore the demos ↓</a>
+			<a class="button" href={demo} {...external}>{demoLabel} <span aria-hidden="true">↗</span></a>
+			<a class="text-link" href="#games">See the games <span aria-hidden="true">↓</span></a>
 		</div>
-		<p class="tr-hero-note">UI / UX design · Interactive prototyping · Unreal UMG &amp; CommonUI</p>
-
 	</div>
-<div class="tr-studio-intro"><p class="eyebrow">FROM FIRST LOGIN TO FIRST ACTIVITY</p><ol><li><b>01 / Find your path</b><span>Onboarding and learning journeys</span></li><li><b>02 / Understand the mission</b><span>Briefings, objectives, and feedback</span></li><li><b>03 / Learn by doing</b><span>Playable practice and simulation</span></li></ol><a class="text-link" href="#minigame-example">Try a playable example ↓</a></div>
 </section>
 
-<section class="container" aria-label="Experience">
+<section class="container" aria-labelledby="featured-title">
+	<div class="tr-featured">
+		<a class="tr-featured-art" href={PLAYABLE_ANCHOR} aria-label="Play Keep Finance Online">
+			<img src="/training/work/network-defense-game.webp" alt="Keep Finance Online gameplay: an isometric network with a gateway, an inspection point, a core server, and a Finance connection to restore." width="1600" height="1000" fetchpriority="high" />
+			<span class="tr-featured-signal" aria-hidden="true"><i>●</i> FINANCE OFFLINE · YOUR MOVE</span>
+		</a>
+		<div class="tr-featured-copy">
+			<p class="eyebrow">FEATURED GAME · PLAYABLE NOW</p>
+			<h2 id="featured-title">Keep Finance Online</h2>
+			<p>Finance is down and traffic is coming in. Inspect it, write the access rules, and bring the connection back without letting a threat through.</p>
+			<a class="button" href={PLAYABLE_ANCHOR}><span class="tr-play-icon" aria-hidden="true">▶</span> Play it now</a>
+			<small>3 rounds · About 5 minutes · No sign-up</small>
+		</div>
+	</div>
 	<div class="tr-proof">
 		{proof.map((p) => <div><strong>{p.title}</strong><span>{p.detail}</span></div>)}
 	</div>
 </section>
 
+<section class="container tr-games-section" id="games" aria-labelledby="games-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">THE GAMES</p><h2 id="games-title">One skill. A few minutes. A score.</h2></div>
+		<p>Six of these were built for a commercial cyber range and are shown here under neutral names. Each one teaches a single skill a learner can practice on a coffee break.</p>
+	</div>
+	<div class="tr-gamegrid">
+		{games.map((g) => (
+			<article class="tr-gcard">
+				<button class="tr-gcard-art" type="button" data-case={g.id} aria-haspopup="dialog" aria-label={`${g.name}: watch gameplay and read the design thinking`}>
+					<img src={`/training/games-art/${g.id}-720.webp`} srcset={`/training/games-art/${g.id}-720.webp 720w, /training/games-art/${g.id}-1280.webp 1280w`} sizes="(max-width: 800px) 100vw, 640px" alt={g.alt} width="1280" height="720" loading="lazy" />
+					<video class="tr-gcard-video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"><source data-src={`/training/games-video/${g.id}.mp4`} type="video/mp4" /></video>
+					<span class="tr-gcard-genre">{g.genre}</span>
+					<span class="tr-gcard-live" aria-hidden="true">● Gameplay</span>
+					<h3>{g.name}</h3>
+				</button>
+				<div class="tr-gcard-info">
+					<strong>Teaches: {g.teaches}</strong>
+					<p>{g.body}</p>
+					<p class="tr-gcard-why"><b>Why it works:</b> {g.why}</p>
+					<button class="tr-gcard-more" type="button" data-case={g.id} aria-haspopup="dialog">See the design thinking <span aria-hidden="true">→</span></button>
+				</div>
+			</article>
+		))}
+		<article class="tr-gcard">
+			<a class="tr-gcard-art" href={PLAYABLE_ANCHOR}>
+				<img src="/training/work/network-defense-game.webp" alt="" width="1600" height="1000" loading="lazy" />
+				<span class="tr-gcard-genre">Strategy · Playable now</span>
+				<h3>Keep Finance Online</h3>
+			</a>
+			<div class="tr-gcard-info">
+				<strong>Teaches: Firewall rules and service availability</strong>
+				<p>Our own network defense game. Inspect traffic, scope the rules, add a backup route, then replay every decision in the debrief. <a href={PLAYABLE_ANCHOR}>Play it below ↓</a></p>
+			</div>
+		</article>
+		<article class="tr-gcard tr-gcard-yours">
+			<a class="tr-gcard-art" href={pitch} {...external}>
+				<span class="tr-gcard-genre">Next up</span>
+				<h3>Your game here</h3>
+				<span class="tr-gcard-plus" aria-hidden="true">+</span>
+			</a>
+			<div class="tr-gcard-info">
+				<strong>Teaches: The skill your learners keep failing</strong>
+				<p>Tell us the learning objective. We come back with game concepts sized to your platform and your content. <a href={pitch} {...external}>Pitch us a skill ↗</a></p>
+			</div>
+		</article>
+	</div>
+</section>
+</div>
+
+{games.map((g) => (
+	<dialog class="tr-case" id={`case-${g.id}`} aria-labelledby={`case-title-${g.id}`}>
+		<div class="tr-case-inner">
+			<button class="tr-case-close" type="button" data-case-close aria-label="Close">×</button>
+			<div class="tr-case-media">
+				<video controls muted loop playsinline preload="none" poster={`/training/games-video/${g.id}.jpg`}><source data-src={`/training/games-video/${g.id}.mp4`} type="video/mp4" /></video>
+				<p>Real gameplay from the working build, shown under a neutral name.</p>
+			</div>
+			<div class="tr-case-copy">
+				<p class="eyebrow">{g.genre.toUpperCase()} · DESIGN CASE STUDY</p>
+				<h2 id={`case-title-${g.id}`}>{g.name}</h2>
+				<p class="tr-case-teaches">Teaches: {g.teaches}</p>
+				<dl>
+					<div><dt>The problem</dt><dd>{g.problem}</dd></div>
+					<div><dt>The idea</dt><dd>{g.idea}</dd></div>
+					<div><dt>UX decisions</dt><dd><ul>{g.ux.map((u) => <li>{u}</li>)}</ul></dd></div>
+					<div><dt>What the learner gets</dt><dd>{g.learner}</dd></div>
+				</dl>
+				<a class="button" href={bookHref(`A game like ${g.name}`)} {...external}>Build one like this <span aria-hidden="true">↗</span></a>
+			</div>
+		</div>
+	</dialog>
+))}
+
+<section class="section container compact" id="minigame-example" aria-labelledby="minigame-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">PLAY ONE NOW</p><h2 id="minigame-title">Keep Finance Online</h2></div>
+		<p>Do not take our word for it. Play three rounds, then picture it inside your course.</p>
+	</div>
+	<div class="tr-playable">
+		<div class="tr-playable-intro" id="game-intro">
+			<div class="tr-game-preview">
+				<img src="/training/work/network-defense-game.webp" alt="Network Defense gameplay: an isometric network with a gateway, inspection point, core server, and Finance connection to restore." width="1600" height="1000" loading="lazy" />
+				<span class="tr-preview-badge">ACTUAL GAMEPLAY</span>
+				<div class="tr-preview-signal" aria-hidden="true"><span>●</span> FINANCE OFFLINE · YOUR MOVE</div>
+			</div>
+			<div class="tr-game-invitation">
+			<span class="status launch">Playable prototype · About 5 minutes</span>
+			<h3>The network is yours.<br />Keep it online.</h3>
+			<p>Finance is offline. Traffic is coming in. Can you restore the connection without letting a threat through?</p>
+			<button class="button" type="button" id="play-network-defense"><span class="tr-play-icon" aria-hidden="true">▶</span> Play the example</button>
+			<small class="tr-game-note">3 rounds · No sign-up · Play in your browser</small>
+			<div class="tr-preview-actions" role="group" aria-label="Explore the game mechanics">
+				<button type="button" aria-pressed="true" data-preview-detail="Inspect traffic to uncover evidence. You decide what belongs on the network.">01 Inspect</button>
+				<button type="button" aria-pressed="false" data-preview-detail="Configure access rules to stop prohibited activity while keeping essential services available.">02 Protect</button>
+				<button type="button" aria-pressed="false" data-preview-detail="Build a backup route when a link fails, then replay your decisions in the debrief.">03 Recover</button>
+			</div>
+			<p class="tr-preview-detail" aria-live="polite">Inspect traffic to uncover evidence. You decide what belongs on the network.</p>
+			</div>
+		</div>
+		<iframe id="network-defense-game" title="Keep Finance Online playable example" data-game-src="/training/games/network-defense/index.html" allow="fullscreen" hidden></iframe>
+		<p class="tr-demo-loading" role="status" hidden>Loading the game…</p>
+	</div>
+	<div class="tr-proto-meta">
+		<div><strong>Keep Finance Online</strong><span>Beginner cybersecurity practice · Three rounds · Decision replay and debrief</span></div>
+		<a class="text-link" href="/training/games/network-defense/index.html" target="_blank" rel="noopener">Open full screen <span aria-hidden="true">↗</span></a>
+	</div>
+</section>
+
+<section class="studio-section tr-method" id="design" aria-labelledby="design-title">
+	<div class="container">
+		<div class="section-heading">
+			<div><p class="eyebrow">THE DESIGN THINKING</p><h2 id="design-title">Fun is the easy part. Making it teach is the work.</h2></div>
+			<p>Most “gamified” training is a quiz with points on top. Ours starts from the skill and works outward. Every concept has to pass these eight rules before anything gets built.</p>
+		</div>
+		<ol class="tr-rules">
+			{designRules.map((r) => <li><h3>{r.title}</h3><p>{r.body}</p></li>)}
+		</ol>
+	</div>
+</section>
+
+<section class="section container compact" id="learners" aria-labelledby="learners-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">WHAT IT DOES FOR LEARNERS</p><h2 id="learners-title">Training people open, finish, and come back to.</h2></div>
+		<p>The goal is not a nicer screen. It is a learner who can do the thing on Monday, and an instructor who can tell.</p>
+	</div>
+	<div class="tr-outcomes">
+		{learnerOutcomes.map((o, i) => <article><span class="card-number">0{i + 1}</span><h3>{o.title}</h3><p>{o.body}</p></article>)}
+	</div>
+</section>
+
+<section class="section container compact" id="why" aria-labelledby="why-title">
+	<div class="tr-why">
+		<figure class="founder-portrait">
+			<img src="/studio-images/remi-founder.png" alt="Rémi Couture, founder of Strategic Sloth" width="1051" height="1497" loading="lazy" />
+			<figcaption><strong>Rémi Couture</strong><span>Founder · Game UI / UX designer · Builder</span></figcaption>
+		</figure>
+		<div>
+			<p class="eyebrow">WHY WORK WITH ME</p>
+			<h2 id="why-title">You get the designer and the builder. Same person.</h2>
+			<p class="tr-why-lede">I’m Rémi. I have spent nearly 20 years designing game interfaces, and the last stretch of it inside cyber training: the games above, and the onboarding and mission flow around them. I know what makes a learner quit, and I know how to build the thing that keeps them going.</p>
+			<ul class="tr-why-list">
+				{whyUs.map((w) => <li><strong>{w.title}</strong><span>{w.body}</span></li>)}
+			</ul>
+			<div class="hero-actions">
+				<a class="button" href={demo} {...external}>{demoLabel} <span aria-hidden="true">↗</span></a>
+				<a class="text-link" href={PORTFOLIO_URL} target="_blank" rel="noopener">See my full portfolio <span aria-hidden="true">↗</span></a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section container compact" id="offer" aria-labelledby="offer-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">WHAT WE DO</p><h2 id="offer-title">A game studio for your training product.</h2></div>
+		<p>Hire us for one game, one flow, or the whole learner experience. Your team keeps shipping content while we make it something people finish.</p>
+	</div>
+	<div class="three-grid tr-services">
+		{services.map((s, i) => <article class="plain-card"><span class="card-number">0{i + 1}</span><h3>{s.title}</h3><p>{s.body}</p></article>)}
+	</div>
+	<div class="tr-band">
+		<p><strong>Have a module learners abandon?</strong> Send it over. We will show you how we would turn it into a game.</p>
+		<a class="button" href={demo} {...external}>{demoLabel} <span aria-hidden="true">↗</span></a>
+	</div>
+</section>
+
+<section class="section container compact" id="start" aria-labelledby="start-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">WAYS TO START</p><h2 id="start-title">Start small. Keep what works.</h2></div>
+		<p>Fixed scope, a clear end point, and no lock-in.</p>
+	</div>
+	<div class="tr-offers">
+		{offers.map((o) => (
+			<article class:list={['tr-offer', o.id]}>
+				<div class="tr-offer-head"><h3>{o.title}</h3><span class="tr-offer-length">{o.length}</span></div>
+				<p class="tr-offer-price">{o.price}</p>
+				<p class="tr-offer-outcome">{o.outcome}</p>
+				<ul>{o.includes.map((item) => <li>{item}</li>)}</ul>
+				<a class="button" href={bookHref(o.title)} {...external}>{o.cta} <span aria-hidden="true">↗</span></a>
+			</article>
+		))}
+	</div>
+</section>
+
 <section class="section container compact" id="selected-work" aria-labelledby="work-title">
 	<div class="section-heading">
-		<div><p class="eyebrow">SELECTED WORK</p><h2 id="work-title">A first-time experience for a gamified cyber range.</h2></div>
+		<div><p class="eyebrow">UI / UX CASE STUDY</p><h2 id="work-title">Product design: a first-time experience for a gamified cyber range.</h2></div>
 		<p>Onboarding, learning paths, and mission entry. Portfolio examples use sample content and neutral branding.</p>
 	</div>
 	<div class="tr-case-context">
@@ -118,40 +315,7 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	))}
 </section>
 
-<section class="section container compact" id="minigame-example" aria-labelledby="minigame-title">
-	<div class="section-heading">
-		<div><p class="eyebrow">PLAYABLE MINIGAME</p><h2 id="minigame-title">Keep Finance Online</h2></div>
-		<p>Protect the network while keeping essential services available.</p>
-	</div>
-	<div class="tr-playable">
-		<div class="tr-playable-intro" id="game-intro">
-			<div class="tr-game-preview">
-				<img src="/training/work/network-defense-game.webp" alt="Network Defense gameplay: an isometric network with a gateway, inspection point, core server, and Finance connection to restore." width="1600" height="1000" loading="lazy" />
-				<span class="tr-preview-badge">ACTUAL GAMEPLAY</span>
-				<div class="tr-preview-signal" aria-hidden="true"><span>●</span> FINANCE OFFLINE · YOUR MOVE</div>
-			</div>
-			<div class="tr-game-invitation">
-			<span class="status launch">Playable prototype · About 5 minutes</span>
-			<h3>The network is yours.<br />Keep it online.</h3>
-			<p>Finance is offline. Traffic is coming in. Can you restore the connection without letting a threat through?</p>
-			<button class="button" type="button" id="play-network-defense"><span class="tr-play-icon" aria-hidden="true">▶</span> Play the example</button>
-			<small class="tr-game-note">3 rounds · No sign-up · Play in your browser</small>
-			<div class="tr-preview-actions" role="group" aria-label="Explore the game mechanics">
-				<button type="button" aria-pressed="true" data-preview-detail="Inspect traffic to uncover evidence. You decide what belongs on the network.">01 Inspect</button>
-				<button type="button" aria-pressed="false" data-preview-detail="Configure access rules to stop prohibited activity while keeping essential services available.">02 Protect</button>
-				<button type="button" aria-pressed="false" data-preview-detail="Build a backup route when a link fails, then replay your decisions in the debrief.">03 Recover</button>
-			</div>
-			<p class="tr-preview-detail" aria-live="polite">Inspect traffic to uncover evidence. You decide what belongs on the network.</p>
-			</div>
-		</div>
-		<iframe id="network-defense-game" title="Keep Finance Online playable example" data-game-src="/training/games/network-defense/index.html" allow="fullscreen" hidden></iframe>
-		<p class="tr-demo-loading" role="status" hidden>Loading the game…</p>
-	</div>
-	<div class="tr-proto-meta">
-		<div><strong>Keep Finance Online</strong><span>Beginner cybersecurity practice · Three rounds · Decision replay and debrief</span></div>
-		<a class="text-link" href="/training/games/network-defense/index.html" target="_blank" rel="noopener">Open full screen <span aria-hidden="true">↗</span></a>
-	</div>
-</section>
+
 
 
 
@@ -193,15 +357,31 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	</div>
 </section>
 
+<section class="section container compact" aria-labelledby="fit-title">
+	<div class="section-heading"><div><p class="eyebrow">WHO THIS IS FOR</p><h2 id="fit-title">Built for training companies.</h2></div></div>
+	<div class="tr-fit">
+		<div><h3>A good fit</h3><ul class="yes">{forList.map((item) => <li>{item}</li>)}</ul></div>
+		<div><h3>Not a fit</h3><ul class="no">{notForList.map((item) => <li>{item}</li>)}</ul></div>
+	</div>
+	<div class="engagement-process">
+		<h2>How it works</h2>
+		<ol>{steps.map((step) => <li><strong>{step.title}</strong><p>{step.body}</p></li>)}</ol>
+	</div>
+	<div class="project-faq">
+		<h2>Questions buyers ask</h2>
+		{faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+	</div>
+</section>
+
 <section class="container" style="padding-bottom:100px" aria-labelledby="final-title">
 	<div class="contact-panel tr-final">
 		<div>
 			<p class="eyebrow">LET’S TALK</p>
-			<h2 id="final-title">Building a training experience? Let’s talk.</h2>
+			<h2 id="final-title">Want games like these in your platform? Let’s talk.</h2>
 			<p>Tell us about your learners, platform, and the experience you want to improve. We can discuss interface design, interactive prototyping, or a playable training exercise for your project.</p>
 		</div>
 		<div class="tr-final-actions">
-			<a class="button" href={demo} {...external}>Discuss your project <span aria-hidden="true">↗</span></a>
+			<a class="button" href={demo} {...external}>{demoLabel} <span aria-hidden="true">↗</span></a>
 			<a class="text-link" href={PORTFOLIO_URL} target="_blank" rel="noopener">Meet the designer ↗</a>
 			
 			<a class="contact-address" href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('[StrategicSloth] Training')}`}>{CONTACT_EMAIL}</a>
@@ -219,6 +399,47 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 			document.querySelectorAll('[data-preview-detail]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
 			document.querySelector('.tr-preview-detail').textContent = button.dataset.previewDetail;
 		});
+	});
+	// Gameplay clips: load and play only while a card is on screen.
+	const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const loadVideo = (video) => {
+		const source = video.querySelector('source[data-src]');
+		if (!source) return;
+		source.src = source.dataset.src;
+		source.removeAttribute('data-src');
+		video.load();
+	};
+	if ('IntersectionObserver' in window && !reduceMotion) {
+		const watcher = new IntersectionObserver((entries) => {
+			entries.forEach(({ target, isIntersecting }) => {
+				if (isIntersecting) {
+					loadVideo(target);
+					target.play().then(() => target.classList.add('is-playing')).catch(() => {});
+				} else {
+					target.pause();
+				}
+			});
+		}, { threshold: 0.55 });
+		document.querySelectorAll('.tr-gcard-video').forEach((video) => {
+			video.addEventListener('error', () => video.remove(), true);
+			watcher.observe(video);
+		});
+	}
+	document.querySelectorAll('[data-case]').forEach((opener) => {
+		opener.addEventListener('click', () => {
+			const dialog = document.getElementById(`case-${opener.dataset.case}`);
+			if (!dialog?.showModal) return;
+			const video = dialog.querySelector('video');
+			loadVideo(video);
+			dialog.showModal();
+			if (!reduceMotion) video.play().catch(() => {});
+		});
+	});
+	document.querySelectorAll('.tr-case').forEach((dialog) => {
+		dialog.addEventListener('click', (event) => {
+			if (event.target === dialog || event.target.closest('[data-case-close]')) dialog.close();
+		});
+		dialog.addEventListener('close', () => dialog.querySelector('video').pause());
 	});
 	const game = document.getElementById('network-defense-game');
 	const startDemo = (frame, source, cover) => {
@@ -256,7 +477,7 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	// The prototype delegates course navigation to its embedding host.
 	window.addEventListener('message', (event) => {
 		if (event.origin !== window.location.origin || event.source !== game.contentWindow) return;
-		if (event.data?.type !== 'ares:practice:navigate') return;
+		if (event.data?.type !== 'range:practice:navigate') return;
 		if (event.data.payload?.target === 'study') game.src = game.dataset.gameSrc;
 		if (event.data.payload?.target === 'mission') game.contentDocument?.getElementById('go-mission')?.click();
 	});

@@ -1,0 +1,36 @@
+/* Fit for mid-width viewports (an embedded frame, a laptop): the desktop layout
+   assumes ~1500px, so tighten the HUD and dock instead of letting them wrap. */
+.sr-only{top:0;left:0}
+@media(min-width:961px) and (max-width:1500px){
+:root{--panel-w:330px}
+.hud{gap:8px}
+.hud-tile{padding:8px 10px;gap:9px}
+.hud-tile.round{flex:2.6}
+.hud-tile.ap{flex:1.3}
+.hud-icon{width:32px;height:32px;font-size:1rem}
+.hud-k{font-size:.66rem;white-space:nowrap}
+.hud-v{font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-v small{font-size:.7rem;margin-left:4px}
+.hud-sub{font-size:.74rem;-webkit-line-clamp:1}
+.integrity-row{grid-template-columns:56px 1fr 36px;gap:6px;font-size:.7rem}
+.hud-tools{gap:5px}
+.hud-tools .icon-btn{width:32px;height:32px}
+.legend,.status-banner{top:92px}
+.legend{font-size:.72rem;gap:10px}
+.status-banner{font-size:.8rem;padding:5px 13px}
+.dock{gap:8px}
+.action-card{flex:1 1 0;width:auto;min-width:0;grid-template-columns:44px 1fr;column-gap:8px;padding:8px 10px}
+.action-card .art{width:44px;height:44px}
+.action-card .art img{width:48px;height:48px}
+.action-card .nm{font-size:.92rem;white-space:nowrap}
+.action-card .price{font-size:1.1rem}
+.action-card .ds{font-size:.7rem}
+.launch{min-width:140px;font-size:.98rem}
+.tagline{font-size:.92rem}
+}
+@media(min-width:961px) and (max-width:1180px){
+.hud-tile.round .hud-icon,.hud-tile.ap .hud-icon,.hud-tile.integrity .hud-icon{display:none}
+.legend{top:130px}
+.action-card{grid-template-columns:1fr}
+.action-card .art{display:none}
+}

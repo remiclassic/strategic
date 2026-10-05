@@ -24,16 +24,178 @@ export const isCalendar = () => Boolean(CALENDAR_URL);
 
 export const proof = [
 	{
-		title: 'Commercial cyber range UX',
-		detail: 'Onboarding, learning paths, and mission flow for a gamified cyber training platform.',
+		title: '7 cyber minigames',
+		detail: 'Six built for a commercial cyber range, plus one you can play on this page.',
 	},
 	{
-		title: 'Unreal interface tooling',
-		detail: 'UMG and CommonUI work, including a focus navigation plugin available on Fab.',
+		title: 'Nearly 20 years of game UI', // TODO: confirm the figure
+		detail: 'Game interface craft applied to onboarding, missions, and trainer views.',
 	},
 	{
-		title: 'Security minigames', // TODO: add the count, e.g. "6 security minigames"
-		detail: 'Short playable lessons for awareness and skills practice.',
+		title: 'Design and build',
+		detail: 'Web and React, or Unreal UMG and CommonUI. Nothing lost at handoff.',
+	},
+	{
+		title: 'Built to embed',
+		detail: 'Self-contained web modules with a simple contract for reporting score and completion to the host.',
+	},
+];
+
+// Games grid. Client-built games are shown under neutral names: no client, platform,
+// or product titles in copy, alt text, or filenames. Art lives in /public/training/games-art.
+export const PLAYABLE_ANCHOR = '#minigame-example';
+
+export const games = [
+	{
+		id: 'countermeasure-defense',
+		name: 'Countermeasure Defense',
+		genre: 'Arcade shooter',
+		teaches: 'Matching attacker tactics to the right response',
+		body: 'Threats fall toward the perimeter, each tagged with an ATT&CK tactic. Pick the response that defeats it (prevent, detect, contain, or recover) and fire before it breaches.',
+		alt: 'A defense turret fires a beam at a shielded planet, with stations on either side.',
+		why: 'You cannot fire well until you have read the tactic. The framework is the trigger.',
+		problem: 'Analysts learn ATT&CK tactics and kill chain stages as a list of names. What the job needs is the next step: seeing a tactic and knowing at once whether the right move is to prevent, detect, contain, or recover.',
+		idea: 'Turn each response type into a weapon. Threats arrive labelled with a tactic, and only the matching countermeasure stops them. In ninety seconds a learner makes dozens of tactic-to-response calls. A second mode runs the same loop on the seven kill chain stages.',
+		ux: [
+			'Four responses on keys 1 to 4, each with its own color, symbol, and label, so the choice never depends on color alone.',
+			'Selecting a response rings every threat it defeats. The hint is built into the control, not buried in a help screen.',
+			'A legend of every tactic and its response stays on screen, so a new learner can look it up mid-wave and a practiced one stops needing it.',
+			'High-priority threats move faster and hurt more, and some change tactic mid-flight, which forces a re-read instead of muscle memory.',
+		],
+		learner: 'Fast, repeated practice at reading a tactic and choosing the response, with a combo and a live accuracy rating that reward staying right under pressure.',
+	},
+	{
+		id: 'kill-chain-solitaire',
+		name: 'Kill Chain Solitaire',
+		genre: 'Card game',
+		teaches: 'How an attack unfolds, phase by phase',
+		body: 'Each card is a real attacker tool or technique. Build six complete attacks in order, from reconnaissance to action on objectives, before the score runs down.',
+		alt: 'A red target at the center of a circuit of connected attack and defense icons.',
+		why: 'Building each attack in order is the skill. The card table just makes it tactile.',
+		problem: 'Analysts can recite the seven kill chain phases but struggle to connect them to real tools and to each other. That sequence is what lets a defender work out how far an intrusion has gone and what comes next.',
+		idea: 'Borrow a game everyone already knows. Each card is an attacker tool tied to a phase, each pile is one attack, and a card only lands if it is the next phase in the chain. Closing a pile means the learner has rebuilt a full intrusion from first scan to final action.',
+		ux: [
+			'Familiar solitaire rules and a one-screen briefing, so the first card moves within seconds.',
+			'The seven phases sit across the top as a tracker that lights up as each one is placed.',
+			'Valid slots glow while a card is dragged. A wrong drop sends the card back with no score penalty, so trying is safe.',
+			'Picking up a card shows what the tool does and where it sits in the chain, so the content is read in the moment it is used.',
+		],
+		learner: 'A working mental model of how an attack progresses, built by placing real tools into the sequence again and again.',
+	},
+	{
+		id: 'cyber-quiz-show',
+		name: 'Cyber Quiz Show',
+		genre: 'Trivia board',
+		teaches: 'Core knowledge, by work role',
+		body: 'A game-show board where every category maps to a NICE work role. Pick a clue, place a wager, and finish on a final round.',
+		alt: 'A glowing gold game-show board of clue tiles on a studio stage.',
+		why: 'A wager makes people judge how sure they are, and that is the habit worth building.',
+		problem: 'Broad knowledge checks are the dullest part of any course. Learners click through, forget it, and the result says little about which areas are actually weak.',
+		idea: 'Keep the breadth and add stakes. Six categories each map to a work role, tiles rise in value with difficulty, and wager rounds ask the learner to bet on their own confidence before they see the question.',
+		ux: [
+			'A widescreen board the learner reads at a glance: six categories across, value and difficulty down.',
+			'Every category header names the work role it belongs to, so the learner sees which job a gap affects.',
+			'A 30-second timer ring that shifts from cyan to gold to red, and a streak counter that makes momentum visible.',
+			'Right or wrong, the correct answer lights up on the spot, so a miss still teaches. Keys 1 to 4 answer without the mouse.',
+		],
+		learner: 'A quick, honest read on what they know across six domains, with a grade and a balance that give them a reason to play the board again.',
+	},
+	{
+		id: 'regex-defense',
+		name: 'Regex Defense',
+		genre: 'Wave defense',
+		teaches: 'Regular expressions under pressure',
+		body: 'Waves of hostile strings advance on the base. Type a pattern that matches them and they are gone. Every keystroke counts.',
+		alt: 'A green cluster of bracket and pattern symbols in a stream of code.',
+		why: 'There is no multiple choice. The learner has to write the pattern.',
+		problem: 'Regular expressions show up in log search, detection rules, and data filters, and almost everyone learns them by copying from a cheat sheet. Reading regex is one thing. Writing it cold is another.',
+		idea: 'Make typing the pattern the only way to act. Hostile strings advance in waves, and a regex that matches a whole string takes it out. The first level drills quantifiers, the next moves to character classes and anchors, and later waves add characters that have to be escaped.',
+		ux: [
+			'A command console at the center of the screen: the keyboard is the controller.',
+			'Live preview. Strings the pattern would match turn green while the learner types, before they commit to the shot.',
+			'One pattern that clears several targets builds the combo, so writing a general pattern beats picking them off one by one.',
+			'A briefing names the concept before each level, and a regex reference stays on screen during play, so looking it up is part of the loop.',
+		],
+		learner: 'The jump from recognizing regex to producing it, practiced on short strings before it matters in a real query.',
+	},
+	{
+		id: 'port-connect',
+		name: 'Port Connect',
+		genre: 'Path puzzle',
+		teaches: 'Ports and protocols',
+		body: 'Draw paths that never cross to link each port number to its protocol. Every connection explains what the service does.',
+		alt: 'An isometric network board linking labelled nodes such as HTTP 80 and DNS 53 to a central core.',
+		why: 'Each path is a recalled fact, and the board will not complete on guesses.',
+		problem: 'Port numbers are pure memorization, and flash cards are how most people try and fail to learn them. The facts do not stick because nothing is done with them.',
+		idea: 'Wrap the recall in a spatial puzzle. The learner links each port to its protocol by drawing a path, paths cannot cross, and the grid must be filled. The puzzle gives a reason to care about the pairing, and each link explains what the service is for.',
+		ux: [
+			'Three guided boards with color hints, then free play where every tile is the same grey, so the pairing has to be recalled.',
+			'Draw with mouse, touch, or pen. A wrong link simply will not connect, and nothing is deducted for trying again.',
+			'Connecting a port opens its reference card: what it is for, how it gets attacked, and how to protect it.',
+			'Boards are generated and checked by a solver, so replaying means a new layout, not a memorized one.',
+		],
+		learner: 'Port and protocol pairs they can recall without a lookup, learned through a puzzle they would play anyway.',
+	},
+	{
+		id: 'attack-path-mapper',
+		name: 'Attack Path Mapper',
+		genre: 'Strategy',
+		teaches: 'Threat modeling and detection coverage',
+		body: 'Map how an adversary could move through a network, then see where detection holds and where it has gaps.',
+		alt: 'A network map with one route highlighted in red from an entry point to a server.',
+		why: 'Learners build the attack themselves, then watch the defenses answer it.',
+		problem: 'Threat modeling is usually taught as a diagram to read. Learners see the finished attack path and never practice the reasoning that produces one, or the question that matters most: would we have caught it?',
+		idea: 'Hand the learner the adversary role. They pick a target organization, chain techniques into a route toward an objective, and run it. The simulation checks every step against the controls in place and shows where detection held and where it had gaps.',
+		ux: [
+			'A mission dossier sets the target, its objectives, and the security controls already in place.',
+			'Techniques come from a searchable ATT&CK catalog and connect on a node graph, so the path is visible as it grows.',
+			'Running the simulation traces the route step by step, then names the control that caught each step.',
+			'No route scores 100. Every path trades reaching the objective against being seen, and Retry reopens the same board to refine it.',
+		],
+		learner: 'Practice thinking like an attacker in order to defend: tracing a route, then judging which controls would stop or spot it.',
+	},
+];
+
+// The gate every game concept has to pass before it gets built.
+export const designRules = [
+	{ title: 'Start from the job, not the game', body: 'Before any mechanic or art: which role is this for, which skill does it drill, and what should someone do better after ten sessions? If we cannot answer in a sentence, it is entertainment, not training.' },
+	{ title: 'One skill per game', body: 'A game that teaches ports, protocols, and firewall rules at once teaches none of them. Each game isolates a single skill so the score means something.' },
+	{ title: 'The knowledge is the controller', body: 'You cannot win by reflexes or by clicking fast. The only way to act in the game is to use the skill, so the mechanic falls apart for anyone who does not know the material.' },
+	{ title: 'Recall beats recognition', body: 'Picking from four options is recognition. Typing the pattern, placing the card, or drawing the route is recall, and recall is what holds up on the job.' },
+	{ title: 'Feedback teaches while you play', body: 'A wrong move explains itself on the spot, in the game, in under a second. Nobody waits for an end screen to find out what they got wrong.' },
+	{ title: 'Harder means deeper, not faster', body: 'Later rounds add ambiguity, exceptions, and trade-offs. Speeding up the clock only tests typing.' },
+	{ title: 'Score accuracy first', body: 'Speed is a capped bonus. Missing a real threat costs more than a false alarm, the same way it does in a SOC.' },
+	{ title: 'Five minutes, worth replaying', body: 'Short enough for a coffee break, with content that reshuffles every run so a learner cannot memorize the answers.' },
+];
+
+export const learnerOutcomes = [
+	{ title: 'They start', body: 'A five-minute game with one clear goal is easier to open than a forty-minute module. The first action happens in seconds, not after three screens of reading.' },
+	{ title: 'They practice, not just read', body: 'Every round is retrieval practice: the learner has to produce the answer and act on it. That is the part passive content skips.' },
+	{ title: 'They find out why', body: 'Feedback lands on the decision that caused it, so a mistake turns into the next correct move instead of a red mark at the end.' },
+	{ title: 'They come back', body: 'Fresh content each run and a score to beat give people a reason to replay, and repetition spread over days is what makes a skill stick.' },
+	{ title: 'You can see it', body: 'The games are built to report score and completion to the host platform, so an instructor sees who has the skill and who needs help.' },
+];
+
+export const whyUs = [
+	{ title: 'A game designer who knows your product', body: 'Nearly 20 years of game UI and UX, plus hands-on work inside a commercial cyber range: onboarding, learning paths, mission flow, and its minigames.' },
+	{ title: 'Design and code from the same hands', body: 'The person who designs the game also builds it, in React and web or in Unreal UMG and CommonUI. What you approve in the prototype is what ships.' },
+	{ title: 'Learning first, polish second', body: 'Every concept has to pass the same eight-rule gate before we draw anything. You get the reasoning in writing, not just a pretty mockup.' },
+	{ title: 'Built to drop into your platform', body: 'Self-contained web modules with a simple ready, score, complete contract, sized to embed in a course, an LMS, or a range.' },
+	{ title: 'Small, fixed, low risk', body: 'Start with a two-week sprint at a fixed fee. You own what you pay for, and there is no lock-in if you stop.' },
+];
+
+export const services = [
+	{
+		title: 'Educational minigames',
+		body: 'Give us one skill your learners keep failing. We return a concept, the art, and a playable build: five minutes long, scored, and ready to embed in your platform.',
+	},
+	{
+		title: 'UI, UX, and product design',
+		body: 'Onboarding, learning paths, mission briefings, HUDs, and trainer dashboards. Designed as full flows and delivered as click-through prototypes your team can test with learners.',
+	},
+	{
+		title: 'Front-end build',
+		body: 'We build what we design, in React and web or in Unreal UMG and CommonUI, with component states and handoff notes for your engineers.',
 	},
 ];
 

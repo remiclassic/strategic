@@ -4558,13 +4558,13 @@ html, body { height: 100%; }
 .intro-wipe { position: absolute; inset: 0px; background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.18), rgba(0, 0, 0, 0)); opacity: 0; z-index: 2; pointer-events: auto; animation: introDataWipe var(--intro-boot-duration) var(--intro-ease) forwards; }
 .intro-frame { position: absolute; width: min(70vw, 720px); height: min(26vh, 220px); z-index: 2; opacity: 0; pointer-events: auto; background: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) left top / 52px 1px no-repeat, linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) left top / 1px 52px no-repeat, linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) right top / 52px 1px no-repeat, linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) right top / 1px 52px no-repeat, linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) left bottom / 52px 1px no-repeat, linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) left bottom / 1px 52px no-repeat, linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) right bottom / 52px 1px no-repeat, linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) right bottom / 1px 52px no-repeat; }
 .intro-frame-- { animation: introFrame var(--intro-boot-duration) var(--intro-ease) forwards; }
-.intro-frame--range { width: min(76vw, 820px); height: min(28vh, 240px); animation: introFrameAres var(--intro-duration) var(--intro-ease) forwards; }
+.intro-frame--range { width: min(76vw, 820px); height: min(28vh, 240px); animation: introFrameRange var(--intro-duration) var(--intro-ease) forwards; }
 .intro-ticks { position: absolute; bottom: 18%; width: min(52vw, 520px); height: 8px; z-index: 2; opacity: 0; pointer-events: auto; background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 1px, rgba(0, 0, 0, 0) 6px, rgba(0, 0, 0, 0) 12px); animation: introTickPulse var(--intro-boot-duration) linear forwards; }
 .intro-logo { position: absolute; margin: 0px; opacity: 0; transform: scale(0.99); transform-origin: center center; will-change: opacity, transform; z-index: 3; }
 .intro-logo img { display: block; width: 100%; height: auto; object-fit: contain; }
 .intro-logo-- { width: min(44vw, 420px); animation: introBoot var(--intro-boot-duration) var(--intro-ease) forwards; }
-.intro-logo--range { width: min(58vw, 560px); container-type: inline-size; animation: introAresBoot var(--intro-duration) var(--intro-ease) forwards; }
-.intro-range-mark { animation: introAresReveal var(--intro-boot-duration) var(--intro-ease) forwards; }
+.intro-logo--range { width: min(58vw, 560px); container-type: inline-size; animation: introRangeBoot var(--intro-duration) var(--intro-ease) forwards; }
+.intro-range-mark { animation: introRangeReveal var(--intro-boot-duration) var(--intro-ease) forwards; }
 .intro-v3-circuit { position: absolute; inset: 0px; width: 100%; height: 100%; overflow: visible; pointer-events: auto; stroke-linecap: square; stroke-linejoin: bevel; }
 .intro-v3-trace, .intro-v3-charge { opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; animation: 1.05s linear 2.35s 1 normal both running introGen3Trace; }
 .intro-v3-trace { stroke: rgb(157, 232, 255); stroke-width: 2; filter: drop-shadow(rgb(129, 220, 255) 0px 0px 6px); }
@@ -4582,12 +4582,12 @@ html, body { height: 100%; }
   42% { opacity: 0; clip-path: inset(10% 0px); transform: scale(1.01); }
   100% { opacity: 0; clip-path: inset(10% 0px); transform: scale(1.01); }
 }
-@keyframes introAresBoot { 
+@keyframes introRangeBoot { 
   0%, 31.68% { opacity: 0; transform: scale(0.99); }
   38.88%, 90% { opacity: 1; transform: scale(1); }
   100% { opacity: 0; transform: scale(1.01); }
 }
-@keyframes introAresReveal { 
+@keyframes introRangeReveal { 
   0%, 44% { clip-path: inset(50% 0px); }
   54%, 100% { clip-path: inset(0px); }
 }
@@ -4644,7 +4644,7 @@ html, body { height: 100%; }
   42% { opacity: 0; transform: scale(1.02); }
   100% { opacity: 0; }
 }
-@keyframes introFrameAres { 
+@keyframes introFrameRange { 
   0% { opacity: 0; transform: scale(0.98); }
   37.44% { opacity: 0; transform: scale(0.98); }
   43.2% { opacity: 0.5; transform: scale(1); }

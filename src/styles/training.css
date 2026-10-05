@@ -420,3 +420,10 @@ button.tr-gcard-art{width:100%;padding:0;cursor:pointer;color:inherit;text-align
 @media(max-width:800px){.mc-row,.mc-next{grid-template-columns:1fr;gap:20px}.mc-row.mc-flip .mc-row-media{order:0}.mc-gallery{grid-template-columns:1fr 1fr;gap:14px}.mc-part{margin-top:44px}.mc-next{padding:26px 20px}}
 @media(max-width:520px){.mc-gallery{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.mc-shot img{transition:none}.mc-shot:hover img{transform:none}}
+
+/* Our own games: shown above the platform games */
+#our-games{padding-top:72px}
+#our-games .tr-gcard-art{border-color:#d6eab866}
+#our-games .tr-gcard-info p{margin-top:8px}
+#our-games .tr-gcard-info b{color:#fff;font-weight:600}
+#our-games+.tr-games-section{padding-top:80px}

@@ -4,7 +4,7 @@ import '../styles/training.css';
 import {
 	bookHref, isCalendar, CONTACT_EMAIL, PORTFOLIO_URL, LINKEDIN_URL,
 	proof, showcase, workFacts, workLead, prototypes, capabilities,
-	games, services, offers, designRules, learnerOutcomes, whyUs, steps, forList, notForList, faqs, PLAYABLE_ANCHOR,
+	games, myGames, services, offers, designRules, learnerOutcomes, whyUs, steps, forList, notForList, faqs, PLAYABLE_ANCHOR,
 } from '../data/training';
 
 const external = isCalendar() ? { target: '_blank', rel: 'noopener' } : {};
@@ -25,10 +25,10 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	<p class="eyebrow">STRATEGIC SLOTH · CYBER TRAINING GAMES &amp; PRODUCT DESIGN</p>
 	<h1 id="tr-title">Cyber training that plays like a game.</h1>
 	<div class="tr-pitch-row">
-		<p class="lede">We design and build educational minigames, and the interfaces around them, for cyber ranges and security training platforms. Seven games so far. One is playable right here.</p>
+		<p class="lede">We design and build educational minigames, and the interfaces around them, for cyber ranges and security training platforms. Eight games of our own so far. One is playable right here.</p>
 		<div class="hero-actions">
 			<a class="button" href={demo} {...external}>{demoLabel} <span aria-hidden="true">↗</span></a>
-			<a class="text-link" href="#games">See the games <span aria-hidden="true">↓</span></a>
+			<a class="text-link" href="#our-games">See the games <span aria-hidden="true">↓</span></a>
 		</div>
 	</div>
 </section>
@@ -52,9 +52,35 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	</div>
 </section>
 
+<section class="container tr-games-section" id="our-games" aria-labelledby="our-games-title">
+	<div class="section-heading">
+		<div><p class="eyebrow">OUR GAMES · DESIGNED AND BUILT BY US</p><h2 id="our-games-title">Eight training games, playable from briefing to debrief.</h2></div>
+		<p>Each clip shows a real decision, one mistake, the game’s own explanation, and the fix. Every game has authored scenarios and a test suite that proves the lazy strategy loses.</p>
+	</div>
+	<div class="tr-gamegrid">
+		{myGames.map((g) => (
+			<article class="tr-gcard">
+				<div class="tr-gcard-art">
+					<img src={`/training/my-games/${g.id}.jpg`} alt={`${g.name} gameplay`} width="1280" height="720" loading="lazy" />
+					<video class="tr-gcard-video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"><source data-src={`/training/my-games/${g.id}.mp4`} type="video/mp4" /></video>
+					<span class="tr-gcard-genre">{g.genre}</span>
+					<span class="tr-gcard-live" aria-hidden="true">● Gameplay</span>
+					<h3>{g.name.split(':')[0]}</h3>
+				</div>
+				<div class="tr-gcard-info">
+					<strong>Teaches: {g.teaches}</strong>
+					<p class="tr-gcard-why"><b>After a mistake, the game says:</b> {g.mistake}</p>
+					<p><b>Proved by tests.</b> {g.proof}</p>
+					<p>{g.fits}</p>
+				</div>
+			</article>
+		))}
+	</div>
+</section>
+
 <section class="container tr-games-section" id="games" aria-labelledby="games-title">
 	<div class="section-heading">
-		<div><p class="eyebrow">THE GAMES</p><h2 id="games-title">One skill. A few minutes. A score.</h2></div>
+		<div><p class="eyebrow">ALSO FEATURED · FROM A COMMERCIAL CYBER RANGE</p><h2 id="games-title">One skill. A few minutes. A score.</h2></div>
 		<p>Six of these were built for a commercial cyber range and are shown here under neutral names. Each one teaches a single skill a learner can practice on a coffee break.</p>
 	</div>
 	<div class="tr-gamegrid">

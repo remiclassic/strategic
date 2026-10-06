@@ -102,6 +102,9 @@ test('team section shows roles and no placeholder text in a production build', a
   await expect(page.locator('#team .tm-group')).toHaveCount(3);
   await expect(page.locator('#team .tm-group li')).toHaveCount(13);
   await expect(page.locator('#team .tm-name')).toHaveCount(6);
+  await expect(page.locator('#team .tm-photo img')).toHaveCount(6);
+  await page.locator('#team .tm-photo img').first().scrollIntoViewIfNeeded();
+  expect(await page.locator('#team .tm-photo img').first().evaluate((img: HTMLImageElement) => img.decode().then(() => img.naturalWidth))).toBeGreaterThan(0);
   await expect(page.locator('#team .tm-group li').first()).toContainText('Omar Rosario');
   await expect(page.locator('#team')).not.toContainText(/to be added|placeholder|draft:/i);
 });

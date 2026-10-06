@@ -17,6 +17,7 @@ export const bench: Member[] = [
   { group: 'Delivery', role: 'Producer', icon: 'calendar', skills: ['Planning', 'Milestones', 'Reporting'] },
   { group: 'Delivery', role: 'QA & playtest', icon: 'check', skills: ['Test plans', 'Device coverage', 'Usability'] },
   { group: 'Delivery', role: 'Operations & client coordination', icon: 'contract', skills: ['Scoping', 'Scheduling', 'Client support'], name: 'Ana Cristina Ibarra Villezcas', background: 'Operations, client service, sales and team coordination' },
+  { group: 'Delivery', role: 'New business', icon: 'contract', skills: ['Sales', 'Partnerships', 'Proposals'], name: 'Matthieu Couture', background: 'Business owner and sales coach; two decades leading customer service' },
 ];
 
 export const delivers = [

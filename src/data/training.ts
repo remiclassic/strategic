@@ -253,7 +253,7 @@ export const learnerOutcomes = [
 ];
 
 export const whyUs = [
-	{ title: 'A game designer who knows your product', body: 'Nearly 20 years of game UI and UX, plus hands-on work inside a commercial cyber range: onboarding, learning paths, mission flow, and its minigames.' },
+	{ title: 'A game designer who knows your product', body: 'Nearly 20 years of game UI and UX, plus hands-on work inside a commercial cyber range: onboarding, learning paths, mission flow, and its games hub.' },
 	{ title: 'Design and code from the same hands', body: 'The person who designs the game also builds it, in React and web or in Unreal UMG and CommonUI. What you approve in the prototype is what ships.' },
 	{ title: 'Learning first, polish second', body: 'Every concept has to pass the same eight-rule gate before we draw anything. You get the reasoning in writing, not just a pretty mockup.' },
 	{ title: 'Built to drop into your platform', body: 'Self-contained web modules with a simple ready, score, complete contract, sized to embed in a course, an LMS, or a range.' },

@@ -427,3 +427,7 @@ button.tr-gcard-art{width:100%;padding:0;cursor:pointer;color:inherit;text-align
 #our-games .tr-gcard-info p{margin-top:8px}
 #our-games .tr-gcard-info b{color:#fff;font-weight:600}
 #our-games+.tr-games-section{padding-top:80px}
+
+.tr-gcard-wide{grid-column:1/-1}
+.tr-gcard-wide .tr-gcard-art{aspect-ratio:auto;height:240px}
+@media(max-width:800px){.tr-gcard-wide .tr-gcard-art{height:200px}}

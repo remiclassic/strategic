@@ -17,9 +17,9 @@ const roleIcons: Record<string, string> = {
 };
 ---
 <section class="section container" id="team"><div class="section-heading"><div><p class="eyebrow">The team</p><h2>One lead.<br>A bench that scales.</h2></div><p>Remi leads every project. When the scope needs more hands, experienced specialists join under the same lead, so you still have one point of contact.</p></div>
-  <div class="tm-groups">{groups.map(group => <div class="tm-group sv-reveal"><h3>{group}</h3><ul>{bench.filter(member => member.group === group).map(member => <li>
+  <div class="tm-groups">{groups.map(group => <div class="tm-group sv-reveal"><h3>{group}</h3><ul>{bench.filter(member => member.group === group).sort((a, b) => Number(!!b.name) - Number(!!a.name)).map(member => <li>
     <span class:list={['tm-avatar', { 'tm-role': !member.name }]} aria-hidden="true">{member.name ? member.name.split(' ').map(part => part[0]).slice(0, 2).join('') : <svg viewBox="0 0 24 24"><path d={roleIcons[member.icon]} fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>}</span>
-    <div><strong>{member.role}</strong>{member.name ? <span class="tm-name">{member.name}{member.background && ` · ${member.background}`}</span> : null}<span class="tm-skills">{member.skills.join(' · ')}</span></div>
+    <div><strong>{member.role}</strong>{member.name ? <><span class="tm-name">{member.name}</span>{member.background && <span class="tm-bg">{member.background}</span>}</> : null}<span class="tm-skills">{member.skills.join(' · ')}</span></div>
   </li>)}</ul></div>)}</div>
   <div class="tm-delivers sv-reveal">{delivers.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}</div>
   <p class="sv-work-foot">Team size follows the scope. A UI pass may be Remi alone; a full product brings in engineering, art and production. <a class="pf-link" href="/contact/?engagement=partner#enquiry">Ask about team shape for your project →</a></p>
@@ -34,6 +34,8 @@ const roleIcons: Record<string, string> = {
   .tm-group ul{list-style:none;margin:0;padding:0}
   .tm-group li{display:flex;gap:16px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
   .tm-avatar{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px dashed #566352;color:var(--muted);font:600 15px/1 Manrope,sans-serif;background:var(--surface-2)}
+  .tm-avatar:not(.tm-role){border:0;background:var(--accent);color:#0c1408}
+  .tm-bg{font-size:12.5px;line-height:1.45;color:var(--muted)}
   .tm-role{border-style:solid;border-color:color-mix(in srgb,var(--accent) 35%,transparent);color:var(--accent);background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%),var(--surface-2)}
   .tm-role svg{width:24px;height:24px}
   .tm-group li div{display:grid;gap:3px;min-width:0}

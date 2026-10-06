@@ -278,7 +278,7 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	<div class="tr-case-context">
         <div><p class="eyebrow">THE PROBLEM</p><p>How does a new learner get from choosing a training path to understanding—and starting—the next activity?</p></div>
         <div><p class="eyebrow">DESIGN APPROACH</p><p>Learner flow, interface design, and interactive prototyping: compare onboarding directions, make module status clear, and connect the map to the briefing.</p></div>
-        <div><p class="eyebrow">WHAT TO EXPLORE</p><p>Try the animated globe and location zoom, then compare the path selection and onboarding flows below. These are design prototypes with sample progress.</p></div>
+        <div><p class="eyebrow">WHAT TO EXPLORE</p><p>Try the animated globe and location zoom. It is a design prototype with sample progress.</p></div>
     </div>
 	<figure class="tr-work-lead">
 		<div class="tr-proto-frame tr-work-interactive">
@@ -345,36 +345,6 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 				) : (
 					<a class="text-link" href={bookHref(`${s.name} demo`)} {...external}>Discuss this work <span aria-hidden="true">↗</span></a>
 				)}
-			</div>
-		</article>
-	))}
-</section>
-
-
-
-
-
-<section class="section container compact" id="prototypes" aria-labelledby="proto-title">
-	<div class="section-heading">
-		<div><p class="eyebrow">CLICK-THROUGH PROTOTYPES</p><h2 id="proto-title">Try the flows yourself.</h2></div>
-		<p>Working HTML prototypes with sample content. Click the buttons inside the frame to move through each flow.</p>
-	</div>
-	<div class="tr-tabs tr-proto-tabs" role="tablist" aria-label="Prototypes">
-		{prototypes.filter((item) => item.id !== 'globe').map((p, i) => (
-			<button type="button" role="tab" id={`ptab-${p.id}`} aria-controls={`proto-${p.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{p.tab}</button>
-		))}
-	</div>
-	{prototypes.filter((item) => item.id !== 'globe').map((p, i) => (
-		<article class="tr-proto" id={`proto-${p.id}`} role="tabpanel" aria-labelledby={`ptab-${p.id}`}>
-			<div class="tr-proto-frame">
-				<iframe data-src={p.src} title={`${p.tab} prototype`} loading="lazy" allow="fullscreen"></iframe>
-				<img src={p.poster} alt="" width="1600" height="900" loading="lazy" />
-				<div class="tr-demo-cover"><button class="button tr-demo-start" type="button">Load and play {p.tab} <span aria-hidden="true">→</span></button></div>
-				<p class="tr-demo-loading" role="status" hidden>Loading {p.tab}…</p>
-			</div>
-			<div class="tr-proto-meta">
-				<div><strong>{p.title}</strong><span>{p.note}</span></div>
-				<a class="text-link" href={p.src} target="_blank" rel="noopener">Open full screen <span aria-hidden="true">↗</span></a>
 			</div>
 		</article>
 	))}

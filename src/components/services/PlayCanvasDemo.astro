@@ -1,0 +1,175 @@
+---
+// A real PlayCanvas scene: the engine renders the item, an HTML layer carries the UI,
+// and the callouts are projected from 3D points every frame. The engine loads on demand.
+---
+<div class="pcd" data-pcd>
+  <canvas data-pcd-canvas aria-label="3D item rendered with the PlayCanvas engine. Drag to rotate."></canvas>
+  <div class="pcd-callouts" data-pcd-callouts aria-hidden="true"></div>
+  <div class="pcd-panel">
+    <span class="pcd-kicker" data-pcd-kind>Weapon</span>
+    <strong data-pcd-name>Falchion of Caen</strong>
+    <p data-pcd-note>Drag the item. The labels are HTML, pinned to points on the model.</p>
+    <div class="pcd-items" role="group" aria-label="Item"><button type="button" data-pcd-item="sword" aria-pressed="true">Sword</button><button type="button" data-pcd-item="shield" aria-pressed="false">Shield</button><button type="button" data-pcd-item="tonic" aria-pressed="false">Tonic</button></div>
+  </div>
+  <button type="button" class="pcd-start" data-pcd-start>Load the PlayCanvas scene <span aria-hidden="true">▶</span></button>
+  <p class="pcd-status" data-pcd-status>PlayCanvas engine · loads on demand</p>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-pcd]');
+  if (root) {
+    const start = root.querySelector<HTMLButtonElement>('[data-pcd-start]')!;
+    const status = root.querySelector<HTMLElement>('[data-pcd-status]')!;
+    let started = false;
+    const boot = async () => {
+      if (started) return; started = true;
+      start.disabled = true; start.textContent = 'Loading engine…';
+      try { await run(root, status); start.remove(); }
+      catch (error) { console.error(error); start.remove(); status.textContent = 'This browser could not start WebGL. The scene needs WebGL 2.'; }
+    };
+    start.addEventListener('click', boot);
+    // Start by itself once it scrolls into view, unless the visitor asked for less data or motion.
+    const light = (navigator as any).connection?.saveData || matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!light) new IntersectionObserver((entries, io) => { if (entries[0].isIntersecting) { io.disconnect(); boot(); } }, { threshold: 0.4 }).observe(root);
+  }
+
+  async function run(root: HTMLElement, status: HTMLElement) {
+    const pc = await import('playcanvas');
+    const canvas = root.querySelector<HTMLCanvasElement>('[data-pcd-canvas]')!;
+    const app = new pc.Application(canvas, { graphicsDeviceOptions: { antialias: true, alpha: false } });
+    app.setCanvasFillMode(pc.FILLMODE_NONE);
+    app.setCanvasResolution(pc.RESOLUTION_AUTO);
+    app.scene.ambientLight = new pc.Color(0.42, 0.45, 0.42);
+
+    const camera = new pc.Entity('camera');
+    camera.addComponent('camera', { clearColor: new pc.Color(0.055, 0.07, 0.058), fov: 34 });
+    camera.setPosition(0, 0.1, 10.5);
+    app.root.addChild(camera);
+    const key = new pc.Entity('key');
+    key.addComponent('light', { type: 'directional', color: new pc.Color(1, 0.95, 0.85), intensity: 1.25 });
+    key.setEulerAngles(40, 35, 0);
+    app.root.addChild(key);
+    const rim = new pc.Entity('rim');
+    rim.addComponent('light', { type: 'directional', color: new pc.Color(0.6, 0.85, 0.5), intensity: 1.1 });
+    rim.setEulerAngles(-30, -140, 0);
+    app.root.addChild(rim);
+
+    const mat = (r: number, g: number, b: number, metal = 0, gloss = 0.5) => {
+      const m = new pc.StandardMaterial();
+      // no environment map in this scene, so shine comes from specular highlights rather than metalness
+      m.diffuse = new pc.Color(r, g, b); m.specular = new pc.Color(metal, metal, metal); m.gloss = gloss;
+      m.update();
+      return m;
+    };
+    const steel = mat(0.86, 0.9, 0.94, 0.9, 0.8), gold = mat(0.9, 0.66, 0.24, 0.8, 0.7), leather = mat(0.3, 0.17, 0.1, 0, 0.3),
+      wood = mat(0.42, 0.27, 0.14, 0, 0.35), red = mat(0.62, 0.13, 0.11, 0, 0.45), glass = mat(0.35, 0.75, 0.55, 0.1, 0.95), cork = mat(0.6, 0.45, 0.3, 0, 0.2);
+    type Part = [string, InstanceType<typeof pc.StandardMaterial>, number[], number[], number[]?];
+    type Def = { kind: string; name: string; parts: Part[]; marks: [string, string, number[]][] };
+    const defs: Record<string, Def> = {
+      sword: { kind: 'Weapon · Rare', name: 'Falchion of Caen', parts: [
+        ['box', steel, [0, 0.9, 0], [0.32, 2.6, 0.06]], ['cone', steel, [0, 2.36, 0], [0.32, 0.36, 0.06]],
+        ['box', gold, [0, -0.45, 0], [1.1, 0.14, 0.2]], ['cylinder', leather, [0, -0.95, 0], [0.16, 0.9, 0.16]], ['sphere', gold, [0, -1.5, 0], [0.3, 0.3, 0.3]],
+      ], marks: [['Edge', 'Power 46', [0.16, 1.5, 0]], ['Guard', 'Parry +8', [0.55, -0.45, 0]], ['Pommel', 'Balance', [0, -1.5, 0.15]]] },
+      shield: { kind: 'Armour · Fine', name: 'Round Shield', parts: [
+        ['cylinder', steel, [0, 0, -0.02], [3.3, 0.1, 3.3], [90, 0, 0]], ['cylinder', wood, [0, 0, 0.03], [3.05, 0.12, 3.05], [90, 0, 0]],
+        ['box', red, [0, 0, 0.1], [0.34, 2.9, 0.04]], ['box', red, [0, 0, 0.1], [2.9, 0.34, 0.04]], ['sphere', steel, [0, 0, 0.2], [0.8, 0.8, 0.3]],
+        ['box', leather, [0, 0, -0.14], [0.2, 1.6, 0.1]],
+      ], marks: [['Boss', 'Block 33', [0, 0, 0.38]], ['Rim', 'Weight 52', [1.15, 1.15, 0]], ['Grip', 'Leather', [0, -0.5, -0.2]]] },
+      tonic: { kind: 'Supply · Common', name: 'Abbey Tonic', parts: [
+        ['sphere', glass, [0, -0.5, 0], [1.6, 1.5, 1.6]], ['cylinder', glass, [0, 0.55, 0], [0.5, 0.9, 0.5]], ['cylinder', cork, [0, 1.1, 0], [0.42, 0.3, 0.42]], ['cylinder', leather, [0, 0.2, 0], [0.62, 0.1, 0.62]],
+      ], marks: [['Draught', 'Heals 30', [0.6, -0.5, 0.5]], ['Stopper', 'Single use', [0, 1.25, 0]]] },
+    };
+
+    const pivot = new pc.Entity('pivot');
+    app.root.addChild(pivot);
+    const callouts = root.querySelector<HTMLElement>('[data-pcd-callouts]')!;
+    let marks: { el: HTMLElement; local: InstanceType<typeof pc.Vec3> }[] = [];
+    let scale = 0, yaw = 28, pitch = -8, vyaw = 12;
+    function show(id: string) {
+      const def = defs[id];
+      [...pivot.children].forEach(child => (child as InstanceType<typeof pc.Entity>).destroy());
+      def.parts.forEach(([type, material, p, s, r]) => {
+        const e = new pc.Entity();
+        e.addComponent('render', { type, material });
+        e.setLocalPosition(p[0], p[1], p[2]); e.setLocalScale(s[0], s[1], s[2]);
+        if (r) e.setLocalEulerAngles(r[0], r[1], r[2]);
+        pivot.addChild(e);
+      });
+      callouts.replaceChildren();
+      marks = def.marks.map(([title, note, at]) => {
+        const el = document.createElement('div');
+        el.className = 'pcd-callout';
+        el.innerHTML = '<i></i><span><b></b><em></em></span>';
+        el.querySelector('b')!.textContent = title; el.querySelector('em')!.textContent = note;
+        callouts.append(el);
+        return { el, local: new pc.Vec3(at[0], at[1], at[2]) };
+      });
+      root.querySelector('[data-pcd-kind]')!.textContent = def.kind;
+      root.querySelector('[data-pcd-name]')!.textContent = def.name;
+      root.querySelectorAll<HTMLElement>('[data-pcd-item]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.pcdItem === id)));
+      scale = 0; yaw = 28; vyaw = 12; // grows back in with a small overshoot, facing front
+    }
+    root.querySelectorAll<HTMLElement>('[data-pcd-item]').forEach(b => b.addEventListener('click', () => show(b.dataset.pcdItem!)));
+
+    // drag to rotate, with inertia; idles into a slow spin
+    let dragging = false, lastX = 0, lastY = 0;
+    canvas.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      vyaw = (e.clientX - lastX) * 22; yaw += (e.clientX - lastX) * 0.45; pitch = pc.math.clamp(pitch + (e.clientY - lastY) * 0.3, -40, 40);
+      lastX = e.clientX; lastY = e.clientY;
+    });
+    const release = () => { dragging = false; };
+    canvas.addEventListener('pointerup', release); canvas.addEventListener('pointercancel', release);
+
+    const world = new pc.Vec3(), screen = new pc.Vec3();
+    let frames = 0, since = 0, onScreen = true;
+    app.on('update', (dt: number) => {
+      if (!dragging) { yaw += vyaw * dt; vyaw += (12 - vyaw) * Math.min(1, dt * 1.5); }
+      pivot.setLocalEulerAngles(pitch, yaw, 0);
+      scale += (1 - scale) * Math.min(1, dt * 9);
+      const s = scale * (1 + 0.12 * Math.sin(Math.min(1, scale) * Math.PI));
+      pivot.setLocalScale(s, s, s);
+      const toCamera = camera.getPosition();
+      marks.forEach(mark => {
+        pivot.getWorldTransform().transformPoint(mark.local, world);
+        camera.camera!.worldToScreen(world, screen);
+        mark.el.style.transform = `translate(${screen.x.toFixed(1)}px, ${screen.y.toFixed(1)}px)`;
+        mark.el.classList.toggle('is-back', world.z < -0.3 && toCamera.z > 0); // fade labels on the far side
+      });
+      frames++; since += dt;
+      if (since >= 1) { status.textContent = `PlayCanvas ${pc.version} · ${Math.round(frames / since)} fps · ${canvas.width} × ${canvas.height}`; frames = 0; since = 0; }
+    });
+
+    const fit = () => { app.resizeCanvas(root.clientWidth, root.clientHeight); };
+    new ResizeObserver(fit).observe(root);
+    fit();
+    new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; app.autoRender = onScreen; app.timeScale = onScreen ? 1 : 0; }).observe(root);
+    show('sword');
+    app.start();
+    root.setAttribute('data-ready', '');
+  }
+</script>
+
+<style is:global>
+  .pcd{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0e120f;touch-action:pan-y}
+  .pcd canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;cursor:grab;outline:0}
+  .pcd canvas:active{cursor:grabbing}
+  .pcd-callouts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .pcd-callout{position:absolute;left:0;top:0;display:flex;align-items:center;gap:10px;will-change:transform;transition:opacity .2s}
+  .pcd-callout i{width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 30%,transparent);flex:none}
+  .pcd-callout span{margin-top:-4.5px;padding:6px 10px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:6px;background:rgba(10,14,11,.82);backdrop-filter:blur(6px);white-space:nowrap;font:500 11px/1.3 'JetBrains Mono',monospace;color:var(--ink)}
+  .pcd-callout b{display:block;font-weight:700}.pcd-callout em{font-style:normal;color:var(--accent);font-size:10px}
+  .pcd-callout.is-back{opacity:.18}
+  .pcd-panel{position:absolute;left:22px;bottom:22px;max-width:300px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:rgba(13,17,14,.84);backdrop-filter:blur(10px);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s cubic-bezier(.2,.7,.2,1)}
+  .pcd[data-ready] .pcd-panel{opacity:1;transform:none}
+  .pcd-kicker{font:700 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .pcd-panel strong{display:block;font:600 22px/1.2 Manrope,sans-serif;letter-spacing:-.03em;color:var(--ink);margin:8px 0 6px}
+  .pcd-panel p{font-size:12px;line-height:1.6;margin-bottom:14px}
+  .pcd-items{display:flex;gap:6px}
+  .pcd-items button{border:1px solid var(--line);background:transparent;color:var(--ink);font:600 12px/1 'DM Sans',sans-serif;padding:9px 13px;border-radius:7px}
+  .pcd-items button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#0c1408}
+  .pcd-start{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid var(--accent);background:rgba(13,17,14,.8);color:var(--accent);font:600 14px/1 'DM Sans',sans-serif;padding:16px 22px;border-radius:8px;display:flex;gap:16px}
+  .pcd-status{position:absolute;right:18px;top:16px;font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+  @media(max-width:700px){.pcd{aspect-ratio:4/5}.pcd-panel{left:12px;right:12px;bottom:12px;max-width:none;padding:14px}.pcd-panel p{display:none}.pcd-status{left:14px;right:auto}}
+</style>

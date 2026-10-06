@@ -1,0 +1,117 @@
+---
+import '../../../styles/services.css';
+import StudioLayout from '../../../layouts/StudioLayout.astro';
+import ServicesScripts from '../../../components/services/ServicesScripts.astro';
+
+// Text follows Remi's own Vanguard study on his portfolio, including its stated limits.
+const dir = '/media/services/portfolio/';
+const PROTOTYPE_URL = 'https://remiclassic.github.io/remiresume/vanguard.html';
+const problems = [
+  ['Ratings without a scale', 'Every stat reads “9”. Nothing says out of what, or what a point is worth.'],
+  ['Rank dressed as a stat', 'Class rank sits beside combat attributes and looks like one of them.'],
+  ['Unnamed equipment', 'Cards show items but not their names, and equipped looks the same as selected.'],
+  ['“Fight” hides the next step', 'The button does not say whether it confirms, queues or deploys.'],
+];
+const flow = [
+  ['Read the starting point', 'What does the original communicate?', 'Strong character and faction imagery carry the world. Repeated numbers and unnamed equipment leave the interpretation to the player.'],
+  ['Understand the role', 'Does this class fit how I want to play?', 'Relative trait labels and named, equipped items support a one-line role description.'],
+  ['Compare and equip', 'What changes if I choose the poleaxe?', 'Equipped, Preview and Locked are three distinct, named states. Cancel keeps the halberd.'],
+  ['Review and deploy', 'What am I joining with?', 'Team, class, loadout and mode in one place. Deploy is the explicit join action.'],
+];
+const paths = [
+  ['Equip and join', 'Class → loadout → preview → equip → review → deploy → joining → joined'],
+  ['Keep current', 'Preview poleaxe → cancel → halberd retained → review → deploy'],
+  ['Locked weapon', 'Inspect glaive → rank requirement → return → equipped item unchanged'],
+  ['Join fails', 'Deploy → joining → failure → selection retained → retry or return'],
+];
+const screens = [
+  ['vanguard-class', '01 / Class selection', 'Explain the role before the numbers.', 'Reach, mobility and protection describe the class trade-off. A short role statement helps newcomers, and named equipment with Equipped labels establishes the current state. Review Loadout says what happens next.', 'Class selection with a knight, a role statement, three relative traits and the current loadout'],
+  ['vanguard-loadout', '02 / Loadout comparison', 'Inspect freely. Equip deliberately.', 'The current halberd, the previewed poleaxe and the locked glaive use explicit text states. Side-by-side traits explain what changes. Equip Poleaxe commits; Cancel Preview keeps the halberd. The lock explains its rank requirement.', 'Loadout screen comparing three polearms with equipped, preview and locked states'],
+  ['vanguard-deploy', '03 / Deployment review', 'One last check before the battle.', 'Team, class, equipment and match context come together. “Loadout updated” confirms the earlier change, Edit Loadout is the way back, and Deploy is the only join action.', 'Deployment review with team, class, loadout and a Deploy button'],
+];
+const tests = ['Explain the class trade-off in their own words', 'Preview a weapon swap and cancel it', 'Inspect the locked glaive and say why it is locked', 'Equip the poleaxe and confirm what is equipped', 'Recover from a failed join without losing the loadout', 'Repeat the core tasks with a keyboard only'];
+---
+<StudioLayout services title="Vanguard: a loadout flow, from critique to working prototype — Strategic Sloth" description="A game UI case study: an atmospheric class-selection concept rebuilt as a complete preparation journey, with flows, three screens and a working React prototype.">
+  <section class="sv-engine-hero container">
+    <a class="sv-crumb" href="/services/#portfolio"><span aria-hidden="true">←</span> Game UI services</a>
+    <p class="eyebrow">Case study · Concept · 2026</p>
+    <h1>Choose your role.
+Enter with confidence.</h1>
+    <p class="lede">Vanguard takes an atmospheric medieval class-selection screen and rebuilds it as a complete preparation journey: understand the role, compare the loadout, deploy. Critique, flow, screens and a working prototype.</p>
+    <div class="cs-meta"><div><span>Scope</span><strong>UX critique · flow · UI · prototype</strong></div><div><span>Built with</span><strong>React, separate scene and equipment assets</strong></div><div><span>Status</span><strong>Portfolio study, AI-assisted visuals</strong></div><div><span>Input</span><strong>Keyboard-only path planned and tested</strong></div></div>
+    <div class="hero-actions"><a class="button" href="#prototype">Try the prototype <span>↓</span></a><a class="button ghost" href="/contact/?engagement=prototype#enquiry">Discuss a flow like this <span>↗</span></a></div>
+  </section>
+
+  <section class="section container"><div class="section-heading"><div><p class="eyebrow">01 / The starting point</p><h2>A strong world.<br>An unclear decision.</h2></div><p>The older concept has real atmosphere: steel, smoke and heraldry. The information behind the choice is where it struggles.</p></div>
+    <div class="cs-start sv-reveal"><figure class="sv-figure"><img src={`${dir}vanguard-original.webp`} alt="The original medieval class-selection concept, with repeated ratings of nine and unlabelled equipment cards" loading="lazy"/><figcaption>The starting concept. Original date and production context unconfirmed.</figcaption></figure>
+      <ol class="cs-problems">{problems.map(([title, body], i) => <li><span>0{i + 1}</span><div><strong>{title}</strong><p>{body}</p></div></li>)}</ol></div>
+    <p class="sv-caption">These are observations from a design critique, not findings from user testing.</p>
+  </section>
+
+  <section class="section container"><div class="section-heading"><div><p class="eyebrow">02 / The flow</p><h2>Four questions<br>the player asks.</h2></div><p>Each step answers one question and names the next action. Then the paths that usually get forgotten: cancel, locked, and failure.</p></div>
+    <ol class="cs-flow sv-reveal">{flow.map(([title, question, answer], i) => <li><span class="num">0{i + 1}</span><h3>{title}</h3><p class="q">“{question}”</p><p>{answer}</p></li>)}</ol>
+    <div class="cs-paths sv-reveal">{paths.map(([label, steps]) => <div><strong>{label}</strong><p>{steps}</p></div>)}</div>
+  </section>
+
+  <section class="section container"><div class="section-heading"><div><p class="eyebrow">03 / The screens</p><h2>Keep the atmosphere.<br>Clarify the choice.</h2></div><p>Three companion screens in the same visual language. Weapon traits and unlock rules are illustrative design content, not balance values.</p></div>
+    <div class="cs-screens">{screens.map(([file, label, title, body, alt], i) => <article class:list={['cs-screen', 'sv-reveal', i % 2 === 1 && 'flip']}><figure><img src={`${dir}${file}.webp`} alt={alt} loading="lazy"/></figure><div><p class="eyebrow">{label}</p><h3>{title}</h3><p>{body}</p></div></article>)}</div>
+  </section>
+
+  <section class="section container" id="prototype"><div class="section-heading"><div><p class="eyebrow">04 / The build</p><h2>Not a mock-up.<br>A working flow.</h2></div><p>The same journey as a React prototype: preview and cancel, locked items, equip, review, deploy, and recovery when joining fails.</p></div>
+    <div class="cs-proto sv-reveal" data-proto><button type="button" class="cs-proto-start" data-proto-start><img src={`${dir}vanguard-class.webp`} alt="" loading="lazy"/><span>Load the interactive prototype <b aria-hidden="true">▶</b></span></button></div>
+    <p class="sv-caption">Runs from Remi’s portfolio. <a href={PROTOTYPE_URL} target="_blank" rel="noopener" style="color:var(--accent)">Open it full screen ↗</a></p>
+  </section>
+
+  <section class="section container"><div class="section-heading"><div><p class="eyebrow">05 / How we would prove it</p><h2>A test plan,<br>not a claim.</h2></div><p>No outcomes are claimed for a study. This is the moderated test we would run with five or six players of mixed genre familiarity before implementation.</p></div>
+    <ul class="sv-check cs-tests sv-reveal">{tests.map(item => <li>{item}</li>)}</ul>
+    <p class="sv-caption">Recorded: wrong-state interpretations, accidental commitments, completion without prompting, and whether selections survive recovery. Then focus visibility, reading order, contrast and living-room readability.</p>
+  </section>
+
+  <section class="sv-cta"><div class="container"><p class="eyebrow">Your flow next</p><h2>Show us the screen<br>players get stuck on.</h2><p>Send a screenshot or a build. You get the same treatment: critique, flow, screens, and a version that runs.</p><div class="hero-actions"><a class="button" href="/contact/?engagement=prototype#enquiry" data-track="cta_click" data-track-location="services_case_vanguard">Start a conversation <span>↗</span></a><a class="button ghost" href="/services/">All services <span>→</span></a></div></div></section>
+  <ServicesScripts />
+</StudioLayout>
+
+<script define:vars={{ PROTOTYPE_URL }}>
+  const holder = document.querySelector('[data-proto]');
+  holder?.querySelector('[data-proto-start]')?.addEventListener('click', () => {
+    const frame = document.createElement('iframe');
+    frame.src = PROTOTYPE_URL; frame.title = 'Vanguard interactive prototype'; frame.loading = 'lazy';
+    holder.replaceChildren(frame);
+  });
+</script>
+
+<style is:global>
+  .cs-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-block:1px solid var(--line);margin:40px 0 34px}
+  .cs-meta div{padding:20px 20px 20px 0;border-right:1px solid var(--line)}.cs-meta div+div{padding-left:20px}.cs-meta div:last-child{border:0}
+  .cs-meta span{display:block;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .cs-meta strong{font:600 15px/1.4 Manrope,sans-serif;color:var(--ink)}
+  .cs-start{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:36px;align-items:start}
+  .cs-problems{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
+  .cs-problems li{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
+  .cs-problems span{font:500 11px/1.8 var(--mono);color:#ff7a6b}
+  .cs-problems strong{font:600 17px/1.3 Manrope,sans-serif;color:var(--ink)}.cs-problems p{font-size:14px;line-height:1.6;margin-top:6px}
+  .cs-flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 24px}
+  .cs-flow li{border-top:1px solid var(--accent);padding-top:22px;position:relative}
+  .cs-flow li:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:-13px;color:var(--accent);background:var(--paper);padding:0 3px;font-size:16px}
+  .cs-flow .num{font:500 11px/1 var(--mono);color:var(--accent);letter-spacing:.1em}
+  .cs-flow h3{font-size:22px;letter-spacing:-.04em;margin:18px 0 10px}
+  .cs-flow .q{color:var(--ink);font-style:italic;margin-bottom:10px}.cs-flow p{font-size:14px;line-height:1.65}
+  .cs-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:40px}
+  .cs-paths div{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--surface)}
+  .cs-paths strong{font:600 14px/1 Manrope,sans-serif;color:var(--ink)}.cs-paths p{font:400 12px/1.7 var(--mono);color:var(--muted);margin-top:8px}
+  .cs-screens{display:grid;gap:26px}
+  .cs-screen{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);align-items:center}
+  .cs-screen.flip{grid-template-columns:minmax(0,1fr) minmax(0,1.7fr)}.cs-screen.flip figure{order:2}
+  .cs-screen figure{margin:0}.cs-screen img{width:100%;display:block}
+  .cs-screen>div{padding:36px 38px}.cs-screen h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.045em;margin-bottom:14px}.cs-screen p:not(.eyebrow){font-size:15px;line-height:1.7}
+  .cs-proto{position:relative;aspect-ratio:16/9;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#080a08}
+  .cs-proto iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .cs-proto-start{position:absolute;inset:0;width:100%;padding:0;border:0;background:transparent;cursor:pointer}
+  .cs-proto-start img{width:100%;height:100%;object-fit:cover;filter:brightness(.45) blur(2px);transition:filter .3s}
+  .cs-proto-start:hover img{filter:brightness(.6) blur(0)}
+  .cs-proto-start span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:16px;align-items:center;font:600 15px/1 'DM Sans',sans-serif;color:#0c1408;background:var(--accent);padding:18px 24px;border-radius:8px;white-space:nowrap}
+  .cs-tests{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 30px}
+  @media(max-width:900px){.cs-meta{grid-template-columns:1fr 1fr}.cs-meta div:nth-child(2){border-right:0}.cs-meta div:nth-child(3){padding-left:0}.cs-meta div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    .cs-start,.cs-screen,.cs-screen.flip{grid-template-columns:1fr}.cs-screen.flip figure{order:0}.cs-flow{grid-template-columns:1fr 1fr;gap:26px 24px}.cs-flow li::after{display:none}.cs-screen>div{padding:26px 22px}.cs-proto{aspect-ratio:4/3}}
+  @media(max-width:560px){.cs-flow,.cs-paths,.cs-tests{grid-template-columns:1fr}}
+</style>

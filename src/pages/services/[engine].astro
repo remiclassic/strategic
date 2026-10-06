@@ -1,0 +1,44 @@
+---
+import '../../styles/services.css';
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import CodeBlock from '../../components/services/CodeBlock.astro';
+import WorkCard from '../../components/services/WorkCard.astro';
+import PlayCanvasDemo from '../../components/services/PlayCanvasDemo.astro';
+import ServicesScripts from '../../components/services/ServicesScripts.astro';
+import { engines, work, healthBarNote } from '../../data/services';
+export function getStaticPaths() { return engines.map(engine => ({ params: { engine: engine.slug }, props: { engine } })); }
+const { engine } = Astro.props;
+const related = work.filter(item => item.engines.includes(engine.slug)).map(item => ({ ...item, size: 'std' }));
+const others = engines.filter(e => e.slug !== engine.slug);
+---
+<StudioLayout services title={`${engine.name} UI design and implementation — Strategic Sloth`} description={engine.summary}>
+  <section class="sv-engine-hero container">
+    <a class="sv-crumb" href="/services/"><span aria-hidden="true">←</span> Services</a>
+    <p class="eyebrow">{engine.name} · UI design &amp; implementation</p>
+    <h1>{engine.headline}</h1>
+    <p class="lede">{engine.summary}</p>
+    <div class="hero-actions"><a class="button" href="/contact/?engagement=partner#enquiry" data-track="cta_click" data-track-location={`services_${engine.slug}`}>Talk about your {engine.short} project <span>↗</span></a><a class="button ghost" href="/services/#lab">Play the live demo <span>→</span></a></div>
+    <div class="sv-chips">{engine.stack.map(s => <span>{s}</span>)}</div>
+  </section>
+
+  {engine.slug === 'playcanvas' && <section class="section container" id="live"><div class="section-heading"><div><p class="eyebrow">Live · PlayCanvas engine</p><h2>Running now,<br>in this page.</h2></div><p>A PlayCanvas scene with an HTML interface over it. The callouts are DOM elements projected from points on the model every frame.</p></div><PlayCanvasDemo /><p class="sv-caption">Built for this page with the open-source PlayCanvas engine. Primitive geometry, two lights, no downloaded assets.</p></section>}
+
+  {engine.slug === 'unreal' && <section class="section container" id="proof"><div class="section-heading"><div><p class="eyebrow">Shipped · Focusrail on Fab</p><h2>Our own plugin,<br>in the editor.</h2></div><p>Focusrail is a UMG navigation plugin we built and sell. It exists because controller focus is where Unreal menus most often break.</p></div><div class="sv-figure-pair"><figure class="sv-figure"><img src="/media/services/unreal-focus-doctor.webp" alt="Unreal Engine widget designer with the Focusrail Focus Doctor panel reporting a duplicate navigation order between two buttons and offering an automatic fix" loading="lazy"/><figcaption>Editor capture. Focus Doctor validating a widget’s navigation rail and flagging a duplicate order.</figcaption></figure><figure class="sv-figure"><img src="/media/work/focusrail-runtime.webp" alt="A running Unreal pause menu with the Focusrail overlay naming the focused Resume button and its next and previous targets" loading="lazy"/><figcaption>Runtime capture. The overlay names the focused widget and where focus goes next.</figcaption></figure></div><figure class="sv-figure" style="margin-top:26px"><img src="/media/services/portfolio/ue-widget-editor.webp" alt="Unreal Engine widget blueprint editor with palette, hierarchy and a numbered focus rail drawn over four menu buttons" loading="lazy"/><figcaption>Widget editor capture, UE 5.8. The overlay draws the navigation order directly on the designer canvas.</figcaption></figure><p class="sv-caption"><a class="text-link" href="https://www.fab.com/listings/47a56c00-ab32-4c20-8aba-04935b4a2578" target="_blank" rel="noopener">View Focusrail on Fab <span aria-hidden="true">↗</span></a></p></section>}
+
+  <section class="section container"><div class="section-heading"><div><p class="eyebrow">What we do in {engine.short}</p><h2>Built the way the<br>engine expects.</h2></div><p>Native frameworks, used as intended, so your engineers inherit something familiar.</p></div>
+    <div class="sv-does sv-reveal">{engine.does.map(([title, body]) => <article><h3>{title}</h3><p>{body}</p></article>)}</div>
+  </section>
+
+  <section class="section container"><div class="section-heading"><div><p class="eyebrow">In code</p><h2>The same component,<br>in {engine.short}.</h2></div><p>{healthBarNote}</p></div>
+    <div class="sv-split sv-reveal"><div><CodeBlock engine={engine}/><p class="sv-note">A trimmed sample to show structure and approach. <a href="/services/#engines" style="color:var(--accent)">Compare all five runtimes →</a></p></div><div><p class="sv-check-title">Covered as standard</p><ul class="sv-check">{engine.checklist.map(item => <li>{item}</li>)}</ul></div></div>
+  </section>
+
+  {related.length > 0 && <section class="section container"><div class="section-heading"><div><p class="eyebrow">Real builds</p><h2>{engine.slug === 'web' ? 'Shipped in the browser.' : `Made with ${engine.short}.`}</h2></div><p>Each tile says what it is: recorded gameplay, an editor capture, or a product screenshot.</p></div><div class="sv-work">{related.map(item => <WorkCard item={item}/>)}</div></section>}
+
+  <section class="section container"><div class="section-heading"><div><p class="eyebrow">Other runtimes</p><h2>The design travels.</h2></div><p>The design system and motion spec stay the same. Only the implementation changes.</p></div>
+    <div class="sv-others">{others.map(e => <a href={`/services/${e.slug}/`}><strong>{e.name} <span aria-hidden="true">→</span></strong><span>{e.stack.slice(0, 3).join(' · ')}</span></a>)}</div>
+  </section>
+
+  <section class="sv-cta"><div class="container"><p class="eyebrow">{engine.name}</p><h2>Show us the build.</h2><p>Send a screenshot, a recording or a build, with your target platforms and dates. You will get a straight answer on fit and scope.</p><div class="hero-actions"><a class="button" href="/contact/?engagement=review#enquiry" data-track="cta_click" data-track-location={`services_${engine.slug}_footer`}>Start a conversation <span>↗</span></a><a class="button ghost" href="/services/">All services <span>→</span></a></div></div></section>
+  <ServicesScripts />
+</StudioLayout>

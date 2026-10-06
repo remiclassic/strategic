@@ -1,0 +1,131 @@
+---
+import { figmaDeep } from '../../data/services-figma';
+const total = figmaDeep.reduce((sum, file) => sum + file.shots.length, 0);
+---
+<section class="section container" id="figma-deep"><div class="section-heading"><div><p class="eyebrow">Inside the Figma files</p><h2>Open the file.<br>Zoom in.</h2></div><p>{total} close-ups exported page by page from {figmaDeep.length} sets of working files: flow maps, wireframes, UI kits, specs and final screens. Click any image to open it full screen, then click again to zoom to full resolution and drag around.</p></div>
+  <div class="fd-list">{figmaDeep.map(file => <article class="fd sv-reveal" data-fd>
+    <header class="fd-head">
+      <p class="fd-kind">{file.kind}</p>
+      <h3>{file.name}<span>{file.client}</span></h3>
+      <p class="fd-sum">{file.summary}</p>
+      <ul class="fd-pages" aria-label="Pages in the file">{file.pages.map(page => <li>{page}</li>)}</ul>
+      <p class="fd-cap" aria-live="polite"><strong data-fd-title>{file.shots[0].title}</strong><span data-fd-note>{file.shots[0].note}</span></p>
+    </header>
+    <div class="fd-stage">
+      <div class="fd-bar"><i></i><span>{file.name}</span><em data-fd-count>1 / {file.shots.length}</em></div>
+      <button type="button" class="fd-main" data-fd-open aria-label={`Open full screen: ${file.shots[0].title}`}><img src={file.shots[0].src} alt={`${file.name}: ${file.shots[0].title}. ${file.shots[0].note}`} width={file.shots[0].w} height={file.shots[0].h} loading="lazy" data-fd-main/><b aria-hidden="true">Open and zoom</b></button>
+      <div class="fd-thumbs">{file.shots.map((shot, i) => <button type="button" data-fd-thumb data-src={shot.src} data-title={shot.title} data-note={shot.note} data-w={shot.w} data-h={shot.h} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={shot.title}><img src={shot.thumb} alt="" loading="lazy"/></button>)}</div>
+    </div>
+  </article>)}</div>
+</section>
+
+<dialog class="fd-view" data-fd-view aria-label="Figma close-up">
+  <div class="fd-view-bar"><p><strong data-fv-title></strong><span data-fv-note></span></p><div><button type="button" data-fv-prev aria-label="Previous image">←</button><button type="button" data-fv-zoom>Zoom in</button><button type="button" data-fv-next aria-label="Next image">→</button><button type="button" data-fv-close>Close ✕</button></div></div>
+  <div class="fd-view-pane" data-fv-pane><img alt="" data-fv-img draggable="false"/></div>
+</dialog>
+
+<script>
+  const view = document.querySelector<HTMLDialogElement>('[data-fd-view]')!;
+  const pane = view.querySelector<HTMLElement>('[data-fv-pane]')!, big = view.querySelector<HTMLImageElement>('[data-fv-img]')!;
+  const zoomButton = view.querySelector<HTMLElement>('[data-fv-zoom]')!;
+  let thumbs: HTMLElement[] = [], current = 0, zoomed = false;
+
+  document.querySelectorAll<HTMLElement>('[data-fd]').forEach(card => {
+    const main = card.querySelector<HTMLImageElement>('[data-fd-main]')!, list = [...card.querySelectorAll<HTMLElement>('[data-fd-thumb]')];
+    const name = card.querySelector('h3')!.firstChild!.textContent!;
+    const pick = (i: number) => {
+      const t = list[i];
+      main.src = t.dataset.src!; main.width = Number(t.dataset.w); main.height = Number(t.dataset.h);
+      main.alt = `${name}: ${t.dataset.title}. ${t.dataset.note}`;
+      card.querySelector('[data-fd-title]')!.textContent = t.dataset.title!;
+      card.querySelector('[data-fd-note]')!.textContent = t.dataset.note!;
+      card.querySelector('[data-fd-count]')!.textContent = `${i + 1} / ${list.length}`;
+      list.forEach((other, j) => other.setAttribute('aria-pressed', String(j === i)));
+      card.dataset.index = String(i);
+    };
+    list.forEach((t, i) => t.addEventListener('click', () => pick(i)));
+    card.querySelector('[data-fd-open]')!.addEventListener('click', () => { thumbs = list; show(Number(card.dataset.index || 0)); view.showModal(); });
+  });
+
+  function setZoom(on: boolean, fx = 0.5, fy = 0.5) {
+    zoomed = on;
+    view.classList.toggle('is-zoomed', on);
+    zoomButton.textContent = on ? 'Fit to screen' : 'Zoom in';
+    if (on) requestAnimationFrame(() => { pane.scrollLeft = big.offsetWidth * fx - pane.clientWidth / 2; pane.scrollTop = big.offsetHeight * fy - pane.clientHeight / 2; });
+  }
+  function show(i: number) {
+    current = (i + thumbs.length) % thumbs.length;
+    const t = thumbs[current];
+    setZoom(false);
+    big.src = t.dataset.src!; big.alt = t.dataset.title!;
+    big.style.setProperty('--w', `${t.dataset.w}px`);
+    view.querySelector('[data-fv-title]')!.textContent = t.dataset.title!;
+    view.querySelector('[data-fv-note]')!.textContent = t.dataset.note!;
+  }
+  // Click zooms to full resolution around the point clicked; dragging pans without toggling.
+  let drag: { x: number; y: number; left: number; top: number; moved: boolean } | null = null;
+  pane.addEventListener('pointerdown', event => { drag = { x: event.clientX, y: event.clientY, left: pane.scrollLeft, top: pane.scrollTop, moved: false }; });
+  pane.addEventListener('pointermove', event => {
+    if (!drag || !zoomed) return;
+    const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
+    if (Math.abs(dx) + Math.abs(dy) > 5) drag.moved = true;
+    pane.scrollLeft = drag.left - dx; pane.scrollTop = drag.top - dy;
+  });
+  pane.addEventListener('pointerup', event => {
+    const wasDrag = drag?.moved; drag = null;
+    if (wasDrag || event.target !== big) return;
+    const box = big.getBoundingClientRect();
+    setZoom(!zoomed, (event.clientX - box.left) / box.width, (event.clientY - box.top) / box.height);
+  });
+  zoomButton.addEventListener('click', () => setZoom(!zoomed));
+  view.querySelector('[data-fv-prev]')!.addEventListener('click', () => show(current - 1));
+  view.querySelector('[data-fv-next]')!.addEventListener('click', () => show(current + 1));
+  view.querySelector('[data-fv-close]')!.addEventListener('click', () => view.close());
+  view.addEventListener('keydown', event => { if (event.key === 'ArrowLeft') show(current - 1); if (event.key === 'ArrowRight') show(current + 1); });
+</script>
+
+<style is:global>
+  .fd-list{display:grid;gap:26px}
+  .fd{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:34px;padding:28px;border:1px solid var(--line);border-radius:16px;background:var(--surface);align-items:start}
+  .fd-head{position:sticky;top:110px;display:grid;gap:12px}
+  .fd-kind{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .fd h3{font:600 clamp(26px,2.6vw,38px)/1.02 Manrope,sans-serif;letter-spacing:-.045em;color:var(--ink);display:grid;gap:8px}
+  .fd h3 span{font:400 11.5px/1 var(--mono);letter-spacing:.04em;color:var(--muted)}
+  .fd-sum{font-size:15px;line-height:1.6;color:var(--ink);opacity:.86}
+  .fd-pages{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:5px}
+  .fd-pages li{font:400 10.5px/1 var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:6px 8px}
+  .fd-cap{display:grid;gap:5px;margin-top:8px;padding-top:16px;border-top:1px solid var(--line);min-height:92px;align-content:start}
+  .fd-cap strong{font:600 15px/1.3 Manrope,sans-serif;color:var(--ink)}
+  .fd-cap span{font-size:13.5px;line-height:1.55;color:var(--muted)}
+  .fd-stage{min-width:0;border:1px solid #1a1a1a;border-radius:12px;overflow:hidden;background:#1e1e1e}
+  .fd-bar{display:flex;align-items:center;gap:9px;padding:9px 12px;background:#2c2c2c;border-bottom:1px solid #1a1a1a;font:500 11px/1 'DM Sans',sans-serif;color:#e6e6e6}
+  .fd-bar i{width:12px;height:12px;border-radius:3px;flex:none;background:linear-gradient(135deg,#f24e1e 0 33%,#a259ff 33% 66%,#1abcfe 66%)}
+  .fd-bar span{flex:1}
+  .fd-bar em{font:400 10px/1 var(--mono);font-style:normal;color:#9a9a9a}
+  .fd-main{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:16/10;padding:18px;border:0;cursor:zoom-in;background-color:#1e1e1e;background-image:radial-gradient(#353535 1px,transparent 1px);background-size:16px 16px}
+  .fd-main img{position:absolute;inset:18px;width:calc(100% - 36px);height:calc(100% - 36px);object-fit:contain;filter:drop-shadow(0 14px 30px rgba(0,0,0,.5));transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  .fd-main:hover img{transform:scale(1.025)}
+  .fd-main b{position:absolute;right:14px;bottom:14px;font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#0c1408;background:var(--accent);padding:8px 10px;border-radius:20px;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}
+  .fd-main:hover b,.fd-main:focus-visible b{opacity:1;transform:none}
+  .fd-thumbs{display:flex;gap:8px;padding:10px;overflow-x:auto;background:#252525;border-top:1px solid #1a1a1a}
+  .fd-thumbs button{flex:none;width:104px;height:66px;padding:0;border:1px solid #3a3a3a;border-radius:6px;overflow:hidden;background:#1e1e1e;opacity:.6;transition:opacity .2s,border-color .2s}
+  .fd-thumbs button:hover{opacity:1}
+  .fd-thumbs button[aria-pressed=true]{opacity:1;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+  .fd-thumbs img{width:100%;height:100%;object-fit:cover}
+  @media(max-width:960px){.fd{grid-template-columns:1fr;gap:20px;padding:18px}.fd-head{position:static}.fd-cap{min-height:0}}
+  .fd-view{border:0;padding:0;margin:0;width:100vw;height:100vh;max-width:none;max-height:none;background:#161616;color:#eef1e6}
+  .fd-view[open]{display:grid;grid-template-rows:auto minmax(0,1fr)}
+  .fd-view-bar{display:flex;gap:18px;align-items:center;justify-content:space-between;padding:12px 18px;background:#2c2c2c;border-bottom:1px solid #111}
+  .fd-view-bar p{display:grid;gap:3px;min-width:0}
+  .fd-view-bar strong{font:600 15px/1.2 Manrope,sans-serif}
+  .fd-view-bar span{font-size:12.5px;color:#a9b0a2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fd-view-bar div{display:flex;gap:6px;flex:none}
+  .fd-view-bar button{border:1px solid #4a4a4a;background:transparent;color:#eef1e6;font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.05em;padding:10px 12px;border-radius:6px}
+  .fd-view-bar button:hover{border-color:#c6f27a;color:#c6f27a}
+  .fd-view-pane{overflow:auto;display:grid;place-items:center;padding:22px;background-image:radial-gradient(#303030 1px,transparent 1px);background-size:18px 18px;cursor:zoom-in;touch-action:pan-x pan-y}
+  .fd-view-pane img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;user-select:none;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .fd-view.is-zoomed .fd-view-pane{place-items:start;cursor:grab}
+  .fd-view.is-zoomed .fd-view-pane:active{cursor:grabbing}
+  .fd-view.is-zoomed .fd-view-pane img{max-width:none;max-height:none;width:var(--w)}
+  @media(max-width:700px){.fd-view-bar{flex-direction:column;align-items:stretch;gap:10px}.fd-view-bar span{white-space:normal}}
+</style>

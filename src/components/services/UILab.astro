@@ -1,0 +1,695 @@
+---
+// A working game UI rendered in the page: HUD, pause menu, inventory and motion tokens.
+// Everything here is DOM + CSS driven by the script below. The backdrop is the only video.
+// Icon art, drawn on a 48 grid: strokes carry the line, low-opacity fills carry the shading,
+// and everything is currentColor so each skin and rarity tints it.
+const icons: Record<string, string> = {
+  sword: `<path d="M42 6l-2 9L23 32l-7-7L33 8z" fill="currentColor" fill-opacity=".3"/><path d="M42 6L19.5 28.5" stroke-width="1.2"/><path d="M11 21l16 16" stroke-width="3.4"/><path d="M17.5 30.5l-6.5 6.5" stroke-width="3.4"/><circle cx="8.5" cy="39.5" r="3" fill="currentColor" stroke="none"/>`,
+  shield: `<path d="M24 4l16 5v12c0 11-7 18-16 23C15 39 8 32 8 21V9z" fill="currentColor" fill-opacity=".2"/><path d="M24 4l16 5v12c0 11-7 18-16 23z" fill="currentColor" stroke="none" fill-opacity=".28"/><path d="M24 10v27M13 20h22" stroke-width="2.6"/><circle cx="24" cy="20" r="2.6" fill="currentColor" stroke="none"/>`,
+  potion: `<path d="M12.4 30h23.2L38 34a6 6 0 0 1-5.4 9H15.4a6 6 0 0 1-5.4-9z" fill="currentColor" stroke="none" fill-opacity=".5"/><path d="M20.5 7v9L10 34a6 6 0 0 0 5.4 9h17.2A6 6 0 0 0 38 34L27.5 16V7" fill="currentColor" fill-opacity=".14"/><path d="M18 5h12" stroke-width="3.4"/><path d="M12.4 30h23.2" stroke-width="1.2"/><circle cx="20" cy="36.5" r="1.6" fill="currentColor" stroke="none"/><circle cx="27.5" cy="34" r="1.1" fill="currentColor" stroke="none"/><path d="M31 22l2.5 4.5" stroke-width="1.4"/>`,
+  ring: `<path d="M24 18a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm0 4.5a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15z" fill="currentColor" fill-opacity=".3" fill-rule="evenodd"/><path d="M24 3l6.5 6.5L24 19l-6.5-9.5z" fill="currentColor" fill-opacity=".55"/><path d="M17.5 9.5h13M24 3v16" stroke-width="1.2"/>`,
+  bow: `<path d="M13 4c24 8 24 32 0 40" stroke-width="3"/><path d="M13 4v40" stroke-width="1.2"/><path d="M5 24h30" stroke-width="2"/><path d="M34 18l9 6-9 6z" fill="currentColor" stroke="none"/><path d="M5 24l4-4M5 24l4 4M9 24l4-4M9 24l4 4" stroke-width="1.4"/><path d="M29.5 20.5v7" stroke-width="3.4"/>`,
+  scroll: `<path d="M14 6h22a4 4 0 0 1 4 4v24H18V10a4 4 0 0 0-4-4z" fill="currentColor" fill-opacity=".2"/><path d="M14 6a4 4 0 0 0-4 4v4h8"/><path d="M12 34h32v2a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".42"/><path d="M23 14h12M23 20h12M23 26h6" stroke-width="1.5"/><circle cx="34" cy="27" r="2.6" fill="currentColor" stroke="none"/>`,
+  gem: `<path d="M14 6h20l10 12-20 26L4 18z" fill="currentColor" fill-opacity=".22"/><path d="M24 6l7 12-7 26-7-26z" fill="currentColor" stroke="none" fill-opacity=".3"/><path d="M4 18h40M14 6l3 12 7 26 7-26 3-12M17 18l7-12 7 12" stroke-width="1.3"/>`,
+  key: `<path d="M15 5a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 6a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" fill="currentColor" fill-opacity=".3" fill-rule="evenodd"/><path d="M22 22l21 21M34 34l5-5M39.5 39.5l4-4" stroke-width="3"/>`,
+  helm: `<path d="M10 42V20a14 14 0 0 1 28 0v22z" fill="currentColor" fill-opacity=".22"/><path d="M24 6a14 14 0 0 1 14 14v22H24z" fill="currentColor" stroke="none" fill-opacity=".26"/><path d="M24 6v36" stroke-width="2.6"/><path d="M13 23h22" stroke-width="3"/><path d="M7 42h34" stroke-width="2.6"/><circle cx="17" cy="31" r="1.2" fill="currentColor" stroke="none"/><circle cx="17" cy="36" r="1.2" fill="currentColor" stroke="none"/><circle cx="31" cy="31" r="1.2" fill="currentColor" stroke="none"/><circle cx="31" cy="36" r="1.2" fill="currentColor" stroke="none"/>`,
+  flag: `<path d="M11 8h29l-7 9 7 9H11z" fill="currentColor" fill-opacity=".3"/><path d="M11 6v38" stroke-width="3"/><circle cx="11" cy="5" r="2.6" fill="currentColor" stroke="none"/><path d="M22 12l5 5-5 5-5-5z" fill="currentColor" stroke="none"/>`,
+};
+const abilities = [
+  { id: 'strike', name: 'Strike', icon: 'sword', key: '1' },
+  { id: 'guard', name: 'Guard', icon: 'shield', key: '2' },
+  { id: 'rally', name: 'Rally', icon: 'flag', key: '3' },
+  { id: 'volley', name: 'Volley', icon: 'bow', key: '4' },
+];
+const views = [['hud', 'HUD'], ['menu', 'Menu'], ['inventory', 'Inventory'], ['motion', 'Motion']];
+const skins = [['ember', 'Ember'], ['signal', 'Signal'], ['paper', 'Paper']];
+const curves = [
+  { id: 'enter', name: 'Enter', ms: 180, bez: [0.2, 0.7, 0.2, 1], use: 'Panels, toasts, tooltips' },
+  { id: 'exit', name: 'Exit', ms: 120, bez: [0.4, 0, 1, 1], use: 'Anything leaving the screen' },
+  { id: 'emphasis', name: 'Emphasis', ms: 320, bez: [0.34, 1.56, 0.64, 1], use: 'Rewards, equip, level up' },
+  { id: 'drain', name: 'Ghost drain', ms: 600, delay: 450, bez: [0.2, 0.7, 0.2, 1], use: 'Health lost, shown late on purpose' },
+];
+const curvePath = ([a, b, c, d]: number[]) => `M0 100 C${a * 100} ${100 - b * 100} ${c * 100} ${100 - d * 100} 100 0`;
+---
+<div class="lab" data-lab data-skin="ember" data-view="hud" data-input="mouse">
+  <svg width="0" height="0" hidden aria-hidden="true"><defs>{Object.entries(icons).map(([id, d]) => <symbol id={`lab-i-${id}`} viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={d}/></symbol>)}</defs></svg>
+  <div class="lab-bar">
+    <div class="lab-tabs" role="group" aria-label="Demo screen">{views.map(([id, label]) => <button type="button" data-view-btn={id} aria-pressed={id === 'hud' ? 'true' : 'false'}>{label}</button>)}</div>
+    <div class="lab-skins" role="group" aria-label="Visual skin"><span>Skin</span>{skins.map(([id, label]) => <button type="button" data-skin-btn={id} aria-pressed={id === 'ember' ? 'true' : 'false'}><i class={`sw sw-${id}`}></i>{label}</button>)}</div>
+  </div>
+
+  <div class="lab-stage" tabindex="0" role="application" aria-label="Interactive game interface demo. Arrow keys move focus, Enter selects, Escape goes back, 1 to 4 use abilities.">
+    <video class="lab-backdrop" muted loop playsinline preload="none" poster="/media/norman-ascension/hero-poster.jpg" aria-hidden="true" tabindex="-1"><source src="/media/norman-ascension/hero-loop.mp4" type="video/mp4"/></video>
+    <div class="lab-scrim" aria-hidden="true"></div>
+    <div class="lab-ui">
+      <!-- HUD -->
+      <div class="lab-view hud" data-panel="hud">
+        <div class="hud-compass" aria-hidden="true"><div class="hud-compass-strip">{['N', '·', 'NE', '·', 'E', '·', 'SE', '·', 'S', '·', 'SW', '·', 'W', '·', 'NW', '·', 'N', '·', 'NE', '·', 'E'].map(t => <span>{t}</span>)}</div><i></i></div>
+        <div class="hud-target ui-panel"><div class="hud-target-top"><strong data-enemy-name>Saxon Huscarl</strong><span data-enemy-lvl>Lv 11</span></div><div class="bar bar-enemy" data-bar="enemy" style="--hp:1"><i class="ghost"></i><i class="fill"></i></div></div>
+        <div class="hud-objective ui-panel"><span class="ui-kicker">Objective</span><strong data-obj-title>Hold the abbey road</strong><ul data-obj-list><li>Break the shield wall</li><li>Defeat three huscarls</li><li>Raise the banner</li></ul></div>
+        <div class="hud-floats" data-floats aria-hidden="true"></div>
+        <div class="hud-toasts" data-toasts aria-live="polite"></div>
+        <div class="hud-player ui-panel">
+          <div class="hud-portrait"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 49c0-10 8-15 21-15s21 5 21 15z" fill="currentColor" fill-opacity=".34"/><path d="M13 22c0 12 4 17 11 17s11-5 11-17z" fill="currentColor" fill-opacity=".2"/><path d="M17 23h14v5c0 5-3 8-7 8s-7-3-7-8z" fill="#000" fill-opacity=".45" stroke="none"/><path d="M12 22c0-10 5-17 12-18 7 1 12 8 12 18z" fill="currentColor" fill-opacity=".5"/><path d="M24 4c7 1 12 8 12 18H24z" fill="#000" fill-opacity=".22" stroke="none"/><path d="M10.5 22h27" stroke-width="2.8"/><path d="M24 5v17" stroke-width="1.2"/><path d="M24 22v10" stroke-width="3.2"/><path d="M18.5 26.5h2.5M27 26.5h2.5" stroke-width="1.8"/><path d="M15 36l4 3M33 36l-4 3M20 41h8" stroke-width="1" stroke-opacity=".6"/></svg><b data-level>12</b></div>
+          <div class="hud-vitals"><div class="hud-name"><strong>Aldric of Caen</strong><span><b data-hp-text>120</b> / 120</span></div>
+            <div class="bar bar-hp" data-bar="hp" style="--hp:1"><i class="ghost"></i><i class="fill"></i></div>
+            <div class="bar bar-st" data-bar="st" style="--hp:1"><i class="fill"></i></div>
+            <div class="hud-buffs" data-buffs></div>
+          </div>
+        </div>
+        <div class="hud-abilities">{abilities.map(a => <button type="button" class="ability" data-ability={a.id} data-nav aria-label={`${a.name}, key ${a.key}`}><svg aria-hidden="true"><use href={`#lab-i-${a.icon}`}/></svg><i class="cd"></i><span class="keycap">{a.key}</span><em>{a.name}</em></button>)}</div>
+        <div class="hud-vignette" aria-hidden="true"></div>
+      </div>
+
+      <!-- Pause menu -->
+      <div class="lab-view menu" data-panel="menu" hidden>
+        <div class="menu-col" data-scope="main">
+          <span class="ui-kicker">Norman coast · Day 14</span><h3>Paused</h3>
+          <div class="menu-list">
+            <button type="button" data-nav data-action="resume">Resume</button>
+            <button type="button" data-nav data-action="inventory">Inventory</button>
+            <button type="button" data-nav data-action="settings">Settings</button>
+            <button type="button" data-nav data-action="quit">Quit to title</button>
+          </div>
+        </div>
+        <div class="menu-sub ui-panel" data-scope="settings" hidden>
+          <span class="ui-kicker">Settings</span>
+          <label class="set-row"><span>Master volume</span><input type="range" min="0" max="10" value="7" data-nav data-setting="volume"/><output>7</output></label>
+          <label class="set-row"><span>HUD scale</span><input type="range" min="80" max="120" step="10" value="100" data-nav data-setting="scale"/><output>100%</output></label>
+          <div class="set-row"><span>Subtitles</span><button type="button" class="switch" role="switch" aria-checked="true" data-nav data-setting="subtitles"><i></i></button><output>On</output></div>
+          <div class="set-row"><span>Reduce motion</span><button type="button" class="switch" role="switch" aria-checked="false" data-nav data-setting="calm"><i></i></button><output>Off</output></div>
+          <button type="button" class="menu-back" data-nav data-action="back">Back</button>
+        </div>
+        <div class="menu-confirm ui-panel" data-scope="confirm" data-cols="2" role="alertdialog" aria-label="Quit to title?" hidden>
+          <strong>Quit to title?</strong><p>Progress since the last rest will be lost.</p>
+          <div><button type="button" data-nav data-action="back">Cancel</button><button type="button" data-nav data-action="resume">Quit</button></div>
+        </div>
+      </div>
+
+      <!-- Inventory -->
+      <div class="lab-view inventory" data-panel="inventory" hidden>
+        <div class="inv-main ui-panel">
+          <div class="inv-head"><div><span class="ui-kicker">Saddlebag</span><h3>Inventory</h3></div><div class="inv-sort" role="group" aria-label="Sort"><button type="button" data-sort="rarity" aria-pressed="true">Rarity</button><button type="button" data-sort="type" aria-pressed="false">Type</button><button type="button" data-sort="value" aria-pressed="false">Value</button></div></div>
+          <div class="inv-grid" data-scope="inventory" data-cols="6" data-grid></div>
+        </div>
+        <aside class="inv-detail ui-panel" data-detail aria-live="polite"></aside>
+      </div>
+
+      <!-- Motion tokens -->
+      <div class="lab-view motion" data-panel="motion" hidden>
+        <div class="motion-head"><div><span class="ui-kicker">Motion tokens</span><h3>Four curves run this interface.</h3></div><button type="button" class="motion-replay" data-replay data-nav>Replay</button></div>
+        <div class="motion-grid" data-scope="motion">{curves.map(c => <article class="motion-card ui-panel" data-curve={c.id} data-ms={c.ms} data-delay={c.delay ?? 0} data-bez={c.bez.join(',')}>
+          <svg viewBox="-4 -34 108 140" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path class="axis" d="M0 100H100M0 100V0"/><path class="curve" d={curvePath(c.bez)} pathLength="1"/></svg>
+          <div class="motion-track"><i></i></div>
+          <strong>{c.name}</strong><code>{c.ms} ms{c.delay ? ` · ${c.delay} ms hold` : ''}</code><code>cubic-bezier({c.bez.join(', ')})</code><p>{c.use}</p>
+        </article>)}</div>
+      </div>
+    </div>
+    <div class="lab-prompts" aria-hidden="true">
+      <span class="p-kb"><kbd>↑</kbd><kbd>↓</kbd> Navigate <kbd>Enter</kbd> Select <kbd>Esc</kbd> Back <kbd>1</kbd>–<kbd>4</kbd> Abilities</span>
+      <span class="p-pad"><kbd class="round">✛</kbd> Navigate <kbd class="round a">A</kbd> Select <kbd class="round b">B</kbd> Back</span>
+      <span class="p-mouse">Click anything · or focus the stage and use the keyboard or a gamepad</span>
+    </div>
+  </div>
+
+  <div class="lab-console">
+    <p class="lab-live"><span class="live-dot"></span> Live interface · rendered by your browser, not a video · <span data-input-label>mouse</span> input</p>
+    <div class="lab-actions" data-for="hud"><button type="button" data-do="hit">Take a hit</button><button type="button" data-do="heal">Heal</button><button type="button" data-do="loot">Drop loot</button><button type="button" data-do="objective">Advance objective</button></div>
+    <label class="lab-rail"><input type="checkbox" data-rail/> Show focus order</label>
+  </div>
+</div>
+
+<script>
+  const lab = document.querySelector<HTMLElement>('[data-lab]');
+  if (lab) init(lab);
+
+  function init(lab: HTMLElement) {
+    const $ = <T extends HTMLElement = HTMLElement>(s: string, root: ParentNode = lab) => root.querySelector<T>(s)!;
+    const $$ = <T extends HTMLElement = HTMLElement>(s: string, root: ParentNode = lab) => [...root.querySelectorAll<T>(s)];
+    const stage = $('.lab-stage'), ui = $('.lab-ui'), video = $<HTMLVideoElement>('.lab-backdrop');
+    const systemCalm = matchMedia('(prefers-reduced-motion: reduce)');
+    let calm = systemCalm.matches;
+    const applyCalm = () => lab.toggleAttribute('data-calm', calm);
+    applyCalm();
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+    const pick = <T,>(list: T[]) => list[Math.floor(Math.random() * list.length)];
+
+    /* ---------- views, skins, input device ---------- */
+    let view = 'hud', lastTouch = 0;
+    const touched = () => { lastTouch = performance.now(); };
+    function setView(next: string, focus = true) {
+      view = next;
+      lab.dataset.view = next;
+      $$('[data-panel]').forEach(p => { p.hidden = p.dataset.panel !== next; });
+      $$('[data-view-btn]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.viewBtn === next)));
+      $$('.lab-actions').forEach(a => { a.hidden = a.dataset.for !== next; });
+      if (next === 'menu') openScope('main', false);
+      if (next === 'motion') replayCurves();
+      if (focus) focusFirst();
+    }
+    $$('[data-view-btn]').forEach(b => b.addEventListener('click', () => { touched(); setView(b.dataset.viewBtn!, false); }));
+    $$('[data-skin-btn]').forEach(b => b.addEventListener('click', () => {
+      lab.dataset.skin = b.dataset.skinBtn;
+      $$('[data-skin-btn]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    }));
+    function setInput(kind: string) {
+      if (lab.dataset.input === kind) return;
+      lab.dataset.input = kind;
+      $('[data-input-label]').textContent = kind === 'pad' ? 'gamepad' : kind === 'kb' ? 'keyboard' : 'mouse';
+    }
+    stage.addEventListener('pointerdown', () => { setInput('mouse'); touched(); });
+    $<HTMLInputElement>('[data-rail]').addEventListener('change', e => lab.toggleAttribute('data-show-rail', (e.target as HTMLInputElement).checked));
+
+    /* ---------- focus navigation ---------- */
+    const memory = new Map<string, HTMLElement>(); // last focused element per scope
+    const scopeStack: string[] = [];
+    const activeScope = (): HTMLElement => {
+      if (view === 'menu') return $(`[data-scope="${scopeStack[scopeStack.length - 1] || 'main'}"]`);
+      return $(`[data-panel="${view}"]`);
+    };
+    const navItems = () => $$('[data-nav]', activeScope()).filter(el => !el.closest('[hidden]'));
+    function focusFirst() {
+      const scope = activeScope(), items = navItems();
+      const remembered = memory.get(scope.dataset.scope || view);
+      (remembered && items.includes(remembered) ? remembered : items[0])?.focus({ preventScroll: true });
+    }
+    function move(dx: number, dy: number) {
+      const items = navItems();
+      if (!items.length) return;
+      const scope = activeScope();
+      const grid = scope.matches('[data-cols]') ? scope : scope.querySelector<HTMLElement>('[data-cols]');
+      const current = items.indexOf(document.activeElement as HTMLElement);
+      if (current < 0) return focusFirst();
+      const inGrid = grid?.contains(items[current]);
+      const cols = inGrid ? Number(grid!.dataset.cols) : view === 'hud' || view === 'motion' ? items.length : 1;
+      let next = current + dx + dy * cols;
+      if (cols === 1 && dx) return; // left and right belong to the control itself
+      if (next < 0 || next >= items.length) next = (next + items.length) % items.length;
+      items[next].focus({ preventScroll: true });
+    }
+    function openScope(name: string, remember = true) {
+      const from = scopeStack[scopeStack.length - 1];
+      if (remember && from && document.activeElement instanceof HTMLElement) memory.set(from, document.activeElement);
+      if (name === 'main') scopeStack.length = 0;
+      scopeStack.push(name);
+      $$('[data-scope="settings"],[data-scope="confirm"]').forEach(s => { s.hidden = s.dataset.scope !== name; });
+      $('[data-scope="main"]').toggleAttribute('data-dimmed', name !== 'main');
+      focusFirst();
+    }
+    function back() {
+      if (view === 'menu' && scopeStack.length > 1) {
+        scopeStack.pop();
+        $$('[data-scope="settings"],[data-scope="confirm"]').forEach(s => { s.hidden = true; });
+        $('[data-scope="main"]').removeAttribute('data-dimmed');
+        focusFirst(); // focus memory: lands on the item that opened the sub-screen
+      } else if (view === 'hud') setView('menu');
+      else setView('hud');
+    }
+    stage.addEventListener('focusin', e => {
+      const el = e.target as HTMLElement;
+      if (el.matches('[data-nav]')) memory.set(activeScope().dataset.scope || view, el);
+    });
+    stage.addEventListener('click', e => {
+      const source = (e.target as HTMLElement).closest<HTMLElement>('[data-action]');
+      const action = source?.dataset.action;
+      // Safari does not focus a clicked button, so remember the opener explicitly
+      if (source?.matches('[data-nav]') && (action === 'settings' || action === 'quit')) source.focus({ preventScroll: true });
+      if (action === 'resume') setView('hud');
+      else if (action === 'inventory') setView('inventory');
+      else if (action === 'settings') openScope('settings');
+      else if (action === 'quit') openScope('confirm');
+      else if (action === 'back') back();
+    });
+    stage.addEventListener('keydown', e => {
+      const k = e.key.toLowerCase();
+      const range = (e.target as HTMLElement).matches('input[type=range]');
+      const dirs: Record<string, [number, number]> = { arrowup: [0, -1], w: [0, -1], arrowdown: [0, 1], s: [0, 1], arrowleft: [-1, 0], a: [-1, 0], arrowright: [1, 0], d: [1, 0] };
+      if (dirs[k]) {
+        setInput('kb'); touched();
+        if (range && dirs[k][0]) return; // let the slider take left and right
+        e.preventDefault();
+        if (e.target === stage) focusFirst(); else move(...dirs[k]);
+      } else if (k === 'escape' || k === 'backspace') { e.preventDefault(); setInput('kb'); touched(); back(); }
+      else if (view === 'hud' && '1234'.includes(k) && k) { setInput('kb'); touched(); useAbility(abilityIds[Number(k) - 1]); }
+      else if (k === 'enter' && e.target === stage) { e.preventDefault(); focusFirst(); }
+    });
+
+    /* gamepad: polled only while the stage is on screen */
+    let visible = false, padHeld = '';
+    function pollPad() {
+      if (!visible) return;
+      const pad = navigator.getGamepads?.().find(Boolean);
+      if (pad) {
+        const b = (i: number) => pad.buttons[i]?.pressed;
+        const x = pad.axes[0] || 0, y = pad.axes[1] || 0;
+        const now = b(12) || y < -0.6 ? 'up' : b(13) || y > 0.6 ? 'down' : b(14) || x < -0.6 ? 'left' : b(15) || x > 0.6 ? 'right' : b(0) ? 'a' : b(1) ? 'b' : b(9) ? 'start' : '';
+        if (now && now !== padHeld) {
+          setInput('pad'); touched();
+          if (!stage.contains(document.activeElement)) focusFirst();
+          else if (now === 'a') (document.activeElement as HTMLElement).click();
+          else if (now === 'b') back();
+          else if (now === 'start') setView(view === 'menu' ? 'hud' : 'menu');
+          else {
+            const el = document.activeElement as HTMLInputElement;
+            if (el.matches('input[type=range]') && (now === 'left' || now === 'right')) { now === 'left' ? el.stepDown() : el.stepUp(); el.dispatchEvent(new Event('input', { bubbles: true })); }
+            else move(now === 'left' ? -1 : now === 'right' ? 1 : 0, now === 'up' ? -1 : now === 'down' ? 1 : 0);
+          }
+        }
+        padHeld = now;
+      }
+      requestAnimationFrame(pollPad);
+    }
+
+    /* ---------- settings ---------- */
+    stage.addEventListener('input', e => {
+      const el = e.target as HTMLInputElement, out = el.parentElement!.querySelector('output')!;
+      if (el.dataset.setting === 'volume') out.textContent = el.value;
+      if (el.dataset.setting === 'scale') { out.textContent = `${el.value}%`; ui.style.setProperty('--hud-scale', String(Number(el.value) / 100)); }
+    });
+    $$('.switch').forEach(sw => sw.addEventListener('click', () => {
+      const on = sw.getAttribute('aria-checked') !== 'true';
+      sw.setAttribute('aria-checked', String(on));
+      sw.parentElement!.querySelector('output')!.textContent = on ? 'On' : 'Off';
+      if (sw.dataset.setting === 'calm') { calm = on || systemCalm.matches; applyCalm(); }
+    }));
+
+    /* ---------- HUD ---------- */
+    const MAX_HP = 120;
+    const state = { hp: MAX_HP, st: 1, enemy: 1, kills: 0, step: 0, guard: 0 };
+    const cooldown: Record<string, number> = { strike: 1400, guard: 5000, rally: 7000, volley: 9000 };
+    const abilityIds = Object.keys(cooldown);
+    const ready: Record<string, boolean> = { strike: true, guard: true, rally: true, volley: true };
+    const enemies = ['Saxon Huscarl', 'Shield Bearer', 'Fyrd Spearman', 'Thegn of Wessex'];
+
+    // Same technique as the code sample on this page: one custom property, CSS does the motion.
+    function setBar(name: string, pct: number) {
+      const bar = $(`[data-bar="${name}"]`);
+      pct = Math.min(1, Math.max(0, pct));
+      const previous = Number(bar.style.getPropertyValue('--hp') || 1);
+      const damage = pct < previous;
+      bar.classList.toggle('is-damage', damage);
+      bar.style.setProperty('--hp', String(pct));
+      if (damage && !calm) bar.animate({ filter: ['brightness(1.8)', 'none'] }, { duration: 120 });
+    }
+    function float(text: string, kind: string, x = rand(38, 62), y = rand(30, 46)) {
+      const el = document.createElement('span');
+      el.className = `float float-${kind}`;
+      el.textContent = text;
+      el.style.left = `${x}%`; el.style.top = `${y}%`;
+      $('[data-floats]').append(el);
+      el.addEventListener('animationend', () => el.remove());
+      if (calm) setTimeout(() => el.remove(), 700);
+    }
+    function toast(icon: string, title: string, note: string, rarity = 0) {
+      const feed = $('[data-toasts]');
+      const el = document.createElement('div');
+      el.className = 'toast ui-panel'; el.dataset.rarity = String(rarity);
+      el.innerHTML = `<svg aria-hidden="true"><use href="#lab-i-${icon}"/></svg><div><strong></strong><span></span></div>`;
+      el.querySelector('strong')!.textContent = title; el.querySelector('span')!.textContent = note;
+      feed.prepend(el);
+      while (feed.children.length > 3) feed.lastElementChild!.remove();
+      setTimeout(() => { el.classList.add('is-out'); setTimeout(() => el.remove(), 260); }, 3600);
+    }
+    function setHp(value: number) {
+      state.hp = Math.min(MAX_HP, Math.max(0, value));
+      $('[data-hp-text]').textContent = String(Math.round(state.hp));
+      setBar('hp', state.hp / MAX_HP);
+      $('.hud-player').classList.toggle('is-low', state.hp / MAX_HP < 0.3);
+    }
+    function hit(amount = Math.round(rand(9, 22))) {
+      if (state.guard > performance.now()) { float('Blocked', 'block', rand(22, 34), rand(62, 70)); return; }
+      setHp(state.hp - amount);
+      float(`−${amount}`, 'hurt', rand(20, 32), rand(60, 70));
+      const v = $('.hud-vignette'); v.classList.remove('is-on'); void v.offsetWidth; v.classList.add('is-on');
+      if (state.hp <= 0) setTimeout(() => { setHp(MAX_HP); toast('flag', 'You rally at the abbey', 'Health restored'); }, 900);
+    }
+    function heal(amount = 30) { setHp(state.hp + amount); float(`+${amount}`, 'heal', rand(20, 32), rand(60, 70)); }
+    function loot() {
+      const drop = pick(items.filter(i => i.rarity < 3));
+      toast(drop.icon, drop.name, `${rarityName[drop.rarity]} ${drop.type}`, drop.rarity);
+    }
+    function objective() {
+      const rows = $$('[data-obj-list] li');
+      if (state.step >= rows.length) return;
+      rows[state.step++].classList.add('is-done');
+      if (state.step < rows.length) return;
+      toast('flag', 'Objective complete', 'The abbey road is held', 2);
+      setTimeout(() => { rows.forEach(li => li.classList.remove('is-done')); state.step = 0; }, 3200);
+    }
+    function strikeEnemy(amount: number, crit = false) {
+      state.enemy = Math.max(0, state.enemy - amount / 100);
+      setBar('enemy', state.enemy);
+      float(crit ? `${amount}!` : String(amount), crit ? 'crit' : 'deal');
+      if (state.enemy > 0) return;
+      state.kills++;
+      loot();
+      if (state.kills % 2 === 0) objective();
+      setTimeout(() => {
+        state.enemy = 1;
+        $('[data-enemy-name]').textContent = enemies[state.kills % enemies.length];
+        $('[data-enemy-lvl]').textContent = `Lv ${10 + (state.kills % 5)}`;
+        const bar = $('[data-bar="enemy"]'); bar.classList.remove('is-damage'); bar.style.setProperty('--hp', '1');
+      }, 900);
+    }
+    function useAbility(id: string) {
+      if (!ready[id]) { const b = $(`[data-ability="${id}"]`); b.classList.remove('is-denied'); void b.offsetWidth; b.classList.add('is-denied'); return false; }
+      ready[id] = false;
+      const btn = $(`[data-ability="${id}"]`);
+      btn.classList.add('is-cooling'); btn.classList.remove('is-ready');
+      btn.style.setProperty('--cd-ms', `${cooldown[id]}ms`);
+      setTimeout(() => { ready[id] = true; btn.classList.remove('is-cooling'); btn.classList.add('is-ready'); }, cooldown[id]);
+      state.st = Math.max(0, state.st - 0.22); setBar('st', state.st);
+      if (id === 'strike') strikeEnemy(Math.round(rand(14, 24)));
+      if (id === 'volley') [0, 140, 280].forEach((d, i) => setTimeout(() => strikeEnemy(Math.round(rand(16, 26)), i === 2), d));
+      if (id === 'rally') heal(35);
+      if (id === 'guard') {
+        state.guard = performance.now() + 3000;
+        const buff = document.createElement('span'); buff.className = 'buff'; buff.innerHTML = '<svg aria-hidden="true"><use href="#lab-i-shield"/></svg>Guard';
+        $('[data-buffs]').replaceChildren(buff); setTimeout(() => buff.remove(), 3000);
+      }
+      return true;
+    }
+    $$('[data-ability]').forEach(b => b.addEventListener('click', () => { touched(); useAbility(b.dataset.ability!); }));
+    const actions: Record<string, () => void> = { hit: () => hit(), heal: () => heal(), loot, objective };
+    $$('[data-do]').forEach(b => b.addEventListener('click', () => { touched(); if (view !== 'hud') setView('hud', false); actions[b.dataset.do!](); }));
+    setInterval(() => { if (state.st < 1) { state.st = Math.min(1, state.st + 0.04); setBar('st', state.st); } }, 400);
+
+    // Attract mode: plays the HUD until someone takes over, and only while it is on screen.
+    setInterval(() => {
+      if (!visible || calm || view !== 'hud' || document.hidden || performance.now() - lastTouch < 7000) return;
+      const roll = Math.random();
+      if (state.hp < 45 && ready.rally) useAbility('rally');
+      else if (roll < 0.3) hit();
+      else if (roll < 0.42 && ready.guard) useAbility('guard');
+      else if (roll < 0.6 && ready.volley) useAbility('volley');
+      else if (ready.strike) useAbility('strike');
+    }, 1300);
+
+    /* ---------- inventory ---------- */
+    const rarityName = ['Common', 'Fine', 'Rare', 'Heirloom'];
+    const items = [
+      { id: 'a', name: 'Falchion of Caen', type: 'weapon', icon: 'sword', rarity: 2, power: 46, weight: 30, value: 180 },
+      { id: 'b', name: 'Arming Sword', type: 'weapon', icon: 'sword', rarity: 0, power: 28, weight: 34, value: 40 },
+      { id: 'c', name: 'Yew Longbow', type: 'weapon', icon: 'bow', rarity: 1, power: 37, weight: 18, value: 95 },
+      { id: 'd', name: 'Kite Shield', type: 'armour', icon: 'shield', rarity: 1, power: 33, weight: 52, value: 80 },
+      { id: 'e', name: 'Ducal Great Helm', type: 'armour', icon: 'helm', rarity: 3, power: 58, weight: 44, value: 420 },
+      { id: 'f', name: 'Nasal Helm', type: 'armour', icon: 'helm', rarity: 0, power: 22, weight: 30, value: 35 },
+      { id: 'g', name: 'Abbey Tonic', type: 'supply', icon: 'potion', rarity: 0, power: 12, weight: 4, value: 12 },
+      { id: 'h', name: 'Signet of the House', type: 'trinket', icon: 'ring', rarity: 3, power: 40, weight: 1, value: 600 },
+      { id: 'i', name: 'Charter of Passage', type: 'trinket', icon: 'scroll', rarity: 2, power: 18, weight: 1, value: 150 },
+      { id: 'j', name: 'River Garnet', type: 'trinket', icon: 'gem', rarity: 1, power: 9, weight: 1, value: 110 },
+      { id: 'k', name: 'Gatehouse Key', type: 'supply', icon: 'key', rarity: 1, power: 5, weight: 2, value: 20 },
+      { id: 'l', name: 'War Banner', type: 'supply', icon: 'flag', rarity: 2, power: 25, weight: 12, value: 130 },
+    ];
+    type Item = (typeof items)[number];
+    const equipped: Record<string, string> = { weapon: 'b', armour: 'f' };
+    const grid = $('[data-grid]'), detail = $('[data-detail]');
+    const sorters: Record<string, (a: Item, b: Item) => number> = {
+      rarity: (a, b) => b.rarity - a.rarity || b.value - a.value,
+      type: (a, b) => a.type.localeCompare(b.type) || b.rarity - a.rarity,
+      value: (a, b) => b.value - a.value,
+    };
+    const slots = new Map<string, HTMLElement>();
+    items.forEach(item => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'slot'; b.dataset.nav = ''; b.dataset.item = item.id; b.dataset.rarity = String(item.rarity);
+      b.setAttribute('aria-label', `${item.name}, ${rarityName[item.rarity]} ${item.type}`);
+      b.innerHTML = `<svg aria-hidden="true"><use href="#lab-i-${item.icon}"/></svg><i class="eq">E</i>`;
+      b.addEventListener('focus', () => showItem(item));
+      b.addEventListener('pointerenter', () => showItem(item));
+      b.addEventListener('click', () => equip(item));
+      slots.set(item.id, b);
+    });
+    const empties = Array.from({ length: 6 }, () => Object.assign(document.createElement('span'), { className: 'slot slot-empty' }));
+    function sortBy(key: string, animate = true) {
+      const first = new Map([...slots].map(([id, el]) => [id, el.getBoundingClientRect()]));
+      grid.replaceChildren(...[...items].sort(sorters[key]).map(i => slots.get(i.id)!), ...empties);
+      $$('[data-sort]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === key)));
+      markEquipped();
+      if (!animate || calm) return;
+      slots.forEach((el, id) => { // FLIP: measure, reorder, play the difference
+        const a = first.get(id)!, b = el.getBoundingClientRect();
+        if (a.left !== b.left || a.top !== b.top) el.animate({ transform: [`translate(${a.left - b.left}px, ${a.top - b.top}px)`, 'none'] }, { duration: 320, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      });
+    }
+    function markEquipped() { slots.forEach((el, id) => el.toggleAttribute('data-equipped', Object.values(equipped).includes(id))); }
+    function showItem(item: Item) {
+      if (detail.dataset.item === item.id) return;
+      detail.dataset.item = item.id; detail.dataset.rarity = String(item.rarity);
+      const worn = items.find(i => i.id === equipped[item.type]);
+      const isWorn = worn?.id === item.id;
+      const stat = (label: string, value: number, base: number | undefined, max: number, lowerBetter = false) => {
+        const diff = base === undefined || isWorn ? 0 : value - base;
+        const good = lowerBetter ? diff < 0 : diff > 0;
+        return `<div class="stat"><span>${label}</span><div class="stat-bar"><i style="--v:${value / max}"></i></div><b>${value}</b><em class="${diff ? (good ? 'up' : 'down') : ''}">${diff ? (diff > 0 ? '+' : '−') + Math.abs(diff) : ''}</em></div>`;
+      };
+      detail.innerHTML = `<span class="ui-kicker">${rarityName[item.rarity]} ${item.type}</span><h4></h4>
+        <div class="detail-icon"><svg aria-hidden="true"><use href="#lab-i-${item.icon}"/></svg></div>
+        ${stat('Power', item.power, worn?.power, 60)}${stat('Weight', item.weight, worn?.weight, 60, true)}${stat('Value', item.value, worn?.value, 600)}
+        <p class="detail-hint">${item.type === 'weapon' || item.type === 'armour' ? (isWorn ? 'Equipped' : `Compared with ${worn ? worn.name : 'nothing'}`) : 'Carried, not worn'}</p>`;
+      detail.querySelector('h4')!.textContent = item.name;
+    }
+    function equip(item: Item) {
+      if (item.type !== 'weapon' && item.type !== 'armour') return;
+      equipped[item.type] = item.id;
+      markEquipped(); detail.dataset.item = ''; showItem(item);
+      if (!calm) slots.get(item.id)!.animate({ transform: ['scale(1)', 'scale(1.16)', 'scale(1)'] }, { duration: 320, easing: 'cubic-bezier(.34,1.56,.64,1)' });
+    }
+    $$('[data-sort]').forEach(b => b.addEventListener('click', () => sortBy(b.dataset.sort!)));
+    sortBy('rarity', false); showItem(items[0]);
+
+    /* ---------- motion tokens ---------- */
+    function replayCurves() {
+      $$('[data-curve]').forEach(card => {
+        const ms = Number(card.dataset.ms), delay = Number(card.dataset.delay), easing = `cubic-bezier(${card.dataset.bez})`;
+        // slowed four times so the shape of each curve is readable
+        const timing: KeyframeAnimationOptions = { duration: ms * 4, delay: 200 + delay * 2, easing, fill: 'both' };
+        card.querySelector('.motion-track i')!.animate({ left: ['0%', '100%'] }, timing);
+        card.querySelector('.curve')!.animate({ strokeDashoffset: [1, 0] }, { ...timing, easing: 'linear' });
+      });
+    }
+    $('[data-replay]').addEventListener('click', replayCurves);
+
+    /* ---------- lifecycle ---------- */
+    new IntersectionObserver(([entry]) => {
+      const was = visible; visible = entry.isIntersecting;
+      if (visible && !was) requestAnimationFrame(pollPad);
+      if (visible && !calm && !(navigator as any).connection?.saveData) video.play().catch(() => {}); else video.pause();
+    }, { threshold: 0.25 }).observe(stage);
+    setView('hud', false);
+  }
+</script>
+
+<style is:global>
+  @property --hp { syntax: '<number>'; inherits: true; initial-value: 1; }
+  @property --cd { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  .lab{--ease-enter:cubic-bezier(.2,.7,.2,1);--ease-exit:cubic-bezier(.4,0,1,1);--ease-emphasis:cubic-bezier(.34,1.56,.64,1);--t-enter:180ms;--t-exit:120ms;--t-emphasis:320ms;--t-drain:600ms;--t-hold:450ms}
+  .lab[data-skin=ember]{--ui-bg:rgba(22,16,10,.8);--ui-bg-2:rgba(46,34,20,.9);--ui-line:rgba(226,190,120,.42);--ui-text:#f4e8cc;--ui-dim:#c2b08a;--ui-accent:#e9b95f;--ui-on-accent:#20170b;--ui-hp:#c6453c;--ui-st:#d8a543;--ui-good:#9ccc6a;--ui-r:3px;--ui-display:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;--ui-body:'DM Sans',sans-serif;--ui-track:0;--ui-case:none;--scrim:linear-gradient(180deg,rgba(14,9,4,.5),rgba(14,9,4,.1) 35%,rgba(14,9,4,.7));--ui-panel:radial-gradient(120% 90% at 50% 0,rgba(96,70,34,.5),transparent 70%),linear-gradient(180deg,rgba(50,36,19,.92),rgba(18,13,7,.92));--ui-slot:radial-gradient(circle at 50% 26%,rgba(112,82,40,.96),rgba(24,17,9,.95) 78%);--ui-depth:inset 0 1px 0 rgba(255,226,160,.2),inset 0 0 1.4em rgba(0,0,0,.55),0 .5em 1.4em rgba(0,0,0,.5);--ui-frame:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none'%3E%3Crect x='6.5' y='6.5' width='35' height='35' stroke='%23e9b95f' stroke-opacity='.3'/%3E%3Cpath d='M1 14V1h13M34 1h13v13M47 34v13H34M14 47H1V34' stroke='%23e9b95f' stroke-width='2'/%3E%3Cpath d='M6.5 3.5l3 3-3 3-3-3zM41.5 3.5l3 3-3 3-3-3zM41.5 38.5l3 3-3 3-3-3zM6.5 38.5l3 3-3 3-3-3z' fill='%23f3cf86'/%3E%3C/svg%3E")}
+  .lab[data-skin=signal]{--ui-bg:rgba(6,14,12,.78);--ui-bg-2:rgba(16,34,28,.92);--ui-line:rgba(198,242,122,.4);--ui-text:#e8f6da;--ui-dim:#9fb593;--ui-accent:#c6f27a;--ui-on-accent:#0c1408;--ui-hp:#ff6156;--ui-st:#5fd4e8;--ui-good:#c6f27a;--ui-r:0px;--ui-display:'JetBrains Mono',ui-monospace,monospace;--ui-body:'JetBrains Mono',ui-monospace,monospace;--ui-track:.06em;--ui-case:uppercase;--scrim:linear-gradient(180deg,rgba(2,12,10,.72),rgba(2,12,10,.4) 40%,rgba(2,12,10,.82));--ui-panel:repeating-linear-gradient(0deg,rgba(198,242,122,.035) 0 1px,transparent 1px 4px),linear-gradient(180deg,rgba(14,32,26,.88),rgba(5,12,10,.86));--ui-slot:linear-gradient(135deg,rgba(30,58,46,.95),rgba(5,12,10,.94));--ui-depth:inset 0 0 1.2em rgba(198,242,122,.08),0 0 1.2em rgba(198,242,122,.1);--ui-frame:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none'%3E%3Cpath d='M1 11V1h10M37 1h10v10M47 37v10H37M11 47H1V37' stroke='%23c6f27a' stroke-width='2'/%3E%3Cpath d='M4 4h3v3H4zM41 41h3v3h-3z' fill='%23c6f27a'/%3E%3C/svg%3E")}
+  .lab[data-skin=paper]{--ui-bg:rgba(247,246,240,.94);--ui-bg-2:rgba(232,230,220,.98);--ui-line:rgba(37,41,34,.16);--ui-text:#252922;--ui-dim:#66695f;--ui-accent:#6c52a8;--ui-on-accent:#fff;--ui-hp:#d5574a;--ui-st:#6b8053;--ui-good:#4c7a34;--ui-r:12px;--ui-display:Manrope,sans-serif;--ui-body:'DM Sans',sans-serif;--ui-track:-.02em;--ui-case:none;--scrim:linear-gradient(180deg,rgba(20,24,20,.25),rgba(20,24,20,.05) 40%,rgba(20,24,20,.4));--ui-panel:linear-gradient(180deg,#fff,rgba(244,242,234,.96));--ui-slot:linear-gradient(180deg,#fff,rgba(230,228,218,.98));--ui-depth:inset 0 1px 0 #fff,0 .5em 1.4em rgba(20,24,20,.2);--ui-frame:none}
+
+  .lab [hidden]{display:none!important}
+  .lab-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+  .lab-tabs,.lab-skins{display:flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+  .lab-bar button{border:0;background:transparent;color:var(--muted);font:600 12px/1 'DM Sans',sans-serif;padding:10px 16px;border-radius:7px;display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s}
+  .lab-bar button:hover{color:var(--ink)}
+  .lab-bar button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+  .lab-skins>span{font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 8px 0 10px}
+  .sw{width:9px;height:9px;border-radius:50%}.sw-ember{background:#e9b95f}.sw-signal{background:#c6f27a}.sw-paper{background:#f7f6f0;box-shadow:inset 0 0 0 1px #8a8d80}
+
+  .lab-stage{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#0a0d0a;border:1px solid var(--line);container-type:inline-size;isolation:isolate;box-shadow:0 40px 120px -40px rgba(0,0,0,.9)}
+  .lab-stage:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  .lab-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:filter .4s}
+  .lab-scrim{position:absolute;inset:0;z-index:-1;background:var(--scrim);transition:background .4s,backdrop-filter .4s}
+  .lab:not([data-view=hud]) .lab-backdrop{filter:blur(10px) saturate(.7) brightness(.55)}
+  .lab-ui{position:absolute;inset:0;font-size:clamp(7px,1.18cqw,17px);color:var(--ui-text);font-family:var(--ui-body);line-height:1.4}
+  .lab-view{position:absolute;inset:0}
+  .lab-view:not([hidden]){animation:lab-in var(--t-enter) var(--ease-enter)}
+  @keyframes lab-in{from{opacity:0;transform:scale(1.015)}}
+  .lab-ui h3,.lab-ui h4{font-family:var(--ui-display);color:var(--ui-text);letter-spacing:var(--ui-track);text-transform:var(--ui-case);font-weight:600;margin:0}
+  .lab-ui button{font:inherit;color:inherit}
+  .lab-ui svg{width:1.6em;height:1.6em;display:block}
+  .ui-panel{position:relative;background:var(--ui-panel);border:1px solid var(--ui-line);border-radius:var(--ui-r);backdrop-filter:blur(6px);box-shadow:var(--ui-depth)}
+  /* frame art: one 9-slice image per skin, sized in em so it follows HUD scale */
+  .ui-panel::after,.ability::after{content:'';position:absolute;inset:-1px;border:1em solid transparent;border-image:var(--ui-frame) 16 stretch;pointer-events:none}
+  .ability::after{border-width:.8em}.lab[data-skin=signal] .ability::after{display:none}
+  .ui-kicker{display:block;font-size:.72em;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-accent);font-weight:700}
+  .lab-ui [data-nav]:focus-visible,.lab-ui [data-nav]:focus{outline:.14em solid var(--ui-accent);outline-offset:.2em}
+  .lab[data-input=mouse] .lab-ui [data-nav]:focus:not(:focus-visible){outline:0}
+  .lab[data-show-rail] .lab-ui{counter-reset:rail}
+  .lab[data-show-rail] .lab-view:not([hidden]) [data-nav]{counter-increment:rail;position:relative}
+  .lab[data-show-rail] .lab-view:not([hidden]) [data-nav]::before{content:counter(rail);position:absolute;top:-.7em;left:-.7em;z-index:5;min-width:1.6em;height:1.6em;border-radius:1em;background:#ff4fa3;color:#fff;font:700 .7em/1.6em 'JetBrains Mono',monospace;text-align:center}
+
+  /* bars: one custom property, the ghost follows late */
+  .bar{--fill:var(--ui-hp);position:relative;height:.9em;background:rgba(0,0,0,.45);border:1px solid var(--ui-line);border-radius:var(--ui-r);overflow:hidden}
+  .lab[data-skin=paper] .bar{background:rgba(37,41,34,.12)}
+  .bar i{position:absolute;inset:0;transform-origin:left;transform:scaleX(var(--hp));border-radius:inherit}
+  .bar .fill{background:linear-gradient(90deg,color-mix(in srgb,var(--fill) 58%,#000),var(--fill));transition:transform var(--t-exit) linear}
+  .bar::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 48%,rgba(0,0,0,.3))}
+  .bar-hp::after{background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 48%,rgba(0,0,0,.3)),repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),rgba(0,0,0,.5) calc(10% - 1px) 10%)}
+  .bar .ghost{background:var(--ui-text);opacity:.75;transition:transform var(--t-enter) linear}
+  .bar.is-damage .ghost{transition:transform var(--t-drain) var(--ease-enter) var(--t-hold)}
+  .bar-st{--fill:var(--ui-st);height:.45em;margin-top:.35em}.bar-st .fill{transition:transform .4s linear}
+  .bar-enemy{--fill:var(--ui-accent)}
+
+  .hud>*{position:absolute}
+  .hud{transform:scale(var(--hud-scale,1));transform-origin:center;transition:transform var(--t-emphasis) var(--ease-emphasis)}
+  .hud-compass{top:2.2em;left:50%;width:26em;margin-left:-13em;height:1.8em;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 25%,#000 75%,transparent);mask:linear-gradient(90deg,transparent,#000 25%,#000 75%,transparent)}
+  .hud-compass-strip{display:flex;gap:1.9em;font-size:.82em;letter-spacing:.14em;font-weight:700;animation:compass 26s ease-in-out infinite alternate;width:max-content;text-shadow:0 1px 3px #000}
+  .lab[data-skin=paper] .hud-compass-strip{color:#fff}
+  .hud-compass>i{position:absolute;left:50%;bottom:0;width:1px;height:.5em;background:var(--ui-accent)}
+  @keyframes compass{to{transform:translateX(-52%)}}
+  .hud-target{top:5em;left:50%;width:24em;margin-left:-12em;padding:.6em .8em .7em}
+  .hud-target-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4em;font-size:.86em}
+  .hud-target strong{font-family:var(--ui-display);letter-spacing:var(--ui-track);text-transform:var(--ui-case)}.hud-target span{color:var(--ui-dim);font-size:.85em}
+  .hud-target .bar{height:.6em}
+  .hud-objective{top:2.2em;right:2.2em;width:17em;padding:1em 1.1em}
+  .hud-objective strong{display:block;font-family:var(--ui-display);font-size:1.12em;margin:.3em 0 .6em;letter-spacing:var(--ui-track);text-transform:var(--ui-case)}
+  .hud-objective strong::after{content:'';display:block;height:.5em;margin-top:.45em;background:linear-gradient(45deg,transparent 35%,var(--ui-accent) 35% 65%,transparent 65%) left center/.5em .5em no-repeat,linear-gradient(90deg,var(--ui-accent),transparent) left center/100% 1px no-repeat}
+  .hud-objective ul{list-style:none;margin:0;padding:0;font-size:.86em;display:grid;gap:.4em}
+  .hud-objective li{display:flex;gap:.6em;align-items:center;color:var(--ui-text);transition:color .3s}
+  .hud-objective li::before{content:'';width:.8em;height:.8em;border:1px solid var(--ui-accent);border-radius:calc(var(--ui-r)/2);flex:none;transition:background var(--t-emphasis) var(--ease-emphasis),transform var(--t-emphasis) var(--ease-emphasis)}
+  .hud-objective li.is-done{color:var(--ui-dim);text-decoration:line-through}
+  .hud-objective li.is-done::before{background:var(--ui-accent);transform:rotate(45deg) scale(.8)}
+  .hud-player{left:2.2em;bottom:2.2em;width:25em;padding:.9em 1em;display:flex;gap:1em;align-items:center;transition:border-color .3s,box-shadow .3s}
+  .hud-player.is-low{border-color:var(--ui-hp);animation:low 1s ease-in-out infinite}
+  @keyframes low{50%{box-shadow:0 0 0 .3em color-mix(in srgb,var(--ui-hp) 30%,transparent)}}
+  .hud-portrait{position:relative;width:4.3em;height:4.3em;border-radius:50%;border:1px solid var(--ui-accent);background:var(--ui-slot);display:grid;place-items:center;flex:none;box-shadow:0 0 0 .16em var(--ui-on-accent),0 0 0 .26em var(--ui-accent),0 .3em .9em rgba(0,0,0,.5)}
+  .hud-portrait svg{width:100%;height:100%;border-radius:inherit;color:var(--ui-accent)}
+  /* signal: the cut corners go on the art, not the box, so the level badge is not clipped */
+  .lab[data-skin=signal] .hud-portrait{border-radius:0;border-color:transparent;background:none;box-shadow:none}
+  .lab[data-skin=signal] .hud-portrait svg{background:var(--ui-slot);box-shadow:inset 0 0 0 1px var(--ui-accent);clip-path:polygon(18% 0,100% 0,100% 82%,82% 100%,0 100%,0 18%)}
+  .hud-portrait b{position:absolute;right:-.4em;bottom:-.3em;background:var(--ui-accent);color:var(--ui-on-accent);font-size:.72em;font-weight:700;padding:.1em .5em;border-radius:1em;box-shadow:0 0 0 .14em var(--ui-on-accent)}
+  .hud-vitals{flex:1;min-width:0}.hud-name{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4em}
+  .hud-name strong{font-family:var(--ui-display);letter-spacing:var(--ui-track);text-transform:var(--ui-case);font-size:1.02em}.hud-name span{font-size:.8em;color:var(--ui-dim);font-variant-numeric:tabular-nums}
+  .hud-buffs{height:1.3em;margin-top:.4em}
+  .buff{display:inline-flex;align-items:center;gap:.4em;font-size:.72em;color:var(--ui-good);animation:pop var(--t-emphasis) var(--ease-emphasis)}.buff svg{width:1.5em;height:1.5em}
+  @keyframes pop{from{transform:scale(.4);opacity:0}}
+  .hud-abilities{left:50%;bottom:2.2em;transform:translateX(-50%);display:flex;gap:.8em}
+  .ability{position:relative;width:4.6em;height:4.6em;background:var(--ui-slot);box-shadow:var(--ui-depth);border:1px solid var(--ui-line);border-radius:var(--ui-r);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);transition:transform var(--t-exit),border-color .2s}
+  .lab[data-skin=signal] .ability{clip-path:polygon(14% 0,100% 0,100% 86%,86% 100%,0 100%,0 14%)}
+  .ability:hover{border-color:var(--ui-accent)}.ability:active{transform:scale(.93)}
+  .ability svg{width:2.9em;height:2.9em;color:var(--ui-accent);filter:drop-shadow(0 .1em .15em rgba(0,0,0,.6))}
+  .ability em{position:absolute;top:calc(100% + .35em);left:0;right:0;text-align:center;font-style:normal;font-size:.66em;color:var(--ui-text);letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.8);opacity:0;transition:opacity .2s}
+  .ability:hover em,.ability:focus-visible em{opacity:1}
+  .keycap{position:absolute;z-index:1;top:-.55em;left:-.55em;min-width:1.7em;font-size:.66em;font-weight:700;line-height:1.7em;text-align:center;color:var(--ui-on-accent);background:var(--ui-accent);border-radius:var(--ui-r);box-shadow:0 .1em .3em rgba(0,0,0,.5)}
+  .lab[data-skin=signal] .keycap{top:.25em;left:auto;right:.25em;background:none;color:var(--ui-accent);box-shadow:none}
+  .ability .cd{position:absolute;inset:0;border-radius:inherit;opacity:0;background:conic-gradient(rgba(0,0,0,.72) var(--cd),transparent 0)}
+  .ability.is-cooling svg{opacity:.4}
+  .ability.is-cooling .cd{opacity:1;animation:cd var(--cd-ms) linear both}
+  @keyframes cd{from{--cd:360deg}to{--cd:0deg}}
+  .ability.is-ready{animation:ready var(--t-emphasis) var(--ease-emphasis)}
+  @keyframes ready{40%{transform:scale(1.12);box-shadow:0 0 0 .25em color-mix(in srgb,var(--ui-accent) 45%,transparent)}}
+  .ability.is-denied{animation:denied .22s}
+  @keyframes denied{25%{transform:translateX(-.25em)}75%{transform:translateX(.25em)}}
+  .hud-floats{inset:0;pointer-events:none}
+  .float{position:absolute;font-family:var(--ui-display);font-weight:700;font-size:1.5em;text-shadow:0 .08em .3em rgba(0,0,0,.9);animation:float .9s var(--ease-enter) forwards;color:#fff}
+  .float-crit{font-size:2.4em;color:var(--ui-accent)}.float-hurt{color:var(--ui-hp)}.float-heal{color:var(--ui-good)}.float-block{color:var(--ui-st);font-size:1.1em}
+  @keyframes float{0%{transform:translateY(.6em) scale(.5);opacity:0}18%{transform:none;opacity:1}100%{transform:translateY(-2.4em);opacity:0}}
+  .hud-toasts{left:2.2em;top:38%;width:17em;display:grid;gap:.5em}
+  .toast{display:flex;gap:.8em;align-items:center;padding:.6em .8em;border-left:.25em solid var(--rar,var(--ui-line));animation:toast var(--t-enter) var(--ease-enter);transition:opacity var(--t-exit) var(--ease-exit),transform var(--t-exit) var(--ease-exit)}
+  .toast.is-out{opacity:0;transform:translateX(-1.5em)}
+  @keyframes toast{from{opacity:0;transform:translateX(-2em)}}
+  .toast svg{width:2.3em;height:2.3em;color:var(--rar,var(--ui-accent));flex:none}.toast strong{display:block;font-size:.9em}.toast span{font-size:.72em;color:var(--ui-dim)}
+  [data-rarity="0"]{--rar:#a9ac9f}[data-rarity="1"]{--rar:#6fbf73}[data-rarity="2"]{--rar:#5aa9e6}[data-rarity="3"]{--rar:#e9a23b}
+  .hud-vignette{inset:0;pointer-events:none;box-shadow:inset 0 0 9em 1em var(--ui-hp);opacity:0}
+  .hud-vignette.is-on{animation:vig .5s var(--ease-exit)}
+  @keyframes vig{0%{opacity:.75}100%{opacity:0}}
+
+  /* pause menu */
+  .menu{display:flex;align-items:center;gap:4em;padding:0 8%}
+  .menu-col{width:19em;transition:opacity var(--t-enter),transform var(--t-enter) var(--ease-enter)}
+  .menu-col[data-dimmed]{opacity:.35;transform:translateX(-1em)}
+  .menu h3{font-size:3.6em;margin:.1em 0 .5em;line-height:1}
+  .menu-list{display:grid;gap:.5em}
+  .menu-list button,.menu-back,.menu-confirm button{position:relative;text-align:left;padding:.85em 1.2em;background:transparent;border:1px solid transparent;border-radius:var(--ui-r);font-family:var(--ui-display);font-size:1.25em;letter-spacing:var(--ui-track);text-transform:var(--ui-case);cursor:pointer;transition:background var(--t-enter),padding var(--t-enter) var(--ease-enter),color var(--t-enter)}
+  .menu-list button:is(:hover,:focus),.menu-back:is(:hover,:focus),.menu-confirm button:is(:hover,:focus){background:var(--ui-accent);color:var(--ui-on-accent);padding-left:1.9em;outline:0}
+  .menu-list button::before{content:'';position:absolute;left:.8em;top:50%;width:.45em;height:.45em;background:currentColor;transform:translateY(-50%) rotate(45deg) scale(0);transition:transform var(--t-emphasis) var(--ease-emphasis)}
+  .menu-list button:is(:hover,:focus)::before{transform:translateY(-50%) rotate(45deg) scale(1)}
+  .menu-sub{flex:1;max-width:30em;padding:1.6em 1.8em;display:grid;gap:1em}
+  .menu-sub:not([hidden]),.menu-confirm:not([hidden]){animation:sub var(--t-enter) var(--ease-enter)}
+  @keyframes sub{from{opacity:0;transform:translateX(1.5em)}}
+  .set-row{display:grid;grid-template-columns:10em 1fr 3.2em;align-items:center;gap:1em;font-size:1em}
+  .set-row output{text-align:right;color:var(--ui-accent);font-variant-numeric:tabular-nums;font-size:.9em}
+  .set-row input[type=range]{appearance:none;-webkit-appearance:none;width:100%;height:.35em;background:var(--ui-line);border-radius:1em;margin:0;font-size:inherit}
+  .set-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:1.1em;height:1.1em;border-radius:var(--ui-r);background:var(--ui-accent);border:0;transform:rotate(45deg)}
+  .set-row input[type=range]::-moz-range-thumb{width:1em;height:1em;border-radius:var(--ui-r);background:var(--ui-accent);border:0}
+  .switch{justify-self:start;width:3em;height:1.5em;border-radius:1em;border:1px solid var(--ui-line);background:rgba(0,0,0,.3);padding:0;position:relative;cursor:pointer;transition:background var(--t-enter)}
+  .switch i{position:absolute;top:.2em;left:.2em;width:1em;height:1em;border-radius:50%;background:var(--ui-dim);transition:transform var(--t-emphasis) var(--ease-emphasis),background var(--t-enter)}
+  .switch[aria-checked=true]{background:color-mix(in srgb,var(--ui-accent) 35%,transparent)}.switch[aria-checked=true] i{transform:translateX(1.5em);background:var(--ui-accent)}
+  .menu-back{justify-self:start;font-size:1em;border-color:var(--ui-line);margin-top:.4em}
+  .menu-confirm{position:absolute;left:50%;top:50%;width:24em;margin:-6em 0 0 -12em;padding:1.8em;text-align:center;background:var(--ui-bg-2)}
+  .menu-confirm strong{font-family:var(--ui-display);font-size:1.5em}.menu-confirm p{color:var(--ui-dim);font-size:.9em;margin:.5em 0 1.2em}
+  .menu-confirm div{display:flex;gap:.8em;justify-content:center}.menu-confirm button{font-size:1em;border-color:var(--ui-line);text-align:center}
+  .menu-confirm button:is(:hover,:focus){padding-left:1.2em}
+
+  /* inventory */
+  .inventory{display:grid;grid-template-columns:1fr 19em;gap:1.4em;padding:3.2em 5% 4.2em}
+  .inv-main{padding:1.4em 1.6em;display:flex;flex-direction:column;min-height:0}
+  .inv-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.2em}.inv-head h3{font-size:1.9em;margin-top:.15em}
+  .inv-sort{display:flex;gap:.3em}
+  .inv-sort button{background:transparent;border:1px solid var(--ui-line);border-radius:var(--ui-r);padding:.45em .9em;font-size:.76em;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .inv-sort button[aria-pressed=true]{background:var(--ui-accent);color:var(--ui-on-accent);border-color:var(--ui-accent)}
+  .inv-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.7em;align-content:start}
+  .slot{position:relative;aspect-ratio:1;background:var(--ui-slot);border:1px solid var(--ui-line);border-radius:var(--ui-r);display:grid;place-items:center;cursor:pointer;padding:0;transition:border-color .15s,box-shadow .15s}
+  button.slot{background:radial-gradient(110% 75% at 50% 108%,color-mix(in srgb,var(--rar) 46%,transparent),transparent 72%),var(--ui-slot);box-shadow:inset 0 -.25em 0 var(--rar)}
+  button.slot svg{width:3em;height:3em;color:var(--rar);filter:drop-shadow(0 .1em .15em rgba(0,0,0,.45))}
+  button.slot:is(:hover,:focus){border-color:var(--ui-accent);z-index:2}
+  .slot-empty{opacity:.4;cursor:default}
+  .slot .eq{position:absolute;top:.3em;right:.3em;font:700 .6em/1.5em 'JetBrains Mono',monospace;width:1.5em;height:1.5em;border-radius:50%;background:var(--ui-accent);color:var(--ui-on-accent);text-align:center;transform:scale(0);transition:transform var(--t-emphasis) var(--ease-emphasis)}
+  .slot[data-equipped] .eq{transform:scale(1)}
+  .inv-detail{padding:1.4em;display:flex;flex-direction:column;gap:.7em;border-top:.3em solid var(--rar)}
+  .inv-detail .ui-kicker{color:var(--rar)}.inv-detail h4{font-size:1.45em;line-height:1.15}
+  .detail-icon{height:6em;display:grid;place-items:center;background:radial-gradient(circle at 50% 55%,color-mix(in srgb,var(--rar) 34%,transparent),transparent 62%),var(--ui-slot);border-radius:var(--ui-r);margin:.3em 0;border:1px solid var(--ui-line)}
+  .detail-icon svg{width:4.6em;height:4.6em;filter:drop-shadow(0 .15em .25em rgba(0,0,0,.5));color:var(--rar);animation:pop var(--t-emphasis) var(--ease-emphasis)}
+  .stat{display:grid;grid-template-columns:4.2em 1fr 2.4em 2.6em;gap:.6em;align-items:center;font-size:.82em}
+  .stat span{color:var(--ui-dim)}.stat b{text-align:right;font-variant-numeric:tabular-nums}.stat em{font-style:normal;font-size:.9em;font-variant-numeric:tabular-nums}
+  .stat .up{color:var(--ui-good)}.stat .down{color:var(--ui-hp)}
+  .stat-bar{height:.35em;background:var(--ui-line);border-radius:1em;overflow:hidden}
+  .stat-bar i{display:block;height:100%;background:var(--ui-accent);transform-origin:left;transform:scaleX(var(--v));animation:grow var(--t-emphasis) var(--ease-enter)}
+  @keyframes grow{from{transform:scaleX(0)}}
+  .detail-hint{margin-top:auto;font-size:.76em;color:var(--ui-dim)}
+
+  /* motion tokens */
+  .motion{padding:3em 5% 4.4em;display:flex;flex-direction:column;gap:1.4em}
+  .motion-head{display:flex;justify-content:space-between;align-items:flex-end}.motion-head h3{font-size:1.9em;margin-top:.15em}
+  .motion-replay{background:var(--ui-accent);color:var(--ui-on-accent)!important;border:0;border-radius:var(--ui-r);padding:.7em 1.4em;font-weight:700;font-size:.85em;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+  .motion-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1em;flex:1;min-height:0}
+  .motion-card{padding:1.1em;display:flex;flex-direction:column;gap:.35em;min-height:0}
+  .motion-card svg{width:100%;height:auto;flex:1;min-height:0;overflow:visible}
+  .motion-card .axis{fill:none;stroke:var(--ui-line);stroke-width:1}
+  .motion-card .curve{fill:none;stroke:var(--ui-accent);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1}
+  .motion-track{position:relative;height:.9em;margin:.3em .45em .5em 0;border-bottom:1px solid var(--ui-line)}
+  .motion-track i{position:absolute;left:0;top:0;width:.9em;height:.9em;margin-left:-.1em;background:var(--ui-accent);border-radius:var(--ui-r);transform:rotate(45deg) scale(.7)}
+  .motion-card strong{font-family:var(--ui-display);font-size:1.15em;letter-spacing:var(--ui-track);text-transform:var(--ui-case)}
+  .motion-card code{font:500 .7em/1.5 'JetBrains Mono',monospace;color:var(--ui-accent)}
+  .motion-card p{font-size:.76em;color:var(--ui-dim);margin:.2em 0 0}
+
+  .lab-prompts{position:absolute;right:1.4em;bottom:.9em;font:500 clamp(8px,.95cqw,12px)/1 'DM Sans',sans-serif;color:rgba(255,255,255,.85);text-shadow:0 1px 3px rgba(0,0,0,.8);pointer-events:none}
+  .lab[data-view=hud] .lab-prompts{right:auto;left:50%;transform:translateX(-50%);bottom:auto;top:.5em;opacity:.0}
+  .lab-prompts>span{display:none;align-items:center;gap:.5em}
+  .lab[data-input=kb] .p-kb,.lab[data-input=pad] .p-pad,.lab[data-input=mouse] .p-mouse{display:inline-flex}
+  .lab-prompts kbd{font:700 .92em/1 'JetBrains Mono',monospace;padding:.35em .55em;border:1px solid rgba(255,255,255,.5);border-radius:4px;background:rgba(0,0,0,.4)}
+  .lab-prompts kbd.round{border-radius:50%;width:1.9em;height:1.9em;padding:0;display:inline-grid;place-items:center}.lab-prompts kbd.a{background:#3d8f4a;border-color:#3d8f4a}.lab-prompts kbd.b{background:#b8433b;border-color:#b8433b}
+
+  .lab-console{display:flex;align-items:center;justify-content:space-between;gap:14px 24px;flex-wrap:wrap;margin-top:14px;font-size:12px}
+  .lab-live{display:flex;flex-wrap:wrap;align-items:center;gap:9px;font:500 11px/1.5 'JetBrains Mono',monospace;color:var(--muted);letter-spacing:.02em}
+  .lab-live .live-dot{background:var(--accent);box-shadow:0 0 0 0 var(--accent);animation:pulse 2s infinite}
+  @keyframes pulse{to{box-shadow:0 0 0 8px transparent}}
+  .lab-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .lab-actions[hidden]{display:none}
+  .lab-actions button{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 12px/1 'DM Sans',sans-serif;padding:10px 14px;border-radius:7px;transition:border-color .2s,transform .1s}
+  .lab-actions button:hover{border-color:var(--accent)}.lab-actions button:active{transform:scale(.96)}
+  .lab-rail{display:flex;align-items:center;gap:8px;color:var(--muted);cursor:pointer}.lab-rail input{accent-color:#ff4fa3}
+
+  .lab[data-calm] .lab-ui *,.lab[data-calm] .lab-ui *::before{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  @media(max-width:700px){
+    .lab-stage{aspect-ratio:4/3;border-radius:12px}
+    .lab-ui{font-size:clamp(7px,1.75cqw,12px)}
+    .hud-objective{width:14em;top:1.2em;right:1.2em}.hud-compass{display:none}.hud-target{top:1.2em;left:1.2em;margin:0;width:17em}
+    .hud-player{left:1.2em;bottom:7.6em;width:21em}.hud-abilities{bottom:1.6em}.hud-toasts{top:30%;left:1.2em}
+    .menu{gap:2em;padding:0 5%}.menu-col{width:15em}.menu h3{font-size:2.6em}
+    .inventory{padding:2em 3% 2.6em;grid-template-columns:1fr 15em;gap:1em}.motion{padding:2em 3% 2.6em}.motion-grid{grid-template-columns:repeat(2,1fr)}.motion-card svg{display:none}
+    .lab-bar button{padding:9px 11px}.lab-prompts{display:none}
+  }
+</style>

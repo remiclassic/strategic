@@ -1,0 +1,185 @@
+---
+import FigmaDeep from './FigmaDeep.astro';
+import ComponentPlayer from './react-ui/ComponentPlayer';
+import { cases, motionClips, boards, editorShots, editorClips, components, figmaFiles, PORTFOLIO_URL } from '../../data/services-portfolio';
+const { start = 4 } = Astro.props; // number of the first section, for the running eyebrow count
+const n = (i: number) => String(start + i).padStart(2, '0');
+---
+<section class="section container" id="portfolio"><div class="section-heading"><div><p class="eyebrow">{n(0)} / Selected work</p><h2>Fourteen projects.<br>Open any of them.</h2></div><p>Studio work, client concepts and design studies from twenty years of game UI. Each project says where it comes from, and every card holds its own set of screens.</p></div>
+  <div class="pf-cases">{cases.map(item => <article class="pf-case sv-reveal" data-case>
+    <button type="button" class="pf-main" data-zoom aria-label={`Enlarge: ${item.title}`}><img src={item.shots[0].src} alt={item.shots[0].alt} loading="lazy" data-main/></button>
+    <div class="pf-thumbs" role="group" aria-label={`${item.title} screens`}>{item.shots.map((shot, i) => <button type="button" data-thumb data-src={shot.src} data-alt={shot.alt} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={shot.alt}><img src={shot.src} alt="" loading="lazy"/></button>)}</div>
+    <div class="pf-copy"><p class="pf-origin">{item.origin}</p><h3>{item.title}</h3><p>{item.body}</p><ul>{item.tags.map(tag => <li>{tag}</li>)}</ul>{'href' in item && <a class="pf-link pf-case-link" href={item.href}>Read the case study →</a>}</div>
+  </article>)}</div>
+  <p class="sv-work-foot">Game titles and marks belong to their owners. <a class="pf-link" href={PORTFOLIO_URL} target="_blank" rel="noopener">See the full portfolio, with a UX walkthrough for each project ↗</a></p>
+</section>
+
+<section class="section container" id="components"><div class="section-heading"><div><p class="eyebrow">{n(1)} / Component library</p><h2>Twenty components.<br>Click one and use it.</h2></div><p>These are not screenshots of a kit. Each tile opens the real component from SliceForge React UI, our own library, running in your browser with its states, motion and keyboard support.</p></div>
+  <div class="pf-comps">{components.map(item => <figure class="sv-reveal"><button type="button" data-play={item.id} aria-label={`Open the live ${item.title} component`}><img src={item.src} alt={`${item.title} component: ${item.note.toLowerCase()}`} loading="lazy" width="720" height="450"/><span class="pf-play" aria-hidden="true">▶ Use it live</span></button><figcaption><strong>{item.title}</strong><span>{item.note}</span></figcaption></figure>)}</div>
+  <p class="sv-work-foot">Built in React and TypeScript, with no UI framework underneath. From the component library in <a class="pf-link" href="https://www.sliceforge.io/" target="_blank" rel="noopener">SliceForge ↗</a></p>
+  <ComponentPlayer client:load />
+</section>
+
+<section class="section container" id="motion-reel"><div class="section-heading"><div><p class="eyebrow">{n(2)} / Motion</p><h2>Interfaces<br>that move.</h2></div><p>Short motion concepts: how a screen arrives, how data fills in, how a reward lands. Personal explorations, playing as recorded.</p></div>
+  <div class="pf-motion">{motionClips.map((clip, i) => <figure class:list={['sv-reveal', i === 0 && 'lead']}><video muted loop playsinline preload="none" poster={clip.poster} data-autoplay aria-label={`${clip.title}: motion concept`}><source src={clip.video} type="video/mp4"/></video><figcaption><strong>{clip.title}</strong><span>{clip.note}</span></figcaption></figure>)}</div>
+</section>
+
+<section class="section container" id="figma"><div class="section-heading"><div><p class="eyebrow">{n(3)} / Figma &amp; process</p><h2>The work<br>behind the screen.</h2></div><p>Working files, not presentation slides: flows, sitemaps, component sheets and the options that were tested before one was chosen.</p></div>
+  <div class="pf-boards">{boards.map(board => <figure class:list={['sv-reveal', board.wide && 'wide']}><button type="button" data-zoom aria-label={`Enlarge: ${board.title}`}><img src={board.src} alt={board.alt} loading="lazy"/></button><figcaption><strong>{board.title}</strong><span>{board.origin}</span></figcaption></figure>)}</div>
+</section>
+
+<FigmaDeep/>
+
+<section class="section container" id="figma-files"><div class="section-heading"><div><p class="eyebrow">More from the Figma archive</p><h2>{figmaFiles.length} working files.<br>Flows, teardowns, layouts.</h2></div><p>Straight from Remi’s Figma drafts: whole-canvas views of real files, not tidied for a portfolio. Flow maps, UX teardowns of live games, style tests and screen sets, 2021 to 2025.</p></div>
+  <div class="ff-filter" role="group" aria-label="Filter files">{['All', 'UX teardown', 'Flow map', 'UX flow', 'Screen set'].map((label, i) => <button type="button" data-ff={label} aria-pressed={i === 0 ? 'true' : 'false'}>{label}</button>)}</div>
+  <div class="ff-grid">{figmaFiles.map(file => <figure class="ff sv-reveal" data-kind={file.kind}>
+    <div class="ff-bar"><i></i><span>{file.name}</span><em>{file.app}</em></div>
+    <button type="button" data-zoom aria-label={`Enlarge: ${file.name}, ${file.kind}`}><img src={file.src} alt={`${file.app} canvas for ${file.name}: ${file.note}`} loading="lazy"/></button>
+    <figcaption><strong>{file.kind}</strong><span>{file.note}</span><small>{file.date}</small></figcaption>
+  </figure>)}</div>
+  <p class="sv-work-foot">Canvas overviews at the size Figma stores them, so the detail is in the structure, not the pixels. Game names belong to their owners.</p>
+</section>
+
+<section class="section container" id="editor"><div class="section-heading"><div><p class="eyebrow">{n(4)} / In the editor</p><h2>Where the design<br>becomes the build.</h2></div><p>Screen recordings and captures from Unreal Engine and from SliceForge, our own game UI editor. This is the part most portfolios leave out.</p></div>
+  <div class="pf-clips">{editorClips.map(clip => <figure class="sv-reveal"><video muted loop playsinline preload="none" poster={clip.poster} data-autoplay aria-label={`${clip.title}: SliceForge screen recording`}><source src={clip.video} type="video/mp4"/></video><figcaption><strong>{clip.title}</strong><span>{clip.note}</span></figcaption></figure>)}</div>
+  <div class="pf-editor">{editorShots.map(shot => <figure class="sv-reveal"><button type="button" data-zoom aria-label={`Enlarge: ${shot.title}`}><img src={shot.src} alt={shot.alt} loading="lazy"/></button><figcaption><strong>{shot.title}</strong><span>{shot.note}</span></figcaption></figure>)}</div>
+</section>
+
+<dialog class="pf-lightbox" data-lightbox aria-label="Enlarged image"><button type="button" class="pf-close" data-close aria-label="Close">Close ✕</button><img alt=""/><p></p></dialog>
+
+<script>
+  const ffButtons = [...document.querySelectorAll<HTMLElement>('[data-ff]')];
+  ffButtons.forEach(button => button.addEventListener('click', () => {
+    const kind = button.dataset.ff!;
+    ffButtons.forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+    document.querySelectorAll<HTMLElement>('.ff').forEach(file => { file.hidden = kind !== 'All' && file.dataset.kind !== kind; });
+  }));
+  document.querySelectorAll<HTMLElement>('[data-case]').forEach(card => {
+    const main = card.querySelector<HTMLImageElement>('[data-main]')!;
+    card.querySelectorAll<HTMLElement>('[data-thumb]').forEach(thumb => thumb.addEventListener('click', () => {
+      if (main.src.endsWith(thumb.dataset.src!)) return;
+      main.addEventListener('load', () => main.classList.toggle('is-tall', main.naturalHeight > main.naturalWidth), { once: true });
+      main.animate([{ opacity: 0.25, transform: 'scale(1.06)', filter: 'blur(6px)' }, { opacity: 1, transform: 'scale(1)', filter: 'blur(0)' }], { duration: 620, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      main.src = thumb.dataset.src!; main.alt = thumb.dataset.alt!;
+      card.querySelectorAll('[data-thumb]').forEach(other => other.setAttribute('aria-pressed', String(other === thumb)));
+    }));
+  });
+  const box = document.querySelector<HTMLDialogElement>('[data-lightbox]')!;
+  const big = box.querySelector('img')!, caption = box.querySelector('p')!;
+  document.querySelectorAll<HTMLElement>('[data-zoom]').forEach(button => button.addEventListener('click', () => {
+    const img = button.querySelector('img')!;
+    big.src = img.src; big.alt = img.alt; caption.textContent = img.alt;
+    box.showModal();
+  }));
+  box.addEventListener('click', event => { if (event.target === box || (event.target as HTMLElement).closest('[data-close]')) box.close(); });
+</script>
+
+<style is:global>
+  .pf-cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+  .pf-case{border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden;display:flex;flex-direction:column}
+  .pf-main,.pf-boards button,.pf-editor button{display:block;width:100%;padding:0;border:0;background:#080a08;cursor:zoom-in;overflow:hidden}
+  .pf-main img.is-tall{object-fit:contain;background:radial-gradient(circle at 50% 40%,#1b231c,#080a08)}
+  .pf-main img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .pf-main:hover img{transform:scale(1.025)}
+  .pf-thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:10px 10px 0}
+  .pf-thumbs button{padding:0;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:#080a08;opacity:.55;transition:opacity .2s,border-color .2s}
+  .pf-thumbs button:hover{opacity:.9}
+  .pf-thumbs button[aria-pressed=true]{opacity:1;border-color:var(--accent)}
+  .pf-thumbs img{width:100%;aspect-ratio:16/9;object-fit:cover}
+  .pf-copy{padding:22px 24px 26px}
+  .pf-origin{font:500 10.5px/1.5 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+  .pf-copy h3{font-size:26px;letter-spacing:-.04em;margin:10px 0 12px}
+  .pf-copy>p:not(.pf-origin){font-size:14.5px;line-height:1.7}
+  .pf-copy ul{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+  .pf-copy li{font:400 10.5px/1 var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:30px;padding:6px 10px}
+  .pf-case-link{display:inline-block;margin-top:18px;font-size:14px}
+  .pf-link{color:var(--accent);font-weight:600}.pf-link:hover{text-decoration:underline;text-underline-offset:4px}
+
+  .pf-comps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.pf-comps figure{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0c0b09;transition:border-color .25s,transform .25s}
+  .pf-comps figure:hover{border-color:#566352;transform:translateY(-3px)}
+  .pf-comps button{position:relative;display:block;width:100%;padding:0;border:0;background:transparent;cursor:pointer;overflow:hidden}
+  .pf-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-30%);opacity:0;font:600 12px/1 'DM Sans',sans-serif;color:#0c1408;background:var(--accent);padding:11px 15px;border-radius:30px;white-space:nowrap;transition:opacity .2s,transform .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 30px rgba(0,0,0,.6)}
+  .pf-comps figure:is(:hover,:focus-within) .pf-play{opacity:1;transform:translate(-50%,-50%)}
+  .pf-comps figure:is(:hover,:focus-within) img{filter:brightness(.55)}
+  @media(hover:none){.pf-play{opacity:1;transform:none;left:auto;top:auto;right:8px;bottom:8px;padding:7px 10px;font-size:10px}}
+  .cp{border:0;padding:0;background:transparent;width:min(1180px,96vw);max-width:none;max-height:96vh;color:#eef1e6;overflow:visible}
+  .cp::backdrop{background:rgba(4,6,4,.88);backdrop-filter:blur(8px)}
+  .cp[open]{animation:cp-in .28s cubic-bezier(.2,.7,.2,1)}
+  @keyframes cp-in{from{opacity:0;transform:translateY(14px) scale(.98)}}
+  .cp-frame{display:flex;flex-direction:column;border:1px solid #283027;border-radius:18px;overflow:hidden;background:#0d110e;max-height:96vh}
+  .cp-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding:22px 24px 18px;border-bottom:1px solid #283027}
+  .cp-kicker{display:flex;align-items:center;gap:9px;font:500 10.5px/1 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#c6f27a;margin:0}
+  .cp-dot{width:6px;height:6px;border-radius:50%;background:#c6f27a;animation:sv-pulse 2s infinite}
+  .cp-head h3{font:600 28px/1.15 Manrope,sans-serif;letter-spacing:-.04em;margin:10px 0 8px;color:#eef1e6}
+  .cp-desc{font-size:14px;line-height:1.6;color:#9ba494;max-width:760px;margin:0}
+  .cp-close,.cp-foot button{flex:none;border:1px solid #283027;background:#141a15;color:#eef1e6;font:600 12px/1 'DM Sans',sans-serif;padding:11px 15px;border-radius:7px;cursor:pointer;white-space:nowrap}
+  .cp-close:hover,.cp-foot button:hover{border-color:#c6f27a;color:#c6f27a}
+  .cp-stage{position:relative;height:min(600px,62vh);min-height:300px;background:radial-gradient(60% 60% at 50% 45%,#15130f,#0b0a09 75%);display:grid;place-items:center;overflow:hidden}
+  .cp-inner{transform-origin:center;display:grid;place-items:center}
+  .cp-stage.is-fill .cp-inner{position:absolute;inset:0;display:block}
+  .cp-loading{font:400 12px/1 'JetBrains Mono',monospace;color:#9ba494}
+  .cp-foot{display:flex;align-items:center;gap:10px;padding:14px 18px;border-top:1px solid #283027}
+  .cp-foot span{flex:1;text-align:center;font:400 11px/1.5 'JetBrains Mono',monospace;color:#9ba494}
+  @media(max-width:700px){.cp-head{padding:16px}.cp-head h3{font-size:22px}.cp-desc{display:none}.cp-foot span{display:none}.cp-foot{justify-content:space-between}.cp-stage{height:56vh}}.pf-comps img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+  .pf-comps figcaption{padding:12px 14px 14px;border-top:1px solid var(--line);background:var(--surface);display:grid;gap:3px}.pf-comps strong{font:600 14px/1.3 Manrope,sans-serif;color:var(--ink)}.pf-comps span{font-size:12px;color:var(--muted)}
+  .ff-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .ff-filter button{border:1px solid var(--line);background:transparent;color:var(--muted);font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;border-radius:30px;transition:color .2s,border-color .2s,background .2s}
+  .ff-filter button:hover{color:var(--ink);border-color:#566352}
+  .ff-filter button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#0c1408}
+  .ff-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .ff{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+  .ff[hidden]{display:none}
+  .ff:hover{border-color:#566352;transform:translateY(-3px)}
+  .ff-bar{display:flex;align-items:center;gap:9px;padding:9px 12px;background:#2c2c2c;border-bottom:1px solid #1a1a1a;font:500 11px/1 'DM Sans',sans-serif;color:#e6e6e6}
+  .ff-bar i{width:12px;height:12px;border-radius:3px;flex:none;background:linear-gradient(135deg,#f24e1e 0 33%,#a259ff 33% 66%,#1abcfe 66%)}
+  .ff-bar span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ff-bar em{font:400 9.5px/1 var(--mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:#9a9a9a}
+  .ff>button{display:block;width:100%;padding:14px;border:0;cursor:zoom-in;aspect-ratio:16/10;background-color:#1e1e1e;background-image:radial-gradient(#353535 1px,transparent 1px);background-size:16px 16px}
+  .ff>button{position:relative}
+  .ff img{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);object-fit:contain;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .ff:hover img{transform:scale(1.05)}
+  .ff figcaption{padding:14px 16px 16px;display:grid;gap:4px;border-top:1px solid var(--line)}
+  .ff figcaption strong{font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .ff figcaption span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+  .ff figcaption small{font:400 10.5px/1 var(--mono);color:var(--muted);margin-top:2px}
+  @media(max-width:900px){.ff-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:560px){.ff-grid{grid-template-columns:1fr}}
+  .pf-motion{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+  .pf-motion figure,.pf-boards figure,.pf-editor figure{margin:0}
+  .pf-motion .lead{grid-column:span 2;grid-row:span 2}
+  .pf-motion video{display:block;width:100%;aspect-ratio:16/9.6;object-fit:cover;border-radius:12px;border:1px solid var(--line);background:#080a08}
+  .pf-motion .lead video{aspect-ratio:auto;height:calc(100% - 62px)}
+  .pf-motion figcaption,.pf-boards figcaption,.pf-editor figcaption{padding:14px 2px 0;display:grid;gap:4px}
+  .pf-motion strong,.pf-boards strong,.pf-editor strong{font:600 16px/1.3 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)}
+  .pf-motion span,.pf-editor span{font-size:13px;color:var(--muted);line-height:1.55}
+  .pf-boards span{font:400 10.5px/1.5 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+
+  .pf-boards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+  .pf-boards .wide{grid-column:span 2;grid-row:span 2}
+  .pf-boards button,.pf-editor button{border:1px solid var(--line);border-radius:12px}
+  .pf-boards img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:top left;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .pf-boards .wide img{aspect-ratio:16/10.4}
+  .pf-clips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-bottom:34px}.pf-clips figure{margin:0}
+  .pf-clips video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:12px;border:1px solid var(--line);background:#080a08}
+  .pf-clips figcaption{padding:14px 2px 0;display:grid;gap:4px}.pf-clips strong{font:600 16px/1.3 Manrope,sans-serif;letter-spacing:-.02em;color:var(--ink)}.pf-clips span{font-size:13px;color:var(--muted);line-height:1.55}
+  .pf-editor{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+  .pf-editor img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .pf-boards button:hover img,.pf-editor button:hover img{transform:scale(1.03)}
+
+  .pf-lightbox{border:0;padding:0;background:transparent;max-width:min(1500px,94vw);max-height:94vh;color:#eef1e6;overflow:visible}
+  .pf-lightbox::backdrop{background:rgba(4,6,4,.9);backdrop-filter:blur(6px)}
+  .pf-lightbox img{display:block;max-width:100%;max-height:82vh;margin:auto;border-radius:10px;border:1px solid #283027}
+  .pf-lightbox p{font:400 12px/1.6 'JetBrains Mono',monospace;color:#9ba494;text-align:center;margin-top:14px}
+  .pf-close{display:block;margin:0 0 12px auto;border:1px solid #283027;background:#141a15;color:#eef1e6;font:600 12px/1 'DM Sans',sans-serif;padding:10px 14px;border-radius:7px}
+
+  @media(max-width:900px){
+    .pf-cases{grid-template-columns:1fr}
+    .pf-motion,.pf-boards,.pf-editor,.pf-comps{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .pf-motion .lead video{height:auto;aspect-ratio:16/9.6}
+  }
+  @media(max-width:560px){
+    .pf-motion,.pf-boards,.pf-editor,.pf-clips{grid-template-columns:1fr}
+    .pf-motion .lead,.pf-boards .wide{grid-column:auto;grid-row:auto}
+    .pf-copy h3{font-size:23px}
+  }
+</style>

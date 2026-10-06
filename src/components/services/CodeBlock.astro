@@ -1,0 +1,7 @@
+---
+const { engine } = Astro.props;
+const escape = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// Only whole-line comments are dimmed; anything cleverer belongs to a real highlighter.
+const html = engine.code.split('\n').map((line: string) => /^\s*(\/\/|#)/.test(line) ? `<span class="c">${escape(line)}</span>` : escape(line)).join('\n');
+---
+<div class="sv-code"><div class="sv-code-head"><span>{engine.file}</span><span>{engine.lang}</span></div><pre tabindex="0" aria-label={`${engine.name} implementation of the health bar`}><code set:html={html}/></pre></div>

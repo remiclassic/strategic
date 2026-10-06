@@ -1,0 +1,13 @@
+---
+const { item } = Astro.props;
+const size = item.size === 'wide' ? 'wide' : item.size === 'tall' ? 'tall' : '';
+---
+<a class:list={['sv-card', 'sv-reveal', size]} href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}>
+  <div class="sv-card-media">
+    {item.video
+      ? <video muted loop playsinline preload="none" poster={item.poster} data-autoplay aria-label={`${item.title}: ${item.kind}`}><source src={item.video} type="video/mp4"/></video>
+      : <img src={item.image} alt={item.imageAlt} loading="lazy"/>}
+    <span class="tag">{item.kind}</span>
+  </div>
+  <div class="sv-card-body"><h3>{item.title}</h3><p class="tech">{item.tech}</p><p>{item.body}</p><span class="text-link">{item.cta} <span aria-hidden="true">{item.external ? '↗' : '→'}</span></span></div>
+</a>

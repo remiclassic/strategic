@@ -1,0 +1,74 @@
+<script>
+  // Loops play only while they are on screen, and not at all for reduced motion or data saver.
+  const quiet = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator as any).connection?.saveData;
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]');
+  if (quiet) videos.forEach(video => { video.controls = true; });
+  else {
+    const io = new IntersectionObserver(entries => entries.forEach(entry => {
+      const video = entry.target as HTMLVideoElement;
+      if (entry.isIntersecting) video.play().catch(() => {}); else video.pause();
+    }), { threshold: 0.35 });
+    videos.forEach(video => io.observe(video));
+  }
+  const reveal = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('is-in'); reveal.unobserve(entry.target); }
+  }), { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.sv-reveal').forEach(el => reveal.observe(el));
+
+  // Slideshows: cross-fade with a slow push-in. They advance only while on screen.
+  const SLIDE_MS = 2600, FX_COUNT = 5;
+  document.querySelectorAll<HTMLElement>('[data-slides]').forEach(root => {
+    const slides = [...root.querySelectorAll<HTMLElement>('.sv-slide')];
+    const ticks = [...root.querySelectorAll<HTMLElement>('.sv-slide-bar i')];
+    const caption = root.querySelector<HTMLElement>('[data-slide-caption]')!, count = root.querySelector<HTMLElement>('[data-slide-count]')!;
+    let index = 0, timer = 0, visible = false, held = false, due = 0, left = 0;
+    const span = () => (slides[index].querySelector('video') ? SLIDE_MS * 1.7 : SLIDE_MS);
+    const load = (slide: HTMLElement) => { const img = slide.querySelector<HTMLImageElement>('img[data-src]'); if (img) { img.src = img.dataset.src!; img.removeAttribute('data-src'); } };
+    const show = (next: number) => {
+      const from = slides[index]; index = (next + slides.length) % slides.length; const to = slides[index];
+      load(to); load(slides[(index + 1) % slides.length]);
+      from.classList.remove('is-on'); from.querySelector('video')?.pause();
+      if (from !== to) { from.classList.add('is-leaving'); setTimeout(() => from.classList.remove('is-leaving'), 950); }
+      to.classList.remove('is-leaving'); to.dataset.fx = String(index % FX_COUNT);
+      to.classList.remove('is-on'); void to.offsetWidth; to.classList.add('is-on'); // restart the push-in
+      to.dataset.pan = String(index % 4);
+      if (!quiet && visible) to.querySelector('video')?.play().catch(() => {});
+      ticks.forEach((tick, n) => { tick.className = n < index ? 'done' : n === index ? 'now' : ''; });
+      root.style.setProperty('--slide-ms', `${span()}ms`); left = span();
+      caption.textContent = to.dataset.caption || ''; count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    };
+const schedule = () => {
+      const run = visible && !held && !quiet;
+      if (timer) { clearTimeout(timer); timer = 0; left = Math.max(250, due - performance.now()); }
+      if (run) { due = performance.now() + left; timer = window.setTimeout(() => { timer = 0; show(index + 1); schedule(); }, left); }
+      root.classList.toggle('is-running', run);
+    };
+    const jump = (step: number) => { clearTimeout(timer); timer = 0; show(index + step); schedule(); };
+    root.querySelector('[data-slide-next]')!.addEventListener('click', () => jump(1));
+    root.querySelector('[data-slide-prev]')!.addEventListener('click', () => jump(-1));
+    root.addEventListener('pointerenter', () => { held = true; schedule(); });
+    root.addEventListener('pointerleave', () => { held = false; schedule(); });
+    root.addEventListener('focusin', () => { held = true; schedule(); });
+    root.addEventListener('focusout', () => { held = false; schedule(); });
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) { load(slides[(index + 1) % slides.length]); if (!quiet) slides[index].querySelector('video')?.play().catch(() => {}); } else slides[index].querySelector('video')?.pause();
+      schedule();
+    }, { threshold: 0.3 }).observe(root);
+    show(0);
+  });
+
+  // Stills drift slowly while they are on screen, and each gallery reveals in sequence.
+  if (!quiet) {
+    const live = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('is-live', entry.isIntersecting)), { threshold: 0.15 });
+    document.querySelectorAll('.pf-main, .pf-boards button, .pf-editor button, .sv-card-media, .cs-screen figure').forEach(el => { el.classList.add('sv-drift'); live.observe(el); });
+    document.querySelectorAll<HTMLElement>('.pf-comps, .cr-titles, .pf-boards, .pf-editor, .pf-motion, .pf-cases').forEach(grid => [...grid.children].forEach((child, n) => (child as HTMLElement).style.setProperty('--stagger', `${Math.min(n, 11) * 55}ms`)));
+    // Case cards flip through their own screens until someone picks one.
+    document.querySelectorAll<HTMLElement>('[data-case]').forEach((card, c) => {
+      const thumbs = [...card.querySelectorAll<HTMLElement>('[data-thumb]')]; let at = 0, on = false, touched = false;
+      card.addEventListener('pointerdown', () => { touched = true; });
+      new IntersectionObserver(([entry]) => { on = entry.isIntersecting; }, { threshold: 0.4 }).observe(card);
+      setInterval(() => { if (!on || touched || card.matches(':hover')) return; at = (at + 1) % thumbs.length; thumbs[at].dispatchEvent(new Event('click')); }, 2800 + c * 260);
+    });
+  }
+</script>

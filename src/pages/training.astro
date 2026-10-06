@@ -4,7 +4,7 @@ import '../styles/training.css';
 import {
 	bookHref, isCalendar, CONTACT_EMAIL, PORTFOLIO_URL, LINKEDIN_URL,
 	proof, showcase, workFacts, workLead, prototypes, capabilities,
-	games, myGames, services, offers, designRules, learnerOutcomes, whyUs, steps, forList, notForList, faqs, PLAYABLE_ANCHOR,
+	myGames, services, offers, designRules, learnerOutcomes, whyUs, steps, forList, notForList, faqs, PLAYABLE_ANCHOR,
 } from '../data/training';
 
 const external = isCalendar() ? { target: '_blank', rel: 'noopener' } : {};
@@ -75,44 +75,7 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 				</div>
 			</article>
 		))}
-	</div>
-</section>
-
-<section class="container tr-games-section" id="games" aria-labelledby="games-title">
-	<div class="section-heading">
-		<div><p class="eyebrow">ALSO FEATURED · FROM A COMMERCIAL CYBER RANGE</p><h2 id="games-title">One skill. A few minutes. A score.</h2></div>
-		<p>Six of these were built for a commercial cyber range and are shown here under neutral names. Each one teaches a single skill a learner can practice on a coffee break.</p>
-	</div>
-	<div class="tr-gamegrid">
-		{games.map((g) => (
-			<article class="tr-gcard">
-				<button class="tr-gcard-art" type="button" data-case={g.id} aria-haspopup="dialog" aria-label={`${g.name}: watch gameplay and read the design thinking`}>
-					<img src={`/training/games-art/${g.id}-720.webp`} srcset={`/training/games-art/${g.id}-720.webp 720w, /training/games-art/${g.id}-1280.webp 1280w`} sizes="(max-width: 800px) 100vw, 640px" alt={g.alt} width="1280" height="720" loading="lazy" />
-					<video class="tr-gcard-video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"><source data-src={`/training/games-video/${g.id}.mp4`} type="video/mp4" /></video>
-					<span class="tr-gcard-genre">{g.genre}</span>
-					<span class="tr-gcard-live" aria-hidden="true">● Gameplay</span>
-					<h3>{g.name}</h3>
-				</button>
-				<div class="tr-gcard-info">
-					<strong>Teaches: {g.teaches}</strong>
-					<p>{g.body}</p>
-					<p class="tr-gcard-why"><b>Why it works:</b> {g.why}</p>
-					<button class="tr-gcard-more" type="button" data-case={g.id} aria-haspopup="dialog">See the design thinking <span aria-hidden="true">→</span></button>
-				</div>
-			</article>
-		))}
-		<article class="tr-gcard">
-			<a class="tr-gcard-art" href={PLAYABLE_ANCHOR}>
-				<img src="/training/work/network-defense-game.webp" alt="" width="1600" height="1000" loading="lazy" />
-				<span class="tr-gcard-genre">Strategy · Playable now</span>
-				<h3>Keep Finance Online</h3>
-			</a>
-			<div class="tr-gcard-info">
-				<strong>Teaches: Firewall rules and service availability</strong>
-				<p>Our own network defense game. Inspect traffic, scope the rules, add a backup route, then replay every decision in the debrief. <a href={PLAYABLE_ANCHOR}>Play it below ↓</a></p>
-			</div>
-		</article>
-		<article class="tr-gcard tr-gcard-yours">
+		<article class="tr-gcard tr-gcard-yours tr-gcard-wide">
 			<a class="tr-gcard-art" href={pitch} {...external}>
 				<span class="tr-gcard-genre">Next up</span>
 				<h3>Your game here</h3>
@@ -126,30 +89,6 @@ const artClass: Record<string, string> = { range: '', minigames: 'lilac', tools:
 	</div>
 </section>
 </div>
-
-{games.map((g) => (
-	<dialog class="tr-case" id={`case-${g.id}`} aria-labelledby={`case-title-${g.id}`}>
-		<div class="tr-case-inner">
-			<button class="tr-case-close" type="button" data-case-close aria-label="Close">×</button>
-			<div class="tr-case-media">
-				<video controls muted loop playsinline preload="none" poster={`/training/games-video/${g.id}.jpg`}><source data-src={`/training/games-video/${g.id}.mp4`} type="video/mp4" /></video>
-				<p>Real gameplay from the working build, shown under a neutral name.</p>
-			</div>
-			<div class="tr-case-copy">
-				<p class="eyebrow">{g.genre.toUpperCase()} · DESIGN CASE STUDY</p>
-				<h2 id={`case-title-${g.id}`}>{g.name}</h2>
-				<p class="tr-case-teaches">Teaches: {g.teaches}</p>
-				<dl>
-					<div><dt>The problem</dt><dd>{g.problem}</dd></div>
-					<div><dt>The idea</dt><dd>{g.idea}</dd></div>
-					<div><dt>UX decisions</dt><dd><ul>{g.ux.map((u) => <li>{u}</li>)}</ul></dd></div>
-					<div><dt>What the learner gets</dt><dd>{g.learner}</dd></div>
-				</dl>
-				<a class="button" href={bookHref(`A game like ${g.name}`)} {...external}>Build one like this <span aria-hidden="true">↗</span></a>
-			</div>
-		</div>
-	</dialog>
-))}
 
 <section class="section container compact" id="minigame-example" aria-labelledby="minigame-title">
 	<div class="section-heading">

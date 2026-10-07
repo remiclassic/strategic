@@ -46,7 +46,7 @@ test('services hub: engine tabs switch the code sample and nothing overflows', a
   await expect(page.locator('#panel-unreal')).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await expect(page.locator('#primary-nav a[href="/services/"]')).toBeVisible();
-  await expect(page.locator('[data-case]')).toHaveCount(14);
+  await expect(page.locator('[data-case]')).toHaveCount(16);
   await expect(page.locator('#audit .in-col li')).toHaveCount(14);
   await expect(page.locator('#talks .in-principles li')).toHaveCount(10);
   await expect(page.locator('.cr-numbers-grid > div')).toHaveCount(8);

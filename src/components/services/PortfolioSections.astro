@@ -5,11 +5,11 @@ import { cases, motionClips, boards, editorShots, editorClips, components, figma
 const { start = 4 } = Astro.props; // number of the first section, for the running eyebrow count
 const n = (i: number) => String(start + i).padStart(2, '0');
 ---
-<section class="section container" id="portfolio"><div class="section-heading"><div><p class="eyebrow">{n(0)} / Selected work</p><h2>Fourteen projects.<br>Open any of them.</h2></div><p>Studio work, client concepts and design studies from twenty years of game UI. Each project says where it comes from, and every card holds its own set of screens.</p></div>
+<section class="section container" id="portfolio"><div class="section-heading"><div><p class="eyebrow">{n(0)} / Selected work</p><h2>Sixteen projects.<br>Open any of them.</h2></div><p>Studio work, our own game and builds, client concepts and design studies from twenty years of game UI. Each project says where it comes from, and every card holds its own set of screens.</p></div>
   <div class="pf-cases">{cases.map(item => <article class="pf-case sv-reveal" data-case>
     <button type="button" class="pf-main" data-zoom aria-label={`Enlarge: ${item.title}`}><img src={item.shots[0].src} alt={item.shots[0].alt} loading="lazy" data-main/></button>
     <div class="pf-thumbs" role="group" aria-label={`${item.title} screens`}>{item.shots.map((shot, i) => <button type="button" data-thumb data-src={shot.src} data-alt={shot.alt} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={shot.alt}><img src={shot.src} alt="" loading="lazy"/></button>)}</div>
-    <div class="pf-copy"><p class="pf-origin">{item.origin}</p><h3>{item.title}</h3><p>{item.body}</p><ul>{item.tags.map(tag => <li>{tag}</li>)}</ul>{'href' in item && <a class="pf-link pf-case-link" href={item.href}>Read the case study →</a>}</div>
+    <div class="pf-copy"><p class="pf-origin">{item.origin}</p><h3>{item.title}</h3><p>{item.body}</p><ul>{item.tags.map(tag => <li>{tag}</li>)}</ul>{'href' in item && <a class="pf-link pf-case-link" href={item.href}>{'cta' in item ? item.cta : 'Read the case study'} →</a>}</div>
   </article>)}</div>
   <p class="sv-work-foot">Game titles and marks belong to their owners. <a class="pf-link" href={PORTFOLIO_URL} target="_blank" rel="noopener">See the full portfolio, with a UX walkthrough for each project ↗</a></p>
 </section>

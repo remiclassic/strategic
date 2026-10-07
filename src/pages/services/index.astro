@@ -34,6 +34,10 @@ import { conceptRows, tracks, disciplines, codev, engines, healthBarNote, work, 
     <div class="sv-codev sv-tracks sv-reveal">{tracks.map((t, i) => <article><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p><ul>{t.links.map(([label, href]) => <li><a class="pf-link" href={href}>{label} →</a></li>)}</ul></article>)}</div>
   </section>
 
+  <section class="section container" id="promo"><div class="section-heading"><div><p class="eyebrow">The short version · 50 seconds</p><h2>We design it.<br>Then we build it.</h2></div><p>Twenty years of game UI in under a minute: founder credits, our own game and tools, what we do, and what the people who managed the work say about it.</p></div>
+    <figure class="sv-promo sv-reveal"><video controls playsinline preload="none" poster="/media/services/promo-poster.jpg" aria-label="Strategic Sloth promo: interfaces, designed and built where they run"><source src="/media/services/promo.mp4" type="video/mp4"/></video><figcaption>50-second promo · Press play to load · Sound on</figcaption></figure>
+  </section>
+
   <Credits part="top" />
 
   <section class="section container sv-fit" id="fit">
@@ -83,7 +87,7 @@ import { conceptRows, tracks, disciplines, codev, engines, healthBarNote, work, 
   <section class="section container" id="directions"><div class="section-heading"><div><p class="eyebrow">09 / Visual range</p><h2>Any genre.<br>Any art direction.</h2></div><p>Ten complete UI directions designed in 2026, from tactical shooter to cosy farm. Concept studies from our UI collections, not footage of released games.</p></div>
   </section>
   <div class="sv-film" aria-label="Screens from our UI concept collections">{conceptRows.map((row, r) => <div class:list={['sv-film-row', r === 1 && 'reverse']}><div>{[0, 1].map(copy => row.map(item => <a href={`/game-ui/${item.slug}/`} tabindex={copy === 1 ? -1 : undefined} aria-hidden={copy === 1 ? 'true' : undefined}><img src={item.src} alt={copy === 0 ? `${item.label} concept screen` : ''} loading="lazy" width="1600" height="1000"/><span>{item.label}</span></a>))}</div></div>)}</div>
-  <section class="container sv-film-foot"><p class="sv-work-foot">Twenty screens from ten complete UI collections, each a full set of menus, HUD, inventory and settings. <a class="pf-link" href="/#game-ui-packs">Browse the collections →</a></p>
+  <section class="container sv-film-foot"><p class="sv-work-foot">Thirty screens from ten complete UI collections, each a full set of menus, HUD, inventory and settings. <a class="pf-link" href="/#game-ui-packs">Browse the collections →</a></p>
   </section>
 
   <section class="section container" id="process"><div class="section-heading"><div><p class="eyebrow">10 / Process</p><h2>From a rough build<br>to a shipped screen.</h2></div><p>Each step ends with something you can review. Skip the ones you have already done.</p></div>

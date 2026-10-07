@@ -358,3 +358,8 @@ body.services-site{--paper:#0d110e;--surface:#141a15;--surface-2:#1b231c;--ink:#
 @keyframes sv-pulse-img{50%{transform:scale(1.06)}}
 @media(prefers-reduced-motion:reduce){.sv-slide.is-on,.sv-slide.is-leaving,.sv-slide.is-on img,.sv-slide.is-on::after,.sv-drift img{animation:none}.cr-titles button,.pf-comps .sv-reveal,.pf-boards .sv-reveal,.pf-editor .sv-reveal{opacity:1;transform:none;clip-path:none}}
 @media(scripting:none){.cr-titles button{opacity:1;transform:none}.pf-comps .sv-reveal,.pf-boards .sv-reveal,.pf-editor .sv-reveal{clip-path:none}}
+
+/* Promo video */
+.sv-promo{margin:0 auto;max-width:1040px}
+.sv-promo video{display:block;width:100%;aspect-ratio:16/9;background:#080a08;border-radius:14px;border:1px solid var(--line)}
+.sv-promo figcaption{margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}

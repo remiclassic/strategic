@@ -74,7 +74,17 @@ export const cases = [
     body: 'A mobile experience connecting discovery, play, creative expression and sharing. The UX maps and component work show how the screens fit together.',
     shots: [['stardust-flow', 'Flowchart connecting mobile screens from splash through play, rewards and sharing'], ['stardust-sitemap', 'Sitemap of the app with screens grouped by section'], ['stardust-components', 'Sheet of cards, icons and toolbar components'], ['stardust-fonts', 'Typography sheet with two typefaces']],
   },
-].map(item => ({ ...item, shots: item.shots.map(([file, alt]) => ({ src: `${dir}${file}.webp`, alt })) }));
+  {
+    id: 'norman', title: 'Norman Ascension', href: '/norman-ascension/', cta: 'See the game', origin: 'Strategic Sloth · our own game · in development for Steam', tags: ['Custom WebGL engine', 'World & rendering', 'Game design'],
+    body: 'Our online medieval dynasty RPG. Unretouched in-engine captures from the browser-based engine we wrote: battle formations, day and night, weather and the four seasons.',
+    shots: [['/media/norman-ascension/battle-shield-wall.webp', 'Norman soldiers holding a shield wall on the battlefield'], ['/media/norman-ascension/battle-archers.webp', 'Archers in formation on the battlefield'], ['/media/norman-ascension/battle-helmets.webp', 'Helmeted soldiers standing in close ranks'], ['na-mont-saint-michel', 'A traveller walking across the tidal flats toward Mont-Saint-Michel at dawn'], ['na-torchlight-forest', 'A traveller carrying a torch through a forest at night'], ['na-wheat-sunset', 'Ripe wheat under a low evening sun with mist along the hedgerows'], ['na-etretat-sunset', 'The chalk cliffs and sea arch at Étretat lit by the setting sun'], ['na-forest-ride', 'A rider on a forest road in morning haze'], ['na-winter-lane', 'A country lane under snow beside a bare oak']],
+  },
+  {
+    id: 'mission-control', title: 'Mission Control', href: '/training/', cta: 'Open the case study', origin: 'Strategic Sloth · training simulation · designed and built', tags: ['Training UX', 'Onboarding', 'Progression'],
+    body: 'A mission hub with a live globe: guided tutorial, mission selection, learning paths, progression and a debrief with XP and rank. Sixteen screens from the running build.',
+    shots: [['/training/mission-control/01-mission-control-default.webp', 'Mission control with a mission list beside a world map of numbered markers'], ['/training/mission-control/02-tutorial-step1-welcome.webp', 'Tutorial welcome step over the mission map'], ['/training/mission-control/03-tutorial-step2-mission-list-spotlight.webp', 'Tutorial spotlight on the mission list'], ['/training/mission-control/04-tutorial-step3-load-mission-spotlight.webp', 'Tutorial spotlight on the load mission button'], ['/training/mission-control/05-mission-selected-marker-tooltip.webp', 'A selected mission marker with its tooltip'], ['/training/mission-control/06-load-mission-loading-state.webp', 'Loading state after choosing a mission'], ['/training/mission-control/07-mission-console.webp', 'Mission console'], ['/training/mission-control/08-learning-path-selector.webp', 'Learning path selector'], ['/training/mission-control/09-learning-path-confirm-switch.webp', 'Confirmation before switching learning path'], ['/training/mission-control/10-learning-path-overview.webp', 'Learning path overview'], ['/training/mission-control/11-player-progression-panel.webp', 'Player progression panel'], ['/training/mission-control/13-global-event-popup.webp', 'Global event popup'], ['/training/mission-control/14-global-operation-briefing.webp', 'Global operation briefing'], ['/training/mission-control/15-live-ticker-expanded.webp', 'Expanded live ticker'], ['/training/mission-control/17-code-matrix-minigame.webp', 'Code matrix minigame'], ['/training/mission-control/18-mission-results-xp-rankup-levelup.webp', 'Mission results with XP, rank up and level up']],
+  },
+].map(item => ({ ...item, shots: item.shots.map(([file, alt]) => ({ src: file.startsWith('/') ? file : `${dir}${file}.webp`, alt })) }));
 
 export const motionClips = [
   ['fpsscifi', 'Sci-fi FPS inventory', 'Equipment data over a moving character scene.'],
@@ -83,7 +93,9 @@ export const motionClips = [
   ['diagnostic', 'Starship diagnostic console', 'Damage, warnings and repair state.'],
   ['loading', 'Fantasy RPG loading screen', 'A briefing to read while the bar fills.'],
   ['potion', 'Magical arsenal', 'Inventory and shop in one space.'],
-].map(([id, title, note]) => ({ id, title, note, video: `/media/services/motion/${id}.mp4`, poster: `/media/services/motion/${id}.jpg` }));
+  ['hiphopvid', 'Rap battle main menu', 'The menu is also the opening scene.'],
+  ['gameresume', 'A résumé as a game menu', 'Profile, inventory, map and quests, used to present a career.'],
+].map(([id, title, note]) => ({ id, title, note, video: `/media/services/motion/${id}.mp4`, poster: `/media/services/motion/${id}.jpg` })).concat([{ id: 'training-film', title: 'Training interface film', note: 'Sixty seconds of onboarding, mission and progression screens.', video: '/training/video/training-film-60s.mp4', poster: '/training/video/training-film-poster.jpg' }]);
 
 export const boards = [
   { src: `${dir}figma-canvas.webp`, title: 'Figma working file', origin: 'Mobile word game · components, tiers and animation outcomes', alt: 'Figma canvas with a layers panel, word game screens, star tier components and a results screen', wide: true },

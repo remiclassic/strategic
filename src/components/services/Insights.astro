@@ -33,6 +33,10 @@ const venues = ['Hothead Games', 'Frima Studio', 'Bandai Namco', 'Behaviour Inte
 </section>}
 
 {part === 'talks' && <section class="section container" id="talks"><div class="section-heading"><div><p class="eyebrow">Talks &amp; teaching</p><h2>Stop designing in screens.<br>Start designing in flow.</h2></div><p>The line Remi’s UX talk is built around. He has taught game interface design at Vancouver Film School and written this talk for the studios he has worked with.</p></div>
+  <figure class="in-video sv-reveal">
+    <video controls playsinline preload="none" poster="/media/services/talks/ux-walkthrough-poster.jpg" aria-label="The thinking behind the interface: a UX design walkthrough in seven lessons"><source src="/media/services/talks/ux-walkthrough.mp4" type="video/mp4"/></video>
+    <figcaption><p class="in-kicker">Watch · 5 min 30 · with sound</p><h3>The thinking behind the interface.</h3><p>Seven lessons on decisions, flows and trade-offs, told through Remi’s own project work: start with the decision, design the way back, keep context beside the choice, make every state readable, plan the test, say what the room is reviewing, and carry the intent into the build.</p><p class="in-venues">Founder career work and 2026 concept studies, labelled as such in the video.</p></figcaption>
+  </figure>
   <div class="in-talks sv-reveal">
     <div class="in-principles"><p class="in-kicker">10 principles of UX</p><ol>{principles.map(text => <li>{text}</li>)}</ol></div>
     <div class="in-side">
@@ -62,6 +66,11 @@ const venues = ['Hothead Games', 'Frima Studio', 'Bandai Namco', 'Behaviour Inte
   .in-more article{border:1px solid var(--line);border-radius:16px;padding:30px 32px;background:var(--surface)}
   .in-more h3{font-size:25px;letter-spacing:-.04em;margin:14px 0 16px}
   .in-more ul{padding-left:18px;margin:0;font-size:14px;line-height:1.9;color:var(--muted)}
+  .in-video{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:0;margin:0 0 24px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface)}
+  .in-video video{display:block;width:100%;aspect-ratio:16/9;background:#0b0f0c}
+  .in-video figcaption{padding:34px 36px;align-self:center}
+  .in-video h3{font-size:25px;letter-spacing:-.04em;margin:12px 0 12px}
+  .in-video p:not(.in-kicker){font-size:14.5px;line-height:1.7}
   .in-talks{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px}
   .in-principles{border:1px solid var(--line);border-radius:18px;padding:34px 36px;background:var(--surface)}
   .in-principles ol{list-style:none;margin:16px 0 0;padding:0;counter-reset:p}
@@ -74,5 +83,5 @@ const venues = ['Hothead Games', 'Frima Studio', 'Bandai Namco', 'Behaviour Inte
   .in-side p:not(.in-kicker){font-size:14.5px;line-height:1.7}
   .in-venues{font:400 12px/1.7 var(--mono)!important;color:var(--muted);margin-top:12px}
   .in-side .pf-link{display:inline-block;margin-top:12px;font-size:14px;color:var(--accent);font-weight:600}
-  @media(max-width:900px){.in-audit,.in-more,.in-talks{grid-template-columns:1fr}.in-col,.in-principles{padding:24px 22px}}
+  @media(max-width:900px){.in-audit,.in-more,.in-talks,.in-video{grid-template-columns:1fr}.in-video figcaption{padding:24px 22px}.in-col,.in-principles{padding:24px 22px}}
 </style>

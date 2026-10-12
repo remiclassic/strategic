@@ -27,7 +27,7 @@ test('services hub: the live interface responds to keyboard, skins and actions',
   await page.keyboard.press('Enter');
   await expect(lab.locator('[data-setting="volume"]')).toBeFocused();
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('button', { name: 'Settings', exact: true })).toBeFocused();
+  await expect(lab.getByRole('button', { name: 'Settings', exact: true })).toBeFocused();
   await expect(lab).toHaveAttribute('data-input', 'kb');
 
   await lab.getByRole('button', { name: 'Inventory', exact: true }).first().click();
@@ -40,6 +40,7 @@ test('services hub: the live interface responds to keyboard, skins and actions',
 
 test('services hub: engine tabs switch the code sample and nothing overflows', async ({ page }) => {
   await open(page, '/services/');
+  await page.getByText('Explore implementation examples in five runtimes', { exact: false }).click();
   await page.getByRole('tab', { name: /Godot/ }).click();
   await expect(page.locator('#panel-godot')).toBeVisible();
   await expect(page.locator('#panel-godot pre')).toContainText('func set_health');
@@ -97,16 +98,15 @@ test('vanguard case study renders and loads the prototype on request', async ({ 
   await expect(page.locator('[data-proto] iframe')).toHaveAttribute('src', /vanguard\.html/);
 });
 
-test('team section shows roles and no placeholder text in a production build', async ({ page }) => {
+test('collaborators preview shows named people and links to the Studio team', async ({ page }) => {
   await open(page, '/services/');
-  await expect(page.locator('#team .tm-group')).toHaveCount(3);
-  await expect(page.locator('#team .tm-group li')).toHaveCount(13);
-  await expect(page.locator('#team .tm-name')).toHaveCount(6);
-  await expect(page.locator('#team .tm-photo img')).toHaveCount(6);
-  await page.locator('#team .tm-photo img').first().scrollIntoViewIfNeeded();
-  expect(await page.locator('#team .tm-photo img').first().evaluate((img: HTMLImageElement) => img.decode().then(() => img.naturalWidth))).toBeGreaterThan(0);
-  await expect(page.locator('#team .tm-group li').first()).toContainText('Omar Rosario');
-  await expect(page.locator('#team')).not.toContainText(/to be added|placeholder|draft:/i);
+  await expect(page.locator('#team .collaborator-grid article')).toHaveCount(6);
+  await expect(page.locator('#team .collaborator-grid img')).toHaveCount(6);
+  await expect(page.locator('#team')).toContainText('Omar Rosario');
+  await expect(page.locator('#team a[href="/studio/#collaborators"]')).toBeVisible();
+  await open(page, '/studio/#collaborators');
+  await expect(page.locator('#collaborators .additional-specialties li')).toHaveCount(7);
+  await expect(page.locator('#collaborators')).toContainText('separate from the named collaborators');
 });
 
 test('component tiles open the real, working React components', async ({ page }) => {

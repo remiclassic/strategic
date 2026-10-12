@@ -1,34 +1,33 @@
 ---
 import EngagementOptions from '../components/EngagementOptions.astro';
 import StudioLayout from "../layouts/StudioLayout.astro";
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "";
 ---
 <StudioLayout title="Work with the studio \u2014 Strategic Sloth" description="Partner with Strategic Sloth on game UI, UX, design systems, and product direction.">
 <section class="page-intro container"><p class="eyebrow">LET’S WORK TOGETHER</p><h1>Your next interface.<br>Let’s make it matter.</h1><p class="lede">Work directly with Remi Couture, founder of Strategic Sloth. Bring the interface challenge, the prototype you need, or the product you’re ready to move forward.</p></section><EngagementOptions contact />
-<section class="section container compact"><section class="engagement-process"><p class="eyebrow">HOW WE WORK TOGETHER</p><h2>A clear path from the start.</h2><ol><li><strong>Define the brief</strong><p>Share your project, its current stage, and where you need help.</p></li><li><strong>Agree on the scope</strong><p>Align on priorities, deliverables, timing, and budget before work begins.</p></li><li><strong>Design, review, refine</strong><p>Work through the details together, with a practical handoff to your team.</p></li></ol></section><div class="contact-panel enquiry-panel" id="enquiry"><div><p class="eyebrow">START A CONVERSATION</p><h2>Tell me what you’re building.</h2><p>Share your project, the challenge, and your target dates. We’ll confirm fit, scope, and the next available start before making a commitment.</p></div><form class="enquiry-form" data-enquiry-form aria-label="Project enquiry">
+<section class="section container compact"><section class="engagement-process"><p class="eyebrow">HOW WE WORK TOGETHER</p><h2>A clear path from the start.</h2><ol><li><strong>Define the brief</strong><p>Share your project, its current stage, and where you need help.</p></li><li><strong>Agree on the scope</strong><p>Align on priorities, deliverables, timing, and budget before work begins.</p></li><li><strong>Design, review, refine</strong><p>Work through the details together, with a practical handoff to your team.</p></li></ol></section><div class="contact-panel enquiry-panel" id="enquiry"><div><p class="eyebrow">START A CONVERSATION</p><h2>Tell me what you’re building.</h2><p>Share your project, the challenge, and your target dates. We’ll confirm fit, scope, and the next available start before making a commitment.</p></div><form class="enquiry-form" data-studio-enquiry data-endpoint={contactEndpoint} aria-label="Project enquiry">
 <div class="enquiry-fields">
 <label>Your name<input name="name" autocomplete="name" required maxlength="120"></label>
 <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
-<label class="enquiry-wide">Confirm email address<input name="emailConfirm" type="email" autocomplete="off" required maxlength="254" aria-describedby="enquiry-email-help"></label>
-<p class="enquiry-wide enquiry-help" id="enquiry-email-help">Enter your email again so we can reply to the right address.</p>
-<label class="enquiry-wide">Subject<input name="subject" required maxlength="160" placeholder="What would you like to build?" aria-describedby="enquiry-subject-help"></label>
-<p class="enquiry-wide enquiry-help" id="enquiry-subject-help">Your email subject will start with [StrategicSloth], followed by your subject.</p>
+<label>Project type<select name="projectType" required><option value="">Choose a starting point</option><option>Interface review</option><option>Prototype sprint</option><option>Design & implementation</option><option>Digital product or website</option><option>Other</option></select></label>
+<label>Budget range <span>(optional)</span><select name="budget"><option value="">Prefer to discuss</option><option>Under $5,000</option><option>$5,000–$15,000</option><option>$15,000–$30,000</option><option>$30,000+</option></select></label>
+<label class="enquiry-wide">Timeline<input name="timeline" maxlength="160" placeholder="When would you like to start?" required></label>
+<label class="form-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
 <label class="enquiry-wide">Project details<textarea name="message" rows="7" required maxlength="6000" placeholder="Tell us about your project, the help you need, and any timeline or budget you have in mind."></textarea></label>
 </div>
-<p class="enquiry-help">Your draft stays in this browser on this device until you clear it. Opening your email app won’t delete it.</p>
-<p class="enquiry-status" data-draft-status role="status" aria-live="polite">Your draft will save as you type.</p>
-<label class="enquiry-robot"><input type="checkbox" data-human-confirm required> <span>I’m not a robot</span></label>
-<div class="enquiry-actions"><button class="button" type="submit" disabled>Open email draft <span aria-hidden="true">↗</span></button><button class="enquiry-clear" type="button" data-clear-draft disabled>Clear draft</button></div>
-<p class="enquiry-help" data-send-status role="status">Review and send your enquiry in your email app.</p>
-<noscript><p>Please enable JavaScript to use the saved draft form, or email <a href="mailto:privacy@strategicsloth.com?subject=%5BStrategicSloth%5D%20Project%20enquiry">privacy@strategicsloth.com</a>.</p></noscript>
+<p class="enquiry-help">Project details are used to respond to your enquiry. <a href="/legal/privacy/">Privacy policy</a>.</p>
+<div class="enquiry-actions"><button class="button" type="submit">{contactEndpoint ? 'Send project enquiry' : 'Open email draft'} <span aria-hidden="true">↗</span></button></div>
+<p class="enquiry-help" data-send-status role="status" aria-live="polite">{contactEndpoint ? 'Send your enquiry directly. We’ll confirm receipt here.' : 'Direct submission is not available yet. Review and send this enquiry in your email app, or use the email address below.'}</p>
+<noscript><p>Email <a href="mailto:privacy@strategicsloth.com">privacy@strategicsloth.com</a> to discuss your project.</p></noscript>
 </form><p class="contact-address">privacy@strategicsloth.com</p></div><section class="project-faq" aria-labelledby="faq-title"><p class="eyebrow">BEFORE WE TALK</p><h2 id="faq-title">A few useful details.</h2><details><summary>Who will I work with?</summary><p>You’ll work directly with Remi Couture, the founder and designer behind Strategic Sloth and SliceForge.</p></details><details><summary>Can we start with a focused piece of work?</summary><p>Yes. A UI review, a menu flow, or a component system can be a useful starting point. We’ll agree on a scope that fits the problem.</p></details><details><summary>What should I include in my enquiry?</summary><p>A short project overview, your engine or platform, the help you need, and your target timing. A budget range also helps shape a realistic scope.</p></details></section></section>
 </StudioLayout>
 <script>
- const form = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
+ const form = document.querySelector<HTMLFormElement>('[data-studio-enquiry]');
  function fillBrief(link: HTMLElement) {
    if (!form) return;
-   const subject = form.elements.namedItem('subject') as HTMLInputElement;
+   const projectType = form.elements.namedItem('projectType') as HTMLSelectElement;
    const message = form.elements.namedItem('message') as HTMLTextAreaElement;
-   if (!subject.value.trim()) subject.value = link.dataset.briefSubject || '';
+   if (!projectType.value) projectType.value = link.dataset.briefSubject === 'Design and implementation partnership' ? 'Design & implementation' : link.dataset.briefSubject || '';
    if (!message.value.trim()) message.value = link.dataset.briefMessage || '';
    form.dispatchEvent(new Event('input', { bubbles: true }));
  }
@@ -40,4 +39,36 @@ import StudioLayout from "../layouts/StudioLayout.astro";
    const link = [...document.querySelectorAll<HTMLElement>('[data-engagement]')].find(item => item.dataset.engagement === engagement);
    if (link) fillBrief(link);
  });
+</script>
+
+<script>
+import { trackStudioEvent } from '../utils/studio-tracking';
+const enquiry = document.querySelector<HTMLFormElement>('[data-studio-enquiry]');
+if (enquiry) {
+ const status = enquiry.querySelector<HTMLElement>('[data-send-status]')!;
+ const submit = enquiry.querySelector<HTMLButtonElement>('button[type=submit]')!;
+ let started = false;
+ enquiry.addEventListener('input', () => { if (!started) { started = true; trackStudioEvent('enquiry_start', { location: 'contact' }); } });
+ enquiry.addEventListener('submit', async event => {
+  event.preventDefault(); if (!enquiry.reportValidity() || submit.disabled) return;
+  const data = Object.fromEntries(new FormData(enquiry));
+  if (data.website) return;
+  const endpoint = enquiry.dataset.endpoint;
+  if (!endpoint) {
+   const body = ['Name: '+data.name, 'Email: '+data.email, 'Project: '+data.projectType, 'Budget: '+(data.budget || 'To discuss'), 'Timeline: '+data.timeline, '', data.message].join('\n');
+   location.href = 'mailto:privacy@strategicsloth.com?subject='+encodeURIComponent('[StrategicSloth] '+data.projectType)+'&body='+encodeURIComponent(body);
+   status.textContent = 'Your email draft is ready. Please review and send it in your email app. If no app opens, copy your details and email privacy@strategicsloth.com.';
+   trackStudioEvent('enquiry_email_handoff', { location: 'contact' }); return;
+  }
+  submit.disabled = true; status.textContent = 'Sending your enquiry…';
+  try {
+   const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ ...data, subject: '[StrategicSloth] '+data.projectType }) });
+   if (!response.ok) throw new Error('Delivery failed');
+   status.textContent = 'Thank you. Your enquiry has been received. We’ll reply to the email address you provided.';
+   trackStudioEvent('enquiry_submit', { location: 'contact', project_type: String(data.projectType) });
+   enquiry.reset(); started = false;
+  } catch { status.textContent = 'Your enquiry could not be sent. Your details are still here. Please try again or email privacy@strategicsloth.com.'; }
+  finally { submit.disabled = false; }
+ });
+}
 </script>

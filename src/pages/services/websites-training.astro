@@ -1,0 +1,12 @@
+---
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import ServiceLine from '../../components/b/ServiceLine.astro';
+import '../../styles/boutique.css';
+const faq: [string, string][] = [
+  ['Do you write the copy?', 'We shape the structure and the key messages with you. You bring the facts; we make them read clearly.'],
+  ['Can training run in our learning platform?', 'We build for the browser first. Integration with your platform is scoped per pilot.'],
+];
+---
+<StudioLayout title="Websites & training — Strategic Sloth" description="Studio, product and game websites, and training simulations people finish. Website from $7,500, training pilot from $8,000.">
+<ServiceLine id="web-training" headline="Websites and training <em>that work.</em>" intro="Sites built as components, with performance and accessibility checked. And learning products where the interaction does the teaching: training games, simulations and a debrief." faq={faq} />
+</StudioLayout>

@@ -17,7 +17,7 @@ const others = engines.filter(e => e.slug !== engine.slug);
     <p class="eyebrow">{engine.name} · UI design &amp; implementation</p>
     <h1>{engine.headline}</h1>
     <p class="lede">{engine.summary}</p>
-    <div class="hero-actions"><a class="button" href="/contact/?engagement=partner#enquiry" data-track="cta_click" data-track-location={`services_${engine.slug}`}>Talk about your {engine.short} project <span>↗</span></a><a class="button ghost" href="/services/#lab">Play the live demo <span>→</span></a></div>
+    <div class="hero-actions"><a class="button" href="/contact/?engagement=partner#enquiry" data-track="cta_click" data-track-location={`services_${engine.slug}`}>Talk about your {engine.short} project <span>↗</span></a><a class="button ghost" href="/services/game-ui/#lab">Play the live demo <span>→</span></a></div>
     <div class="sv-chips">{engine.stack.map(s => <span>{s}</span>)}</div>
   </section>
 
@@ -30,7 +30,7 @@ const others = engines.filter(e => e.slug !== engine.slug);
   </section>
 
   <section class="section container"><div class="section-heading"><div><p class="eyebrow">In code</p><h2>The same component,<br>in {engine.short}.</h2></div><p>{healthBarNote}</p></div>
-    <div class="sv-split sv-reveal"><div><CodeBlock engine={engine}/><p class="sv-note">A trimmed sample to show structure and approach. <a href="/services/#engines" style="color:var(--accent)">Compare all five runtimes →</a></p></div><div><p class="sv-check-title">Covered as standard</p><ul class="sv-check">{engine.checklist.map(item => <li>{item}</li>)}</ul></div></div>
+    <div class="sv-split sv-reveal"><div><CodeBlock engine={engine}/><p class="sv-note">A trimmed sample to show structure and approach. <a href="/services/game-ui/#engines" style="color:var(--accent)">Compare all five runtimes →</a></p></div><div><p class="sv-check-title">Covered as standard</p><ul class="sv-check">{engine.checklist.map(item => <li>{item}</li>)}</ul></div></div>
   </section>
 
   {related.length > 0 && <section class="section container"><div class="section-heading"><div><p class="eyebrow">Real builds</p><h2>{engine.slug === 'web' ? 'Shipped in the browser.' : `Made with ${engine.short}.`}</h2></div><p>Each tile says what it is: recorded gameplay, an editor capture, or a product screenshot.</p></div><div class="sv-work">{related.map(item => <WorkCard item={item}/>)}</div></section>}

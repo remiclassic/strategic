@@ -1,15 +1,60 @@
 ---
 import StudioLayout from '../../layouts/StudioLayout.astro';
-import FounderInvite from '../../components/FounderInvite.astro';
+import CaseCard from '../../components/b/CaseCard.astro';
+import CtaBand from '../../components/b/CtaBand.astro';
+import { cases, line, pkg, type Case } from '../../data/studio';
 import { workCases } from '../../data/work-case-studies';
-export function getStaticPaths(){return workCases.map(item=>({params:{slug:item.slug},props:{item}}));}
-const { item } = Astro.props;
+import '../../styles/boutique.css';
+export function getStaticPaths() { return cases.map(c => ({ params: { slug: c.slug }, props: { c } })); }
+const { c } = Astro.props as { c: Case };
+const l = line(c.line);
+const extra = workCases.find(w => w.slug === c.slug);
+const next = cases.filter(x => x.slug !== c.slug && x.line === c.line).slice(0, 2);
+const more = next.length < 2 ? [...next, ...cases.filter(x => x.slug !== c.slug && !next.includes(x)).slice(0, 2 - next.length)] : next;
+const start = pkg(l.packages[0]);
+const provenance = c.kind === 'Client work'
+  ? `From Remi Couture’s career at or for ${c.client}. Shown as founder experience; it does not imply ${c.client} is a Strategic Sloth client. Artwork and trademarks belong to their owners.`
+  : c.kind === 'Concept' ? 'An independent concept study, not commissioned.' : 'Designed, built and published by Strategic Sloth LLC.';
 ---
-<StudioLayout title={`${item.name} — Work & process | Strategic Sloth`} description={item.summary}>
- <section class="page-intro container"><a class="text-link" href="/work/#case-studies">← Selected work</a><p class="eyebrow">{item.category}</p><h1>{item.headline.split('\n').map(line=><span class="headline-line">{line}</span>)}</h1><p class="lede">{item.summary}</p><div class="case-meta"><span>{item.status}</span><span>{item.scope}</span></div><div class="hero-actions"><a class="button" href="#case-demo">Watch the walkthrough ↓</a><a class="text-link" href="/contact/?engagement=prototype#enquiry">Discuss a similar challenge ↗</a></div></section>
- <section class="section container case-section"><div class="case-story"><div><p class="eyebrow">THE DESIGN QUESTION</p><h2>What needed<br>to become clearer?</h2></div><p>{item.problem}</p></div><div class="case-comparison"><figure><img src={item.before} alt={item.beforeAlt} loading="lazy"/><figcaption>{item.beforeCaption}</figcaption></figure><figure><img src={item.after} alt={item.afterAlt} loading="lazy"/><figcaption>{item.afterCaption}</figcaption></figure></div><div class="case-story"><div><p class="eyebrow">THE DECISION</p><h2>Connect the views<br>to the task.</h2></div><p>{item.decision}</p></div></section>
- <section class="section container case-section" id="case-demo"><div class="section-heading"><div><p class="eyebrow">THE WORKING RESULT</p><h2>Watch it.<br>Inspect the details.</h2></div><p>{item.result}</p></div><figure class="case-video"><video controls playsinline preload="none" poster={`/media/work/${item.poster}`} aria-label={`${item.name} demonstration`}><source src={`/media/work/${item.video}`} type="video/mp4"/>{item.track&&<track kind="captions" src={`/media/work/${item.track}`} srclang="en" label="Screen descriptions" default/>}Your browser cannot play this video. <a href={`/media/work/${item.video}`}>Open the video</a>.</video><figcaption>{item.videoCaption}</figcaption></figure><div class="case-observations"><h3>What to look for</h3><ol>{item.inspect.map(text=><li>{text}</li>)}</ol></div></section>
- <section class="section container"><div class="section-heading"><div><p class="eyebrow">THE APPROACH</p><h2>Make the next<br>decision easier.</h2></div><p>A closer look at how the product organizes the work.</p></div><div class="case-process">{item.process.map(([title,body],i)=><article><span class="eyebrow">0{i+1}</span><h3>{title}</h3><p>{body}</p></article>)}</div><a class="text-link" href="/work/#case-studies">Explore the other case studies →</a></section>
- <FounderInvite/>
+<StudioLayout title={`${c.title} — Work | Strategic Sloth`} description={c.summary}>
+<section class="b-intro night"><div class="container">
+  <a class="text-link" style="color:#c9cfc3" href="/work/">← All work</a>
+  <p class="eyebrow" style="margin-top:28px">{c.kind.toUpperCase()} · {l.name.toUpperCase()}</p>
+  <h1>{c.title}</h1>
+  <p class="lede">{c.summary}</p>
+</div></section>
+<section class="b-night" style="padding-bottom:70px"><div class="container">
+  {c.video
+    ? <video controls playsinline preload="metadata" poster={c.poster} class="b-case-hero"><source src={c.video} type="video/mp4"/></video>
+    : <img src={c.poster} alt={c.gallery[0]?.[1] ?? c.title} class="b-case-hero"/>}
+</div></section>
+
+<section class="container" style="padding-top:50px">
+  <div class="b-facts"><div><span>Client</span><strong>{c.client}</strong></div><div><span>Years</span><strong>{c.years}</strong></div><div><span>Role</span><strong>{c.role}</strong></div><div><span>Service</span><strong><a href={l.slug}>{l.name} →</a></strong></div></div>
+</section>
+
+<section class="b-section tight container">
+  <div class="b-csb"><div><h3>The challenge</h3><p>{c.challenge}</p></div><div><h3>The approach</h3><p>{c.approach}</p></div><div><h3>The result</h3><p>{c.result}</p></div></div>
+  <div class="b-tags">{c.tags.map(t => <span>{t}</span>)}</div>
+  {c.links && <div class="b-hero-actions">{c.links.map(([t, h]) => <a class="text-link" href={h} target={h.startsWith('http') ? '_blank' : undefined} rel={h.startsWith('http') ? 'noopener' : undefined}>{t} <span>↗</span></a>)}</div>}
+</section>
+
+{extra && <section class="b-sage b-section tight"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">HOW IT CAME TOGETHER</p><h2>The process.</h2></div><p>{extra.decision}</p></div>
+  <ol class="b-steps b-steps-3">{extra.process.map(([t, b]) => <li><h3>{t}</h3><p>{b}</p></li>)}</ol>
+</div></section>}
+
+{c.gallery.length > 0 && <section class="b-section tight container">
+  <div class="b-head"><div><p class="eyebrow">SCREENS</p><h2>From the work.</h2></div><p>{c.kind === 'Client work' ? 'Screens from the project as delivered.' : 'Captures of the real build.'}</p></div>
+  <div class:list={['b-gallery', c.portrait && 'portrait']}>{c.gallery.map(([src, alt]) => <figure><img src={src} alt={alt} loading="lazy"/><figcaption>{alt}</figcaption></figure>)}</div>
+  <p class="b-note">{provenance}</p>
+</section>}
+{c.gallery.length === 0 && <section class="container"><p class="b-note" style="margin-bottom:50px">{provenance}</p></section>}
+
+<section class="b-sage b-section tight"><div class="container">
+  <div class="b-rate b-rate-card"><div><p class="eyebrow" style="margin-bottom:6px">WANT SOMETHING LIKE THIS?</p><strong>{start.from ? 'From ' : ''}{start.price}</strong> <span>{start.name}</span></div><p>{start.summary}</p><a class="button" href={`/contact/?engagement=${start.id}#enquiry`}>Start a project <span>↗</span></a></div>
+  <p class="eyebrow" style="margin:70px 0 30px">MORE WORK</p>
+  <div class="b-cases two">{more.map(m => <CaseCard c={m} />)}</div>
+</div></section>
+<CtaBand />
 </StudioLayout>
-<style>.headline-line{display:block}.case-meta{display:flex;gap:15px 30px;flex-wrap:wrap;margin-top:25px;font-size:11px;color:var(--muted)}.case-section{border-bottom:1px solid var(--line);scroll-margin-top:100px}.case-story{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.case-story h2{font-size:38px;line-height:1.2}.case-story>p{font-size:17px;line-height:1.9;color:var(--muted)}.case-comparison{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:45px 0}.case-comparison figure,.case-video{margin:0}.case-comparison img{width:100%;aspect-ratio:16/11;object-fit:contain;background:#e9ede3;border:1px solid var(--line);border-radius:12px}.case-comparison figcaption,.case-video figcaption{font-size:12px;padding-block:14px;line-height:1.7;color:var(--muted)}.case-context{font-size:11px;color:var(--muted);margin-top:25px}.case-video video{display:block;width:100%;max-height:700px;background:#192322;border-radius:14px}.case-observations{display:grid;grid-template-columns:1fr 2fr;gap:30px;padding-top:25px}.case-observations h3{font-size:24px}.case-observations ol{padding-left:22px;line-height:1.9;color:var(--muted);font-size:15px}.case-observations li{padding-bottom:10px}.case-process{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-bottom:35px}.case-process article{border-top:2px solid var(--ink);padding-top:22px}.case-process h3{font-size:25px;margin:20px 0 15px}.case-process p{font-size:15px;line-height:1.8;color:var(--muted)}@media(max-width:800px){.case-story,.case-comparison,.case-observations,.case-process{grid-template-columns:1fr;gap:25px}.case-story h2{font-size:32px}.case-story>p{font-size:15px}}</style>

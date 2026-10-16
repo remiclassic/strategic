@@ -1,0 +1,41 @@
+---
+import StudioLayout from '../layouts/StudioLayout.astro';
+import PackageCard from '../components/b/PackageCard.astro';
+import CtaBand from '../components/b/CtaBand.astro';
+import Faq from '../components/b/Faq.astro';
+import { lines, packages, pkg, DAY_RATE, priceDrivers, pricingFaq } from '../data/studio';
+import '../styles/boutique.css';
+
+const starters = ['review', 'audit'];
+const groups = lines.map(l => ({ l, items: packages.filter(p => p.lines[0] === l.id && !starters.includes(p.id)) })).filter(g => g.items.length);
+---
+<StudioLayout title="Pricing — Strategic Sloth" description="Published prices for game UI and UX, app development, game development, websites and training: from a $490 screen review to full builds, plus an $850 senior day rate. USD.">
+<section class="b-intro container">
+  <p class="eyebrow">PRICING · USD</p>
+  <h1>Clear prices, <em>before the first call.</em></h1>
+  <p class="lede">Most studios make you ask. We publish what our work costs: fixed packages to start, “from” prices for builds, and a day rate for everything else. After a short call you get a written scope with a fixed total.</p>
+  <nav class="b-filters" aria-label="Jump to" style="margin:34px 0 0"><a class="button" href="#start">Start small</a>{groups.map(g => <a class="button" style="background:transparent;color:var(--ink)" href={`#${g.l.id}`}>{g.l.name}</a>)}<a class="button" style="background:transparent;color:var(--ink)" href="#day-rate">Day rate</a></nav>
+</section>
+
+<section class="b-sage b-section tight" id="start"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">START SMALL</p><h2>A first step<br><em>for any project.</em></h2></div><p>For a game, an app, a website or a course. Their findings carry straight into a bigger scope if you go further.</p></div>
+  <div class="b-packages" style="grid-template-columns:repeat(2,minmax(0,1fr))">{starters.map(id => <PackageCard p={pkg(id)} />)}</div>
+</div></section>
+
+{groups.map((g, i) => (
+  <section class:list={['b-section tight', i % 2 === 1 && 'b-night']} id={g.l.id}><div class="container">
+    <div class="b-head"><div><p class="eyebrow">{g.l.name.toUpperCase()}</p><h2>{g.l.tagline}</h2></div><p>{g.l.summary} <a class="text-link" href={g.l.slug}>About {g.l.name.toLowerCase()} <span>→</span></a></p></div>
+    <div class="b-packages">{g.items.map(p => <PackageCard p={p} />)}</div>
+  </div></section>
+))}
+
+<section class="b-section container" id="day-rate">
+  <div class="b-rate" style="margin:0"><div><p class="eyebrow" style="margin-bottom:6px">{DAY_RATE.label.toUpperCase()}</p><strong>{DAY_RATE.price}</strong> <span>{DAY_RATE.unit}</span></div><p>{DAY_RATE.note} Useful for small changes, extra screens, or support after a package.</p><a class="button" href="/contact/?engagement=partner#enquiry">Book days <span>↗</span></a></div>
+  <div class="b-head" style="margin-top:90px"><div><p class="eyebrow">WHAT CHANGES THE PRICE</p><h2>Six things move<br><em>the number.</em></h2></div><p>“From” prices cover the smallest typical scope. These are what we look at when we quote yours.</p></div>
+  <ul class="b-list" style="grid-template-columns:repeat(3,minmax(0,1fr))">{priceDrivers.map(([t, d]) => <li><strong>{t}</strong><span>{d}</span></li>)}</ul>
+</section>
+
+<Faq items={pricingFaq} title="Pricing questions." />
+<CtaBand title="Not sure which package fits?" accent="Send us the build." />
+</StudioLayout>
+<style>@media(max-width:800px){#day-rate .b-list{grid-template-columns:1fr!important}#start .b-packages{grid-template-columns:1fr!important}}</style>

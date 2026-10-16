@@ -1,0 +1,12 @@
+---
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import ServiceLine from '../../components/b/ServiceLine.astro';
+import '../../styles/boutique.css';
+const faq: [string, string][] = [
+  ['Which platforms do you build for?', 'Web first, plus desktop apps and mobile. One platform is included in the MVP price; more are scoped.'],
+  ['Do we own the code?', 'Yes. Source code, documentation and a walkthrough are part of every handover.'],
+];
+---
+<StudioLayout title="App development — Strategic Sloth" description="Web, desktop and mobile app design and development: editors, dashboards, writing tools and 3D product apps. App MVP from $24,000.">
+<ServiceLine id="apps" headline="Apps people use <em>every day.</em>" intro="Product design, front end and back end from one senior team. We build editors, dashboards, writing tools and 3D product apps, including our own." faq={faq} />
+</StudioLayout>

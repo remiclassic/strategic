@@ -1,0 +1,14 @@
+---
+import type { Case } from '../../data/studio';
+const { c, big = false } = Astro.props as { c: Case; big?: boolean };
+---
+<a class:list={['b-case', big && 'big']} href={`/work/${c.slug}/`} data-line={c.line} data-track="project_view" data-track-product={c.slug}>
+  <div class="b-case-media">
+    <img src={c.poster} alt="" loading="lazy" style={c.portrait ? 'object-position:50% 30%' : undefined}/>
+    <span class:list={['b-badge', c.kind === 'Client work' && 'client']}>{c.kind}</span>
+    {c.video && <span class="b-play">▶ Watch</span>}
+  </div>
+  <p class="b-meta">{c.client} · {c.years}</p>
+  <h3>{c.title}</h3>
+  <p>{c.summary}</p>
+</a>

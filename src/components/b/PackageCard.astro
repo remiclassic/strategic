@@ -1,0 +1,14 @@
+---
+import type { Package } from '../../data/studio';
+const { p, featured = p.featured } = Astro.props as { p: Package; featured?: boolean };
+---
+<article class:list={['b-pkg', featured && 'featured']} id={`pkg-${p.id}`}>
+  {featured && <span class="b-flag">Most chosen</span>}
+  <h3>{p.name}</h3>
+  <p class="b-price">{p.from && <small>From</small>}<strong>{p.price}</strong>{p.unit && <span>{p.unit}</span>}</p>
+  <p class="b-time">{p.time}</p>
+  <p>{p.summary}</p>
+  <ul>{p.includes.map(i => <li>{i}</li>)}</ul>
+  <p class="b-best"><strong>Best for:</strong> {p.bestFor}</p>
+  <a class="button" href={`/contact/?engagement=${p.id}#enquiry`} data-track="cta_click" data-track-location={`package_${p.id}`}>Start with this <span>↗</span></a>
+</article>

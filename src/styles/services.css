@@ -411,3 +411,13 @@ body.services-site{--paper:#f6f5ef;--surface:#fafaf5;--surface-2:#e9edde;--ink:#
 .services-site .sv-featured-reel video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#18221b;border:1px solid var(--line);border-radius:14px;opacity:1;filter:none}
 .services-site .sv-featured-reel figcaption{padding-top:14px}
 @media(max-width:800px){.services-site .sv-hero2 .sv-hero{padding-block:42px 30px}.services-site .sv-featured-reel{margin-bottom:28px}}
+
+/* On-this-page bar: the offer is the first thing, the proof follows */
+.sv-jump{position:sticky;top:87px;z-index:15;background:rgba(246,245,239,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.sv-jump .container{display:flex;align-items:center;gap:6px 22px;overflow-x:auto;scrollbar-width:none;padding-block:12px;font-size:13px;font-weight:500;white-space:nowrap}
+.sv-jump .container::-webkit-scrollbar{display:none}
+.sv-jump a:hover{text-decoration:underline;text-underline-offset:5px}
+.sv-jump .sv-jump-cta{margin-left:auto;padding:7px 14px;border-radius:6px;background:var(--ink);color:#fff;font-weight:600}
+.sv-jump .sv-jump-cta:hover{text-decoration:none;background:#46513d}
+html:has(.sv-jump){scroll-padding-top:150px}
+@media(max-width:800px){.sv-jump{top:72px}.sv-jump .container{font-size:12px;gap:16px}html:has(.sv-jump){scroll-padding-top:130px}}

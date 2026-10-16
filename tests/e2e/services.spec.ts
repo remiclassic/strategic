@@ -105,8 +105,9 @@ test('collaborators preview shows named people and links to the Studio team', as
   await expect(page.locator('#team')).toContainText('Omar Rosario');
   await expect(page.locator('#team a[href="/studio/#collaborators"]')).toBeVisible();
   await open(page, '/studio/#collaborators');
-  await expect(page.locator('#collaborators .additional-specialties li')).toHaveCount(7);
-  await expect(page.locator('#collaborators')).toContainText('separate from the named collaborators');
+  await expect(page.locator('#collaborators .b-person')).toHaveCount(6);
+  await expect(page.locator('#collaborators .b-tags span')).toHaveCount(7);
+  await expect(page.locator('#collaborators')).toContainText('SPECIALISTS ON CALL');
 });
 
 test('component tiles open the real, working React components', async ({ page }) => {

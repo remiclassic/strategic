@@ -1,44 +1,38 @@
 ---
-import EngagementOptions from '../components/EngagementOptions.astro';
 import StudioLayout from "../layouts/StudioLayout.astro";
+import { packages, RESPONSE_TIME, DAY_RATE } from '../data/studio';
+import '../styles/boutique.css';
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "";
 ---
-<StudioLayout title="Work with the studio \u2014 Strategic Sloth" description="Partner with Strategic Sloth on game UI, UX, design systems, and product direction.">
-<section class="page-intro container"><p class="eyebrow">LET’S WORK TOGETHER</p><h1>Your next interface.<br>Let’s make it matter.</h1><p class="lede">Work directly with Remi Couture, founder of Strategic Sloth. Bring the interface challenge, the prototype you need, or the product you’re ready to move forward.</p></section><EngagementOptions contact />
-<section class="section container compact"><section class="engagement-process"><p class="eyebrow">HOW WE WORK TOGETHER</p><h2>A clear path from the start.</h2><ol><li><strong>Define the brief</strong><p>Share your project, its current stage, and where you need help.</p></li><li><strong>Agree on the scope</strong><p>Align on priorities, deliverables, timing, and budget before work begins.</p></li><li><strong>Design, review, refine</strong><p>Work through the details together, with a practical handoff to your team.</p></li></ol></section><div class="contact-panel enquiry-panel" id="enquiry"><div><p class="eyebrow">START A CONVERSATION</p><h2>Tell me what you’re building.</h2><p>Share your project, the challenge, and your target dates. We’ll confirm fit, scope, and the next available start before making a commitment.</p></div><form class="enquiry-form" data-studio-enquiry data-endpoint={contactEndpoint} aria-label="Project enquiry">
+<StudioLayout title="Start a project — Strategic Sloth" description="Tell Strategic Sloth about your game, app or website. Pick a package or a budget; Remi replies personally within one business day.">
+<section class="b-intro container"><p class="eyebrow">START A PROJECT</p><h1>Tell us what <em>you’re building.</em></h1><p class="lede">Send a screen, a build or an idea. Remi replies personally {RESPONSE_TIME} with a suggested first step and a price. Every project starts with a written scope.</p>
+<div class="b-facts" style="margin-top:40px"><div><span>Reply</span><strong>{RESPONSE_TIME}</strong></div><div><span>Smallest step</span><strong>$490 screen review</strong></div><div><span>Day rate</span><strong>{DAY_RATE.price} {DAY_RATE.unit}</strong></div><div><span>Time zone</span><strong>Eastern Time · Montreal</strong></div></div></section>
+<section class="section container compact"><div class="contact-panel enquiry-panel" id="enquiry"><div><p class="eyebrow">YOUR PROJECT</p><h2>A few details.</h2><p>Pick the package you have in mind, or “Not sure yet”. A budget range helps us suggest the right scope. <a class="text-link" href="/pricing/">See all prices <span>→</span></a></p></div><form class="enquiry-form" data-studio-enquiry data-endpoint={contactEndpoint} aria-label="Project enquiry">
 <div class="enquiry-fields">
 <label>Your name<input name="name" autocomplete="name" required maxlength="120"></label>
 <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
-<label>Project type<select name="projectType" required><option value="">Choose a starting point</option><option>Interface review</option><option>Prototype sprint</option><option>Design & implementation</option><option>Digital product or website</option><option>Other</option></select></label>
-<label>Budget range <span>(optional)</span><select name="budget"><option value="">Prefer to discuss</option><option>Under $5,000</option><option>$5,000–$15,000</option><option>$15,000–$30,000</option><option>$30,000+</option></select></label>
+<label>What you need<select name="projectType" required><option value="">Choose a package</option>{packages.map(p => <option value={p.name} data-pkg={p.id}>{p.name} · {p.from ? 'from ' : ''}{p.price}{p.unit ? ' ' + p.unit : ''}</option>)}<option value="Not sure yet">Not sure yet</option><option value="Other">Something else</option></select></label>
+<label>Budget range <span>(optional)</span><select name="budget"><option value="">Prefer to discuss</option><option>Under $3,000</option><option>$3,000–$10,000</option><option>$10,000–$25,000</option><option>$25,000–$50,000</option><option>$50,000+</option></select></label>
 <label class="enquiry-wide">Timeline<input name="timeline" maxlength="160" placeholder="When would you like to start?" required></label>
 <label class="form-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
-<label class="enquiry-wide">Project details<textarea name="message" rows="7" required maxlength="6000" placeholder="Tell us about your project, the help you need, and any timeline or budget you have in mind."></textarea></label>
+<label class="enquiry-wide">Project details<textarea name="message" rows="7" required maxlength="6000" placeholder="What are you building? Engine or stack, platform, what exists today, and links to a build, screenshots or a video."></textarea></label>
 </div>
 <p class="enquiry-help">Project details are used to respond to your enquiry. <a href="/legal/privacy/">Privacy policy</a>.</p>
 <div class="enquiry-actions"><button class="button" type="submit">{contactEndpoint ? 'Send project enquiry' : 'Open email draft'} <span aria-hidden="true">↗</span></button></div>
 <p class="enquiry-help" data-send-status role="status" aria-live="polite">{contactEndpoint ? 'Send your enquiry directly. We’ll confirm receipt here.' : 'Direct submission is not available yet. Review and send this enquiry in your email app, or use the email address below.'}</p>
 <noscript><p>Email <a href="mailto:privacy@strategicsloth.com">privacy@strategicsloth.com</a> to discuss your project.</p></noscript>
-</form><p class="contact-address">privacy@strategicsloth.com</p></div><section class="project-faq" aria-labelledby="faq-title"><p class="eyebrow">BEFORE WE TALK</p><h2 id="faq-title">A few useful details.</h2><details><summary>Who will I work with?</summary><p>You’ll work directly with Remi Couture, the founder and designer behind Strategic Sloth and SliceForge.</p></details><details><summary>Can we start with a focused piece of work?</summary><p>Yes. A UI review, a menu flow, or a component system can be a useful starting point. We’ll agree on a scope that fits the problem.</p></details><details><summary>What should I include in my enquiry?</summary><p>A short project overview, your engine or platform, the help you need, and your target timing. A budget range also helps shape a realistic scope.</p></details></section></section>
+</form><p class="contact-address">privacy@strategicsloth.com</p></div><section class="project-faq" aria-labelledby="faq-title"><p class="eyebrow">BEFORE WE TALK</p><h2 id="faq-title">A few useful details.</h2><details><summary>Who will I work with?</summary><p>Remi Couture leads every project personally. Trusted engineers, artists and producers join under the same lead when the scope needs them.</p></details><details><summary>Can we start with a focused piece of work?</summary><p>Yes. A UI review, a menu flow, or a component system can be a useful starting point. We’ll agree on a scope that fits the problem.</p></details><details><summary>What should I include in my enquiry?</summary><p>A short project overview, your engine or platform, the help you need, and your target timing. A budget range also helps shape a realistic scope.</p></details></section></section>
 </StudioLayout>
 <script>
+ // Pre-select the package from ?engagement=<package id>; older links used review / prototype / partner.
  const form = document.querySelector<HTMLFormElement>('[data-studio-enquiry]');
- function fillBrief(link: HTMLElement) {
-   if (!form) return;
-   const projectType = form.elements.namedItem('projectType') as HTMLSelectElement;
-   const message = form.elements.namedItem('message') as HTMLTextAreaElement;
-   if (!projectType.value) projectType.value = link.dataset.briefSubject === 'Design and implementation partnership' ? 'Design & implementation' : link.dataset.briefSubject || '';
-   if (!message.value.trim()) message.value = link.dataset.briefMessage || '';
-   form.dispatchEvent(new Event('input', { bubbles: true }));
+ const legacy: Record<string, string> = { prototype: 'slice' };
+ const id = new URLSearchParams(location.search).get('engagement');
+ if (form && id) {
+   const select = form.elements.namedItem('projectType') as HTMLSelectElement;
+   const option = [...select.options].find(o => o.dataset.pkg === (legacy[id] || id));
+   if (option) select.value = option.value;
  }
- document.querySelectorAll<HTMLElement>('[data-engagement]').forEach(link => {
-   link.addEventListener('click', () => fillBrief(link));
- });
- window.addEventListener('load', () => {
-   const engagement = new URLSearchParams(location.search).get('engagement');
-   const link = [...document.querySelectorAll<HTMLElement>('[data-engagement]')].find(item => item.dataset.engagement === engagement);
-   if (link) fillBrief(link);
- });
 </script>
 
 <script>

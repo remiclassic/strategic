@@ -1,0 +1,9 @@
+---
+import { RESPONSE_TIME } from '../../data/studio';
+const { title = 'Send a screen, a flow or a build.', accent = 'We’ll suggest where to start.', eyebrow = 'START A PROJECT' } = Astro.props;
+---
+<section class="b-cta"><div class="container">
+  <div><p class="eyebrow">{eyebrow}</p><h2>{title}<br><em>{accent}</em></h2></div>
+  <div><p>Tell us what you are building, your engine or stack and your dates. Remi replies personally {RESPONSE_TIME}, with a suggested first step and a price.</p>
+  <div class="b-hero-actions" style="margin-top:0"><a class="button gold" href="/contact/" data-track="cta_click" data-track-location="cta_band">Start a project <span>↗</span></a><a class="text-link" style="color:#fff" href="/pricing/">See all prices <span>→</span></a></div></div>
+</div></section>

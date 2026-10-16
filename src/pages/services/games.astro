@@ -1,0 +1,12 @@
+---
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import ServiceLine from '../../components/b/ServiceLine.astro';
+import '../../styles/boutique.css';
+const faq: [string, string][] = [
+  ['Do you work on PC and console games too?', 'Yes, mostly through game UI and co-development. Our full-game packages focus on mobile and the browser, where we ship our own titles.'],
+  ['Can you reskin a game we already have?', 'Yes. Runefjord went from a copy of Tropic Tumble to a signed Google Play test build in four days.'],
+];
+---
+<StudioLayout title="Game development — Strategic Sloth" description="Mobile game prototypes and full games from a studio that ships its own: Tropic Tumble on Google Play. Prototype from $15,000, store launch from $45,000.">
+<ServiceLine id="games" headline="Games, from first playable <em>to the store.</em>" intro="We design, build and publish our own games, and we bring the same practice to yours: core loop, economy, UI, art direction, code and release." faq={faq} />
+</StudioLayout>

@@ -9,7 +9,7 @@ async function open(page: Page, path: string) {
 test('services hub: the live interface responds to keyboard, skins and actions', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await open(page, '/services/');
+  await open(page, '/services/game-ui/');
   const lab = page.locator('[data-lab]');
   const stage = lab.locator('.lab-stage');
   await expect(lab).toHaveAttribute('data-view', 'hud');
@@ -39,7 +39,7 @@ test('services hub: the live interface responds to keyboard, skins and actions',
 });
 
 test('services hub: engine tabs switch the code sample and nothing overflows', async ({ page }) => {
-  await open(page, '/services/');
+  await open(page, '/services/game-ui/');
   await page.getByText('Explore implementation examples in five runtimes', { exact: false }).click();
   await page.getByRole('tab', { name: /Godot/ }).click();
   await expect(page.locator('#panel-godot')).toBeVisible();
@@ -99,20 +99,21 @@ test('vanguard case study renders and loads the prototype on request', async ({ 
 });
 
 test('collaborators preview shows named people and links to the Studio team', async ({ page }) => {
-  await open(page, '/services/');
+  await open(page, '/services/game-ui/');
   await expect(page.locator('#team .collaborator-grid article')).toHaveCount(6);
   await expect(page.locator('#team .collaborator-grid img')).toHaveCount(6);
   await expect(page.locator('#team')).toContainText('Omar Rosario');
   await expect(page.locator('#team a[href="/studio/#collaborators"]')).toBeVisible();
   await open(page, '/studio/#collaborators');
-  await expect(page.locator('#collaborators .additional-specialties li')).toHaveCount(7);
-  await expect(page.locator('#collaborators')).toContainText('separate from the named collaborators');
+  await expect(page.locator('#collaborators .b-person')).toHaveCount(6);
+  await expect(page.locator('#collaborators .b-tags span')).toHaveCount(7);
+  await expect(page.locator('#collaborators')).toContainText('SPECIALISTS ON CALL');
 });
 
 test('component tiles open the real, working React components', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
-  await open(page, '/services/');
+  await open(page, '/services/game-ui/');
   await expect(page.locator('html')).toHaveAttribute('data-player-ready', 'true');
   await page.locator('[data-play="health-bar"]').click();
   const stage = page.locator('[data-live-component="health-bar"]');
@@ -135,7 +136,7 @@ test('component tiles open the real, working React components', async ({ page })
 });
 
 test('credit tiles open a local gallery instead of leaving the site', async ({ page }) => {
-  await open(page, '/services/');
+  await open(page, '/services/game-ui/');
   await expect(page.locator('[data-credit]')).toHaveCount(31);
   await expect(page.locator('#credits a[href*="artstation.com/artwork"]')).toHaveCount(0);
   await page.locator('[data-credit]', { hasText: 'TRANSFORMERS: Battle Tactics' }).click();
@@ -155,7 +156,7 @@ test('credit tiles open a local gallery instead of leaving the site', async ({ p
 });
 
 test('services pages do not name the training client', async ({ page }) => {
-  for (const path of ['/services/', '/services/web/', '/services/unreal/', '/services/case/vanguard/']) {
+  for (const path of ['/services/', '/services/game-ui/', '/services/web/', '/services/unreal/', '/services/case/vanguard/']) {
     await page.goto(path);
     const html = await page.content();
     expect(html).not.toMatch(/circadence|project ares|\bares\b/i);

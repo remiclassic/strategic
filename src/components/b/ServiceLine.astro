@@ -1,0 +1,40 @@
+---
+import PackageCard from './PackageCard.astro';
+import CaseCard from './CaseCard.astro';
+import CtaBand from './CtaBand.astro';
+import Faq from './Faq.astro';
+import { line, pkg, cases, lines, DAY_RATE, pricingFaq } from '../../data/studio';
+const { id, headline, intro, faq = [] } = Astro.props as { id: string; headline: string; intro: string; faq?: [string, string][] };
+const l = line(id);
+const work = l.work.map(s => cases.find(c => c.slug === s)!).filter(Boolean);
+const others = lines.filter(x => x.id !== id);
+---
+<section class="b-intro night"><div class="container b-split">
+  <div><p class="eyebrow">SERVICES / {l.name.toUpperCase()}</p><h1 set:html={headline}></h1><p class="lede">{intro}</p>
+    <div class="b-hero-actions"><a class="button gold" href={`/contact/?engagement=${l.packages[0]}#enquiry`} data-track="service_cta" data-track-location={`line-${id}-hero`}>Start a project <span>↗</span></a><a class="text-link" style="color:#fff" href="#prices">See prices <span>↓</span></a></div></div>
+  {l.media.video ? <video controls playsinline preload="none" poster={l.media.poster}><source src={l.media.video} type="video/mp4"/></video> : <img class="b-media" src={l.media.poster} alt=""/>}
+</div></section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">WHAT YOU GET</p><h2>{l.tagline}</h2></div><p>{l.summary}</p></div>
+  <ul class="b-list b-list-3">{l.deliverables.map(([t, d]) => <li><strong>{t}</strong><span>{d}</span></li>)}</ul>
+</section>
+
+<section class="b-night b-section"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">WORK</p><h2>Projects like <em>yours.</em></h2></div><p>Real projects with their status stated: shipped, in testing or in development.</p></div>
+  <div class="b-cases two">{work.map(c => <CaseCard c={c} />)}</div>
+</div></section>
+
+<section class="b-section container" id="prices">
+  <div class="b-head"><div><p class="eyebrow">PRICES · USD</p><h2>What it costs.</h2></div><p>Fixed prices to start; “from” prices cover the smallest typical scope. You get a written scope with a fixed total after a short call.</p></div>
+  <div class="b-packages">{l.packages.map(pid => <PackageCard p={pkg(pid)} />)}</div>
+  <div class="b-rate"><div><strong>{DAY_RATE.price}</strong> <span>{DAY_RATE.unit}</span></div><p>{DAY_RATE.note}</p><a class="button" href="/pricing/">All prices <span>→</span></a></div>
+</section>
+
+<Faq items={[...faq, ...pricingFaq.slice(0, 3)]} />
+
+<section class="b-sage b-section tight"><div class="container">
+  <p class="eyebrow">OTHER SERVICES</p>
+  <div class="b-lines b-lines-3">{others.map(o => <a class="b-line" style={`--acc:${o.accent};min-height:300px`} href={o.slug}><img src={o.media.poster} alt="" loading="lazy"/><div class="b-line-top"><span>{o.short}</span><b></b></div><div class="b-line-body"><h3>{o.name}</h3><p>{o.tagline}</p></div></a>)}</div>
+</div></section>
+<CtaBand />

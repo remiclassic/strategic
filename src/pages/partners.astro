@@ -19,9 +19,9 @@ const slate = [
   { slug: 'sloth-jam', ask: 'Family or console publisher, porting partner',
     stage: 'Playable browser demo · in development',
     points: ['27 one-minute party games for kids six and up and their parents', 'One stick, one button, no reading; computer players at three levels', 'Looking for: console porting, production funding, family-market reach'] },
-  { slug: 'mission-control', ask: 'Training distributor, licensing or white-label partner',
-    stage: 'Running build · fourteen playable training games',
-    points: ['Mission hub, learning paths, progression and debriefs', 'Short, replayable cyber-awareness practice in the browser', 'Looking for: distribution to enterprises and schools, co-branded editions'] },
+  { slug: 'mission-control', ask: 'Training platforms and distributors: original training games for your catalogue',
+    stage: 'Running build · browser-based · training UX proven',
+    points: ['Mission hub, learning paths, progression and debriefs', 'Short, replayable practice where the interaction does the teaching', 'Looking for: platforms and distributors who want new training games made for their learners'] },
   { slug: 'sliceforge', ask: 'Seed investment in the studio’s tools',
     stage: 'SliceForge live · Focusrail released on Fab',
     points: ['SliceForge: game UI from reference to editable, exportable kits', 'Focusrail: controller navigation and focus validation for Unreal Engine 5', 'Looking for: angels and funds backing game-development tools'] },
@@ -31,7 +31,7 @@ const deals: [string, string][] = [
   ['Publishing deal', 'You fund and market a title; we build and ship it. Recoup and revenue share, agreed per game.'],
   ['Co-financing a title', 'Part of a production budget for a single game, alongside grants and our own investment.'],
   ['Studio investment', 'An equity round in Strategic Sloth: the games, the tools and the services business.'],
-  ['Licensing and white label', 'Reskins of Tropic Tumble, or the training games, released under your brand.'],
+  ['Licensing and white label', 'Reskins of Tropic Tumble under your brand, or original training games made for your catalogue.'],
   ['Port or co-develop', 'We bring a game in your catalogue to a new platform, or build its UI, from our published packages.'],
   ['Grant co-applications', 'Matching-fund programmes where a publisher or distributor partner strengthens the application.'],
 ];
@@ -66,6 +66,7 @@ const schema = [{ '@type': 'WebPage', name: 'Publishers and investors', url: new
   <h1>Back a studio <em>that already ships.</em></h1>
   <p class="lede">Strategic Sloth designs, builds and releases its own games and tools. We are looking for publishing partners and investors for the next ones: a Steam RPG on our own engine, a family party game, a live mobile game with a fast reskin pipeline, and cyber-training games.</p>
   <div class="b-hero-actions"><a class="button gold" href="#talk" data-track="cta_click" data-track-location="partners_hero">Request the deck <span>↗</span></a><a class="button outline-light" href="#slate" data-track="cta_click" data-track-location="partners_hero_slate">See the slate <span>↓</span></a></div>
+  <p class="p-play">Play before you talk: <a href="https://play.google.com/store/apps/details?id=com.strategicsloth.tropictumble" target="_blank" rel="noopener" data-track="project_view" data-track-location="partners_play">Tropic Tumble on Google Play ↗</a><a href="https://remiclassic.github.io/sloth-jam/play/" target="_blank" rel="noopener" data-track="project_view" data-track-location="partners_play">Sloth Jam browser demo ↗</a><a href="/norman-ascension/#world">Norman Ascension footage →</a></p>
   <div class="b-hero-meta">{stats.map(([n, l]) => <div><strong>{n}</strong>{l}</div>)}</div>
 </div></section>
 
@@ -145,6 +146,7 @@ const schema = [{ '@type': 'WebPage', name: 'Publishers and investors', url: new
 .p-materials div{display:grid;gap:4px}
 .p-materials strong{color:#fff;font-size:15px}
 .p-materials span{color:#c9cfc3;font-size:13px;line-height:1.6}
+.p-play{margin-top:22px;font-size:14px;color:#d3d8cb;display:flex;flex-wrap:wrap;gap:8px 20px}.p-play a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .p-direct{font-size:14px;margin-top:16px}
 @media(max-width:900px){
   .p-item{grid-template-columns:1fr;gap:24px}

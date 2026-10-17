@@ -1,4 +1,5 @@
 ---
+import { serviceSchema, breadcrumbSchema } from '../../utils/seo';
 import StudioLayout from '../../layouts/StudioLayout.astro';
 import ServiceLine from '../../components/b/ServiceLine.astro';
 import '../../styles/boutique.css';
@@ -7,6 +8,6 @@ const faq: [string, string][] = [
   ['Do we own the code?', 'Yes. Source code, documentation and a walkthrough are part of every handover.'],
 ];
 ---
-<StudioLayout title="App development — Strategic Sloth" description="Web, desktop and mobile app design and development: editors, dashboards, writing tools and 3D product apps. App MVP from $24,000.">
+<StudioLayout title="App Development Studio: Web, Desktop & Mobile — Strategic Sloth" schema={[serviceSchema("App development", "/services/apps/", "Web, desktop and mobile app design and development: editors, dashboards, writing tools and 3D product apps."), breadcrumbSchema([["Home", "/"], ["Services", "/services/"], ["App development", "/services/apps/"]])]} description="Web, desktop and mobile app design and development: editors, dashboards, writing tools and 3D product apps. App MVP from $24,000.">
 <ServiceLine id="apps" headline="Apps people use <em>every day.</em>" intro="Product design, front end and back end from one senior team. We build editors, dashboards, writing tools and 3D product apps, including our own." faq={faq} />
 </StudioLayout>

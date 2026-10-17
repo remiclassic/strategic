@@ -1,7 +1,9 @@
 ---
+import { faqSchema } from '../../utils/seo';
 const { items, title = 'Before we talk.', eyebrow = 'QUESTIONS' } = Astro.props as { items: [string, string][]; title?: string; eyebrow?: string };
 ---
 <section class="b-section container"><div class="b-faq">
   <div><p class="eyebrow">{eyebrow}</p><h2>{title}</h2></div>
   <div>{items.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
 </div></section>
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema(items))}/>

@@ -7,14 +7,31 @@ import PrivacyChoices from '../components/PrivacyChoices.astro';
 
 import StudioHeader from '../components/StudioHeader.astro';
 import LegalModals from '../components/LegalModals.astro';
-const { title, description = 'Independent tools and game development by Strategic Sloth LLC.', education = false, noindex = false, services = false, lang = 'en', alternates = [] as { lang: string; href: string }[] } = Astro.props;
+const { title, description = 'Independent tools and game development by Strategic Sloth LLC.', education = false, noindex = false, services = false, lang = 'en', alternates = [] as { lang: string; href: string }[], image = '/og/strategic-sloth.jpg', schema = [] as object[] } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
+const siteURL = Astro.site!.href;
+// Site-wide identity for search engines. Pages add their own Service, FAQ or breadcrumb objects through `schema`.
+const graph = [
+  { '@type': 'ProfessionalService', '@id': `${siteURL}#studio`, name: 'Strategic Sloth', legalName: 'Strategic Sloth LLC', url: siteURL,
+    logo: new URL('/studio-images/slothlogo.png', Astro.site).href, image: imageURL.href,
+    description: 'Founder-led studio for game UI and UX design, app development, game development, websites and training, built in Unreal Engine, Unity, Godot, PlayCanvas and on the web.',
+    founder: { '@type': 'Person', name: 'Guillaume “Remi” Couture', jobTitle: 'Founder and UX/UI director' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Montreal', addressRegion: 'QC', addressCountry: 'CA' },
+    areaServed: 'Worldwide', priceRange: '$490–$45,000+',
+    knowsAbout: ['Game UI design', 'Game UX design', 'Unreal Engine UMG', 'Unity UI Toolkit', 'Godot UI', 'PlayCanvas', 'App development', 'Training simulations'] },
+  { '@type': 'WebSite', '@id': `${siteURL}#website`, name: 'Strategic Sloth', url: siteURL, publisher: { '@id': `${siteURL}#studio` }, inLanguage: lang },
+  ...schema
+];
 ---
 <!doctype html><html lang={lang}><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonicalURL}/>{alternates.map(alt => <link rel="alternate" hreflang={alt.lang} href={new URL(alt.href, Astro.site)}/>)}<meta name="theme-color" content="#f6f5ef"/>
+<title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={canonicalURL}/>{alternates.map(alt => <link rel="alternate" hreflang={alt.lang} href={new URL(alt.href, Astro.site)}/>)}{alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={new URL(alternates.find(a => a.lang === 'en')?.href ?? Astro.url.pathname, Astro.site)}/>}<meta name="theme-color" content="#f6f5ef"/>
 {noindex && <meta name="robots" content="noindex,follow"/>}
-<meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonicalURL}/><meta property="og:type" content="website"/>
+<meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={canonicalURL}/><meta property="og:type" content="website"/><meta property="og:site_name" content="Strategic Sloth"/><meta property="og:locale" content={lang === 'fr' ? 'fr_CA' : 'en_US'}/>
+<meta property="og:image" content={imageURL}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content={title}/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={imageURL}/>
+<script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}/>
 <link rel="icon" href="/studio-images/slothlogo.png"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 {services && <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>}

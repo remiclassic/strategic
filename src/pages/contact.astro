@@ -4,7 +4,7 @@ import { packages, RESPONSE_TIME, DAY_RATE } from '../data/studio';
 import '../styles/boutique.css';
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || "";
 ---
-<StudioLayout title="Start a project — Strategic Sloth" description="Tell Strategic Sloth about your game, app or website. Pick a package or a budget; Remi replies personally within one business day.">
+<StudioLayout title="Hire a Game UI/UX Studio: Start a Project — Strategic Sloth" description="Tell Strategic Sloth about your game, app or website. Pick a package or a budget; Remi replies personally within one business day.">
 <section class="b-intro container"><p class="eyebrow">START A PROJECT</p><h1>Tell us what <em>you’re building.</em></h1><p class="lede">Send a screen, a build or an idea. Remi replies personally {RESPONSE_TIME} with a suggested first step and a price. Every project starts with a written scope.</p>
 <div class="b-facts" style="margin-top:40px"><div><span>Reply</span><strong>{RESPONSE_TIME}</strong></div><div><span>Smallest step</span><strong>$490 screen review</strong></div><div><span>Day rate</span><strong>{DAY_RATE.price} {DAY_RATE.unit}</strong></div><div><span>Time zone</span><strong>Eastern Time · Montreal</strong></div></div></section>
 <section class="section container compact"><div class="contact-panel enquiry-panel" id="enquiry"><div><p class="eyebrow">YOUR PROJECT</p><h2>A few details.</h2><p>Pick the package you have in mind, or “Not sure yet”. A budget range helps us suggest the right scope. <a class="text-link" href="/pricing/">See all prices <span>→</span></a></p></div><form class="enquiry-form" data-studio-enquiry data-endpoint={contactEndpoint} aria-label="Project enquiry">

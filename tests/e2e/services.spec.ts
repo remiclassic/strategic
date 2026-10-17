@@ -168,7 +168,8 @@ for (const [path, lang, heading] of [['/services/co-development/', 'en', 'Your U
     await page.goto(path);
     await expect(page.locator('html')).toHaveAttribute('lang', lang);
     await expect(page.locator('h1')).toContainText(heading);
-    await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(2);
+    await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveCount(1);
+    await expect(page.locator('link[rel="alternate"][hreflang="fr"]')).toHaveCount(1);
     await expect(page.locator('.cd-ways article')).toHaveCount(3);
     await expect(page.locator('.cd-story')).toHaveCount(3);
     await expect(page.locator('.cd-team li')).toHaveCount(6);

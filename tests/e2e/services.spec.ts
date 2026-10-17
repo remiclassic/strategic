@@ -162,3 +162,16 @@ test('services pages do not name the training client', async ({ page }) => {
     expect(html).not.toMatch(/circadence|project ares|\bares\b/i);
   }
 });
+
+for (const [path, lang, heading] of [['/services/co-development/', 'en', 'Your UI team,'], ['/services/co-developpement/', 'fr', 'Votre équipe UI,']] as const) {
+  test(`co-development page renders in ${lang}`, async ({ page }) => {
+    await page.goto(path);
+    await expect(page.locator('html')).toHaveAttribute('lang', lang);
+    await expect(page.locator('h1')).toContainText(heading);
+    await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(2);
+    await expect(page.locator('.cd-ways article')).toHaveCount(3);
+    await expect(page.locator('.cd-story')).toHaveCount(3);
+    await expect(page.locator('.cd-team li')).toHaveCount(6);
+    await expect(page.locator('main')).not.toContainText(/circadence|project ares|behaviour interactive|bhvr/i);
+  });
+}

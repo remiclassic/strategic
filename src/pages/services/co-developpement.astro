@@ -1,0 +1,11 @@
+---
+import '../../styles/services.css';
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import CoDevPage from '../../components/services/CoDevPage.astro';
+import { codevCopy } from '../../data/codev';
+const t = codevCopy.fr;
+const alternates = [{ lang: 'en', href: codevCopy.en.path }, { lang: 'fr', href: codevCopy.fr.path }];
+---
+<StudioLayout services lang="fr" title={t.title} description={t.description} alternates={alternates}>
+  <CoDevPage lang="fr" />
+</StudioLayout>

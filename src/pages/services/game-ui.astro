@@ -67,7 +67,7 @@ import { conceptRows, tracks, disciplines, codev, engines, healthBarNote, work, 
     <div class="sv-codev sv-tracks sv-reveal">{tracks.map((t, i) => <article><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p><ul>{t.links.map(([label, href]) => <li><a class="pf-link" href={href}>{label} →</a></li>)}</ul></article>)}</div>
   </section>
 
-  <section class="section container" id="codev"><div class="section-heading"><div><p class="eyebrow">Co-development</p><h2>Part of your team,<br>not a vendor queue.</h2></div><p>Embedded for a sprint or for a whole production. The work lands where your team already works.</p></div>
+  <section class="section container" id="codev"><div class="section-heading"><div><p class="eyebrow">Co-development</p><h2>Part of your team,<br>not a vendor queue.</h2></div><p>Embedded for a sprint or for a whole production. The work lands where your team already works. <a class="pf-link" href="/services/co-development/">How co-development with us works →</a></p></div>
     <div class="sv-codev sv-reveal">{codev.map(([title, body], i) => <article><span class="num">0{i + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
   </section>
 

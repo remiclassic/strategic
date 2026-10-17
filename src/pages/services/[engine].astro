@@ -1,4 +1,5 @@
 ---
+import { serviceSchema, breadcrumbSchema } from '../../utils/seo';
 import '../../styles/services.css';
 import StudioLayout from '../../layouts/StudioLayout.astro';
 import CodeBlock from '../../components/services/CodeBlock.astro';
@@ -11,7 +12,7 @@ const { engine } = Astro.props;
 const related = work.filter(item => item.engines.includes(engine.slug)).map(item => ({ ...item, size: 'std' }));
 const others = engines.filter(e => e.slug !== engine.slug);
 ---
-<StudioLayout services title={`${engine.name} UI design and implementation — Strategic Sloth`} description={engine.summary}>
+<StudioLayout services title={`${engine.name} UI Design & Implementation — Strategic Sloth`} description={engine.summary} schema={[serviceSchema(`${engine.name} UI design and implementation`, `/services/${engine.slug}/`, engine.summary, "Game UI design"), breadcrumbSchema([["Home", "/"], ["Services", "/services/"], ["Game UI & UX", "/services/game-ui/"], [engine.name, `/services/${engine.slug}/`]])]}>
   <section class="sv-engine-hero container">
     <a class="sv-crumb" href="/services/"><span aria-hidden="true">←</span> Services</a>
     <p class="eyebrow">{engine.name} · UI design &amp; implementation</p>

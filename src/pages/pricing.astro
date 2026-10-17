@@ -9,7 +9,7 @@ import '../styles/boutique.css';
 const starters = ['review', 'audit'];
 const groups = lines.map(l => ({ l, items: packages.filter(p => p.lines[0] === l.id && !starters.includes(p.id)) })).filter(g => g.items.length);
 ---
-<StudioLayout title="Pricing — Strategic Sloth" description="Published prices for game UI and UX, app development, game development, websites and training: from a $490 screen review to full builds, plus an $850 senior day rate. USD.">
+<StudioLayout title="Game UI & App Development Pricing — Strategic Sloth" description="Published prices for game UI and UX, app development, game development, websites and training: from a $490 screen review to full builds, plus an $850 senior day rate. USD.">
 <section class="b-intro container">
   <p class="eyebrow">PRICING · USD</p>
   <style>.b-codev-note{margin-top:18px;font-size:15px;color:var(--muted,#5d665a)}.b-codev-note a{font-weight:600;color:inherit;text-decoration:underline;text-underline-offset:3px}</style>

@@ -1,4 +1,5 @@
 ---
+import { breadcrumbSchema } from '../../utils/seo';
 import StudioLayout from '../../layouts/StudioLayout.astro';
 import PackageCard from '../../components/b/PackageCard.astro';
 import CtaBand from '../../components/b/CtaBand.astro';
@@ -6,7 +7,7 @@ import { lines, packages, pkg } from '../../data/studio';
 import '../../styles/boutique.css';
 const lowest = (id: string) => packages.filter(p => p.lines.includes(id) && !p.unit).sort((a, b) => +a.price.replace(/\D/g, '') - +b.price.replace(/\D/g, ''))[0];
 ---
-<StudioLayout title="Services — Strategic Sloth" description="Game UI and UX, app development, game development, websites and training. A founder-led studio with published prices.">
+<StudioLayout title="Game UI, App & Game Development Services — Strategic Sloth" schema={[breadcrumbSchema([["Home", "/"], ["Services", "/services/"]])]} description="Game UI and UX, app development, game development, websites and training. A founder-led studio with published prices.">
 <section class="b-intro container">
   <p class="eyebrow">SERVICES</p>
   <h1>Four services. <em>One senior lead.</em></h1>

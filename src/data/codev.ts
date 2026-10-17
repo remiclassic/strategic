@@ -5,7 +5,7 @@ const M = '/media/services/';
 export const codevCopy = {
   en: {
     path: '/services/co-development/',
-    title: 'Game UI co-development for studios — Strategic Sloth',
+    title: 'Game UI Co-Development & Outsourcing for Studios — Strategic Sloth',
     description: 'Embedded game UI/UX design and Unreal UI engineering for studios and co-development partners. In your pipeline, under your NDA, led by a senior UX/UI director from Montreal.',
     switchLabel: 'Français', switchHref: '/services/co-developpement/',
     eyebrow: 'Co-development · for game studios',

@@ -1,4 +1,5 @@
 ---
+import { serviceSchema, breadcrumbSchema , faqSchema } from '../../utils/seo';
 import '../../styles/services.css';
 import '../../styles/boutique.css';
 import PackageCard from '../../components/b/PackageCard.astro';
@@ -15,7 +16,7 @@ import Credits from '../../components/services/Credits.astro';
 import PortfolioSections from '../../components/services/PortfolioSections.astro';
 import { conceptRows, tracks, disciplines, codev, engines, healthBarNote, work, directions, process, offers, faqs } from '../../data/services';
 ---
-<StudioLayout services title="Game UI & UX design and implementation — Strategic Sloth" description="UI/UX design, motion and implementation for games, apps, websites and training products, built in Unreal Engine, Unity, Godot, PlayCanvas and on the web. Led by Guillaume “Remi” Couture, with 20 years of shipped credits.">
+<StudioLayout services title="Game UI/UX Design & Implementation Studio — Strategic Sloth" description="Senior game UI/UX design, motion and implementation in Unreal Engine, Unity, Godot, PlayCanvas and on the web. Led by Remi Couture, 20 years of shipped credits." schema={[serviceSchema("Game UI & UX design and implementation", "/services/game-ui/", "UI/UX design, motion and implementation for games, apps, websites and training products, built in Unreal Engine, Unity, Godot, PlayCanvas and on the web.", "Game UI design"), breadcrumbSchema([["Home", "/"], ["Services", "/services/"], ["Game UI & UX", "/services/game-ui/"]]), faqSchema(faqs as [string, string][])]}>
   <section class="sv-hero2">
     <div class="sv-hero container">
       <p class="eyebrow"><span class="live-dot"></span> UI/UX design &amp; development · games, apps, sites, courses</p><h1>Interfaces, designed and<br><em>built where they run.</em></h1>

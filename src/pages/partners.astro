@@ -1,0 +1,193 @@
+---
+import StudioLayout from '../layouts/StudioLayout.astro';
+import CaseCard from '../components/b/CaseCard.astro';
+import Faq from '../components/b/Faq.astro';
+import { caseBy, stats, RESPONSE_TIME } from '../data/studio';
+import '../styles/boutique.css';
+
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '';
+
+// The slate: what a publisher or investor can back today, with honest status and what we are asking for.
+// Status and links mirror src/data/studio.ts; no metric appears here that the studio has not published.
+const slate = [
+  { slug: 'norman-ascension', ask: 'Publishing partner or co-financing for the Steam launch',
+    stage: 'In development · custom WebGL engine · Steam page in review',
+    points: ['Online medieval life and dynasty RPG in a persistent world', 'Engine, rendering and dynasty systems built in-house', 'Looking for: funding to production, marketing, community and platform reach'] },
+  { slug: 'tropic-tumble', ask: 'Mobile publisher, user acquisition partner or reskin licensing',
+    stage: 'Live on Google Play · Runefjord reskin on a test track',
+    points: ['40 levels, 8 islands, ads, in-app purchases and a season pass', 'Runefjord: a new themed game on the same rules in four days', 'Looking for: UA budget, iOS release, more themes under your brand'] },
+  { slug: 'sloth-jam', ask: 'Family or console publisher, porting partner',
+    stage: 'Playable browser demo · in development',
+    points: ['27 one-minute party games for kids six and up and their parents', 'One stick, one button, no reading; computer players at three levels', 'Looking for: console porting, production funding, family-market reach'] },
+  { slug: 'mission-control', ask: 'Training distributor, licensing or white-label partner',
+    stage: 'Running build · fourteen playable training games',
+    points: ['Mission hub, learning paths, progression and debriefs', 'Short, replayable cyber-awareness practice in the browser', 'Looking for: distribution to enterprises and schools, co-branded editions'] },
+  { slug: 'sliceforge', ask: 'Seed investment in the studio’s tools',
+    stage: 'SliceForge live · Focusrail released on Fab',
+    points: ['SliceForge: game UI from reference to editable, exportable kits', 'Focusrail: controller navigation and focus validation for Unreal Engine 5', 'Looking for: angels and funds backing game-development tools'] },
+].map(s => ({ ...s, c: caseBy(s.slug)! }));
+
+const deals: [string, string][] = [
+  ['Publishing deal', 'You fund and market a title; we build and ship it. Recoup and revenue share, agreed per game.'],
+  ['Co-financing a title', 'Part of a production budget for a single game, alongside grants and our own investment.'],
+  ['Studio investment', 'An equity round in Strategic Sloth: the games, the tools and the services business.'],
+  ['Licensing and white label', 'Reskins of Tropic Tumble, or the training games, released under your brand.'],
+  ['Port or co-develop', 'We bring a game in your catalogue to a new platform, or build its UI, from our published packages.'],
+  ['Grant co-applications', 'Matching-fund programmes where a publisher or distributor partner strengthens the application.'],
+];
+
+const reasons: [string, string][] = [
+  ['We ship', 'A game live on Google Play, a plugin released on Fab and a product live at sliceforge.io, all built by the studio.'],
+  ['Senior from day one', 'Twenty years of game interfaces: MechWarrior 5, Dauntless, Squad, and UX Director across nine studios at AppLovin.'],
+  ['Our own technology', 'A browser engine for Norman Ascension and a reskin pipeline that turned one game into another in four days.'],
+  ['Low burn, honest status', 'A founder-led team with a trusted bench. Every project on this site says whether it is live, in testing or in development.'],
+];
+
+const materials: [string, string][] = [
+  ['Pitch deck', 'Vision, audience, comparable titles and the plan to launch.'],
+  ['Playable builds', 'Current builds of the games, on the platforms they run on today.'],
+  ['Budget and timeline', 'Milestones, team plan and what each milestone delivers.'],
+  ['Metrics', 'Store and playtest data for the released and testing titles.'],
+];
+
+const faq: [string, string][] = [
+  ['Are you looking for funding for the studio or for a game?', 'Both are open. Norman Ascension and Sloth Jam can be funded and published as single titles; the tools and the studio as a whole are open to investment. Tell us which interests you and we will send the matching material.'],
+  ['Will you sign an NDA?', 'Yes. Send yours with your first message, or ask for ours. Builds, budgets and metrics are shared under NDA.'],
+  ['Do you keep your IP?', 'For our original games we prefer to keep the IP and license publishing rights. For reskins and white-label editions, terms are set per deal.'],
+  ['Where are you based?', 'Strategic Sloth LLC is led from the Montreal area, on Eastern Time, and works with partners worldwide. Remi works in English and French.'],
+  ['Can we see the games before a call?', 'Yes. Tropic Tumble is on Google Play, Sloth Jam has a browser demo, and the training games and Norman Ascension footage are on this site. Links are in each card above.'],
+];
+
+const schema = [{ '@type': 'WebPage', name: 'Publishers and investors', url: new URL('/partners/', Astro.site).href, about: { '@id': new URL('/#studio', Astro.site).href } }];
+---
+<StudioLayout title="For Publishers & Investors — Strategic Sloth" description="Publish, fund or license a game from Strategic Sloth: Norman Ascension for Steam, Tropic Tumble on Google Play, Sloth Jam, training games and game-development tools. Remi replies within one business day." schema={schema}>
+<section class="b-intro night p-intro"><div class="container">
+  <p class="eyebrow"><span class="live-dot" style="background:var(--gold)"></span> FOR PUBLISHERS, INVESTORS AND PLATFORMS</p>
+  <h1>Back a studio <em>that already ships.</em></h1>
+  <p class="lede">Strategic Sloth designs, builds and releases its own games and tools. We are looking for publishing partners and investors for the next ones: a Steam RPG on our own engine, a family party game, a live mobile game with a fast reskin pipeline, and cyber-training games.</p>
+  <div class="b-hero-actions"><a class="button gold" href="#talk" data-track="cta_click" data-track-location="partners_hero">Request the deck <span>↗</span></a><a class="button outline-light" href="#slate" data-track="cta_click" data-track-location="partners_hero_slate">See the slate <span>↓</span></a></div>
+  <div class="b-hero-meta">{stats.map(([n, l]) => <div><strong>{n}</strong>{l}</div>)}</div>
+</div></section>
+
+<section class="b-section container" id="slate">
+  <div class="b-head"><div><p class="eyebrow">01 / THE SLATE</p><h2>What you can back.<br><em>Today.</em></h2></div><p>Each project shows its real stage and what we are looking for. Footage and screenshots are from the running builds.</p></div>
+  <div class="p-slate">{slate.map(s => (
+    <article class="p-item">
+      <CaseCard c={s.c}/>
+      <div class="p-ask">
+        <p class="p-stage">{s.stage}</p>
+        <h3>{s.ask}</h3>
+        <ul>{s.points.map(p => <li>{p}</li>)}</ul>
+        <a class="text-link" href={`#talk`} data-partner-pick={s.c.title} data-track="cta_click" data-track-location={`partners_slate_${s.slug}`}>Ask about {s.c.title} <span>↗</span></a>
+      </div>
+    </article>))}</div>
+</section>
+
+<section class="b-sage b-section"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">02 / WAYS TO WORK TOGETHER</p><h2>Pick the deal<br><em>that fits.</em></h2></div><p>We are flexible on structure. These are the shapes we have in mind; tell us yours.</p></div>
+  <ul class="b-list p-deals">{deals.map(([t, d]) => <li><strong>{t}</strong><span>{d}</span></li>)}</ul>
+</div></section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">03 / WHY US</p><h2>Less risk<br><em>than a pitch deck.</em></h2></div><p>Publishers and investors back teams that finish. Here is what we have finished.</p></div>
+  <div class="p-reasons">{reasons.map(([t, d], i) => <article><span>0{i + 1}</span><h3>{t}</h3><p>{d}</p></article>)}</div>
+</section>
+
+<section class="b-night b-section"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">04 / HOW IT WORKS</p><h2>From first message<br><em>to term sheet.</em></h2></div><p>Short steps, and you see the real builds before anyone signs anything.</p></div>
+  <ol class="b-steps" style="padding:0;margin:0">
+    <li><h3>Introduce yourself</h3><p>Tell us who you are and what interests you. Remi replies personally {RESPONSE_TIME}.</p><small>A reply and a call slot</small></li>
+    <li><h3>Material under NDA</h3><p>We send the deck, builds, budget and metrics for the project you picked.</p><small>Everything you need to evaluate</small></li>
+    <li><h3>Call and playtest</h3><p>A 30-minute call with Remi, and a guided playtest of the current build.</p><small>Questions answered live</small></li>
+    <li><h3>Terms</h3><p>We agree the deal, the milestones and what each one delivers, in writing.</p><small>A signed plan</small></li>
+  </ol>
+  <div class="p-materials">{materials.map(([t, d]) => <div><strong>{t}</strong><span>{d}</span></div>)}</div>
+</div></section>
+
+<section class="section container compact" id="talk"><div class="contact-panel enquiry-panel"><div><p class="eyebrow">LET’S TALK</p><h2>Request the deck.</h2><p>A few lines are enough. Tell us who you represent and what you would like to see; we will send the matching material and a time to talk.</p><p class="p-direct">Prefer email? Write to <a href="mailto:privacy@strategicsloth.com?subject=%5BStrategicSloth%5D%20Publishing%20%2F%20investment">privacy@strategicsloth.com</a> or connect with <a href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">Remi on LinkedIn</a>.</p></div>
+<form class="enquiry-form" data-partner-enquiry data-endpoint={contactEndpoint} aria-label="Publisher or investor enquiry">
+<div class="enquiry-fields">
+<label>Your name<input name="name" autocomplete="name" required maxlength="120"></label>
+<label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+<label>Company or fund<input name="company" autocomplete="organization" required maxlength="160"></label>
+<label>You are<select name="role" required><option value="">Choose one</option><option>Publisher</option><option>Investor or fund</option><option>Platform or storefront</option><option>Training or education distributor</option><option>Other partner</option></select></label>
+<label>Interested in<select name="projectType" required><option value="">Choose a project</option>{slate.map(s => <option>{s.c.title}</option>)}<option>The studio as a whole</option><option>Not sure yet</option></select></label>
+<label>Deal type <span>(optional)</span><select name="budget"><option value="">Open to discuss</option>{deals.map(([t]) => <option>{t}</option>)}</select></label>
+<label class="form-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+<label class="enquiry-wide">Message<textarea name="message" rows="6" required maxlength="6000" placeholder="What you would like to see, your usual deal size or genre focus, and any timing."></textarea></label>
+</div>
+<p class="enquiry-help">Your details are used to respond to your enquiry. <a href="/legal/privacy/">Privacy policy</a>.</p>
+<div class="enquiry-actions"><button class="button" type="submit">{contactEndpoint ? 'Send enquiry' : 'Open email draft'} <span aria-hidden="true">↗</span></button></div>
+<p class="enquiry-help" data-send-status role="status" aria-live="polite">{contactEndpoint ? 'Send your enquiry directly. We’ll confirm receipt here.' : 'Review and send this enquiry in your email app, or use the email address on the left.'}</p>
+</form></div></section>
+
+<Faq items={faq} title="Before we talk." eyebrow="PARTNER QUESTIONS" />
+</StudioLayout>
+
+<style>
+.p-intro{padding-block:110px 80px}
+.p-intro .b-hero-meta{margin-top:56px}
+.p-slate{display:grid;gap:56px}
+.p-item{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start;padding-top:40px;border-top:1px solid var(--line)}
+.p-item:first-child{border-top:0;padding-top:0}
+.p-stage{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.p-ask h3{font-size:clamp(22px,2.2vw,30px);line-height:1.15;margin:0 0 16px}
+.p-ask ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:10px}
+.p-ask li{padding-left:20px;position:relative;font-size:15px;line-height:1.6}
+.p-ask li::before{content:'';position:absolute;left:0;top:.65em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.p-deals{grid-template-columns:repeat(3,minmax(0,1fr))}
+.p-reasons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.p-reasons article{border-top:2px solid var(--ink);padding-top:18px}
+.p-reasons span{font-size:12px;color:var(--muted)}
+.p-reasons h3{font-size:20px;margin:8px 0 10px}
+.p-reasons p{font-size:14px;line-height:1.7;margin:0}
+.p-materials{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,255,255,.18)}
+.p-materials div{display:grid;gap:4px}
+.p-materials strong{color:#fff;font-size:15px}
+.p-materials span{color:#c9cfc3;font-size:13px;line-height:1.6}
+.p-direct{font-size:14px;margin-top:16px}
+@media(max-width:900px){
+  .p-item{grid-template-columns:1fr;gap:24px}
+  .p-deals,.p-reasons,.p-materials{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:560px){
+  .p-deals,.p-reasons,.p-materials{grid-template-columns:1fr!important}
+}
+</style>
+
+<script>
+import { trackStudioEvent } from '../utils/studio-tracking';
+const form = document.querySelector<HTMLFormElement>('[data-partner-enquiry]');
+if (form) {
+  const status = form.querySelector<HTMLElement>('[data-send-status]')!;
+  const submit = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+  const project = form.elements.namedItem('projectType') as HTMLSelectElement;
+  // "Ask about X" links in the slate pre-select that project.
+  document.querySelectorAll<HTMLAnchorElement>('[data-partner-pick]').forEach(a => a.addEventListener('click', () => { project.value = a.dataset.partnerPick!; }));
+  let started = false;
+  form.addEventListener('input', () => { if (!started) { started = true; trackStudioEvent('enquiry_start', { location: 'partners' }); } });
+  form.addEventListener('submit', async event => {
+    event.preventDefault(); if (!form.reportValidity() || submit.disabled) return;
+    const data = Object.fromEntries(new FormData(form));
+    if (data.website) return;
+    const subject = `[StrategicSloth] ${data.role}: ${data.projectType}`;
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) {
+      const body = ['Name: ' + data.name, 'Email: ' + data.email, 'Company: ' + data.company, 'Role: ' + data.role, 'Interested in: ' + data.projectType, 'Deal type: ' + (data.budget || 'Open to discuss'), '', data.message].join('\n');
+      location.href = 'mailto:privacy@strategicsloth.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      status.textContent = 'Your email draft is ready. Please review and send it in your email app. If no app opens, email privacy@strategicsloth.com.';
+      trackStudioEvent('enquiry_email_handoff', { location: 'partners' }); return;
+    }
+    submit.disabled = true; status.textContent = 'Sending your enquiry…';
+    try {
+      const timeline = 'Partner enquiry';
+      const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ ...data, timeline, message: `Company: ${data.company}\nRole: ${data.role}\n\n${data.message}`, subject }) });
+      if (!response.ok) throw new Error('Delivery failed');
+      status.textContent = 'Thank you. Your enquiry has been received. Remi will reply to the email address you provided.';
+      trackStudioEvent('enquiry_submit', { location: 'partners', project_type: String(data.projectType) });
+      form.reset(); started = false;
+    } catch { status.textContent = 'Your enquiry could not be sent. Your details are still here. Please try again or email privacy@strategicsloth.com.'; }
+    finally { submit.disabled = false; }
+  });
+}
+</script>

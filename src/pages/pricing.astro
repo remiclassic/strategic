@@ -12,8 +12,10 @@ const groups = lines.map(l => ({ l, items: packages.filter(p => p.lines[0] === l
 <StudioLayout title="Pricing — Strategic Sloth" description="Published prices for game UI and UX, app development, game development, websites and training: from a $490 screen review to full builds, plus an $850 senior day rate. USD.">
 <section class="b-intro container">
   <p class="eyebrow">PRICING · USD</p>
+  <style>.b-codev-note{margin-top:18px;font-size:15px;color:var(--muted,#5d665a)}.b-codev-note a{font-weight:600;color:inherit;text-decoration:underline;text-underline-offset:3px}</style>
   <h1>Clear prices, <em>before the first call.</em></h1>
   <p class="lede">Most studios make you ask. We publish what our work costs: fixed packages to start, “from” prices for builds, and a day rate for everything else. After a short call you get a written scope with a fixed total.</p>
+  <p class="b-codev-note">Studio team planning a production? <a href="/services/co-development/">See co-development</a>: embedded UI teams priced by team-month.</p>
   <nav class="b-filters" aria-label="Jump to" style="margin:34px 0 0"><a class="button" href="#start">Start small</a>{groups.map(g => <a class="button" style="background:transparent;color:var(--ink)" href={`#${g.l.id}`}>{g.l.name}</a>)}<a class="button" style="background:transparent;color:var(--ink)" href="#day-rate">Day rate</a></nav>
 </section>
 

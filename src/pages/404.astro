@@ -1,0 +1,79 @@
+---
+import StudioLayout from '../layouts/StudioLayout.astro';
+// GitHub Pages serves this file for any missing URL, so every link and asset is root-relative.
+const destinations: [string, string, string][] = [
+  ['/services/', 'Services', 'Game UI, apps, games, websites and training'],
+  ['/services/co-development/', 'Co-development', 'A UI team embedded in your production'],
+  ['/work/', 'Work', 'Case studies and real builds'],
+  ['/pricing/', 'Pricing', 'Published packages and day rate'],
+  ['/games/', 'Our games', 'Tropic Tumble, Runefjord and more'],
+  ['/products/', 'Our tools', 'SliceForge, Focusrail and plugins'],
+  ['/learn/', 'Learning library', 'Articles, books and creator tools'],
+  ['/contact/', 'Contact', 'Tell us about your project'],
+];
+---
+<StudioLayout title="Page not found — Strategic Sloth" description="This page does not exist. Find your way to services, work, pricing or our games." noindex>
+<section class="nf container">
+  <div class="nf-copy">
+    <p class="eyebrow">404 · Page not found</p>
+    <h1>Off the <em>map.</em></h1>
+    <p class="lede">Our sloth went looking and came back with a gold cube instead. The page at <code data-nf-path>this address</code> doesn’t exist, or it moved when we rebuilt the site.</p>
+    <p class="nf-suggest" data-nf-suggest hidden>Were you looking for <a href="/" data-nf-suggest-link>this page</a>?</p>
+    <div class="nf-actions"><a class="button" href="/">Back to the home page <span>→</span></a><a class="text-link" href="/contact/">Start a project <span>↗</span></a></div>
+  </div>
+  <figure class="nf-art"><img src="/studio-images/sloth-lost.webp" alt="A low-poly sloth in sunglasses leaping after a gold cube across a colourful block landscape" width="1280" height="720"/></figure>
+</section>
+<section class="container nf-links" aria-labelledby="nf-links-title">
+  <h2 id="nf-links-title">Popular places to land</h2>
+  <ul>{destinations.map(([href, label, note]) => <li><a href={href} data-nf-dest><strong>{label} <span aria-hidden="true">→</span></strong><small>{note}</small></a></li>)}</ul>
+  <p class="nf-help">Followed a link from somewhere? <a href="/contact/">Tell us</a> and we’ll fix it.</p>
+</section>
+<script>
+  // Show the address that failed, and suggest the closest real section when the URL hints at one.
+  const path = decodeURIComponent(location.pathname);
+  const pathEl = document.querySelector('[data-nf-path]');
+  if (pathEl) pathEl.textContent = path.length > 60 ? path.slice(0, 57) + '…' : path;
+  const hints: [RegExp, string, string][] = [
+    [/co-?dev|co-?d[ée]velop/i, '/services/co-development/', 'Co-development'],
+    [/servic|ui|ux|design/i, '/services/', 'Services'],
+    [/pric|cost|rate/i, '/pricing/', 'Pricing'],
+    [/work|portfolio|case/i, '/work/', 'Work'],
+    [/game|tropic|rune|norman/i, '/games/', 'Our games'],
+    [/tool|product|slice|focus|plugin/i, '/products/', 'Our tools'],
+    [/learn|blog|book|article/i, '/learn/', 'Learning library'],
+    [/team|studio|about/i, '/studio/', 'Studio'],
+    [/contact|hire|start/i, '/contact/', 'Contact'],
+  ];
+  const match = hints.find(([pattern]) => pattern.test(path));
+  if (match) {
+    const box = document.querySelector<HTMLElement>('[data-nf-suggest]')!;
+    const link = box.querySelector<HTMLAnchorElement>('[data-nf-suggest-link]')!;
+    link.href = match[1]; link.textContent = match[2]; box.hidden = false;
+  }
+</script>
+<style>
+  .nf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center;padding-block:70px 50px}
+  .nf h1{font:600 clamp(56px,8vw,112px)/.95 Manrope,sans-serif;letter-spacing:-.06em;margin:16px 0 22px}
+  .nf h1 em{font-style:normal;color:#6b8053}
+  .nf .lede{font-size:18px;line-height:1.65;color:var(--muted,#5d665a);max-width:46ch}
+  .nf code{font:500 .85em/1 ui-monospace,monospace;background:#ecebe2;border:1px solid var(--line);border-radius:5px;padding:3px 6px;color:var(--ink);word-break:break-all}
+  .nf-suggest{margin-top:16px;font-size:16px}
+  .nf-suggest a{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+  .nf-actions{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:30px}
+  .nf-art{margin:0}
+  .nf-art img{display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 30px 60px -30px rgba(30,40,20,.45);animation:nf-float 6s ease-in-out infinite}
+  @keyframes nf-float{50%{transform:translateY(-10px) rotate(-.6deg)}}
+  @media(prefers-reduced-motion:reduce){.nf-art img{animation:none}}
+  .nf-links{padding-bottom:90px}
+  .nf-links h2{font:600 24px/1.2 Manrope,sans-serif;letter-spacing:-.03em;margin:0 0 18px}
+  .nf-links ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .nf-links li a{display:grid;gap:6px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:#fafaf5;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
+  .nf-links li a:hover{border-color:#6b8053;transform:translateY(-2px)}
+  .nf-links strong{font:600 16px/1.2 Manrope,sans-serif}
+  .nf-links small{font-size:13px;color:var(--muted,#5d665a);line-height:1.45}
+  .nf-help{margin-top:22px;color:var(--muted,#5d665a)}
+  .nf-help a{text-decoration:underline;text-underline-offset:3px}
+  @media(max-width:900px){.nf{grid-template-columns:1fr;gap:34px;padding-top:40px}.nf-art{order:-1}.nf-links ul{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.nf-links ul{grid-template-columns:1fr}}
+</style>
+</StudioLayout>

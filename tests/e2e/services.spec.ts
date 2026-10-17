@@ -175,3 +175,13 @@ for (const [path, lang, heading] of [['/services/co-development/', 'en', 'Your U
     await expect(page.locator('main')).not.toContainText(/circadence|project ares|behaviour interactive|bhvr/i);
   });
 }
+
+test('missing pages show the custom 404 with a suggestion', async ({ page }) => {
+  const response = await page.goto('/pricng-old');
+  expect(response?.status()).toBe(404);
+  await expect(page.locator('h1')).toContainText('Off the');
+  await expect(page.locator('[data-nf-path]')).toHaveText('/pricng-old');
+  await expect(page.locator('[data-nf-suggest-link]')).toHaveAttribute('href', '/pricing/');
+  await expect(page.locator('.nf-links li')).toHaveCount(8);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+});

@@ -1,4 +1,5 @@
 ---
+import FounderPortrait from '../components/FounderPortrait.astro';
 import StudioLayout from '../layouts/StudioLayout.astro';
 import PackageCard from '../components/b/PackageCard.astro';
 import CaseCard from '../components/b/CaseCard.astro';
@@ -63,7 +64,7 @@ const picks = [quotes[0], quotes[1], quotes[4]];
 
 <section class="b-section container" id="team">
   <div class="b-founder">
-    <img src="/studio-images/remi-founder-sloth.png" alt="Guillaume “Remi” Couture, founder of Strategic Sloth, illustrated in his studio with a sloth on his shoulder" width="1122" height="1402" loading="lazy"/>
+    <FounderPortrait alt="Guillaume “Remi” Couture, founder of Strategic Sloth"/>
     <div>
       <p class="eyebrow">05 / WHO YOU WORK WITH</p>
       <h2>A senior lead on every project. A team when you need one.</h2>

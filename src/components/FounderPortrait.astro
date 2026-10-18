@@ -1,0 +1,19 @@
+---
+// Real photo of Remi; the illustrated sloth portrait fades in on hover.
+// Both images share one grid cell, so whatever `img` rules the parent section
+// applies (size, radius, object-fit) land on both and they stay aligned.
+interface Props { alt: string; lazy?: boolean }
+const { alt, lazy = true } = Astro.props;
+const loading = lazy ? 'lazy' : undefined;
+---
+<span class="founder-swap">
+  <img src="/studio-images/remi-founder-photo.jpg" alt={alt} width="400" height="400" loading={loading}/>
+  <img class="founder-swap-alt" src="/studio-images/remi-founder-sloth.png" alt="" width="400" height="400" loading={loading} decoding="async"/>
+</span>
+<style is:global>
+.founder-swap{display:grid}
+.founder-swap>img{grid-area:1/1}
+:where(.founder-swap-alt){aspect-ratio:1;object-fit:cover;object-position:50% 15%}
+.founder-swap>.founder-swap-alt{opacity:0;transition:opacity .35s ease}
+.founder-swap:hover>.founder-swap-alt{opacity:1}
+</style>

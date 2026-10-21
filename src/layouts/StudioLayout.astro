@@ -6,20 +6,56 @@ import '../styles/legal.css';
 import PrivacyChoices from '../components/PrivacyChoices.astro';
 
 import StudioHeader from '../components/StudioHeader.astro';
-import LegalModals from '../components/LegalModals.astro';
 const { title, description = 'Independent tools and game development by Strategic Sloth LLC.', education = false, noindex = false, services = false, lang = 'en', alternates = [] as { lang: string; href: string }[], image = '/og/strategic-sloth.jpg', schema = [] as object[] } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = new URL(image, Astro.site);
 const siteURL = Astro.site!.href;
 // Site-wide identity for search engines. Pages add their own Service, FAQ or breadcrumb objects through `schema`.
 const graph = [
-  { '@type': 'ProfessionalService', '@id': `${siteURL}#studio`, name: 'Strategic Sloth', legalName: 'Strategic Sloth LLC', url: siteURL,
-    logo: new URL('/studio-images/slothlogo.png', Astro.site).href, image: imageURL.href,
-    description: 'Founder-led studio for game UI and UX design, app development, game development, websites and training, built in Unreal Engine, Unity, Godot, PlayCanvas and on the web.',
-    founder: { '@type': 'Person', name: 'Guillaume “Remi” Couture', jobTitle: 'Founder and UX/UI director' },
+  {
+    '@type': 'ProfessionalService',
+    '@id': `${siteURL}#studio`,
+    name: 'Strategic Sloth',
+    legalName: 'Strategic Sloth LLC',
+    url: siteURL,
+    logo: new URL('/studio-images/slothlogo.png', Astro.site).href,
+    image: imageURL.href,
+    slogan: 'Small on purpose. Senior by default.',
+    description:
+      'Founder-led game UI and UX studio: UX audits, UI systems, motion and in-engine implementation in Unreal Engine, Unity, Godot, PlayCanvas and the web, plus app development and original games.',
+    founder: { '@id': `${siteURL}#remi` },
     address: { '@type': 'PostalAddress', addressLocality: 'Montreal', addressRegion: 'QC', addressCountry: 'CA' },
-    areaServed: 'Worldwide', priceRange: '$490–$45,000+',
-    knowsAbout: ['Game UI design', 'Game UX design', 'Unreal Engine UMG', 'Unity UI Toolkit', 'Godot UI', 'PlayCanvas', 'App development', 'Training simulations'] },
+    availableLanguage: ['English', 'French'],
+    areaServed: ['Canada', 'United States', 'Worldwide'],
+    priceRange: '$490–$45,000+',
+    knowsAbout: [
+      'Game UI design',
+      'Game UX design',
+      'Game UX audit',
+      'First-time user experience (FTUE)',
+      'Unreal Engine UMG',
+      'Unreal Engine CommonUI',
+      'Controller and gamepad navigation',
+      'Unity UI Toolkit',
+      'uGUI',
+      'Godot UI',
+      'PlayCanvas',
+      'Game UI co-development',
+      'Design systems',
+      'UI motion design'
+    ]
+  },
+  {
+    '@type': 'Person',
+    '@id': `${siteURL}#remi`,
+    name: 'Guillaume (Remi) Couture',
+    alternateName: ['Remi Couture', 'Rémi Couture'],
+    jobTitle: 'Founder and UX/UI director',
+    worksFor: { '@id': `${siteURL}#studio` },
+    url: new URL('/studio/', Astro.site).href,
+    image: new URL('/studio-images/remi-founder-photo.jpg', Astro.site).href,
+    knowsLanguage: ['en', 'fr']
+  },
   { '@type': 'WebSite', '@id': `${siteURL}#website`, name: 'Strategic Sloth', url: siteURL, publisher: { '@id': `${siteURL}#studio` }, inLanguage: lang },
   ...schema
 ];
@@ -33,16 +69,20 @@ const graph = [
 <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={imageURL}/>
 <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}/>
 <link rel="icon" href="/studio-images/slothlogo.png"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-{services && <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>}
+{services && <>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+</>}
 
 <script is:inline src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 </head><body class:list={[education && 'education-site', services && 'services-site']}>
 <a class="skip-link" href="#main">Skip to content</a><StudioHeader/>
 {education && <div class="learning-bar"><nav class="container" aria-label="Learning library"><a class="learning-brand" href="/learn/">Learn <span>by Strategic Sloth</span></a><div><a href="/blog/">Articles</a><a href="/books/">Creator books</a><a href="/reading-guide/">Freedom Library</a><a href="/tools/">Creator tools</a></div></nav></div>}
 <main id="main"><slot/></main>
-<footer class="site-footer"><div class="container"><div class="footer-top"><div><a class="brand" href="/">strategic sloth<span class="brand-dot" aria-hidden="true">✳</span></a><p>Founder-led studio for game UI, apps and games.<br/>Montreal · working worldwide.</p><a class="button light" href="/contact/" style="margin-top:22px">Start a project <span>↗</span></a></div><nav aria-label="Services"><span>Services</span><a href="/services/game-ui/">Game UI &amp; UX</a><a href="/services/apps/">App development</a><a href="/services/games/">Game development</a><a href="/services/websites-training/">Websites &amp; training</a><a href="/services/co-development/">Co-development for studios</a><a href="/services/co-developpement/" hreflang="fr" lang="fr">Co-développement (FR)</a><a href="/pricing/">Pricing</a></nav><nav aria-label="Studio"><span>Studio</span><a href="/work/">Work</a><a href="/studio/">Team</a><a href="/games/">Our games</a><a href="/products/">Our tools</a><a href="/partners/">Publishers &amp; investors</a><a href="/contact/">Contact</a></nav><nav aria-label="More from Strategic Sloth"><span>More from Strategic Sloth</span><a href="/free-tools/">Free game dev tools</a><a href="/learn/">Learning library</a><a href="/books/">Books</a><a href="/blog/">Articles</a><a href="/products/#merch">Merch</a></nav></div><div class="footer-bottom"><p>© {new Date().getFullYear()} Strategic Sloth LLC</p><nav aria-label="Legal"><a href="/legal/privacy/" data-legal="privacy">Privacy</a><a href="/legal/terms/" data-legal="terms">Terms & refunds</a><a href="/legal/disclaimer/" data-legal="disclaimer">Disclaimer</a><a href="/privacy/">Games privacy</a><button type="button" data-privacy-settings>Privacy choices</button></nav></div></div></footer>
-<LegalModals/><PrivacyChoices/><script is:inline src="/studio.js" defer></script>
+<footer class="site-footer"><div class="container"><div class="footer-top"><div><a class="brand" href="/">strategic sloth<span class="brand-dot" aria-hidden="true">✳</span></a><p>Founder-led studio for game UI, apps and games.<br/>Montreal · working worldwide.</p><a class="button light" href="/contact/" style="margin-top:22px">Start a project <span>↗</span></a></div><nav aria-label="Services"><span>Services</span><a href="/services/game-ui/">Game UI &amp; UX</a><a href="/services/apps/">App development</a><a href="/services/games/">Game development</a><a href="/services/websites-training/">Websites &amp; training</a><a href="/services/co-development/">Co-development for studios</a><a href="/services/co-developpement/" hreflang="fr" lang="fr">Co-développement (FR)</a><a href="/pricing/">Pricing</a></nav><nav aria-label="Studio"><span>Studio</span><a href="/work/">Work</a><a href="/studio/">Team</a><a href="/games/">Our games</a><a href="/products/">Our tools</a><a href="/partners/">Publishers &amp; investors</a><a href="/contact/">Contact</a></nav><nav aria-label="More from Strategic Sloth"><span>More from Strategic Sloth</span><a href="/free-tools/">Free game dev tools</a><a href="/learn/">Learning library</a><a href="/books/">Books</a><a href="/blog/">Articles</a><a href="/products/#merch">Merch</a></nav></div><div class="footer-bottom"><p>© {new Date().getFullYear()} Strategic Sloth LLC</p><nav aria-label="Legal"><a href="/legal/privacy/">Privacy</a><a href="/legal/terms/">Terms & refunds</a><a href="/legal/disclaimer/">Disclaimer</a><a href="/privacy/">Games privacy</a><button type="button" data-privacy-settings>Privacy choices</button></nav></div></div></footer>
+<PrivacyChoices/><script is:inline src="/studio.js" defer></script>
 
 <script is:inline>
 if (location.pathname === '/') {

@@ -1,0 +1,48 @@
+# Strategic Sloth
+
+> Strategic Sloth LLC is a founder-led game UI and UX studio based in Greater Montreal, Canada, working in English and French with studios worldwide. It designs and builds game interfaces (UX flows, UI art, motion and in-engine implementation) in Unreal Engine (UMG, CommonUI), Unity, Godot, PlayCanvas and the web, and makes its own games and tools. Every project is led by founder Guillaume (Remi) Couture, who has twenty years in game UI and UX.
+
+Key facts:
+
+- Services: game UX audits, game UI vertical slices, full game UI systems, embedded UI partner and co-development for studios, app development, mobile game development.
+- Published prices (USD): screen review $490 (48 hours); UI and UX audit $2,900 (about 1 week); game UI vertical slice from $9,800 (2 to 4 weeks); game UI system from $24,000 (6 to 10 weeks); embedded UI partner $6,500 a month half-time or $12,500 full-time; day rate $850.
+- Engines: Unreal Engine 5 (UMG, CommonUI, Slate, C++ and Blueprint), Unity (UI Toolkit, uGUI), Godot, PlayCanvas, web (React, TypeScript, Three.js).
+- Founder background: illustrator on Club Penguin at Disney (2006 to 2009); UX/UI at Hothead Games, DeNA, Piranha Games and Phoenix Labs (Dauntless); UX/UI Art Director (contract) at Sprung Studios; UX Director at AppLovin across nine mobile game studios; client work for Riot Games, Tencent, Sony, Universal Studios, Hasbro and Twitch; taught game UX at Vancouver Film School.
+- Own products: Focusrail (Unreal Engine UMG controller navigation plugin on Fab), SliceForge (game UI production tool), Tropic Tumble (mobile merge puzzle on Google Play), Sloth Jam (free family party game in the browser, https://slothjam.com).
+
+## Services
+
+- [Game UI/UX design and implementation](https://strategicsloth.com/services/game-ui/)
+- [Game UI co-development for studios](https://strategicsloth.com/services/co-development/)
+- [Co-développement UI de jeux (français)](https://strategicsloth.com/services/co-developpement/)
+- [Unreal Engine UI: UMG and CommonUI](https://strategicsloth.com/services/unreal/)
+- [Unity UI](https://strategicsloth.com/services/unity/)
+- [Godot UI](https://strategicsloth.com/services/godot/)
+- [PlayCanvas UI](https://strategicsloth.com/services/playcanvas/)
+- [Web and custom engine UI](https://strategicsloth.com/services/web/)
+- [Mobile game development](https://strategicsloth.com/services/games/)
+- [App development](https://strategicsloth.com/services/apps/)
+- [Pricing](https://strategicsloth.com/pricing/)
+
+## Case studies
+
+- [Portfolio](https://strategicsloth.com/work/)
+- [MechWarrior 5: Mercenaries](https://strategicsloth.com/work/mechwarrior-5/)
+- [Dauntless](https://strategicsloth.com/work/dauntless/)
+- [Focusrail](https://strategicsloth.com/work/focusrail/)
+- [Valorant front-end exploration](https://strategicsloth.com/work/valorant/)
+- [Vanguard: loadout flow from critique to prototype](https://strategicsloth.com/services/case/vanguard/)
+- [Tropic Tumble](https://strategicsloth.com/work/tropic-tumble/)
+- [Sloth Jam](https://strategicsloth.com/work/sloth-jam/)
+
+## About and contact
+
+- [The studio and founder](https://strategicsloth.com/studio/)
+- [Start a project](https://strategicsloth.com/contact/)
+- [Founder resume](https://remiclassic.github.io/remiresume/)
+
+## Optional
+
+- [Game UI packs](https://strategicsloth.com/products/)
+- [Free game UI tools](https://strategicsloth.com/free-tools/)
+- [Publishers and investors](https://strategicsloth.com/partners/)

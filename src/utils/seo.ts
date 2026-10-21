@@ -15,3 +15,18 @@ export const faqSchema = (items: [string, string][]) => ({
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))
 });
+
+export const caseStudySchema = (opts: {
+  name: string;
+  path: string;
+  description: string;
+  image?: string;
+  datePublished?: string;
+}) => ({
+  '@type': 'CaseStudy',
+  name: opts.name,
+  description: opts.description,
+  url: new URL(opts.path, SITE).href,
+  image: opts.image ? new URL(opts.image, SITE).href : undefined,
+  publisher: { '@id': `${SITE}#studio` }
+});

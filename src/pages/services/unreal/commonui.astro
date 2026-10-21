@@ -1,0 +1,56 @@
+---
+import StudioLayout from '../../../layouts/StudioLayout.astro';
+import { serviceSchema, breadcrumbSchema, faqSchema } from '../../../utils/seo';
+import '../../../styles/boutique.css';
+const faqs: [string, string][] = [
+  ['Do you work in Blueprint or C++?', 'Both. Logic that needs review lives in C++ base classes; layout and iteration stay in Blueprint and the designer.'],
+  ['Can you join an existing Unreal project?', 'Yes, in your repository and sprints, as a slice or an embedded UI partner (from $6,500 a month half-time).'],
+  ['Which engine versions?', 'Unreal Engine 5.x.'],
+  ['Do you only do implementation?', 'No. The same lead designs the flow and the screens, so nothing is lost between design and build.'],
+];
+---
+<StudioLayout title="Unreal CommonUI Setup, Controller Focus and Input Routing | Strategic Sloth" description="CommonUI activatable stacks, input routing and gamepad focus that stays where players expect. Built and debugged by the team behind Focusrail. Fixed-price slices." schema={[
+  serviceSchema('Unreal CommonUI setup and focus', '/services/unreal/commonui/', 'CommonUI activatable stacks, input routing and gamepad focus that stays where players expect. Built and debugged by the team behind Focusrail.'),
+  breadcrumbSchema([['Home','/'], ['Services','/services/'], ['Unreal Engine','/services/unreal/'], ['CommonUI','/services/unreal/commonui/']]),
+  faqSchema(faqs)
+]}>
+<section class="b-intro container">
+  <p class="eyebrow">Unreal Engine · UMG · CommonUI</p>
+  <h1>Unreal CommonUI,<br><em>set up so focus goes where players expect.</em></h1>
+  <p class="lede">CommonUI solves input routing and back handling for layered menus, but only if the stacks, input configs and focus targets are set up consistently. We set it up, fix it in an existing project, or build the front end on it from scratch.</p>
+  <div class="b-hero-actions"><a class="button" href="/contact/?engagement=prototype#enquiry">Talk about your Unreal UI <span>↗</span></a><a class="text-link" href="/focusrail/">See Focusrail <span>→</span></a></div>
+</section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">COMMON PROBLEMS</p><h2>Bugs we fix<br><em>every week.</em></h2></div><p>Controller-first menus that behave the same way on every layer.</p></div>
+  <ul class="b-list b-list-2">
+    <li><strong>Lost focus after close</strong><span>Dialog closes or a widget is removed and focus disappears</span></li>
+    <li><strong>Mouse vs. gamepad</strong><span>Hover and focus fighting when the player switches devices</span></li>
+    <li><strong>Back and cancel</strong><span>Different actions on different layers; ambiguous exit paths</span></li>
+    <li><strong>Trapped focus</strong><span>Scroll boxes and grids that trap or skip focus</span></li>
+    <li><strong>Localisation overflow</strong><span>Menus that work in English and overflow in German or French</span></li>
+  </ul>
+</section>
+
+<section class="b-sage b-section"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">HOW WE WORK</p><h2>Fix a bug.<br><em>Prove a slice.</em></h2></div><p>Short steps with something to review each time.</p></div>
+  <ol class="b-steps b-steps-3">
+    <li><h3>Review</h3><p>A look at your widget tree, input setup and a capture of the bug.<br/>Starts with the $490 screen review or the $2,900 audit.</p></li>
+    <li><h3>Fix or slice</h3><p>A vertical slice of one flow running in your project, from $9,800.</p></li>
+    <li><h3>Hand over</h3><p>Documented source and a walkthrough, in your repository.</p></li>
+  </ol>
+</div></section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">COVERED AS STANDARD</p><h2>The stack you use.</h2></div><p>What we build on every project.</p></div>
+  <p>UE 5.x, C++ and Blueprint · CommonUI and Enhanced Input · gamepad, keyboard and mouse, touch · DPI scaling and safe zones · localisation and text overflow</p>
+</section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">PROOF</p><h2>Tools and work.</h2></div><p>From our own plugin to shipped Unreal UI.</p></div>
+  <ul class="b-list">
+    <li><strong><a class="pf-link" href="/focusrail/">Focusrail</a></strong><span>Focus rails authored in the widget editor, a runtime overlay that names the focused widget, and Focus Doctor that flags dead ends.</span></li>
+    <li><strong>Unreal game UI</strong><span><a class="pf-link" href="/work/mechwarrior-5/">MechWarrior 5</a> and <a class="pf-link" href="/work/dauntless/">Dauntless</a>: controller-first UI in Unreal Engine.</span></li>
+  </ul>
+</section>
+</StudioLayout>

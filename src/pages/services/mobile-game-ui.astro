@@ -1,0 +1,55 @@
+---
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import { serviceSchema, breadcrumbSchema, faqSchema } from '../../utils/seo';
+import '../../styles/boutique.css';
+const faqs: [string, string][] = [
+  ['Do you design or implement?', 'Both. Designs are built in your engine, so what you approve is what ships.'],
+  ['Can you redesign a live game?', 'Yes. Start with an audit, then redesign in slices, starting with the flow that matters most.'],
+  ['Do you work with publishers’ standards?', 'Yes. At AppLovin the job was setting review processes and standards across many studios.'],
+];
+---
+<StudioLayout title="Mobile Game UI/UX Design Services | Strategic Sloth" description="Mobile game UI and UX: FTUE, HUD, store and meta screens designed for thumbs and safe areas, and built in your engine. Led by a former UX director for nine mobile studios." schema={[
+  serviceSchema('Mobile game UI/UX design', '/services/mobile-game-ui/', 'Mobile game UI and UX: FTUE, HUD, store and meta screens designed for thumbs and safe areas, and built in your engine.'),
+  breadcrumbSchema([['Home','/'], ['Services','/services/'], ['Mobile game UI','/services/mobile-game-ui/']]),
+  faqSchema(faqs)
+]}>
+<section class="b-intro container">
+  <p class="eyebrow">For iOS and Android · Unreal · Unity · Godot</p>
+  <h1>Mobile game UI and UX,<br><em>from first session to store screen.</em></h1>
+  <p class="lede">Mobile players decide in the first minutes. We design the first session, the HUD, the store and the meta screens for thumbs, safe areas and short sessions, then build them in your engine. Led by Remi Couture, who directed UX across nine mobile game studios at AppLovin.</p>
+  <div class="b-hero-actions"><a class="button" href="/contact/?engagement=prototype#enquiry">Start a conversation <span>↗</span></a><a class="text-link" href="/pricing/">See prices <span>→</span></a></div>
+</section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">WHAT WE DESIGN AND BUILD</p><h2>The screens that carry<br><em>a mobile game.</em></h2></div><p>Designed for real devices and short sessions, then implemented in your engine.</p></div>
+  <ul class="b-list b-list-2">
+    <li><strong>First session and onboarding</strong><span>The first ten minutes as a flow, prototyped and tested before it is built</span></li>
+    <li><strong>HUD and core screens</strong><span>Readable at a glance on real devices</span></li>
+    <li><strong>Store and offers</strong><span>Clear value, season pass and live events</span></li>
+    <li><strong>Meta screens</strong><span>Map, events, collections and settings</span></li>
+    <li><strong>Design systems</strong><span>So screen two hundred matches screen one</span></li>
+    <li><strong>Implementation</strong><span>Unity, Unreal, Godot or the web</span></li>
+  </ul>
+</section>
+
+<section class="b-sage b-section"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">MOBILE EXPERIENCE</p><h2>Shipped and led.</h2></div><p>Hands-on mobile UI and UX, and direction across many studios.</p></div>
+  <ul class="b-list b-list-2">
+    <li><strong>UX Director, AppLovin Central Creative</strong><span>UX direction and standards across nine mobile game studios</span></li>
+    <li><strong>Hothead Games</strong><span>End-to-end UX for mobile games in Unity</span></li>
+    <li><strong>DeNA</strong><span>Mobile game UIs in Unity</span></li>
+    <li><strong>Cupcake Digital</strong><span>13+ kids apps on iOS and Android for DreamWorks, BBC Kids and Nickelodeon</span></li>
+    <li><strong><a class="pf-link" href="/work/tropic-tumble/">Tropic Tumble</a></strong><span>Our own sticker merge puzzle: 40 levels across eight islands, 76 stickers, events and a season pass, live on Google Play</span></li>
+  </ul>
+</div></section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">START SMALL</p><h2>Prove it before<br><em>you scale it.</em></h2></div><p>Packages with clear outcomes and a fixed price.</p></div>
+  <p>Screen review $490 · UI and UX audit $2,900 · vertical slice from $9,800 · full UI system from $24,000. <a class="text-link" href="/pricing/">See all prices <span>→</span></a></p>
+</section>
+
+<section class="b-sage b-section container">
+  <div class="b-head"><div><p class="eyebrow">QUESTIONS</p><h2>Before we talk.</h2></div><p>Short answers to the ones teams ask most often.</p></div>
+  <ul class="b-list">{faqs.map(([q, a]) => <li><strong>{q}</strong><span>{a}</span></li>)}</ul>
+</section>
+</StudioLayout>

@@ -1,0 +1,69 @@
+---
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import { serviceSchema, breadcrumbSchema, faqSchema } from '../../utils/seo';
+import '../../styles/boutique.css';
+const faqs: [string, string][] = [
+  ['What is a game UX audit?', 'A structured review of how players understand and move through your game: the first session, menus, HUD, feedback, input and accessibility. It ends with a ranked list of what to fix first.'],
+  ['What do you need from us?', 'A build, a video capture or design files, plus who the game is for and what worries you most. NDA on request.'],
+  ['Do you audit mobile, PC and console games?', 'Yes. Touch, mouse and keyboard, and controller input are all covered.'],
+  ['Can you also fix what you find?', 'Yes. The audit ends with a recommended next scope, such as a vertical slice in your engine, from $9,800.'],
+  ['How is this different from playtesting?', 'A playtest shows you where real players struggle. An expert audit explains why and what to change. They work well together, and the audit is faster and cheaper to start with.'],
+];
+---
+<StudioLayout title="Game UX Audit and FTUE Review by a Senior Game UX Lead | Strategic Sloth" description="A hands-on UX audit of your game build: first session, navigation, HUD, input and accessibility. Annotated findings ranked by impact, in about a week, $2,900." schema={[
+  serviceSchema('Game UX audit', '/services/game-ux-audit/', 'A hands-on UX audit of your game build: first session, navigation, HUD, input and accessibility. Annotated findings ranked by impact, in about a week, $2,900.', 'Game UX audit'),
+  breadcrumbSchema([['Home','/'], ['Services','/services/'], ['Game UX audit','/services/game-ux-audit/']]),
+  faqSchema(faqs)
+]}>
+<section class="b-intro container">
+  <p class="eyebrow">Game UX audit · FTUE · onboarding</p>
+  <h1>Game UX audit:<br><em>find what to fix first.</em></h1>
+  <p class="lede">A game UX audit is a hands-on review of your build or designs by a senior game UX lead. You get annotated screens and recordings, a fix list ranked by impact and cost, and a 60-minute findings call, in about a week, for $2,900. Not ready for a full audit? A single screen or flow review is $490.</p>
+  <div class="b-hero-actions"><a class="button" href="/contact/?engagement=audit#enquiry">Send a build or a screen <span>↗</span></a><a class="text-link" href="/pricing/#start">See prices <span>→</span></a></div>
+</section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">WHAT IT COVERS</p><h2>The places players<br><em>lose their way.</em></h2></div><p>Reviewed in the real build at real resolutions and distances.</p></div>
+  <ul class="b-list b-list-2">
+    <li><strong>First session (FTUE)</strong><span>The first ten minutes as a flow, where new players hesitate, and what to cut or teach later</span></li>
+    <li><strong>Navigation and hierarchy</strong><span>Whether a player can find the next action on every screen</span></li>
+    <li><strong>Feedback and readability</strong><span>HUD, rewards, errors and states, at real resolutions and distances</span></li>
+    <li><strong>Input</strong><span>Controller, keyboard and mouse, and touch, including focus that gets lost</span></li>
+    <li><strong>Accessibility</strong><span>Text size, contrast, reduced motion and colour use</span></li>
+    <li><strong>Localisation risk</strong><span>Long strings and text overflow</span></li>
+  </ul>
+</section>
+
+<section class="b-sage b-section"><div class="container">
+  <div class="b-head"><div><p class="eyebrow">WHAT YOU GET</p><h2>Clear findings.<br><em>Ranked by impact.</em></h2></div><p>Everything carries into the next scope if you continue.</p></div>
+  <ul class="b-list b-list-2">
+    <li><strong>Annotated screens and recordings</strong><span>Specific issues called out on real screens</span></li>
+    <li><strong>A ranked fix list</strong><span>By player impact and cost to change</span></li>
+    <li><strong>60-minute findings call</strong><span>Walkthrough, questions and next steps</span></li>
+    <li><strong>A recommended next scope</strong><span>Such as a vertical slice in your engine</span></li>
+  </ul>
+</div></section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">TWO SIZES</p><h2>Start small.<br>Scale when useful.</h2></div><p>Pick the focused review or the complete audit.</p></div>
+  <div class="b-packages" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+    <article class="b-pkg" id="pkg-review"><h3>Screen review</h3><p class="b-price"><strong>$490</strong></p><p class="b-time">48 hours</p><p>One screen or one flow, reviewed by a senior designer on video.</p><ul><li>15–20 minute recorded walkthrough</li><li>Annotated frames for every issue</li><li>Top five fixes, ranked</li></ul><a class="button" href="/contact/?engagement=review#enquiry">Start with this <span>↗</span></a></article>
+    <article class="b-pkg featured" id="pkg-audit"><span class="b-flag">Most chosen</span><h3>UI &amp; UX audit</h3><p class="b-price"><strong>$2,900</strong></p><p class="b-time">About 1 week</p><p>A hands-on review of your build or designs.</p><ul><li>Annotated screens and recordings</li><li>Fix list ranked by impact and cost</li><li>60-minute findings call</li><li>A recommended next scope</li></ul><a class="button" href="/contact/?engagement=audit#enquiry">Start with this <span>↗</span></a></article>
+  </div>
+</section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">WHO RUNS IT</p><h2>Senior by default.</h2></div><p>Every audit is done by the founder.</p></div>
+  <p>Remi Couture has designed game interfaces for twenty years: Club Penguin at Disney, Dauntless at Phoenix Labs, mobile games at Hothead, and UX direction for nine mobile studios at once as UX Director at AppLovin. He also taught game UX at Vancouver Film School.</p>
+</section>
+
+<section class="b-section container">
+  <div class="b-head"><div><p class="eyebrow">EXAMPLES</p><h2>From critique<br><em>to change.</em></h2></div><p>Work that shows the kind of decisions an audit informs.</p></div>
+  <div class="b-hero-actions" style="margin:0 0 26px"><a class="text-link" href="/services/case/vanguard/">Vanguard: critique to prototype <span>→</span></a><a class="text-link" href="/work/dauntless/">Dauntless: crafting and controller UX <span>→</span></a><a class="text-link" href="/work/mechwarrior-5/">MechWarrior 5: star map and mech bay <span>→</span></a></div>
+</section>
+
+<section class="b-sage b-section container">
+  <div class="b-head"><div><p class="eyebrow">QUESTIONS</p><h2>Before we talk.</h2></div><p>Short answers to the ones teams ask most often.</p></div>
+  <ul class="b-list">{faqs.map(([q, a]) => <li><strong>{q}</strong><span>{a}</span></li>)}</ul>
+</section>
+</StudioLayout>

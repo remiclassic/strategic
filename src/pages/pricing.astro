@@ -9,7 +9,7 @@ import '../styles/boutique.css';
 const starters = ['review', 'audit'];
 const groups = lines.map(l => ({ l, items: packages.filter(p => p.lines[0] === l.id && !starters.includes(p.id)) })).filter(g => g.items.length);
 ---
-<StudioLayout title="Game UI & App Development Pricing — Strategic Sloth" description="Published prices for game UI and UX, app development, game development, websites and training: from a $490 screen review to full builds, plus an $850 senior day rate. USD.">
+<StudioLayout title="Game UI/UX Design Pricing: Audits, Slices, UI Systems | Strategic Sloth" description="Published prices: screen review $490, UI and UX audit $2,900, game UI vertical slice from $9,800, full UI system from $24,000, embedded UI partner from $6,500 a month.">
 <section class="b-intro container">
   <p class="eyebrow">PRICING · USD</p>
   <style>.b-codev-note{margin-top:18px;font-size:15px;color:var(--muted,#5d665a)}.b-codev-note a{font-weight:600;color:inherit;text-decoration:underline;text-underline-offset:3px}</style>
@@ -22,6 +22,7 @@ const groups = lines.map(l => ({ l, items: packages.filter(p => p.lines[0] === l
 <section class="b-sage b-section tight" id="start"><div class="container">
   <div class="b-head"><div><p class="eyebrow">START SMALL</p><h2>A first step<br><em>for any project.</em></h2></div><p>For a game, an app, a website or a course. Their findings carry straight into a bigger scope if you go further.</p></div>
   <div class="b-packages" style="grid-template-columns:repeat(2,minmax(0,1fr))">{starters.map(id => <PackageCard p={pkg(id)} />)}</div>
+  <p style="margin-top:14px"><a class="text-link" href="/services/game-ux-audit/">About the Game UX audit <span>→</span></a></p>
 </div></section>
 
 {groups.map((g, i) => (

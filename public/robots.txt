@@ -1,4 +1,24 @@
+# Suggested robots.txt for https://strategicsloth.com/
+# Today the file is "Allow: /" for everyone, which is fine. This version keeps that,
+# names the AI and search crawlers explicitly, and lists both sitemap URLs.
+
 User-agent: *
+Allow: /
+
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: DuckAssistBot
 Allow: /
 
 Sitemap: https://strategicsloth.com/sitemap-index.xml

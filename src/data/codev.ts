@@ -5,8 +5,8 @@ const M = '/media/services/';
 export const codevCopy = {
   en: {
     path: '/services/co-development/',
-    title: 'Game UI Co-Development & Outsourcing for Studios — Strategic Sloth',
-    description: 'Embedded game UI/UX design and Unreal UI engineering for studios and co-development partners. In your pipeline, under your NDA, led by a senior UX/UI director from Montreal.',
+    title: 'Game UI Co-Development and Outsourcing for Studios | Strategic Sloth',
+    description: 'A senior game UX/UI lead and team embedded in your production: your engine, repo, sprints and NDA. Unreal first, also Unity and Godot. Montreal based, working worldwide.',
     switchLabel: 'Français', switchHref: '/services/co-developpement/',
     eyebrow: 'Co-development · for game studios',
     h1: ['Your UI team,', 'extended.'],
@@ -72,8 +72,8 @@ export const codevCopy = {
   },
   fr: {
     path: '/services/co-developpement/',
-    title: 'Co-développement d’interfaces de jeu pour studios — Strategic Sloth',
-    description: 'Design UX/UI de jeu et intégration Unreal, intégrés à votre production. Dans votre pipeline, sous votre NDA, dirigés par un directeur UX/UI senior basé à Montréal.',
+    title: 'Co-développement UI/UX de jeux vidéo, Montréal | Strategic Sloth',
+    description: 'Un directeur UX/UI de jeux avec 20 ans d’expérience et son équipe, intégrés à votre production : votre moteur, votre dépôt, vos sprints. Unreal, Unity, Godot.',
     switchLabel: 'English', switchHref: '/services/co-development/',
     eyebrow: 'Co-développement · pour les studios de jeux',
     h1: ['Votre équipe UI,', 'en renfort.'],

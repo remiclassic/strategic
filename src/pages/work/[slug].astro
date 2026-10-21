@@ -4,6 +4,7 @@ import CaseCard from '../../components/b/CaseCard.astro';
 import CtaBand from '../../components/b/CtaBand.astro';
 import { cases, line, pkg, type Case } from '../../data/studio';
 import { workCases } from '../../data/work-case-studies';
+import { caseStudySchema, breadcrumbSchema } from '../../utils/seo';
 import '../../styles/boutique.css';
 export function getStaticPaths() { return cases.map(c => ({ params: { slug: c.slug }, props: { c } })); }
 const { c } = Astro.props as { c: Case };
@@ -15,8 +16,20 @@ const start = pkg(l.packages[0]);
 const provenance = c.kind === 'Client work'
   ? `From Remi Couture’s career at or for ${c.client}. Shown as founder experience; it does not imply ${c.client} is a Strategic Sloth client. Artwork and trademarks belong to their owners.`
   : c.kind === 'Concept' ? 'An independent concept study, not commissioned.' : 'Designed, built and published by Strategic Sloth LLC.';
+const seoTitles: Record<string, string> = {
+  'mechwarrior-5': 'MechWarrior 5 UI/UX Case Study: Star Map and Mech Bay | Strategic Sloth',
+  'dauntless': 'Dauntless UI/UX Case Study: Crafting and Controller UX | Strategic Sloth',
+  'focusrail': 'Focusrail Case Study: Unreal Controller Focus Plugin | Strategic Sloth',
+  'valorant': 'Valorant Front-End UI Exploration | Strategic Sloth',
+  'sloth-jam': 'Sloth Jam Case Study: A Free Family Party Game | Strategic Sloth',
+  'tropic-tumble': 'Tropic Tumble Case Study: Mobile Merge Puzzle | Strategic Sloth',
+};
+const pageTitle = seoTitles[c.slug] ?? `${c.title} Case Study | Strategic Sloth`;
 ---
-<StudioLayout title={`${c.title} — Work | Strategic Sloth`} description={c.summary}>
+<StudioLayout title={pageTitle} description={c.summary} schema={[
+  breadcrumbSchema([['Home','/'],['Work','/work/'],[c.title, `/work/${c.slug}/`]]),
+  caseStudySchema({ name: pageTitle.replace(' | Strategic Sloth',''), path: `/work/${c.slug}/`, description: c.summary, image: c.poster })
+]}>
 <section class="b-intro night"><div class="container">
   <a class="text-link" style="color:#c9cfc3" href="/work/">← All work</a>
   <p class="eyebrow" style="margin-top:28px">{c.kind.toUpperCase()} · {l.name.toUpperCase()}</p>
@@ -53,6 +66,7 @@ const provenance = c.kind === 'Client work'
 
 <section class="b-sage b-section tight"><div class="container">
   <div class="b-rate b-rate-card"><div><p class="eyebrow" style="margin-bottom:6px">WANT SOMETHING LIKE THIS?</p><strong>{start.from ? 'From ' : ''}{start.price}</strong> <span>{start.name}</span></div><p>{start.summary}</p><a class="button" href={`/contact/?engagement=${start.id}#enquiry`}>Start a project <span>↗</span></a></div>
+  {l.id === 'game-ui' && <p style="margin:14px 0 0"><a class="text-link" href="/services/game-ux-audit/">About the Game UX audit <span>→</span></a></p>}
   <p class="eyebrow" style="margin:70px 0 30px">MORE WORK</p>
   <div class="b-cases two">{more.map(m => <CaseCard c={m} />)}</div>
 </div></section>

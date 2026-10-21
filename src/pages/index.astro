@@ -15,9 +15,9 @@ const lowest = (id: string) => packages.filter(p => p.lines.includes(id) && !p.u
 const people = bench.filter(m => m.name);
 const picks = [quotes[0], quotes[1], quotes[4]];
 ---
-<StudioLayout title="Game UI/UX Design & Development Studio — Strategic Sloth" description="A founder-led boutique studio for game UI and UX, app development and game development. Senior work led by Remi Couture, twenty years in game UI. Prices on the page, from $490.">
+<StudioLayout title="Game UI/UX Design Studio, Unreal and Unity UI | Strategic Sloth" description="Founder-led game UI and UX studio: audits, UI systems and in-engine builds in Unreal UMG, CommonUI, Unity and Godot. 20 years, from Club Penguin to MechWarrior 5. From $490.">
 <section class="b-hero">
-  <video autoplay muted loop playsinline preload="metadata" poster="/media/studio/hero-loop.jpg" aria-hidden="true" data-hero-video><source src="/media/studio/hero-loop.mp4" type="video/mp4"/></video>
+  <video muted loop playsinline preload="none" poster="/media/studio/hero-loop.jpg" aria-hidden="true" data-hero-video><source data-src="/media/studio/hero-loop.mp4" type="video/mp4"/></video>
   <div class="container">
     <p class="eyebrow"><span class="live-dot" style="background:var(--gold)"></span> FOUNDER-LED STUDIO · MONTREAL · WORKING WORLDWIDE</p>
     <h1>Games, apps and game UI, <em>designed and built.</em></h1>
@@ -87,8 +87,16 @@ const picks = [quotes[0], quotes[1], quotes[4]];
 <script>
 const v = document.querySelector<HTMLVideoElement>('[data-hero-video]'), b = document.querySelector<HTMLButtonElement>('[data-hero-toggle]');
 if (v && b) {
-  const set = (paused: boolean) => { paused ? v.pause() : v.play().catch(() => {}); b.textContent = paused ? 'Play video' : 'Pause video'; b.setAttribute('aria-pressed', String(paused)); };
+  // Lazy-load: attach source only when needed (in view or on user action)
+  const ensureSrc = () => {
+    const s = v.querySelector('source') as HTMLSourceElement | null;
+    if (s && s.dataset.src && !s.src) { s.src = s.dataset.src; v.load(); }
+  };
+  const set = (paused: boolean) => { if (!paused) ensureSrc(); paused ? v.pause() : v.play().catch(() => {}); b.textContent = paused ? 'Play video' : 'Pause video'; b.setAttribute('aria-pressed', String(paused)); };
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) set(true);
   b.addEventListener('click', () => set(!v.paused));
+  // Load when the hero enters the viewport
+  const io = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { ensureSrc(); io.disconnect(); } }, { rootMargin: '100px' });
+  io.observe(v);
 }
 </script>

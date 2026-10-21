@@ -1,5 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Content from '../components/CreatorCatalog.astro';
+import { books, bundles } from '../data/catalog-data';
 ---
-<Layout title="Creator books — Learn by Strategic Sloth" description="15 digital books for independent creators. Browse individual titles and three bundles."><Content/></Layout>
+<Layout title="Creator books — Learn by Strategic Sloth" description="15 digital books for independent creators. Browse individual titles and three bundles.">
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    ...books.map(b => ({
+      '@type': 'Book',
+      '@id': new URL(`/books/#${b.id}`, Astro.site).href,
+      name: b.title,
+      image: new URL(b.coverImage, Astro.site).href,
+      url: new URL('/books/', Astro.site).href,
+      author: { '@type': 'Person', '@id': new URL('/#remi', Astro.site).href, name: 'Guillaume (Remi) Couture' },
+      publisher: { '@id': new URL('/#learn', Astro.site).href },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', price: String(b.price), url: b.checkoutUrl }
+    })),
+    ...bundles.map(b => ({
+      '@type': 'Product',
+      '@id': new URL(`/books/#bundle-${b.id}`, Astro.site).href,
+      name: b.name,
+      description: b.description,
+      image: new URL(b.coverImage, Astro.site).href,
+      url: new URL('/books/', Astro.site).href,
+      brand: { '@id': new URL('/#learn', Astro.site).href },
+      offers: { '@type': 'Offer', priceCurrency: 'USD', price: String(b.price), url: b.checkoutUrl }
+    }))
+  ]
+})}/>
+<Content/></Layout>

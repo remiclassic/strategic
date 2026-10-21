@@ -10,55 +10,79 @@ const { title, description = 'Independent tools and game development by Strategi
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = new URL(image, Astro.site);
 const siteURL = Astro.site!.href;
-// Site-wide identity for search engines. Pages add their own Service, FAQ or breadcrumb objects through `schema`.
-const graph = [
-  {
-    '@type': 'ProfessionalService',
-    '@id': `${siteURL}#studio`,
-    name: 'Strategic Sloth',
-    legalName: 'Strategic Sloth LLC',
-    url: siteURL,
-    logo: new URL('/studio-images/slothlogo.png', Astro.site).href,
-    image: imageURL.href,
-    slogan: 'Small on purpose. Senior by default.',
-    description:
-      'Founder-led game UI and UX studio: UX audits, UI systems, motion and in-engine implementation in Unreal Engine, Unity, Godot, PlayCanvas and the web, plus app development and original games.',
-    founder: { '@id': `${siteURL}#remi` },
-    address: { '@type': 'PostalAddress', addressLocality: 'Montreal', addressRegion: 'QC', addressCountry: 'CA' },
-    availableLanguage: ['English', 'French'],
-    areaServed: ['Canada', 'United States', 'Worldwide'],
-    priceRange: '$490–$45,000+',
-    knowsAbout: [
-      'Game UI design',
-      'Game UX design',
-      'Game UX audit',
-      'First-time user experience (FTUE)',
-      'Unreal Engine UMG',
-      'Unreal Engine CommonUI',
-      'Controller and gamepad navigation',
-      'Unity UI Toolkit',
-      'uGUI',
-      'Godot UI',
-      'PlayCanvas',
-      'Game UI co-development',
-      'Design systems',
-      'UI motion design'
+// Site-wide identity for search engines. Pages add their own Service/FAQ/crumb objects through `schema`.
+const graph = education
+  ? [
+      {
+        '@type': 'Brand',
+        '@id': `${siteURL}#learn`,
+        name: 'Learn by Strategic Sloth',
+        url: siteURL,
+        logo: new URL('/studio-images/slothlogo.png', Astro.site).href,
+        image: imageURL.href
+      },
+      {
+        '@type': 'Person',
+        '@id': `${siteURL}#remi`,
+        name: 'Guillaume (Remi) Couture',
+        alternateName: ['Remi Couture', 'Rémi Couture'],
+        jobTitle: 'Founder and UX/UI director',
+        worksFor: { '@id': `${siteURL}#learn` },
+        url: new URL('/studio/', Astro.site).href,
+        image: new URL('/studio-images/remi-founder-photo.jpg', Astro.site).href,
+        knowsLanguage: ['en', 'fr']
+      },
+      { '@type': 'WebSite', '@id': `${siteURL}#learn-website`, name: 'Learn by Strategic Sloth', url: siteURL, publisher: { '@id': `${siteURL}#learn` }, inLanguage: lang },
+      ...schema
     ]
-  },
-  {
-    '@type': 'Person',
-    '@id': `${siteURL}#remi`,
-    name: 'Guillaume (Remi) Couture',
-    alternateName: ['Remi Couture', 'Rémi Couture'],
-    jobTitle: 'Founder and UX/UI director',
-    worksFor: { '@id': `${siteURL}#studio` },
-    url: new URL('/studio/', Astro.site).href,
-    image: new URL('/studio-images/remi-founder-photo.jpg', Astro.site).href,
-    knowsLanguage: ['en', 'fr']
-  },
-  { '@type': 'WebSite', '@id': `${siteURL}#website`, name: 'Strategic Sloth', url: siteURL, publisher: { '@id': `${siteURL}#studio` }, inLanguage: lang },
-  ...schema
-];
+  : [
+      {
+        '@type': 'ProfessionalService',
+        '@id': `${siteURL}#studio`,
+        name: 'Strategic Sloth',
+        legalName: 'Strategic Sloth LLC',
+        url: siteURL,
+        logo: new URL('/studio-images/slothlogo.png', Astro.site).href,
+        image: imageURL.href,
+        slogan: 'Small on purpose. Senior by default.',
+        description:
+          'Founder-led game UI and UX studio: UX audits, UI systems, motion and in-engine implementation in Unreal Engine, Unity, Godot, PlayCanvas and the web, plus app development and original games.',
+        founder: { '@id': `${siteURL}#remi` },
+        address: { '@type': 'PostalAddress', addressLocality: 'Montreal', addressRegion: 'QC', addressCountry: 'CA' },
+        availableLanguage: ['English', 'French'],
+        areaServed: ['Canada', 'United States', 'Worldwide'],
+        priceRange: '$490–$45,000+',
+        knowsAbout: [
+          'Game UI design',
+          'Game UX design',
+          'Game UX audit',
+          'First-time user experience (FTUE)',
+          'Unreal Engine UMG',
+          'Unreal Engine CommonUI',
+          'Controller and gamepad navigation',
+          'Unity UI Toolkit',
+          'uGUI',
+          'Godot UI',
+          'PlayCanvas',
+          'Game UI co-development',
+          'Design systems',
+          'UI motion design'
+        ]
+      },
+      {
+        '@type': 'Person',
+        '@id': `${siteURL}#remi`,
+        name: 'Guillaume (Remi) Couture',
+        alternateName: ['Remi Couture', 'Rémi Couture'],
+        jobTitle: 'Founder and UX/UI director',
+        worksFor: { '@id': `${siteURL}#studio` },
+        url: new URL('/studio/', Astro.site).href,
+        image: new URL('/studio-images/remi-founder-photo.jpg', Astro.site).href,
+        knowsLanguage: ['en', 'fr']
+      },
+      { '@type': 'WebSite', '@id': `${siteURL}#website`, name: 'Strategic Sloth', url: siteURL, publisher: { '@id': `${siteURL}#studio` }, inLanguage: lang },
+      ...schema
+    ];
 ---
 <!doctype html><html lang={lang}><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>

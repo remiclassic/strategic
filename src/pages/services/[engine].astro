@@ -11,21 +11,16 @@ export function getStaticPaths() { return engines.map(engine => ({ params: { eng
 const { engine } = Astro.props;
 const related = work.filter(item => item.engines.includes(engine.slug)).map(item => ({ ...item, size: 'std' }));
 const others = engines.filter(e => e.slug !== engine.slug);
+const titleMap: Record<string, string> = {
+  unreal: 'Unreal Engine UMG and CommonUI UI Developer | Strategic Sloth',
+  unity: 'Unity UI Toolkit and uGUI Design and Development | Strategic Sloth',
+  godot: 'Godot UI Design and Implementation, Control Nodes | Strategic Sloth',
+  playcanvas: 'PlayCanvas UI Design and Development | Strategic Sloth',
+  web: 'HTML5 and Web Game UI Development | Strategic Sloth'
+};
+const seoTitle = titleMap[engine.slug] ?? `${engine.name} UI Design & Implementation | Strategic Sloth`;
 ---
-{
-  // SEO title mapping per engine
-  // Defaults to "<Engine> UI Design & Implementation | Strategic Sloth"
-}
-<StudioLayout services title={{
-  const map: Record<string, string> = {
-    unreal: 'Unreal Engine UMG and CommonUI UI Developer | Strategic Sloth',
-    unity: 'Unity UI Toolkit and uGUI Design and Development | Strategic Sloth',
-    godot: 'Godot UI Design and Implementation, Control Nodes | Strategic Sloth',
-    playcanvas: 'PlayCanvas UI Design and Development | Strategic Sloth',
-    web: 'HTML5 and Web Game UI Development | Strategic Sloth'
-  };
-  return map[engine.slug] ?? `${engine.name} UI Design & Implementation | Strategic Sloth`;
-}()} description={engine.summary} schema={[serviceSchema(`${engine.name} UI design and implementation`, `/services/${engine.slug}/`, engine.summary, "Game UI design"), breadcrumbSchema([["Home", "/"], ["Services", "/services/"], ["Game UI & UX", "/services/game-ui/"], [engine.name, `/services/${engine.slug}/`]])]}>
+<StudioLayout services title={seoTitle} description={engine.summary} schema={[serviceSchema(`${engine.name} UI design and implementation`, `/services/${engine.slug}/`, engine.summary, "Game UI design"), breadcrumbSchema([["Home", "/"], ["Services", "/services/"], ["Game UI & UX", "/services/game-ui/"], [engine.name, `/services/${engine.slug}/`]])]}>
   <section class="sv-engine-hero container">
     <a class="sv-crumb" href="/services/"><span aria-hidden="true">←</span> Services</a>
     <p class="eyebrow">{engine.name} · UI design &amp; implementation</p>

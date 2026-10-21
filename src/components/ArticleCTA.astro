@@ -1,14 +1,65 @@
 ---
 import CheckoutLink from './CheckoutLink.astro';
-import { books } from '../data/catalog-data';
-const related = books.find(book => book.blogSlug && Astro.url.pathname.replace(/\/$/,'').endsWith('/'+book.blogSlug));
-const { category } = Astro.props;
-const offers = {
- starter: {name:'Starter Package',price:17,url:'https://strategicsloth.lemonsqueezy.com/checkout/buy/35c6242c-4da1-40a6-8821-dae46243e1fd?embed=1'},
- builder: {name:'Best Value Package',price:47,url:'https://strategicsloth.lemonsqueezy.com/checkout/buy/79792bc4-e1aa-47a8-948b-1058c47d0288?embed=1'},
- scale: {name:'Scale to Freedom Path',price:97,url:'https://strategicsloth.lemonsqueezy.com/checkout/buy/64915b54-7f09-4184-add3-1f87b83a5cd0?embed=1'}
+import { books, bundles } from '../data/catalog-data';
+const related = books.find(
+  (book) => book.blogSlug && Astro.url.pathname.replace(/\/$/, '').endsWith('/' + book.blogSlug)
+);
+const { category } = Astro.props as { category?: 'starter' | 'builder' | 'scale' };
+const isInternational = /bank|tax|citizen|residen|offshore|passport|wyoming|uae|estonia|flags|asset-protection|nevis|incorporate|wise-vs/i.test(
+  Astro.url.pathname
+);
+const bundleMap: Record<'starter' | 'builder' | 'scale', 'starter' | 'builder' | 'full-freedom'> = {
+  starter: 'starter',
+  builder: 'builder',
+  scale: 'full-freedom',
 };
-const offer = offers[category as keyof typeof offers];
+const pickBundle = (cat?: 'starter' | 'builder' | 'scale') =>
+  cat ? bundles.find((b) => b.id === bundleMap[cat]) : undefined;
+const bundle = pickBundle(category);
 ---
-{related && <aside class="learning-note article-offer"><p class="eyebrow">PUT THIS TOPIC INTO PRACTICE</p><h3>{related.title}</h3><p>{related.detail}</p><ul>{related.whatsInside?.map(item=><li>{item}</li>)}</ul><div class="hero-actions"><CheckoutLink href={related.checkoutUrl} price={related.price} product={related.id} location={`article-book-${related.id}`} label="Get the guide"/><a class="text-link" href={related.id==='sell-no-audience'?'/samples/sell-without-an-audience/':`/books/#${related.id}`}>{related.id==='sell-no-audience'?'Read a real chapter →':'See book details →'}</a></div><p class="purchase-reassurance">Digital delivery · One-time purchase · 30-day money-back guarantee</p></aside>}
-{!related && offer && <aside class="learning-note"><p class="eyebrow">TAKE THE NEXT STEP</p><h3>{offer.name}</h3><p>Move from individual articles to a connected reading path. See exactly which books are included and choose the subjects that matter to your plans.</p><a class="text-link" href="/reading-guide/">Compare contents →</a><div><CheckoutLink href={offer.url} price={offer.price} product={category} location={`article-cta-${category}`} label="Buy package"/></div></aside>}
+{related && (
+  <aside class="learning-note article-offer">
+    <p class="eyebrow">PUT THIS TOPIC INTO PRACTICE</p>
+    <h3>{related.title}</h3>
+    <p>{related.detail}</p>
+    <ul>{related.whatsInside?.map((item) => <li>{item}</li>)}</ul>
+    <div class="hero-actions">
+      <CheckoutLink
+        href={related.checkoutUrl}
+        price={related.price}
+        product={related.id}
+        location={`article-book-${related.id}`}
+        label="Get the guide"
+      />
+      <a class="text-link" href={related.id === 'sell-no-audience' ? '/samples/sell-without-an-audience/' : `/books/#${related.id}`}>
+        {related.id === 'sell-no-audience' ? 'Read a real chapter →' : 'See book details →'}
+      </a>
+    </div>
+    <p class="purchase-reassurance">Digital delivery · One-time purchase · 30-day money-back guarantee</p>
+  </aside>
+)}
+{!related && isInternational && (
+  <aside class="learning-note">
+    <p class="eyebrow">NEXT STEP</p>
+    <h3>Explore the Freedom Library</h3>
+    <p>Reading on business structures, banking, residency, and citizenship. Clear contents and packages.</p>
+    <a class="button" href="/reading-guide/">Open the Freedom Library <span>↗</span></a>
+  </aside>
+)}
+{!related && !isInternational && bundle && (
+  <aside class="learning-note">
+    <p class="eyebrow">TAKE THE NEXT STEP</p>
+    <h3>{bundle.name}</h3>
+    <p>{bundle.description}</p>
+    <a class="text-link" href={`/books/#bundle-${bundle.id}`}>See what’s included →</a>
+    <div>
+      <CheckoutLink
+        href={bundle.checkoutUrl}
+        price={bundle.price}
+        product={bundle.id}
+        location={`article-cta-${bundle.id}`}
+        label="Buy package"
+      />
+    </div>
+  </aside>
+)}

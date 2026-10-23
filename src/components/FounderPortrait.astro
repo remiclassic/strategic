@@ -2,6 +2,9 @@
 // Real photo of Remi; the illustrated sloth portrait fades in on hover.
 // Both images share one grid cell, so whatever `img` rules the parent section
 // applies (size, radius, object-fit) land on both and they stay aligned.
+// The sloth art is not square, so its crop goes on the inner img: on the
+// <picture> wrapper, aspect-ratio turns the tall image's height into width and
+// the portrait spills out of its column.
 interface Props { alt: string; lazy?: boolean }
 const { alt, lazy = true } = Astro.props;
 const loading = lazy ? 'lazy' : undefined;
@@ -15,8 +18,8 @@ const loading = lazy ? 'lazy' : undefined;
 </span>
 <style is:global>
 .founder-swap{display:grid}
-.founder-swap>img,.founder-swap>picture{grid-area:1/1}
-:where(.founder-swap-alt){aspect-ratio:1;object-fit:cover;object-position:50% 15%}
+.founder-swap>img,.founder-swap>picture{grid-area:1/1;min-width:0}
+:where(.founder-swap-alt img){display:block;aspect-ratio:1;object-fit:cover;object-position:50% 15%}
 .founder-swap>.founder-swap-alt{opacity:0;transition:opacity .35s ease}
 .founder-swap:hover>.founder-swap-alt{opacity:1}
 </style>

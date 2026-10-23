@@ -11,7 +11,7 @@
 .b-head h2 em{font-style:normal;color:#6b8053}
 .b-night .b-head h2 em{color:var(--gold)}
 .b-head p{font-size:15px;line-height:1.8;max-width:430px;justify-self:end}
-.b-head .eyebrow{margin-bottom:18px}
+.b-head .eyebrow{margin-bottom:18px;justify-self:normal}
 .b-kicker{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 .b-kicker i{width:22px;height:1px;background:currentColor;opacity:.6}
 

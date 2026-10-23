@@ -5,7 +5,7 @@ import { gameUIPacks } from '../../data/game-ui-packs';
 export function getStaticPaths() { return gameUIPacks.map(pack => ({ params: { slug: pack.slug }, props: { pack } })); }
 const { pack } = Astro.props;
 ---
-<StudioLayout title={`${pack.name} — Game UI Packs | Strategic Sloth`} description={pack.description}>
+<StudioLayout title={`${pack.name} | Game UI Packs | Strategic Sloth`} description={pack.description}>
   <div class={`pack-page ${pack.theme}`}>
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/#game-ui-packs">Game UI packs</a><span aria-hidden="true">/</span><span>{pack.name}</span></nav>

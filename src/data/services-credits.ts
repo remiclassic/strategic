@@ -32,7 +32,7 @@ export const credits = [
   { years: '2014–15', studio: 'DeNA', work: 'TRANSFORMERS: Battle Tactics · Super Battle Tactics · Go Go Ghost · Military Masters', role: 'UX/UI Designer', note: 'Shipped mobile game UI', tag: 'Mobile · Unity' },
   { years: '2013–14', studio: 'Cupcake Digital', work: 'Rio · The Nut Job · Fraggle Rock · Strawberry Shortcake · Yo Gabba Gabba!', role: 'UX/UI Designer', note: '13+ kids apps for DreamWorks, BBC Kids and Nickelodeon properties', tag: 'iOS & Android' },
   { years: '2009–13', studio: 'Gogii Games', work: 'Escape the Museum 2 · Haunted Past · Nanny Mania 2 · Zoometry', role: 'UX/UI Designer & Illustrator', note: '27 shipped games', tag: 'PC & mobile' },
-  { years: '2006–08', studio: 'Disney', work: 'Club Penguin', role: 'Illustrator', note: 'Illustration and 3D assets', tag: 'Web' },
+  { years: '2006–09', studio: 'Disney', work: 'Club Penguin', role: 'Illustrator', note: 'Illustration and 3D assets', tag: 'Web' },
 ];
 
 export const quotes = [
@@ -65,7 +65,7 @@ export const eras = [
   { key: 'DeNA', years: '2014–15', end: 2015, line: 'Mobile · Unity', text: 'One base structure for three games: Super Battle Tactics, TRANSFORMERS: Battle Tactics and Military Masters.' },
   { key: 'Cupcake Digital', years: '2013–14', end: 2014, line: 'Kids apps · iOS & Android' },
   { key: 'Gogii Games', years: '2009–13', end: 2013, line: 'PC & mobile · 27 shipped games' },
-  { key: 'Disney', years: '2006–08', end: 2008, line: 'Club Penguin · web' },
+  { key: 'Disney', years: '2006–09', end: 2009, line: 'Club Penguin · web' },
 ];
 const eraOf = (studio: string) => eras.findIndex(era => studio.startsWith(era.key));
 const pf = (...names: string[]) => names.map(name => `/media/services/portfolio/${name}.webp`);
@@ -102,5 +102,5 @@ export const titles = [
   ['zoometry', 'Zoometry', G, 'UI Designer & Art Direction', 4, 'UI made with another designer. Remi set the art direction for the project.'],
   ['hide-n-find', 'Hide N Find', G, 'UX/UI Designer', 9, 'A Facebook-era game. Wireframes and mockups, playable as a prototype.'],
   ['jill-and-the-beanstalk', 'Jill & The Beanstalk', G, 'UX/UI Designer', 3, 'Themed hidden-object UI for every screen, made in 2D and 3D.'],
-  ['club-penguin', 'Club Penguin', 'Disney · 2006–08', 'Illustrator & Animator', 2, 'Flash illustrations, animations and 3D assets for in-game items, marketing and the website.'],
+  ['club-penguin', 'Club Penguin', 'Disney · 2006–09', 'Illustrator & Animator', 2, 'Flash illustrations, animations and 3D assets for in-game items, marketing and the website.'],
 ].map(([id, title, studio, role, count, note]) => ({ id, title, studio, role, note, era: eraOf(studio as string), src: `/media/services/credits/${id}.webp`, images: Array.isArray(count) ? count : Array.from({ length: count as number }, (_, n) => `/media/services/credits/full/${id}-${n + 1}.webp`) }));

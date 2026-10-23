@@ -27,8 +27,8 @@ const other = lang === 'en' ? 'fr' : 'en';
 <div class="container"><dl class="rp-facts">{t.facts.map(([n, label]) => <div><dt>{n}</dt><dd>{label}</dd></div>)}</dl></div>
 
 <section class="b-section container rp-origin" id="club-penguin">
-  <figure>
-    <img src="/media/services/credits/full/club-penguin-2.webp" alt={t.originAlt} width="1280" height="1024" loading="lazy"/>
+  <figure id="club-penguin-art">
+    <img src="/media/services/credits/full/club-penguin-1.webp" alt={t.originAlt} width="1280" height="768" loading="lazy"/>
     <figcaption>{t.originCaption}</figcaption>
   </figure>
   <div>
@@ -68,7 +68,7 @@ const other = lang === 'en' ? 'fr' : 'en';
 <div class="b-sage b-section"><div class="container rp-two">
   <section id="press">
     <p class="eyebrow">{t.pressEyebrow.toUpperCase()}</p><h2>{t.pressTitle}</h2>
-    <a class="rp-press" href={t.press.href}><small>{t.press.outlet} · {t.press.date}</small><strong lang="en">{t.press.title}</strong><span>{t.press.listen} ↗</span></a>
+    <div class="rp-press-list">{t.press.map(item => <a class="rp-press" href={item.href}><small>{item.outlet} · {item.date}</small><strong lang="en">{item.title}</strong>{item.note && <em>{item.note}</em>}<span>{item.action} ↗</span></a>)}</div>
     <p class="rp-kit">{t.pressKit}: <a href="https://slothjam.com/share.html">slothjam.com/share.html</a></p>
   </section>
   <section id="elsewhere">
@@ -111,7 +111,7 @@ const other = lang === 'en' ? 'fr' : 'en';
 
 .rp-origin{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
 .rp-origin figure{margin:0}
-.rp-origin img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:var(--b-radius);background:#1d2b3a}
+.rp-origin img{width:100%;aspect-ratio:5/3;object-fit:cover;border-radius:var(--b-radius);background:#1d2b3a}
 .rp-origin figcaption{font-size:12px;color:var(--muted);margin-top:10px}
 .rp-origin h2{font-size:clamp(36px,4.2vw,60px);line-height:1.04;margin-bottom:24px}
 .rp-origin h2 em{display:block;font-style:normal;color:#6b8053}
@@ -158,6 +158,8 @@ a.rp-detail:hover{color:#fff;text-decoration:underline;text-underline-offset:4px
 .rp-two{display:grid;grid-template-columns:1fr 1fr;gap:80px}
 .rp-two h2{font-size:clamp(32px,3.4vw,48px);margin-bottom:30px}
 .rp-two .eyebrow{margin-bottom:16px}
+.rp-press-list{display:grid;gap:14px}
+.rp-press em{display:block;margin:-10px 0 18px;font-style:normal;font-size:13px;color:var(--muted)}
 .rp-press{display:block;padding:30px;border-radius:var(--b-radius);background:#fbfaf5;border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
 .rp-press:hover{transform:translateY(-2px);box-shadow:0 14px 30px #1c241a12}
 .rp-press small{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6b8053}

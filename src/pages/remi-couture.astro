@@ -21,6 +21,32 @@ const schema = [
     inLanguage: 'en',
     dateModified: new Date().toISOString().slice(0, 10),
   },
+  {
+    '@type': 'VisualArtwork',
+    '@id': new URL('/remi-couture/#club-penguin-art', Astro.site).href,
+    name: 'Club Penguin character artwork (Gary, Rockhopper and Aunt Arctic)',
+    creator: { '@id': new URL('/remi-couture/#person', Astro.site).href },
+    copyrightHolder: { '@type': 'Organization', name: 'Disney' },
+    image: 'https://globalnews.ca/wp-content/uploads/2018/09/clubpenguin.jpg',
+    subjectOf: {
+      '@type': 'NewsArticle',
+      headline: "End of the road for Kelowna's Club Penguin",
+      url: 'https://globalnews.ca/news/4496492/end-of-the-road-for-kelownas-club-penguin/',
+      datePublished: '2018-09-28',
+      author: { '@type': 'Person', name: 'Kelly Hayes' },
+      publisher: { '@type': 'Organization', name: 'Global News' }
+    }
+  },
+  {
+    '@type': 'Person',
+    '@id': new URL('/remi-couture/#person', Astro.site).href,
+    subjectOf: {
+      '@type': 'RadioEpisode',
+      name: 'Former Kelowna game designer is back with a new free game for kids',
+      url: 'https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668-former-kelowna-game-designer-back-free-game-kids',
+      publisher: { '@type': 'Organization', name: 'CBC Radio One, Daybreak South' }
+    }
+  }
 ];
 ---
 <StudioLayout title={title} description={description} lang="en" alternates={alternates} image="/studio-images/remi-founder-photo.jpg" schema={schema}>

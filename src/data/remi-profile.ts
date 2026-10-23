@@ -2,6 +2,7 @@
 // and the résumé; keep them in step if those change. Years are written out ("2009 to 2013") on purpose.
 const RESUME = 'https://remiclassic.github.io/remiresume/';
 const CBC = 'https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668-former-kelowna-game-designer-back-free-game-kids';
+const GLOBAL = 'https://globalnews.ca/news/4496492/end-of-the-road-for-kelownas-club-penguin/';
 
 const links = (resume: string, credits: string): [string, string, string][] => [
   [resume, 'remiclassic.github.io/remiresume', RESUME],
@@ -35,8 +36,8 @@ export const remiCopy = {
     originEyebrow: '01 · Where it started', originTitle: ['Club Penguin at Disney', '2006 to 2009'],
     origin: 'Rémi started his career at Club Penguin, the kids\' virtual world acquired by The Walt Disney Company in 2007. He began in customer support and moved into the art department, where he worked as an illustrator and animator, creating Flash illustration and 3D assets.',
     path: [['Start', 'Customer support'], ['Then', 'Art department'], ['Role', 'Illustrator and animator']],
-    originCaption: 'Club Penguin, Halloween wallpaper. Artwork © Disney.',
-    originAlt: 'Club Penguin Halloween illustration of penguins in costume outside the Pet Shop',
+    originCaption: 'Gary, Rockhopper and Aunt Arctic: Club Penguin character art drawn by Rémi. © Disney.',
+    originAlt: 'Club Penguin characters Gary, Rockhopper and Aunt Arctic standing on the Club Penguin logo',
     disclaimer: 'Club Penguin artwork and trademarks belong to Disney. Nothing on this page is affiliated with or endorsed by Disney.',
 
     careerEyebrow: '02 · 2009 to 2025', careerTitle: ['Career in game UI.', 'Eleven studios.'],
@@ -69,7 +70,10 @@ export const remiCopy = {
     ]),
 
     pressEyebrow: '04 · Press', pressTitle: 'Press',
-    press: { outlet: 'CBC Radio One · Daybreak South', date: 'October 2026', title: 'Former Kelowna game designer is back with a new free game for kids', href: CBC, listen: 'Listen to the clip' },
+    press: [
+      { outlet: 'CBC Radio One · Daybreak South', date: 'October 2026', title: 'Former Kelowna game designer is back with a new free game for kids', href: CBC, action: 'Listen to the clip' },
+      { outlet: 'Global News', date: 'September 2018', title: 'End of the road for Kelowna’s Club Penguin', href: GLOBAL, action: 'Read the article', note: 'Lead image: Club Penguin character art Rémi drew. © Disney.' },
+    ],
     pressKit: 'Press kit',
     onlineEyebrow: '05 · Elsewhere', onlineTitle: 'Find Rémi Couture online',
     links: links('Resume and portfolio', 'Game credits'),
@@ -90,8 +94,8 @@ export const remiCopy = {
     originEyebrow: '01 · Les débuts', originTitle: ['Club Penguin chez Disney', '2006 à 2009'],
     origin: 'Rémi a commencé sa carrière à Club Penguin, le monde virtuel pour enfants acquis par The Walt Disney Company en 2007. Il a d’abord travaillé au soutien à la clientèle, puis a rejoint l’équipe artistique comme illustrateur et animateur, créant des illustrations Flash et des éléments 3D.',
     path: [['Début', 'Soutien à la clientèle'], ['Ensuite', 'Équipe artistique'], ['Rôle', 'Illustrateur et animateur']],
-    originCaption: 'Club Penguin, fond d’écran d’Halloween. Œuvre © Disney.',
-    originAlt: 'Illustration d’Halloween de Club Penguin : des pingouins costumés devant l’animalerie',
+    originCaption: 'Gary, Rockhopper et Tante Arctic : personnages Club Penguin dessinés par Rémi. © Disney.',
+    originAlt: 'Les personnages Club Penguin Gary, Rockhopper et Tante Arctic debout sur le logo Club Penguin',
     disclaimer: 'Les œuvres et marques de Club Penguin appartiennent à Disney. Cette page n’est affiliée ni approuvée par Disney.',
 
     careerEyebrow: '02 · 2009 à 2025', careerTitle: ['Parcours en UI de jeux.', 'Onze studios.'],
@@ -124,7 +128,10 @@ export const remiCopy = {
     ]),
 
     pressEyebrow: '04 · Presse', pressTitle: 'Presse',
-    press: { outlet: 'CBC Radio One · Daybreak South', date: 'Octobre 2026', title: 'Former Kelowna game designer is back with a new free game for kids', href: CBC, listen: 'Écouter l’extrait' },
+    press: [
+      { outlet: 'CBC Radio One · Daybreak South', date: 'Octobre 2026', title: 'Former Kelowna game designer is back with a new free game for kids', href: CBC, action: 'Écouter l’extrait' },
+      { outlet: 'Global News', date: 'Septembre 2018', title: 'End of the road for Kelowna’s Club Penguin', href: GLOBAL, action: 'Lire l’article', note: 'Image de tête : personnages Club Penguin dessinés par Rémi. © Disney.' },
+    ],
     pressKit: 'Dossier de presse',
     onlineEyebrow: '05 · Ailleurs', onlineTitle: 'Présence en ligne',
     links: links('CV et portfolio', 'Crédits de jeux'),

@@ -63,4 +63,13 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
+      - name: Ping IndexNow with sitemap
+        if: always()
+        continue-on-error: true
+        run: |
+          key="0b3f2c6a6e5f4d2a9c8b7a6e5d4c3b2a"
+          host="strategicsloth.com"
+          sitemap="https://strategicsloth.com/sitemap-index.xml"
+          curl -s -X POST 'https://api.indexnow.org/indexnow' -H 'Content-Type: application/json' -d "{\"host\":\"$host\",\"key\":\"$key\",\"keyLocation\":\"https://$host/$key.txt\",\"urlList\":[\"$sitemap\"]}" || true
+          curl -s "https://api.indexnow.org/indexnow?host=$host&key=$key&keyLocation=https://$host/$key.txt&sitemap=$sitemap" || true

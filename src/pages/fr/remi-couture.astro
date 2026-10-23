@@ -20,6 +20,32 @@ const schema = [
     inLanguage: 'fr',
     dateModified: new Date().toISOString().slice(0, 10),
   },
+  {
+    '@type': 'VisualArtwork',
+    '@id': new URL('/remi-couture/#club-penguin-art', Astro.site).href,
+    name: 'Illustration de personnages Club Penguin (Gary, Rockhopper et Tante Arctic)',
+    creator: { '@id': new URL('/remi-couture/#person', Astro.site).href },
+    copyrightHolder: { '@type': 'Organization', name: 'Disney' },
+    image: 'https://globalnews.ca/wp-content/uploads/2018/09/clubpenguin.jpg',
+    subjectOf: {
+      '@type': 'NewsArticle',
+      headline: "End of the road for Kelowna's Club Penguin",
+      url: 'https://globalnews.ca/news/4496492/end-of-the-road-for-kelownas-club-penguin/',
+      datePublished: '2018-09-28',
+      author: { '@type': 'Person', name: 'Kelly Hayes' },
+      publisher: { '@type': 'Organization', name: 'Global News' }
+    }
+  },
+  {
+    '@type': 'Person',
+    '@id': new URL('/remi-couture/#person', Astro.site).href,
+    subjectOf: {
+      '@type': 'RadioEpisode',
+      name: 'Former Kelowna game designer is back with a new free game for kids',
+      url: 'https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668-former-kelowna-game-designer-back-free-game-kids',
+      publisher: { '@type': 'Organization', name: 'CBC Radio One, Daybreak South' }
+    }
+  }
 ];
 ---
 <StudioLayout title={title} description={description} lang="fr" alternates={alternates} image="/studio-images/remi-founder-photo.jpg" schema={schema}>
@@ -73,6 +99,7 @@ const schema = [
     <h2>Presse</h2>
     <ul class="b-list" style="grid-template-columns:1fr">
       <li>CBC Radio One, Daybreak South (octobre 2026)&nbsp;: <a href="https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668-former-kelowna-game-designer-back-free-game-kids">Former Kelowna game designer is back with a new free game for kids</a></li>
+      <li>Global News&nbsp;: <a href="https://globalnews.ca/news/4496492/end-of-the-road-for-kelownas-club-penguin/">End of the road for Kelowna’s Club Penguin</a> — Image de tête&nbsp;: illustration Club Penguin que j’ai dessinée (Disney)</li>
     </ul>
     <p>Dossier de presse&nbsp;: <a href="https://slothjam.com/share.html">slothjam.com/share.html</a></p>
   </section>

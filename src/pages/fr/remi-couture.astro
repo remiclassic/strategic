@@ -1,5 +1,6 @@
 ---
 import StudioLayout from '../../layouts/StudioLayout.astro';
+import RemiProfile from '../../components/RemiProfile.astro';
 
 const title = 'Rémi Couture | Designer UX/UI de jeux, artiste Club Penguin, fondateur de Strategic Sloth';
 const description =
@@ -49,72 +50,5 @@ const schema = [
 ];
 ---
 <StudioLayout title={title} description={description} lang="fr" alternates={alternates} image="/studio-images/remi-founder-photo.jpg" schema={schema}>
-  <section class="container" style="padding-top:30px">
-    <header style="display:grid;grid-template-columns:120px 1fr;gap:22px;align-items:center">
-      <img src="/studio-images/remi-founder-photo.jpg" alt="Portrait de Rémi Couture" width="120" height="120" style="border-radius:12px;object-fit:cover"/>
-      <div>
-        <h1>Rémi Couture</h1>
-        <p class="lede"><strong>Guillaume « Rémi » Couture</strong> (aussi écrit Remi Couture ou Remy Couture) est designer et développeur UX/UI de jeux vidéo établi dans le Grand Montréal, et le fondateur de <a href="/">Strategic Sloth LLC</a>.</p>
-        <p style="margin-top:6px">À ne pas confondre avec l’artiste maquilleur d’effets spéciaux montréalais Rémy Couture.</p>
-      </div>
-    </header>
-  </section>
-
-  <section class="b-section container" id="club-penguin">
-    <h2>Club Penguin chez Disney (2006 à 2009)</h2>
-    <p>Rémi a commencé sa carrière à Club Penguin, le monde virtuel pour enfants acquis par The Walt Disney Company en 2007. Il a d’abord travaillé au soutien à la clientèle, puis a rejoint l’équipe artistique comme illustrateur et animateur, créant des illustrations Flash et des éléments 3D.</p>
-    <p>Les œuvres et marques de Club Penguin appartiennent à Disney. Cette page n’est affiliée ni approuvée par Disney.</p>
-  </section>
-
-  <section class="b-section container" id="career">
-    <h2>Parcours en UI de jeux</h2>
-    <ul class="b-list" style="grid-template-columns:1fr">
-      <li><strong>Gogii Games</strong> (2009 à 2013)&nbsp;: designer UX/UI et illustrateur, 27 jeux lancés.</li>
-      <li><strong>Cupcake Digital</strong> (2013 à 2014)&nbsp;: UX/UI sur des applications pour enfants sur iOS et Android.</li>
-      <li><strong>DeNA</strong> (2014 à 2015)&nbsp;: UX/UI, interfaces de jeux mobiles en Unity.</li>
-      <li><strong>Hothead Games</strong> (2015 à 2016)&nbsp;: designer UX/UI senior.</li>
-      <li><strong>Piranha Games</strong> (2016 à 2018)&nbsp;: UX/UI sur MechWarrior 5.</li>
-      <li><strong>Phoenix Labs</strong> (2018)&nbsp;: UX/UI sur Dauntless.</li>
-      <li id="sprung-studios"><strong>Sprung Studios</strong> (juin à août 2018, Vancouver)&nbsp;: directeur artistique UX/UI et VR (contrat). Direction de projets clients, revues avec parties prenantes et mentorat de designers juniors.</li>
-      <li><strong>Frima Studio</strong> (2019 à 2020)&nbsp;: lead UX/UI sur des projets Unity et Unreal.</li>
-      <li><strong>UX Magicians</strong> (2020 à 2021)&nbsp;: designer produit UX/UI senior.</li>
-      <li><strong>AppLovin</strong> (2021 à 2022)&nbsp;: directeur UX, Central Creative, normalisation UX pour neuf studios mobiles.</li>
-      <li><strong>Offworld</strong> (2022 à 2025)&nbsp;: UX/UI senior sur Squad.</li>
-    </ul>
-    <p>Équipes et clients&nbsp;: Disney, Sony, Riot Games, AppLovin, Tencent, Phoenix Labs, Universal et Hasbro.</p>
-  </section>
-
-  <section class="b-section container" id="strategic-sloth">
-    <h2>Strategic Sloth et ses propres jeux</h2>
-    <p>Avec Strategic Sloth, Rémi conçoit et développe des interfaces de jeux, des applications et des jeux complets pour des studios, et crée des titres originaux&nbsp;:</p>
-    <ul class="b-list" style="grid-template-columns:1fr">
-      <li><a href="https://slothjam.com/">Sloth Jam</a>&nbsp;: jeu social gratuit pour enfants et familles, jouable dans le navigateur. Le jeu en ligne est protégé par un contrôle parental et désactivé par défaut.</li>
-      <li><a href="https://remiclassic.github.io/remiresume/tropictumble/">Tropic Tumble</a>&nbsp;: casse-tête «&nbsp;merge&nbsp;» à autocollants sur Google Play.</li>
-      <li><a href="https://www.sliceforge.io/">SliceForge</a>&nbsp;: outil de production d’UI de jeux.</li>
-      <li><a href="https://normanascension.com/">Norman Ascension</a>&nbsp;: RPG dynastique médiéval en développement.</li>
-    </ul>
-  </section>
-
-  <section class="b-section container" id="press">
-    <h2>Presse</h2>
-    <ul class="b-list" style="grid-template-columns:1fr">
-      <li>CBC Radio One, Daybreak South (octobre 2026)&nbsp;: <a href="https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668-former-kelowna-game-designer-back-free-game-kids">Former Kelowna game designer is back with a new free game for kids</a></li>
-      <li>Global News&nbsp;: <a href="https://globalnews.ca/news/4496492/end-of-the-road-for-kelownas-club-penguin/">End of the road for Kelowna’s Club Penguin</a> — Image de tête&nbsp;: illustration Club Penguin que j’ai dessinée (Disney)</li>
-    </ul>
-    <p>Dossier de presse&nbsp;: <a href="https://slothjam.com/share.html">slothjam.com/share.html</a></p>
-  </section>
-
-  <section class="b-section container" id="elsewhere">
-    <h2>Présence en ligne</h2>
-    <ul class="b-list" style="grid-template-columns:1fr">
-      <li><a href="https://remiclassic.github.io/remiresume/" rel="me">CV et portfolio</a></li>
-      <li><a href="https://www.linkedin.com/in/remicouture/" rel="me">LinkedIn</a></li>
-      <li><a href="https://x.com/remicouture" rel="me">X (@remicouture)</a></li>
-      <li><a href="https://www.artstation.com/remicouture" rel="me">ArtStation</a></li>
-      <li><a href="https://www.behance.net/RemiCouture" rel="me">Behance</a></li>
-      <li><a href="https://www.mobygames.com/person/867552/remi-couture/" rel="me">Crédits MobyGames</a></li>
-      <li><a href="https://github.com/remiclassic" rel="me">GitHub</a></li>
-    </ul>
-  </section>
+  <RemiProfile lang="fr" />
 </StudioLayout>
-

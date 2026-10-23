@@ -4,7 +4,7 @@ import ArticleCTA from '../components/ArticleCTA.astro';
 const { title, description, publishDate, reviewDate, readTime, category } = Astro.props;
 const international = /bank|tax|citizen|residen|offshore|passport|wyoming|uae|estonia|flags|asset-protection|nevis|incorporate|wise-vs/i.test(Astro.url.pathname);
 ---
-<Layout title={`${title} — Learn by Strategic Sloth`} description={description}>
+<Layout title={`${title} | Learn by Strategic Sloth`} description={description}>
 <script type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -12,7 +12,7 @@ const international = /bank|tax|citizen|residen|offshore|passport|wyoming|uae|es
   description,
   datePublished: publishDate?.toISOString?.() ?? publishDate,
   dateModified: reviewDate?.toISOString?.() ?? reviewDate,
-  author: { '@type': 'Person', '@id': new URL('/#remi', Astro.site).href, name: 'Guillaume (Remi) Couture' },
+  author: { '@type': 'Person', '@id': new URL('/remi-couture/#person', Astro.site).href, name: 'Guillaume (Remi) Couture' },
   publisher: { '@id': new URL('/#learn', Astro.site).href },
   mainEntityOfPage: { '@type': 'WebPage', '@id': new URL(Astro.url.pathname, Astro.site).href }
 })}/>

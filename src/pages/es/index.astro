@@ -1,0 +1,36 @@
+---
+import StudioLayout from '../../layouts/StudioLayout.astro';
+import '../../styles/boutique.css';
+
+const title = 'Strategic Sloth | Sitios y apps para negocios locales';
+const description =
+  'Estudio de Rémi Couture. Sitios web y apps a la medida para negocios en Playa del Carmen y la Riviera Maya. Cotización gratis. Precio fijo.';
+---
+<StudioLayout title={title} description={description} lang="es">
+  <section class="b-intro container">
+    <p class="eyebrow">ESPAÑOL · PLAYA DEL CARMEN Y LA RIVIERA MAYA</p>
+    <h1>Sitios y apps <em>para su negocio.</em></h1>
+    <p class="lede">Strategic Sloth es el estudio de Rémi Couture. Esta sección en español es para restaurantes, tiendas, tours, clínicas, gimnasios y hoteles que necesitan un sitio o una app clara.</p>
+    <div class="b-hero-actions">
+      <a class="button" href="/es/local-business/">Ver la oferta para negocios locales <span>→</span></a>
+      <a class="text-link" href="/">Sitio en inglés <span>→</span></a>
+    </div>
+  </section>
+  <section class="b-sage b-section tight">
+    <div class="container">
+      <div class="b-head">
+        <div>
+          <p class="eyebrow">EN PERSONA O A DISTANCIA</p>
+          <h2>Playa del Carmen, <em>la Riviera Maya y más.</em></h2>
+        </div>
+        <p>Trabajamos con negocios locales aquí, y también a distancia. El resto del sitio del estudio está en inglés y en francés.</p>
+      </div>
+      <ul class="b-list">
+        <li><strong>Cotización gratis</strong><span>Un precio fijo, por escrito, antes de empezar.</span></li>
+        <li><strong>Español e inglés</strong><span>Sitios bilingües para turistas y para la comunidad.</span></li>
+        <li><strong>Sitio o app</strong><span>Reservaciones, pedidos, lealtad o una página que sí se entiende en el celular.</span></li>
+        <li><strong>Usted es dueño</strong><span>Archivos, cuentas y código quedan en sus manos.</span></li>
+      </ul>
+    </div>
+  </section>
+</StudioLayout>

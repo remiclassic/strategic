@@ -1,0 +1,128 @@
+---
+import FounderPortrait from './FounderPortrait.astro';
+import Faq from './b/Faq.astro';
+import { localCopy, localAlternates, localContactHref, slothJamHref, type LocalLang } from '../data/local-business';
+
+const { lang } = Astro.props as { lang: LocalLang };
+const t = localCopy[lang];
+---
+<section class="b-intro night lb-hero">
+  <div class="container">
+    <div class="lb-top">
+      <p class="eyebrow"><span class="live-dot" style="background:var(--gold)"></span> {t.eyebrow}</p>
+      <nav class="lb-langs" aria-label="Language">
+        {localAlternates.map(alt => (
+          <a href={alt.href} hreflang={alt.lang} lang={alt.lang} aria-current={alt.lang === lang ? 'page' : undefined}>{localCopy[alt.lang].langLabel}</a>
+        ))}
+      </nav>
+    </div>
+    <h1>{t.h1[0]} <em>{t.h1[1]}</em></h1>
+    <p class="lede">{t.lede}</p>
+    <ul class="lb-audiences">{t.audiences.map(name => <li>{name}</li>)}</ul>
+    <div class="b-hero-actions">
+      <a class="button gold" href={localContactHref} data-track="service_cta" data-track-location={`local-${lang}-hero`}>{t.cta} <span>↗</span></a>
+    </div>
+    {t.formNote && <p class="lb-form-note">{t.formNote}</p>}
+    <div class="b-facts lb-facts">{t.facts.map(([n, l]) => <div><span>{n}</span><strong>{l}</strong></div>)}</div>
+  </div>
+</section>
+
+<section class="b-section container" id="services">
+  <div class="b-head">
+    <div>
+      <p class="eyebrow">{t.servicesEyebrow}</p>
+      <h2>{t.servicesTitle[0]}<br><em>{t.servicesTitle[1]}</em></h2>
+    </div>
+    <p>{t.servicesIntro}</p>
+  </div>
+  <ul class="b-list b-list-2 lb-services">
+    {t.services.map(([name, body]) => <li><strong>{name}</strong><span>{body}</span></li>)}
+  </ul>
+</section>
+
+<section class="b-sage b-section" id="why">
+  <div class="container b-founder">
+    <FounderPortrait alt={t.whyPortraitAlt} />
+    <div>
+      <p class="eyebrow">{t.whyEyebrow}</p>
+      <h2>{t.whyTitle[0]}<br><em>{t.whyTitle[1]}</em></h2>
+      {t.why.map(p => <p>{p}</p>)}
+      <a class="lb-proof" href={slothJamHref} rel="noopener">
+        <img src="/media/studio/sloth-jam.jpg" alt="" width="640" height="400" loading="lazy"/>
+        <div>
+          <p class="eyebrow">{t.proofTitle}</p>
+          <p>{t.proofBody}</p>
+          <span>{t.proofCta} <span aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="b-section container" id="how">
+  <div class="b-head">
+    <div>
+      <p class="eyebrow">{t.stepsEyebrow}</p>
+      <h2>{t.stepsTitle[0]}<br><em>{t.stepsTitle[1]}</em></h2>
+    </div>
+    <p>{t.stepsIntro}</p>
+  </div>
+  <ol class="b-steps">
+    {t.steps.map(([title, body, note]) => <li><h3>{title}</h3><p>{body}</p><small>{note}</small></li>)}
+  </ol>
+</section>
+
+<Faq items={t.faq} title={t.faqTitle} eyebrow={t.faqEyebrow} />
+
+<section class="b-cta" id="quote">
+  <div class="container">
+    <div>
+      <p class="eyebrow">{t.closeEyebrow}</p>
+      <h2>{t.closeTitle[0]}<br><em>{t.closeTitle[1]}</em></h2>
+    </div>
+    <div>
+      <p>{t.closeBody}</p>
+      {t.formNote && <p>{t.formNote}</p>}
+      <div class="b-hero-actions" style="margin-top:0">
+        <a class="button gold" href={localContactHref} data-track="cta_click" data-track-location={`local-${lang}-close`}>{t.closeCta} <span>↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.lb-hero{padding-block:88px 70px}
+.lb-hero h1{max-width:16ch}
+.lb-top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.lb-top .eyebrow{margin:0;display:flex;align-items:center;gap:8px}
+.lb-langs{display:flex;flex-wrap:wrap;gap:8px}
+.lb-langs a{font-size:12px;font-weight:600;padding:6px 14px;border:1px solid #ffffff40;border-radius:30px;color:#e3e6dc}
+.lb-langs a:hover,.lb-langs a[aria-current=page]{background:var(--gold);border-color:var(--gold);color:#16130c}
+.lb-audiences{list-style:none;padding:0;margin:28px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.lb-audiences li{padding:6px 12px;border-radius:30px;background:#ffffff14;color:#e3e6dc;font-size:12px;font-weight:600}
+.lb-form-note{margin-top:16px;font-size:13px;color:#c9cfc3;max-width:46ch}
+.lb-facts{margin-top:48px;border-color:#ffffff26}
+.lb-hero .b-facts span{color:#c9cfc3}
+.lb-hero .b-facts strong{color:#fff}
+.lb-hero .b-facts div+div{border-left-color:#ffffff26}
+.lb-services{margin-top:0;grid-template-columns:1fr 1fr}
+.lb-services li{padding:22px 0}
+.lb-services strong{font-size:20px;letter-spacing:-.03em}
+.lb-services span{font-size:15px;line-height:1.7;margin-top:6px}
+.b-founder :global(.founder-swap img){width:100%;border-radius:var(--b-radius);background:#dfe4d4}
+.lb-proof{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;margin-top:28px;padding:16px;border-radius:var(--b-radius);background:#fbfaf5;border:1px solid var(--line)}
+.lb-proof img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:var(--night)}
+.lb-proof .eyebrow{margin-bottom:6px;color:#6b8053}
+.lb-proof p:not(.eyebrow){font-size:14px;line-height:1.65;margin:0}
+.lb-proof span{display:inline-block;margin-top:10px;font-size:13px;font-weight:600}
+.lb-proof:hover span{text-decoration:underline;text-underline-offset:4px}
+.b-founder h2 em{font-style:normal;color:#6b8053}
+@media(max-width:800px){
+  .lb-hero{padding-block:56px 44px}
+  .lb-services{grid-template-columns:1fr}
+  .lb-hero .b-facts div:nth-child(n+3){border-top-color:#ffffff26}
+}
+@media(max-width:600px){
+  .lb-proof{grid-template-columns:1fr}
+}
+</style>

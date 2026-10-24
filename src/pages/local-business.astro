@@ -1,0 +1,24 @@
+---
+import StudioLayout from '../layouts/StudioLayout.astro';
+import LocalBusinessPage from '../components/LocalBusinessPage.astro';
+import { breadcrumbSchema, serviceSchema } from '../utils/seo';
+import { localCopy, localAlternates } from '../data/local-business';
+import '../styles/boutique.css';
+
+const t = localCopy.en;
+const schema = [
+  serviceSchema(
+    'Websites and apps for local businesses',
+    t.path,
+    t.description,
+    'Website design and custom app development'
+  ),
+  breadcrumbSchema([
+    ['Home', '/'],
+    ['Local business', t.path],
+  ]),
+];
+---
+<StudioLayout title={t.title} description={t.description} lang="en" alternates={localAlternates} schema={schema}>
+  <LocalBusinessPage lang="en" />
+</StudioLayout>

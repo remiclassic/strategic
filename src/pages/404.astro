@@ -43,6 +43,7 @@ const destinations: [string, string, string][] = [
     [/learn|blog|book|article/i, '/learn/', 'Learning library'],
     [/team|studio|about/i, '/studio/', 'Studio'],
     [/contact|hire|start/i, '/contact/', 'Contact'],
+    [/local|negocio|commerce/i, '/local-business/', 'Local business'],
   ];
   const match = hints.find(([pattern]) => pattern.test(path));
   if (match) {

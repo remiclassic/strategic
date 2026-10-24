@@ -141,7 +141,7 @@ export const localCopy: Record<LocalLang, LocalCopy> = {
     ],
     closeEyebrow: 'Ready when you are',
     closeTitle: ['Tell us about', 'your business.'],
-    closeBody: 'Send a short note. You will get a free quote and a fixed price. Rémi replies in person.',
+    closeBody: 'Send a short note. You will get a free quote and a fixed price. Rémi replies personally.',
     closeCta: 'Get a free quote',
   },
   fr: {
@@ -231,7 +231,7 @@ export const localCopy: Record<LocalLang, LocalCopy> = {
     ],
     closeEyebrow: 'Quand vous voulez',
     closeTitle: ['Parlez-nous', 'de votre commerce.'],
-    closeBody: 'Envoyez un court mot. Vous recevrez un devis gratuit et un prix fixe. Rémi répond en personne.',
+    closeBody: 'Envoyez un court mot. Vous recevrez un devis gratuit et un prix fixe. Rémi répond personnellement.',
     closeCta: 'Demander un devis gratuit',
   },
   es: {
@@ -277,7 +277,7 @@ export const localCopy: Record<LocalLang, LocalCopy> = {
     whyEyebrow: 'Por qué este estudio',
     whyTitle: ['Veinte años de UX y UI.', 'Y productos propios.'],
     why: [
-      'Rémi Couture lleva cerca de 20 años diseñando juegos y apps para grandes estudios. Él lleva el trabajo en persona.',
+      'Rémi Couture lleva cerca de 20 años diseñando juegos y apps para grandes estudios. Él lleva el trabajo él mismo.',
       'También publica sus propios productos, así que sabe lo que cuesta terminar y entregar.',
       'Usted habla con él. La cotización es gratis. Cada proyecto tiene un precio fijo antes de empezar.',
     ],
@@ -321,7 +321,7 @@ export const localCopy: Record<LocalLang, LocalCopy> = {
     ],
     closeEyebrow: 'Cuando usted quiera',
     closeTitle: ['Cuéntenos de', 'su negocio.'],
-    closeBody: 'Mande una nota corta. Recibirá una cotización gratis y un precio fijo. Rémi responde en persona.',
+    closeBody: 'Mande una nota corta. Recibirá una cotización gratis y un precio fijo. Rémi le responde él mismo.',
     closeCta: 'Pedir una cotización gratis',
   },
 };

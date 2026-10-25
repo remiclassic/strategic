@@ -40,6 +40,8 @@ export async function POST(request) {
       connectedAt: new Date().toISOString(),
     };
     if (order.status === 'paid') setStatus(order, 'onboarding', 'client');
+    // Lets the WhatsApp webhook find this client from the phone_number_id Meta sends.
+    await setJSON(`wa:${order.meta.phoneNumberId}`, { orderId: order.id });
     await saveOrder(order);
     return json(request, publicOrder(order));
   } catch (error) {

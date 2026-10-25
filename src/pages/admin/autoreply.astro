@@ -19,6 +19,12 @@ const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
       <button class="button outline" type="button" data-export-all>Export all (JSON)</button>
       <button class="text-link" type="button" data-logout>Sign out</button>
     </div>
+    <section class="adm-queue" aria-labelledby="adm-queue-title">
+      <h2 id="adm-queue-title">Replies waiting for approval <span data-queue-count></span></h2>
+      <p class="adm-help">Clients in approve mode (the default for their first week live) get nothing until you approve here. WhatsApp replies must go out within 24 hours of the customer's last message.</p>
+      <div data-queue></div>
+    </section>
+    <h2 class="adm-orders-title">Orders</h2>
     <p class="adm-count" data-count aria-live="polite"></p>
     <div class="adm-list" data-list></div>
   </div>
@@ -52,6 +58,21 @@ const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
     a.download = name; a.click(); URL.revokeObjectURL(a.href);
   }
 
+  let drafts: any[] = [];
+  function renderQueue() {
+    root.querySelector('[data-queue-count]')!.textContent = drafts.length ? `(${drafts.length})` : '';
+    root.querySelector('[data-queue]')!.innerHTML = drafts.length ? drafts.map(d => `
+      <article class="adm-draft" data-draft="${esc(d.id)}">
+        <p class="adm-draft-meta"><strong>${esc(d.clientName)}</strong> · ${esc(d.customer.label)} · ${esc(d.customer.channel)} · ${esc(d.language)} · ${when(d.createdAt)} <span class="adm-tag t-${esc(d.action)}">${esc(d.action)}</span>${d.windowOpen ? '' : ' <span class="adm-tag t-closed">24 h window closed</span>'}</p>
+        <p class="adm-inbound">“${esc(d.inbound)}”</p>
+        <label class="adm-draft-edit">Reply<textarea rows="3" data-draft-text>${esc(d.text)}</textarea></label>
+        <div class="adm-actions"><button class="button" type="button" data-approve ${d.windowOpen ? '' : 'disabled'}>Approve and send</button><button class="button outline" type="button" data-reject>Reject</button></div>
+      </article>`).join('') : '<p class="adm-empty">Nothing waiting.</p>';
+  }
+  async function loadQueue() {
+    try { drafts = (await call('?drafts=1')).drafts; renderQueue(); } catch {}
+  }
+
   function render() {
     const shown = orders.filter(o => !filter.value || o.status === filter.value);
     root.querySelector('[data-count]')!.textContent = `${shown.length} of ${orders.length} orders`;
@@ -65,6 +86,7 @@ const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
         <p class="adm-contact">${esc(o.contactName)} · <a href="mailto:${esc(o.email)}">${esc(o.email)}</a> · ${esc(o.phone)}${o.meta ? ` · WABA ${esc(o.meta.wabaId)} / phone ${esc(o.meta.phoneNumberId)}${o.meta.tokenStored ? ' (token stored)' : ''}` : ''}${o.twilioNumber ? ` · Twilio ${esc(o.twilioNumber)}` : ''}</p>
         <div class="adm-actions">
           <label>Set status <select data-status>${STATUSES.map(s => `<option value="${s}" ${s === o.status ? 'selected' : ''}>${s.replaceAll('_', ' ')}</option>`).join('')}</select></label>
+          <label>Replies <select data-mode><option value="default" ${!o.botMode ? 'selected' : ''}>default (now: ${esc(o.botModeEffective)})</option><option value="approve" ${o.botMode === 'approve' ? 'selected' : ''}>approve each reply</option><option value="auto" ${o.botMode === 'auto' ? 'selected' : ''}>send automatically</option></select></label>
           <button class="button" type="button" data-live ${o.status === 'live' ? 'disabled' : ''}>Mark live</button>
           <button class="button outline" type="button" data-export>Export for bot (JSON)</button>
           ${o.region === 'ca' ? '<button class="button outline" type="button" data-twilio>Link Twilio number</button>' : ''}
@@ -77,7 +99,7 @@ const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
   async function load() {
     try {
       orders = (await call('')).orders;
-      login.hidden = true; board.hidden = false; render();
+      login.hidden = true; board.hidden = false; render(); loadQueue();
     } catch (e: any) {
       board.hidden = true; login.hidden = false;
       msg.textContent = e.status === 401 ? 'Wrong password.' : e.status === 503 ? 'ADMIN_PASSWORD is not set on the API.' : pass() ? `Could not load orders (${e.message}).` : '';
@@ -100,10 +122,25 @@ const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
     if (target.matches('[data-twilio]')) { const number = prompt('Twilio number in E.164, e.g. +15140000000'); if (number) update(id, { action: 'twilio', number }); }
     if (target.matches('[data-care]') && confirm('Create the monthly care subscription in Stripe and email the first invoice?')) update(id, { action: 'start_care' });
   });
+  root.querySelector('[data-queue]')!.addEventListener('click', async (event) => {
+    const target = event.target as HTMLElement;
+    const card = target.closest<HTMLElement>('[data-draft]');
+    if (!card) return;
+    const draftId = card.dataset.draft;
+    try {
+      if (target.matches('[data-approve]')) await call('', { method: 'POST', body: JSON.stringify({ action: 'draft_approve', draftId, text: (card.querySelector('[data-draft-text]') as HTMLTextAreaElement).value }) });
+      else if (target.matches('[data-reject]')) {
+        if (!confirm('Reject this reply? The customer gets nothing from the assistant.')) return;
+        await call('', { method: 'POST', body: JSON.stringify({ action: 'draft_reject', draftId }) });
+      } else return;
+      drafts = drafts.filter(d => d.id !== draftId); renderQueue();
+    } catch (e: any) { alert(`Failed: ${e.message}`); }
+  });
   list.addEventListener('change', (event) => {
     const target = event.target as HTMLSelectElement;
     const id = target.closest<HTMLElement>('[data-id]')?.dataset.id;
     if (id && target.matches('[data-status]')) update(id, { action: 'status', status: target.value });
+    if (id && target.matches('[data-mode]')) update(id, { action: 'bot_mode', mode: target.value });
   });
   filter.addEventListener('change', render);
   root.querySelector('[data-refresh]')!.addEventListener('click', load);
@@ -129,6 +166,9 @@ const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
 .adm-bar label,.adm-actions label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
 .adm-count{font-size:13px;color:var(--muted);margin-bottom:16px}
 .adm-list{display:grid;gap:16px}
+.adm-queue{margin:10px 0 34px}.adm-queue h2,.adm-orders-title{font-size:22px;letter-spacing:-.02em;margin-bottom:6px}.adm-help{font-size:13px;color:var(--muted);margin-bottom:12px;max-width:70ch}.adm-empty{font-size:14px;color:var(--muted)}
+.adm-draft{padding:16px 18px;border:1px solid #e3c88f;border-radius:14px;background:#fffaf0;margin-bottom:12px}.adm-draft-meta{font-size:13px;color:var(--muted)}.adm-inbound{margin:8px 0;font-size:15px}.adm-draft-edit{display:grid;gap:6px;font-size:13px;font-weight:600}.adm-draft-edit textarea{font:15px/1.5 'DM Sans',sans-serif;padding:10px 12px;border:1px solid #b9bfae;border-radius:8px;background:#fff;width:100%}
+.adm-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;background:#e5e8dc;color:#29342a}.adm-tag.t-handoff{background:#f6d4c4}.adm-tag.t-booking{background:#dbe6f5}.adm-tag.t-closed{background:#eee;color:#7a2a17}
 .adm-card{padding:20px;border:1px solid var(--line);border-radius:14px;background:#fbfaf5}
 .adm-card header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
 .adm-card h2{font-size:20px;letter-spacing:-.02em}

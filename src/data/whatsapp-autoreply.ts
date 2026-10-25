@@ -95,6 +95,8 @@ export type AutoCopy = {
   lede: string;
   heroCta: string;
   whatsappCta: string;
+  tryIt: string;
+  tryItNote: string;
   whatsappText: string;
   channels: string[];
   facts: [string, string][];
@@ -155,6 +157,8 @@ const es: AutoCopy = {
     'Su WhatsApp contesta en segundos, día y noche, en español y en inglés. Usa solo la información que usted aprueba. Lo que es delicado o raro, se lo pasa a una persona de su equipo.',
   heroCta: 'Ver planes y precios',
   whatsappCta: 'Preguntar por WhatsApp',
+  tryIt: 'Pruébelo ahora en el chat',
+  tryItNote: 'Es el mismo asistente automático que le configuramos, contestando por nosotros.',
   whatsappText: 'Hola, me interesa la respuesta automática 24/7 por WhatsApp para mi negocio.',
   channels: ['WhatsApp', 'Instagram DM', 'Español e inglés', 'Google Sheets'],
   facts: [
@@ -286,6 +290,8 @@ const en: AutoCopy = {
     'Your WhatsApp answers customers in seconds, 24/7, in Spanish and English. It uses only the info you approve. Anything tricky goes to a real person on your team.',
   heroCta: 'See plans and prices',
   whatsappCta: 'Ask on WhatsApp',
+  tryIt: 'Try it now in the chat',
+  tryItNote: 'It is the same automatic assistant we set up for you, answering for us.',
   whatsappText: 'Hi, I am interested in the 24/7 WhatsApp auto-reply for my business.',
   channels: ['WhatsApp', 'Instagram DM', 'Spanish and English', 'Google Sheets'],
   facts: [
@@ -417,6 +423,8 @@ const fr: AutoCopy = {
     'Vos clients ont une réponse en quelques secondes, jour et nuit. En français d’abord, seulement avec l’information que vous approuvez. Les cas délicats vont à une vraie personne.',
   heroCta: 'Voir les forfaits',
   whatsappCta: 'Nous écrire',
+  tryIt: 'Essayez-le dans le clavardage',
+  tryItNote: 'C’est le même assistant automatique que nous configurons pour vous, qui répond pour nous.',
   whatsappText: 'Bonjour, la réponse automatique 24/7 m’intéresse pour mon entreprise.',
   channels: ['Messenger', 'Texto (appels manqués)', 'Instagram', 'WhatsApp'],
   facts: [
@@ -553,6 +561,8 @@ const enCA: AutoCopy = {
     'Your customers get an answer in seconds, day and night. French first, using only the info you approve. Anything tricky goes to a real person.',
   heroCta: 'See plans',
   whatsappCta: 'Message us',
+  tryIt: 'Try it now in the chat',
+  tryItNote: 'It is the same automatic assistant we set up for you, answering for us.',
   whatsappText: 'Hi, I am interested in the 24/7 auto-reply for my business.',
   channels: ['Messenger', 'Missed-call text', 'Instagram', 'WhatsApp'],
   facts: [

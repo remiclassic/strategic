@@ -44,6 +44,8 @@ The site is static (GitHub Pages), so payments and forms run as serverless funct
 | `POST /api/autoreply/meta-signup` | Stores the WABA ID and phone number ID from Embedded Signup |
 | `GET/POST /api/autoreply/admin` | Order list, status changes, bot export (needs `ADMIN_PASSWORD`) |
 | `POST /api/autoreply/twilio-missed-call` | Texts back callers who were not answered (Quebec plans) |
+| `GET/POST /api/autoreply/whatsapp` | Meta webhook: verification, then every incoming WhatsApp message for every connected number |
+| `POST /api/autoreply/chat` | The chat bubble on every public page, answering for Strategic Sloth itself |
 
 Orders are stored in Upstash Redis and keyed by the Checkout Session ID. The `session_id` in the onboarding link is the client's key to their own form.
 
@@ -69,23 +71,30 @@ Vercel (server, keep secret):
 | `STRIPE_PRICE_CAD_BOOKINGS_SETUP`, `STRIPE_PRICE_CAD_BOOKINGS_MONTHLY` | Réservations prices |
 | `STRIPE_PRICE_CAD_COMPLETE_SETUP`, `STRIPE_PRICE_CAD_COMPLETE_MONTHLY` | Complet prices |
 | `STRIPE_PRICE_CAD_PILOT_SETUP` | 350 $ founding setup |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Order storage |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Order storage. `KV_REST_API_URL` and `KV_REST_API_TOKEN` (the names Vercel's Upstash integration creates) work too |
 | `RESEND_API_KEY` | Sends the emails. Without it, emails are skipped and logged |
 | `RESEND_FROM` | Sender, e.g. `Strategic Sloth <hola@strategicsloth.com>`. The domain must be verified in Resend |
 | `NOTIFY_EMAIL` | Where Rémi gets new orders and onboarding submissions |
 | `ADMIN_PASSWORD` | Password for `/admin/autoreply/` |
 | `SITE_URL` | `https://strategicsloth.com`, used for redirect links |
-| `ALLOWED_ORIGINS` | Comma-separated origins allowed to call the API. Defaults to `SITE_URL` |
+| `ALLOWED_ORIGINS` | Extra comma-separated origins allowed to call the API. `SITE_URL`, `https://strategicsloth.com` and `https://www.strategicsloth.com` are always allowed |
 | `META_APP_ID`, `META_APP_SECRET` | Used to swap the Embedded Signup code for a business token. Optional: without the secret, only the IDs are stored |
 | `META_GRAPH_VERSION` | Optional, defaults to `v23.0` |
 | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` | Missed-call text-back |
 | `TWILIO_WEBHOOK_URL` | Optional: the exact public URL Twilio calls, used for signature checks behind proxies |
+| `ANTHROPIC_API_KEY` | The reply engine's model key. Without it, every message is handed to a person |
+| `BOT_MODEL` | Optional, defaults to `claude-haiku-5-5` (small and cheap). `stub` gives a fixed answer for local testing and is refused on Vercel |
+| `WHATSAPP_VERIFY_TOKEN` | Any long random string you choose; paste the same value in Meta's webhook settings |
+| `META_APP_SECRET` | Also checks the signature on every WhatsApp webhook call (required for the webhook) |
+| `WHATSAPP_PHONE_NUMBER_ID` | Phone number ID of your own WhatsApp Business number, so it answers as Strategic Sloth |
+| `WHATSAPP_TOKEN` | Permanent system-user token that can send from that number. Clients' numbers use their own Embedded Signup token |
+| `CHAT_LIMIT_PER_HOUR` | Optional, site chat messages per visitor IP per hour (default 30) |
 
 GitHub Pages build (Actions variables, public):
 
 | Variable | Purpose |
 | --- | --- |
-| `PUBLIC_AUTOREPLY_API` | Base URL of the Vercel deployment, e.g. `https://strategic-api.vercel.app`. Leave empty if the site itself is served by Vercel |
+| `PUBLIC_AUTOREPLY_API` | Base URL of the Vercel deployment: `https://strategic-taupe.vercel.app`. Leave empty if the site itself is served by Vercel |
 | `WHATSAPP_NUMBER` | Number for the WhatsApp buttons, digits with country code. Without it, the buttons fall back to `/contact/` |
 | `META_APP_ID`, `META_CONFIG_ID` | Turn on the "Connect WhatsApp" button. Without them, the form collects the number and offers a short call instead |
 
@@ -112,6 +121,32 @@ GitHub Pages build (Actions variables, public):
 
 Messenger and Instagram for Quebec clients are connected during setup, through the bot platform's own Meta login.
 
+### The reply engine
+
+`server/autoreply/bot.js` answers every channel. The model drafts a reply from the client's approved answers, then code enforces the rules, so a bad draft never reaches a customer:
+
+- Complaints, refunds, medical and legal questions, and "let me talk to a person", go straight to a person. The model is not called.
+- Any number in a reply (price, time, quantity) must already appear in the approved answers or in what the customer wrote. Otherwise the customer gets the handoff message.
+- A reply that sounds like a confirmed booking is replaced by "your request is noted, a person will confirm".
+- Mexico answers in Spanish unless the customer writes in English. Quebec answers in French unless the customer writes in English. Strategic Sloth's own assistant follows the customer in Spanish, English or French.
+- Handoffs and booking requests email the owner (`NOTIFY_EMAIL` for Strategic Sloth, the order email for clients) with the customer's number and the conversation.
+- Conversations are kept in Redis for 30 days per client and per customer.
+
+**Approval mode.** The offer promises "you approve every answer before it goes out". New clients are in approve mode for their first week live: replies wait in "Replies waiting for approval" on `/admin/autoreply/` (approve, edit, reject), then switch to automatic. The admin page can force either mode per client. WhatsApp only allows free-form replies within 24 hours of the customer's last message, so the queue shows when that window has closed.
+
+**Strategic Sloth as client #1.** `src/data/strategic-sloth-bot.json` holds your own approved answers, taken from this site only. The auto-reply plan prices are filled in from `autoreply.json` at runtime. `_todo` in that file lists what is missing (reply hours, payment methods and refund terms for studio work); the bot never sees it. It runs in automatic mode on the site chat and on your number.
+
+### Meta setup for the WhatsApp reply bot
+
+1. In the Meta app (same one as Embedded Signup), WhatsApp > Configuration > Webhook: callback URL `https://strategic-taupe.vercel.app/api/autoreply/whatsapp`, verify token = your `WHATSAPP_VERIFY_TOKEN`. Click Verify and save, then subscribe to the **messages** field.
+2. Add your own number (+1 418 907 8783) under WhatsApp > API Setup > phone numbers. A number registered on the Cloud API stops working in the WhatsApp Business app on your phone, unless you use the coexistence onboarding Meta offers for the Business app. Decide which before you move it.
+3. Copy that number's **Phone number ID** to `WHATSAPP_PHONE_NUMBER_ID`.
+4. Business settings > System users: create a system user, give it the app and your WhatsApp account with full control, generate a token with `whatsapp_business_messaging` and `whatsapp_business_management`, never expiring. Put it in `WHATSAPP_TOKEN`.
+5. App settings > Basic: copy the App secret to `META_APP_SECRET`.
+6. Publish the app (Live mode) so real customers' messages reach the webhook.
+
+For a client who connected through Embedded Signup, nothing else is needed: their number is linked to their order, and the bot answers once the order is marked live.
+
 ### Twilio (Quebec missed-call texto)
 
 Buy a Canadian number in the client's name (or their subaccount). Set its voice "call status changes" webhook, or the `action` of the `<Dial>` that rings the business, to `https://<vercel-domain>/api/autoreply/twilio-missed-call`. In the admin page, use "Link Twilio number" on the order. Texts only go out for orders marked `live`, and default to French.
@@ -119,7 +154,7 @@ Buy a Canadian number in the client's name (or their subaccount). Set its voice 
 ### Local testing without Stripe
 
 ```sh
-npm run dev:api -- --seed          # API on :8787, file store in .data/, four test orders
+npm run dev:api -- --seed          # API on :8787, file store in .data/, four test orders (BOT_MODEL=stub in .env.local to try the chat without a key)
 PUBLIC_AUTOREPLY_API=http://127.0.0.1:8787 npm run build && npm run preview -- --port 4321
 ```
 

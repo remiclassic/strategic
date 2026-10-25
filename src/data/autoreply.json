@@ -1,0 +1,27 @@
+{
+  "$comment": "Prices and pilot spots for the 24/7 auto-reply offer. Amounts are whole units (pesos, dollars). Edit pilot.spotsLeft by hand as founding spots are taken; 0 hides the pilot banner and blocks pilot checkouts. Stripe price IDs live in env vars named STRIPE_PRICE_<CURRENCY>_<PLAN>_<SETUP|MONTHLY> (see README).",
+  "regions": {
+    "mx": {
+      "currency": "MXN",
+      "usdRate": 0.054,
+      "plans": [
+        { "id": "basic", "setup": 4500, "monthly": 1000, "updateMinutes": 30 },
+        { "id": "bookings", "setup": 8500, "monthly": 1500, "updateMinutes": 60, "featured": true },
+        { "id": "complete", "setup": 15000, "monthly": 2500, "updateMinutes": 120 }
+      ],
+      "pilot": { "plan": "bookings", "setup": 3500, "freeMonths": 1, "spotsTotal": 3, "spotsLeft": 3 },
+      "oxxo": true
+    },
+    "ca": {
+      "currency": "CAD",
+      "plusTaxes": true,
+      "plans": [
+        { "id": "basic", "setup": 450, "monthly": 79, "updateMinutes": 30 },
+        { "id": "bookings", "setup": 850, "monthly": 129, "updateMinutes": 60, "featured": true },
+        { "id": "complete", "setup": 1500, "monthly": 199, "updateMinutes": 120 }
+      ],
+      "pilot": { "plan": "bookings", "setup": 350, "freeMonths": 1, "spotsTotal": 3, "spotsLeft": 3 },
+      "oxxo": false
+    }
+  }
+}

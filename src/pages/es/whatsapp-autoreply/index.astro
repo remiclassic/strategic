@@ -1,0 +1,18 @@
+---
+import StudioLayout from '../../../layouts/StudioLayout.astro';
+import AutoReplyPage from '../../../components/AutoReplyPage.astro';
+import { breadcrumbSchema, serviceSchema } from '../../../utils/seo';
+import { autoCopy, autoPaths, autoAlternates, htmlLang } from '../../../data/whatsapp-autoreply';
+import '../../../styles/boutique.css';
+
+const loc = 'es';
+const t = autoCopy[loc];
+const path = autoPaths(loc).page;
+const schema = [
+  serviceSchema(t.serviceName, path, t.description, 'Chatbot and messaging automation'),
+  breadcrumbSchema([[t.crumbHome, '/'], [t.crumbSelf, path]]),
+];
+---
+<StudioLayout title={t.title} description={t.description} lang={htmlLang(loc)} alternates={autoAlternates} schema={schema}>
+  <AutoReplyPage loc={loc} />
+</StudioLayout>

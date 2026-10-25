@@ -40,6 +40,12 @@ jobs:
         run: npx playwright install chromium --with-deps
       - name: Build with Astro
         run: npm run build
+        env:
+          # Public build-time values for the auto-reply pages. Set them in Settings > Secrets and variables > Actions > Variables.
+          PUBLIC_AUTOREPLY_API: ${{ vars.PUBLIC_AUTOREPLY_API }}
+          WHATSAPP_NUMBER: ${{ vars.WHATSAPP_NUMBER }}
+          META_APP_ID: ${{ vars.META_APP_ID }}
+          META_CONFIG_ID: ${{ vars.META_CONFIG_ID }}
       - name: Verify production tracking output
         run: npm run verify:tracking
       - name: Unit tests

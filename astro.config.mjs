@@ -11,7 +11,7 @@ export default defineConfig({
     tailwind(),
     react(),
     sitemap({
-      filter: (page) => !['/scale-to-freedom', '/promo', '/upsell', '/buy-buttons', '/unrevealed-game'].some(route => page.includes(route)),
+      filter: (page) => !['/scale-to-freedom', '/promo', '/upsell', '/buy-buttons', '/unrevealed-game', '/onboarding/', '/admin/'].some(route => page.includes(route)),
       i18n: {
         defaultLocale: 'en',
         locales: {

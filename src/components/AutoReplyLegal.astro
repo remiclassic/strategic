@@ -1,0 +1,39 @@
+---
+import StudioLayout from '../layouts/StudioLayout.astro';
+import { autoreplyLegal, autoreplyLegalUpdated } from '../data/whatsapp-autoreply-legal';
+import { autoCopy, autoPaths, htmlLang, regionOf, type AutoLocale } from '../data/whatsapp-autoreply';
+
+const { loc, doc } = Astro.props as { loc: AutoLocale; doc: 'terms' | 'privacy' };
+const d = autoreplyLegal[doc][loc];
+const t = autoCopy[loc];
+const paths = autoPaths(loc);
+// The other language of the same region, so a reader can switch without losing their place.
+const sibling: AutoLocale = loc === 'es' ? 'en' : loc === 'en' ? 'es' : loc === 'fr' ? 'en-CA' : 'fr';
+const siblingLabel = { es: 'Español', en: 'English', fr: 'Français', 'en-CA': 'English' }[sibling];
+const alternates = [
+  { lang: htmlLang(loc) === 'en' && regionOf(loc) === 'ca' ? 'en-CA' : htmlLang(loc), href: Astro.url.pathname },
+  { lang: sibling === 'en-CA' ? 'en-CA' : sibling, href: autoPaths(sibling)[doc] },
+];
+const back = { es: 'Volver a la oferta', en: 'Back to the offer', fr: 'Retour à l’offre', 'en-CA': 'Back to the offer' }[loc];
+const updatedLabel = { es: 'Actualizado el', en: 'Updated', fr: 'Mis à jour le', 'en-CA': 'Updated' }[loc];
+---
+<StudioLayout title={`${d.title} | ${t.serviceName}`} description={d.summary} lang={htmlLang(loc)} alternates={alternates}>
+<article class="legal-page container">
+  <header>
+    <p class="eyebrow">STRATEGIC SLOTH LLC / {t.serviceName}</p>
+    <h1>{d.title}</h1>
+    <p class="legal-summary">{d.summary}</p>
+    <p class="legal-updated">{updatedLabel} <time datetime={autoreplyLegalUpdated}>{d.updated}</time></p>
+  </header>
+  <nav class="legal-page-nav" aria-label={d.title}>
+    <a href={paths.page}>← {back}</a>
+    <a href={paths.terms} aria-current={doc === 'terms' ? 'page' : undefined}>{t.legalTerms}</a>
+    <a href={paths.privacy} aria-current={doc === 'privacy' ? 'page' : undefined}>{t.legalPrivacy}</a>
+    <a href={autoPaths(sibling)[doc]} hreflang={sibling} lang={htmlLang(sibling)}>{siblingLabel}</a>
+  </nav>
+  <div class="legal-page-body">
+    {d.sections.map(section => <section><h2>{section.title}</h2><Fragment set:html={section.body}/></section>)}
+    <address class="legal-company"><strong>Strategic Sloth LLC</strong><br/>1021 E Lincolnway, 526, Cheyenne, WY 82001<br/><a href="mailto:privacy@strategicsloth.com">privacy@strategicsloth.com</a></address>
+  </div>
+</article>
+</StudioLayout>

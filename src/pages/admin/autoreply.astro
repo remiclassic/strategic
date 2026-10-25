@@ -1,0 +1,146 @@
+---
+// Orders for the 24/7 auto-reply offer. Data comes from /api/autoreply/admin, which checks ADMIN_PASSWORD.
+// The password is kept in this tab's sessionStorage only.
+import StudioLayout from '../../layouts/StudioLayout.astro';
+const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
+---
+<StudioLayout title="Auto-reply orders | Admin" description="Internal order list." noindex>
+<section class="adm container" data-api={api}>
+  <h1>Auto-reply orders</h1>
+  <form class="adm-login" data-login>
+    <label for="adm-pass">Admin password</label>
+    <div><input id="adm-pass" type="password" autocomplete="current-password" required/><button class="button" type="submit">Sign in</button></div>
+    <p class="adm-msg" role="alert" data-msg></p>
+  </form>
+  <div data-board hidden>
+    <div class="adm-bar">
+      <label>Status <select data-filter><option value="">All</option></select></label>
+      <button class="button outline" type="button" data-refresh>Refresh</button>
+      <button class="button outline" type="button" data-export-all>Export all (JSON)</button>
+      <button class="text-link" type="button" data-logout>Sign out</button>
+    </div>
+    <p class="adm-count" data-count aria-live="polite"></p>
+    <div class="adm-list" data-list></div>
+  </div>
+</section>
+
+<script>
+  const STATUSES = ['awaiting_payment', 'paid', 'onboarding', 'ready_for_review', 'live', 'payment_failed', 'cancelled'];
+  const root = document.querySelector<HTMLElement>('.adm')!;
+  const api = root.dataset.api ?? '';
+  const login = root.querySelector<HTMLFormElement>('[data-login]')!;
+  const board = root.querySelector<HTMLElement>('[data-board]')!;
+  const list = root.querySelector<HTMLElement>('[data-list]')!;
+  const filter = root.querySelector<HTMLSelectElement>('[data-filter]')!;
+  const msg = root.querySelector<HTMLElement>('[data-msg]')!;
+  let orders: any[] = [];
+  STATUSES.forEach(s => filter.add(new Option(s.replaceAll('_', ' '), s)));
+
+  const pass = () => { try { return sessionStorage.getItem('ar-admin') ?? ''; } catch { return ''; } };
+  async function call(path: string, init: RequestInit = {}) {
+    const res = await fetch(`${api}/api/autoreply/admin${path}`, { ...init, headers: { Authorization: `Bearer ${pass()}`, 'Content-Type': 'application/json', ...(init.headers ?? {}) } });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw Object.assign(new Error(body.error ?? res.statusText), { status: res.status });
+    return body;
+  }
+
+  const esc = (s: unknown) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+  const when = (s?: string) => (s ? new Date(s).toLocaleString() : '');
+  function download(name: string, data: unknown) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+    a.download = name; a.click(); URL.revokeObjectURL(a.href);
+  }
+
+  function render() {
+    const shown = orders.filter(o => !filter.value || o.status === filter.value);
+    root.querySelector('[data-count]')!.textContent = `${shown.length} of ${orders.length} orders`;
+    list.innerHTML = shown.map(o => `
+      <article class="adm-card" data-id="${esc(o.id)}">
+        <header>
+          <div><h2>${esc(o.businessName || o.email || o.id)}</h2>
+          <p>${esc(o.planName)}${o.pilot ? ' · pilot' : ''} · ${esc(o.region?.toUpperCase())} · ${esc(o.locale)} · ${esc(o.method)} · ${when(o.createdAt)}</p></div>
+          <span class="adm-status s-${esc(o.status)}">${esc(o.status.replaceAll('_', ' '))}</span>
+        </header>
+        <p class="adm-contact">${esc(o.contactName)} · <a href="mailto:${esc(o.email)}">${esc(o.email)}</a> · ${esc(o.phone)}${o.meta ? ` · WABA ${esc(o.meta.wabaId)} / phone ${esc(o.meta.phoneNumberId)}${o.meta.tokenStored ? ' (token stored)' : ''}` : ''}${o.twilioNumber ? ` · Twilio ${esc(o.twilioNumber)}` : ''}</p>
+        <div class="adm-actions">
+          <label>Set status <select data-status>${STATUSES.map(s => `<option value="${s}" ${s === o.status ? 'selected' : ''}>${s.replaceAll('_', ' ')}</option>`).join('')}</select></label>
+          <button class="button" type="button" data-live ${o.status === 'live' ? 'disabled' : ''}>Mark live</button>
+          <button class="button outline" type="button" data-export>Export for bot (JSON)</button>
+          ${o.region === 'ca' ? '<button class="button outline" type="button" data-twilio>Link Twilio number</button>' : ''}
+          ${o.method === 'oxxo' && !o.stripeSubscriptionId ? '<button class="button outline" type="button" data-care>Start monthly care (invoice)</button>' : ''}
+        </div>
+        <details><summary>All data</summary><pre>${esc(JSON.stringify(o, null, 2))}</pre></details>
+      </article>`).join('');
+  }
+
+  async function load() {
+    try {
+      orders = (await call('')).orders;
+      login.hidden = true; board.hidden = false; render();
+    } catch (e: any) {
+      board.hidden = true; login.hidden = false;
+      msg.textContent = e.status === 401 ? 'Wrong password.' : e.status === 503 ? 'ADMIN_PASSWORD is not set on the API.' : pass() ? `Could not load orders (${e.message}).` : '';
+    }
+  }
+
+  async function update(id: string, payload: object) {
+    try {
+      const { order } = await call('', { method: 'POST', body: JSON.stringify({ id, ...payload }) });
+      orders = orders.map(o => (o.id === id ? order : o)); render();
+    } catch (e: any) { alert(`Update failed: ${e.message}`); }
+  }
+
+  list.addEventListener('click', async (event) => {
+    const target = event.target as HTMLElement;
+    const id = target.closest<HTMLElement>('[data-id]')?.dataset.id;
+    if (!id) return;
+    if (target.matches('[data-live]')) update(id, { action: 'status', status: 'live' });
+    if (target.matches('[data-export]')) download(`autoreply-${id.slice(-10)}.json`, await call(`?export=${encodeURIComponent(id)}`));
+    if (target.matches('[data-twilio]')) { const number = prompt('Twilio number in E.164, e.g. +15140000000'); if (number) update(id, { action: 'twilio', number }); }
+    if (target.matches('[data-care]') && confirm('Create the monthly care subscription in Stripe and email the first invoice?')) update(id, { action: 'start_care' });
+  });
+  list.addEventListener('change', (event) => {
+    const target = event.target as HTMLSelectElement;
+    const id = target.closest<HTMLElement>('[data-id]')?.dataset.id;
+    if (id && target.matches('[data-status]')) update(id, { action: 'status', status: target.value });
+  });
+  filter.addEventListener('change', render);
+  root.querySelector('[data-refresh]')!.addEventListener('click', load);
+  root.querySelector('[data-export-all]')!.addEventListener('click', () => download('autoreply-orders.json', orders));
+  root.querySelector('[data-logout]')!.addEventListener('click', () => { try { sessionStorage.removeItem('ar-admin'); } catch {} orders = []; list.innerHTML = ''; load(); });
+  login.addEventListener('submit', (event) => {
+    event.preventDefault();
+    try { sessionStorage.setItem('ar-admin', (document.getElementById('adm-pass') as HTMLInputElement).value); } catch {}
+    load();
+  });
+  if (pass()) load();
+</script>
+
+<style is:global>
+.adm{padding-block:48px 90px}
+.adm h1{font-size:40px;letter-spacing:-.04em;margin-bottom:24px}
+.adm-login{max-width:420px;display:grid;gap:8px}
+.adm-login div{display:flex;gap:10px}
+.adm input,.adm select{font:16px 'DM Sans',sans-serif;padding:10px 12px;min-height:44px;border:1px solid #b9bfae;border-radius:8px;background:#fff}
+.adm-login input{flex:1}
+.adm-msg{color:#7a2a17;font-size:14px;min-height:1.4em}
+.adm-bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px}
+.adm-bar label,.adm-actions label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.adm-count{font-size:13px;color:var(--muted);margin-bottom:16px}
+.adm-list{display:grid;gap:16px}
+.adm-card{padding:20px;border:1px solid var(--line);border-radius:14px;background:#fbfaf5}
+.adm-card header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.adm-card h2{font-size:20px;letter-spacing:-.02em}
+.adm-card header p,.adm-contact{font-size:13px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}
+.adm-contact a{text-decoration:underline}
+.adm-status{flex:none;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:#e5e8dc}
+.adm-status.s-paid{background:#f3e3b8}.adm-status.s-onboarding{background:#dbe6f5}.adm-status.s-ready_for_review{background:#f6d4c4}.adm-status.s-live{background:#cfe8c6}.adm-status.s-cancelled,.adm-status.s-payment_failed{background:#eee}
+.adm-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.adm-actions .button{min-height:40px;padding-block:8px}
+.adm-card details{margin-top:14px}
+.adm-card summary{cursor:pointer;font-size:13px;font-weight:600}
+.adm-card pre{margin-top:10px;max-height:420px;overflow:auto;font:12px/1.5 'JetBrains Mono',monospace;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;white-space:pre-wrap}
+.adm .button.outline{background:transparent;color:var(--ink);border-color:#b9bfae}
+</style>
+</StudioLayout>

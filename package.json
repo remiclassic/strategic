@@ -30,10 +30,12 @@
     "autoreply:stripe-setup": "node scripts/autoreply-stripe-setup.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
     "@astrojs/react": "^3.6.3",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.0.0",
     "@tailwindcss/typography": "^0.5.19",
+    "@vercel/functions": "^3.10.3",
     "astro": "^4.0.0",
     "playcanvas": "^2.23.0",
     "react": "^19.3.0",

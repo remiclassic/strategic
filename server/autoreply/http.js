@@ -5,7 +5,7 @@ import { env, siteUrl } from './config.js';
 // The static site (GitHub Pages) and the API (Vercel) can live on different origins.
 export function corsHeaders(request) {
   const origin = request.headers.get('origin');
-  const allowed = env('ALLOWED_ORIGINS', siteUrl()).split(',').map((s) => s.trim());
+  const allowed = [...env('ALLOWED_ORIGINS', siteUrl()).split(','), 'https://strategicsloth.com', 'https://www.strategicsloth.com'].map((s) => s.trim());
   if (!origin || !allowed.includes(origin)) return {};
   return {
     'Access-Control-Allow-Origin': origin,

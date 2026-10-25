@@ -1,0 +1,162 @@
+---
+// Site-wide chat with Strategic Sloth's own automatic assistant. It is the same engine the 24/7 auto-reply
+// offer sells, so it doubles as the live demo. Talks to POST {PUBLIC_AUTOREPLY_API}/api/autoreply/chat.
+import { whatsappHref } from '../data/whatsapp-autoreply';
+
+const { lang = 'en' } = Astro.props as { lang?: string };
+const loc = lang === 'es' || lang === 'fr' ? lang : 'en';
+const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
+const t = {
+  es: {
+    open: 'Chatear con nuestro asistente', close: 'Cerrar el chat', title: 'Asistente de Strategic Sloth',
+    note: 'Asistente automático. Responde solo con información aprobada y le pasa a Rémi lo demás.',
+    hello: '¡Hola! Pregúnteme por nuestros servicios, precios o la respuesta automática 24/7. Es el mismo asistente que configuramos para negocios.',
+    label: 'Su mensaje', placeholder: 'Escriba su pregunta…', send: 'Enviar', wa: 'Escríbanos por WhatsApp',
+    error: 'No pudimos conectar con el asistente. Escríbanos por WhatsApp.', limited: 'Demasiados mensajes por ahora. Escríbanos por WhatsApp.',
+    waText: 'Hola, vengo del chat del sitio.', you: 'Usted', bot: 'Asistente',
+  },
+  en: {
+    open: 'Chat with our assistant', close: 'Close chat', title: 'Strategic Sloth assistant',
+    note: 'Automatic assistant. It answers only from approved info and passes anything else to Rémi.',
+    hello: 'Hi! Ask me about our services, prices or the 24/7 auto-reply. This is the same assistant we set up for businesses.',
+    label: 'Your message', placeholder: 'Type your question…', send: 'Send', wa: 'Message us on WhatsApp',
+    error: 'Could not reach the assistant. Message us on WhatsApp instead.', limited: 'Too many messages for now. Message us on WhatsApp instead.',
+    waText: 'Hi, I am coming from the site chat.', you: 'You', bot: 'Assistant',
+  },
+  fr: {
+    open: 'Clavarder avec notre assistant', close: 'Fermer le clavardage', title: 'Assistant Strategic Sloth',
+    note: 'Assistant automatique. Il répond seulement avec l’information approuvée et transmet le reste à Rémi.',
+    hello: 'Bonjour! Posez-moi vos questions sur nos services, nos prix ou la réponse automatique 24/7. C’est le même assistant que nous configurons pour les entreprises.',
+    label: 'Votre message', placeholder: 'Écrivez votre question…', send: 'Envoyer', wa: 'Écrivez-nous sur WhatsApp',
+    error: 'Impossible de joindre l’assistant. Écrivez-nous sur WhatsApp.', limited: 'Trop de messages pour l’instant. Écrivez-nous sur WhatsApp.',
+    waText: 'Bonjour, je viens du clavardage du site.', you: 'Vous', bot: 'Assistant',
+  },
+}[loc];
+const wa = whatsappHref(import.meta.env.WHATSAPP_NUMBER ?? process.env.WHATSAPP_NUMBER, t.waText);
+---
+<div class="cb" data-chat data-api={api} data-locale={loc} data-copy={JSON.stringify({ error: t.error, limited: t.limited, you: t.you, bot: t.bot })}>
+  <section class="cb-panel" id="cb-panel" role="dialog" aria-labelledby="cb-title" hidden>
+    <header class="cb-head">
+      <div>
+        <h2 id="cb-title">{t.title}</h2>
+        <p>{t.note}</p>
+      </div>
+      <button type="button" class="cb-x" data-chat-close aria-label={t.close}>×</button>
+    </header>
+    <div class="cb-log" role="log" aria-live="polite" data-chat-log>
+      <p class="cb-msg bot"><span class="cb-who">{t.bot}</span>{t.hello}</p>
+    </div>
+    <form class="cb-form" data-chat-form>
+      <label class="cb-sr" for="cb-input">{t.label}</label>
+      <textarea id="cb-input" rows="1" maxlength="800" placeholder={t.placeholder} required></textarea>
+      <button type="submit" class="cb-send">{t.send}</button>
+    </form>
+    <a class="cb-wa" href={wa} target={wa.startsWith('https') ? '_blank' : undefined} rel="noopener" data-track="whatsapp_click" data-track-location="chat-bubble">{t.wa} <span aria-hidden="true">↗</span></a>
+  </section>
+  <button type="button" class="cb-open" data-chat-toggle aria-controls="cb-panel" aria-expanded="false" aria-label={t.open}>
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm3 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" transform="translate(0 2)"/></svg>
+  </button>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-chat]');
+  if (root) {
+    const panel = root.querySelector<HTMLElement>('.cb-panel')!;
+    const toggle = root.querySelector<HTMLButtonElement>('[data-chat-toggle]')!;
+    const log = root.querySelector<HTMLElement>('[data-chat-log]')!;
+    const form = root.querySelector<HTMLFormElement>('[data-chat-form]')!;
+    const input = root.querySelector<HTMLTextAreaElement>('#cb-input')!;
+    const copy = JSON.parse(root.dataset.copy!);
+    const key = 'ss-chat-session';
+    let session = '';
+    try { session = sessionStorage.getItem(key) ?? ''; } catch {}
+    if (!session) {
+      session = Array.from(crypto.getRandomValues(new Uint8Array(12)), b => b.toString(16).padStart(2, '0')).join('');
+      try { sessionStorage.setItem(key, session); } catch {}
+    }
+
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      root.classList.toggle('is-open', open);
+      if (open) input.focus(); else toggle.focus();
+    };
+    toggle.addEventListener('click', () => setOpen(panel.hidden));
+    root.querySelector('[data-chat-close]')!.addEventListener('click', () => setOpen(false));
+    panel.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+    // Any element with data-chat-open (the "try it" links on the offer pages) opens the chat.
+    document.addEventListener('click', (e) => {
+      const opener = (e.target as HTMLElement).closest('[data-chat-open]');
+      if (opener) { e.preventDefault(); setOpen(true); }
+    });
+
+    const add = (who: 'you' | 'bot', text: string, extra = '') => {
+      const p = document.createElement('p');
+      p.className = `cb-msg ${who} ${extra}`.trim();
+      const label = document.createElement('span');
+      label.className = 'cb-who';
+      label.textContent = who === 'you' ? copy.you : copy.bot;
+      p.append(label, document.createTextNode(text));
+      log.append(p);
+      log.scrollTop = log.scrollHeight;
+      return p;
+    };
+
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+      input.value = '';
+      add('you', message);
+      const typing = add('bot', '…', 'typing');
+      const send = form.querySelector('button')!;
+      send.disabled = true;
+      try {
+        const res = await fetch(`${root.dataset.api}/api/autoreply/chat`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session, message, locale: root.dataset.locale }),
+        });
+        const body = await res.json().catch(() => ({}));
+        typing.remove();
+        if (res.status === 429) add('bot', copy.limited, 'error');
+        else if (!res.ok || !body.reply) add('bot', copy.error, 'error');
+        else add('bot', body.reply);
+      } catch {
+        typing.remove();
+        add('bot', copy.error, 'error');
+      } finally {
+        send.disabled = false;
+        input.focus();
+      }
+    });
+  }
+</script>
+
+<style is:global>
+.cb{position:fixed;right:16px;bottom:16px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-family:'DM Sans',sans-serif}
+.cb-open{width:58px;height:58px;border-radius:50%;border:0;display:grid;place-items:center;background:#121814;color:#c9a45c;box-shadow:0 10px 30px #0004;cursor:pointer}
+.cb-open:hover{background:#1b231d}
+.cb-open:focus-visible,.cb button:focus-visible,.cb a:focus-visible,.cb textarea:focus-visible{outline:3px solid #c9a45c;outline-offset:3px}
+.cb-panel{width:min(380px,calc(100vw - 32px));max-height:min(560px,calc(100dvh - 110px));display:flex;flex-direction:column;border-radius:16px;background:#f6f5ef;border:1px solid #cdd3c3;box-shadow:0 24px 70px #10201040;overflow:hidden}
+.cb-panel[hidden]{display:none}
+.cb-head{display:flex;justify-content:space-between;gap:12px;padding:16px 16px 12px;background:#121814;color:#fff}
+.cb-head h2{font:700 17px/1.3 Manrope,sans-serif;color:#fff;margin:0}
+.cb-head p{font-size:12px;line-height:1.5;color:#c9cfc3;margin:4px 0 0}
+.cb-x{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid #ffffff40;background:transparent;color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.cb-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:160px}
+.cb-msg{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.5;margin:0;white-space:pre-wrap;overflow-wrap:anywhere;color:#1c241a}
+.cb-msg.bot{background:#fff;border:1px solid #d6dbcc;align-self:flex-start}
+.cb-msg.you{background:#dcf2d6;align-self:flex-end}
+.cb-msg.error{background:#fbe9e4;color:#7a2a17}
+.cb-msg.typing{color:#63705c}
+.cb-who{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#63705c;margin-bottom:2px}
+.cb-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #d6dbcc;background:#fbfaf5}
+.cb-form textarea{flex:1;resize:none;font:16px/1.4 'DM Sans',sans-serif;padding:10px 12px;min-height:44px;max-height:120px;border:1px solid #b9bfae;border-radius:10px;background:#fff;color:#1c241a}
+.cb-send{flex:none;min-height:44px;padding:0 16px;border-radius:10px;border:0;background:#121814;color:#fff;font:600 14px 'DM Sans',sans-serif;cursor:pointer}
+.cb-send:disabled{opacity:.6;cursor:progress}
+.cb-wa{display:flex;justify-content:center;gap:6px;padding:11px;min-height:44px;font-size:14px;font-weight:600;background:#1f8f4e;color:#fff}
+.cb-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:600px){.cb{right:12px;bottom:12px}.cb-panel{width:calc(100vw - 24px)}}
+@media print{.cb{display:none}}
+</style>

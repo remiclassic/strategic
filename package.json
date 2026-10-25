@@ -25,7 +25,9 @@
     "export-carousel-freedom-library": "node marketing/export-carousel-freedom-library.mjs",
     "export-carousel-books-offers": "node marketing/export-carousel-books-offers.mjs",
     "marketing-assets-grid": "node marketing/generate-marketing-assets-grid.mjs",
-    "verify:migration": "node scripts/verify-migration.mjs"
+    "verify:migration": "node scripts/verify-migration.mjs",
+    "dev:api": "node scripts/autoreply-api-dev.mjs",
+    "autoreply:stripe-setup": "node scripts/autoreply-stripe-setup.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^3.6.3",
@@ -36,6 +38,7 @@
     "playcanvas": "^2.23.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "stripe": "^17.7.0",
     "tailwindcss": "^3.0.0"
   },
   "devDependencies": {

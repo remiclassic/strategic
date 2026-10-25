@@ -1,0 +1,477 @@
+---
+import { onboardingCopy } from '../data/whatsapp-autoreply-onboarding';
+import { autoPaths, regionOf, switcherFor, type AutoLocale } from '../data/whatsapp-autoreply';
+
+const { loc } = Astro.props as { loc: AutoLocale };
+const t = onboardingCopy[loc];
+const region = regionOf(loc);
+const paths = autoPaths(loc);
+const other = switcherFor(loc).find(s => s.loc !== loc)!;
+const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
+const metaAppId = import.meta.env.META_APP_ID ?? process.env.META_APP_ID ?? '';
+const metaConfigId = import.meta.env.META_CONFIG_ID ?? process.env.META_CONFIG_ID ?? '';
+
+type F = { label: string; hint?: string; placeholder?: string };
+const id = (name: string) => `f-${name.replace(/\W/g, '-')}`;
+---
+<section class="ob container" data-ob data-loc={loc} data-region={region} data-api={api} data-meta-app={metaAppId} data-meta-config={metaConfigId}
+  data-copy={JSON.stringify({ states: t.states, saved: t.saved, saving: t.saving, saveError: t.saveError, required: t.required, stepOf: t.stepOf, review: t.review, samples: t.samples, whatsapp: t.whatsapp, answers: t.answers, steps: t.steps })}>
+  <header class="ob-head">
+    <div>
+      <h1>{t.h1}</h1>
+      <p class="ob-intro">{t.intro}</p>
+    </div>
+    <a class="ob-lang" href={autoPaths(other.loc).onboarding} data-keep-query hreflang={other.loc} lang={other.loc === 'en-CA' ? 'en' : other.loc}>{t.switchLabel}</a>
+  </header>
+
+  <p class="ob-state" data-state role="status">{t.states.loading}</p>
+  <noscript><p class="ob-state">{t.states.error}</p></noscript>
+
+  <div class="ob-thanks" data-thanks hidden tabindex="-1">
+    <h2>{t.thanksTitle}</h2>
+    <p>{t.thanksBody}</p>
+    <button class="button" type="button" data-edit-again>{t.editAgain}</button>
+  </div>
+
+  <form class="ob-form" data-form hidden novalidate>
+    <div class="ob-progress">
+      <p data-step-label aria-live="polite"></p>
+      <p class="ob-plan"><span>{t.planLabel}:</span> <strong data-plan></strong></p>
+      <p class="ob-save" data-save aria-live="polite"></p>
+    </div>
+    <ol class="ob-dots" aria-hidden="true" data-dots></ol>
+
+    <fieldset data-step="business">
+      <legend>{t.steps.business}</legend>
+      {([['name', t.business.name, 'text', true, 'organization'], ['address', t.business.address, 'text', true, 'street-address'], ['maps', t.business.maps, 'url', false, 'url'], ['website', t.business.website, 'url', false, 'url'], ['instagram', t.business.instagram, 'text', false, 'off']] as [string, F, string, boolean, string][]).map(([k, f, type, req, ac]) => (
+        <div class="ob-field">
+          <label for={id(`business.${k}`)}>{f.label}{req && <span aria-hidden="true"> *</span>}</label>
+          {f.hint && <small id={`${id(`business.${k}`)}-hint`}>{f.hint}</small>}
+          <input id={id(`business.${k}`)} name={`business.${k}`} type={type} required={req} autocomplete={ac} placeholder={f.placeholder} aria-describedby={f.hint ? `${id(`business.${k}`)}-hint` : undefined}/>
+        </div>
+      ))}
+      <div class="ob-field">
+        <label for={id('business.type')}>{t.business.type.label} <span aria-hidden="true">*</span></label>
+        <select id={id('business.type')} name="business.type" required>
+          <option value=""></option>
+          {t.business.types.map(v => <option>{v}</option>)}
+        </select>
+      </div>
+      <div class="ob-field">
+        <label for={id('business.hours')}>{t.business.hours.label} <span aria-hidden="true">*</span></label>
+        <textarea id={id('business.hours')} name="business.hours" rows="3" required placeholder={t.business.hours.placeholder}></textarea>
+      </div>
+      <fieldset class="ob-checks">
+        <legend>{t.business.languages.label}</legend>
+        {t.business.languageOptions.map(v => <label><input type="checkbox" name="business.languages[]" value={v}/> {v}</label>)}
+      </fieldset>
+      <div class="ob-field">
+        <label for={id('business.phone')}>{t.business.phone.label} <span aria-hidden="true">*</span></label>
+        <small id="ob-phone-hint">{t.business.phone.hint}</small>
+        <input id={id('business.phone')} name="business.phone" type="tel" required autocomplete="tel" inputmode="tel" aria-describedby="ob-phone-hint"/>
+      </div>
+    </fieldset>
+
+    <fieldset data-step="whatsapp" hidden>
+      <legend>{t.steps.whatsapp}</legend>
+      <p class="ob-help">{t.whatsapp.intro}</p>
+      {t.whatsapp.channels && (
+        <fieldset class="ob-checks">
+          <legend>{t.whatsapp.channels.label}</legend>
+          {t.whatsapp.channelOptions!.map(v => <label><input type="checkbox" name="whatsapp.channels[]" value={v}/> {v}</label>)}
+        </fieldset>
+      )}
+      {t.whatsapp.facebook && (
+        <div class="ob-field">
+          <label for={id('whatsapp.facebook')}>{t.whatsapp.facebook.label}</label>
+          <input id={id('whatsapp.facebook')} name="whatsapp.facebook" type="url" placeholder={t.whatsapp.facebook.placeholder}/>
+        </div>
+      )}
+      <div class="ob-connect">
+        <button class="button gold" type="button" data-meta-connect hidden>{t.whatsapp.connect}</button>
+        <p class="ob-connected" data-meta-status role="status" hidden></p>
+        <p class="ob-help" data-meta-unavailable hidden>{t.whatsapp.unavailable}</p>
+      </div>
+      <div class="ob-field">
+        <label for={id('whatsapp.number')}>{t.whatsapp.number.label}</label>
+        <small id="ob-wa-hint">{t.whatsapp.number.hint}</small>
+        <input id={id('whatsapp.number')} name="whatsapp.number" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="ob-wa-hint"/>
+      </div>
+      <label class="ob-check"><input type="checkbox" name="whatsapp.connectOnCall"/> {t.whatsapp.callInstead}</label>
+      {t.sms && (
+        <div class="ob-sub" data-plan-only="bookings complete">
+          <h3>{t.sms.title}</h3>
+          <p class="ob-help">{t.sms.intro}</p>
+          <div class="ob-field">
+            <label for={id('sms.number')}>{t.sms.number.label}</label>
+            <small id="ob-sms-hint">{t.sms.number.hint}</small>
+            <input id={id('sms.number')} name="sms.number" type="tel" inputmode="tel" aria-describedby="ob-sms-hint"/>
+          </div>
+          <div class="ob-field">
+            <label for={id('sms.missedCallText')}>{t.sms.text.label}</label>
+            <small id="ob-smst-hint">{t.sms.text.hint}</small>
+            <textarea id={id('sms.missedCallText')} name="sms.missedCallText" rows="3" maxlength="300" placeholder={t.sms.text.placeholder} aria-describedby="ob-smst-hint"></textarea>
+          </div>
+        </div>
+      )}
+    </fieldset>
+
+    <fieldset data-step="answers" hidden>
+      <legend>{t.steps.answers}</legend>
+      <p class="ob-help">{t.answers.intro}</p>
+      {([['prices', t.answers.prices, true], ['included', t.answers.included, false], ['howToBook', t.answers.howToBook, true], ['cancellation', t.answers.cancellation, false], ['location', t.answers.location, true]] as [string, F, boolean][]).map(([k, f, req]) => (
+        <div class="ob-field">
+          <label for={id(`answers.${k}`)}>{f.label}{req && <span aria-hidden="true"> *</span>}</label>
+          <textarea id={id(`answers.${k}`)} name={`answers.${k}`} rows="3" required={req} placeholder={f.placeholder}></textarea>
+        </div>
+      ))}
+      <fieldset class="ob-checks">
+        <legend>{t.answers.payment.label}</legend>
+        {t.answers.paymentOptions.map(v => <label><input type="checkbox" name="answers.payment[]" value={v}/> {v}</label>)}
+      </fieldset>
+      <div class="ob-field">
+        <label for={id('answers.other')}>{t.answers.other.label}</label>
+        <textarea id={id('answers.other')} name="answers.other" rows="4" placeholder={t.answers.other.placeholder}></textarea>
+      </div>
+      <div class="ob-sub">
+        <h3>{t.answers.customTitle}</h3>
+        <div data-custom-list></div>
+        <button class="ob-add" type="button" data-add-question>+ {t.answers.addQuestion}</button>
+      </div>
+    </fieldset>
+
+    <fieldset data-step="booking" hidden data-plan-only="bookings complete">
+      <legend>{t.steps.booking}</legend>
+      <p class="ob-help">{t.booking.intro}</p>
+      {([['rules', t.booking.rules, 'textarea'], ['capacity', t.booking.capacity, 'text'], ['leadTime', t.booking.leadTime, 'text'], ['confirms', t.booking.confirms, 'text']] as [string, F, string][]).map(([k, f, kind]) => (
+        <div class="ob-field">
+          <label for={id(`booking.${k}`)}>{f.label}</label>
+          {kind === 'textarea'
+            ? <textarea id={id(`booking.${k}`)} name={`booking.${k}`} rows="3" placeholder={f.placeholder}></textarea>
+            : <input id={id(`booking.${k}`)} name={`booking.${k}`} type="text" placeholder={f.placeholder}/>}
+        </div>
+      ))}
+      <div class="ob-field">
+        <label for={id('booking.staffWhatsapp')}>{t.booking.staffWhatsapp.label}</label>
+        <small id="ob-staff-hint">{t.booking.staffWhatsapp.hint}</small>
+        <input id={id('booking.staffWhatsapp')} name="booking.staffWhatsapp" type="tel" inputmode="tel" aria-describedby="ob-staff-hint"/>
+      </div>
+    </fieldset>
+
+    <fieldset data-step="review" hidden>
+      <legend>{t.steps.review}</legend>
+      <p class="ob-help">{t.review.intro}</p>
+      <h3 class="ob-samples-title">{t.review.samplesTitle}</h3>
+      <div class="ob-samples" data-samples></div>
+      <label class="ob-check ob-consent"><input type="checkbox" name="consent.privacy" required/> <span>{t.review.consent} <a href={paths.privacy} target="_blank" rel="noopener">{t.review.privacyLink}</a></span></label>
+      <label class="ob-check ob-consent"><input type="checkbox" name="review.approved" required/> <span>{t.review.approve}</span></label>
+    </fieldset>
+
+    <p class="ob-error" data-error role="alert" hidden></p>
+    <div class="ob-nav">
+      <button class="button outline" type="button" data-prev>{t.back}</button>
+      <button class="button" type="button" data-next>{t.next} <span aria-hidden="true">→</span></button>
+      <button class="button gold" type="submit" data-submit hidden>{t.submit}</button>
+    </div>
+  </form>
+  <template data-custom-row>
+    <div class="ob-row">
+      <div class="ob-field"><label>{t.answers.question}<input type="text" data-q/></label></div>
+      <div class="ob-field"><label>{t.answers.answer}<textarea rows="2" data-a></textarea></label></div>
+      <button type="button" class="ob-remove" data-remove>{t.answers.remove}</button>
+    </div>
+  </template>
+</section>
+
+<script>
+  type Data = Record<string, any>;
+  const root = document.querySelector<HTMLElement>('[data-ob]')!;
+  const copy = JSON.parse(root.dataset.copy!);
+  const api = root.dataset.api ?? '';
+  const region = root.dataset.region;
+  const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+  const stateEl = root.querySelector<HTMLElement>('[data-state]')!;
+  const thanks = root.querySelector<HTMLElement>('[data-thanks]')!;
+  const saveEl = root.querySelector<HTMLElement>('[data-save]')!;
+  const errorEl = root.querySelector<HTMLElement>('[data-error]')!;
+  const sessionId = new URLSearchParams(location.search).get('session_id') ?? '';
+  const draftKey = `ar-onboarding:${sessionId}`;
+  let plan = 'basic';
+  let steps: HTMLFieldSetElement[] = [];
+  let current = 0;
+  let meta: { waba_id?: string; phone_number_id?: string; code?: string } = {};
+
+  // Keep the session when switching language.
+  root.querySelectorAll<HTMLAnchorElement>('[data-keep-query]').forEach(a => (a.href += location.search));
+
+  const showState = (text: string | null) => { stateEl.hidden = !text; stateEl.textContent = text ?? ''; };
+
+  // ---------- form <-> data ----------
+  function collect(): Data {
+    const data: Data = {};
+    for (const el of form.querySelectorAll<HTMLInputElement>('input[name], textarea[name], select[name]')) {
+      const array = el.name.endsWith('[]');
+      const [section, field] = el.name.replace('[]', '').split('.');
+      data[section] ??= {};
+      if (el.type === 'checkbox' && array) { data[section][field] ??= []; if (el.checked) data[section][field].push(el.value); }
+      else if (el.type === 'checkbox') data[section][field] = el.checked;
+      else data[section][field] = el.value.trim();
+    }
+    data.answers.custom = [...form.querySelectorAll('.ob-row')].map(row => ({
+      q: (row.querySelector('[data-q]') as HTMLInputElement).value.trim(),
+      a: (row.querySelector('[data-a]') as HTMLTextAreaElement).value.trim(),
+    })).filter(r => r.q || r.a);
+    if (data.review?.approved) data.review.approvedAt = new Date().toISOString();
+    return data;
+  }
+
+  function fill(data: Data) {
+    for (const el of form.querySelectorAll<HTMLInputElement>('input[name], textarea[name], select[name]')) {
+      const [section, field] = el.name.replace('[]', '').split('.');
+      const value = data?.[section]?.[field];
+      if (value === undefined) continue;
+      if (el.type === 'checkbox') el.checked = Array.isArray(value) ? value.includes(el.value) : Boolean(value);
+      else el.value = value;
+    }
+    form.querySelector('[data-custom-list]')!.innerHTML = '';
+    for (const row of data?.answers?.custom ?? []) addRow(row.q, row.a);
+  }
+
+  function addRow(q = '', a = '') {
+    const tpl = root.querySelector<HTMLTemplateElement>('[data-custom-row]')!;
+    const node = tpl.content.firstElementChild!.cloneNode(true) as HTMLElement;
+    (node.querySelector('[data-q]') as HTMLInputElement).value = q;
+    (node.querySelector('[data-a]') as HTMLTextAreaElement).value = a;
+    node.querySelector('[data-remove]')!.addEventListener('click', () => { node.remove(); queueSave(); });
+    form.querySelector('[data-custom-list]')!.append(node);
+    return node;
+  }
+  form.querySelector('[data-add-question]')!.addEventListener('click', () => (addRow().querySelector('[data-q]') as HTMLElement).focus());
+
+  // ---------- saving: this phone first, then the server ----------
+  let saveTimer: number | undefined;
+  async function save(extra: Data = {}) {
+    const data = collect();
+    try { localStorage.setItem(draftKey, JSON.stringify({ data, step: current })); } catch {}
+    saveEl.textContent = copy.saving;
+    const res = await fetch(`${api}/api/autoreply/order`, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId, step: current, data, ...extra }),
+    }).catch(() => null);
+    const body = res ? await res.json().catch(() => ({})) : {};
+    saveEl.textContent = res?.ok ? copy.saved : copy.saveError;
+    if (!res?.ok) throw new Error(body.error ?? 'save_failed');
+    return body;
+  }
+  const queueSave = () => { clearTimeout(saveTimer); saveTimer = window.setTimeout(() => save().catch(() => {}), 1200); };
+  form.addEventListener('input', queueSave);
+  form.addEventListener('change', queueSave);
+
+  // ---------- steps ----------
+  function render() {
+    steps.forEach((s, i) => (s.hidden = i !== current));
+    root.querySelector('[data-step-label]')!.textContent = `${copy.stepOf.replace('{n}', current + 1).replace('{total}', steps.length)} · ${copy.steps[steps[current].dataset.step!]}`;
+    root.querySelector<HTMLButtonElement>('[data-prev]')!.hidden = current === 0;
+    root.querySelector<HTMLButtonElement>('[data-next]')!.hidden = current === steps.length - 1;
+    root.querySelector<HTMLButtonElement>('[data-submit]')!.hidden = current !== steps.length - 1;
+    root.querySelectorAll('[data-dots] li').forEach((d, i) => d.classList.toggle('on', i <= current));
+    if (steps[current].dataset.step === 'review') renderSamples();
+    errorEl.hidden = true;
+  }
+
+  function validStep(): boolean {
+    const fields = [...steps[current].querySelectorAll<HTMLInputElement>('input, textarea, select')].filter(el => !el.closest('[hidden]'));
+    for (const el of fields) {
+      el.setAttribute('aria-invalid', String(!el.checkValidity()));
+      // Checkbox labels are whole sentences with links; the message stays short for those.
+      if (!el.checkValidity()) { errorEl.textContent = el.type === 'checkbox' ? copy.required : `${copy.required} (${el.labels?.[0]?.textContent?.replace('*', '').trim() ?? ''})`; errorEl.hidden = false; el.focus(); return false; }
+    }
+    return true;
+  }
+
+  const go = (to: number) => { current = Math.max(0, Math.min(steps.length - 1, to)); render(); steps[current].querySelector('legend')?.scrollIntoView({ block: 'start' }); save().catch(() => {}); };
+  root.querySelector('[data-next]')!.addEventListener('click', () => validStep() && go(current + 1));
+  root.querySelector('[data-prev]')!.addEventListener('click', () => go(current - 1));
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!validStep()) return;
+    const submit = root.querySelector<HTMLButtonElement>('[data-submit]')!;
+    submit.disabled = true;
+    try {
+      await save({ submit: true });
+      form.hidden = true; thanks.hidden = false; thanks.focus();
+    } catch {
+      errorEl.textContent = copy.states.error; errorEl.hidden = false;
+    } finally { submit.disabled = false; }
+  });
+  root.querySelector('[data-edit-again]')!.addEventListener('click', () => { thanks.hidden = true; form.hidden = false; go(0); });
+
+  // ---------- sample replies, built only from the owner's answers ----------
+  const esc = (s: string) => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+  function renderSamples() {
+    const d = collect();
+    const values: Record<string, string> = {
+      prices: d.answers.prices, included: d.answers.included, howToBook: d.answers.howToBook,
+      payment: (d.answers.payment ?? []).join(', '), cancellation: d.answers.cancellation,
+      location: d.answers.location, hours: d.business.hours, confirms: d.booking?.confirms ?? '',
+    };
+    const keys = ['price', 'book', 'where', 'pay', 'cancel', 'afterHours', 'unknown'];
+    if (plan !== 'basic') keys.push('booking');
+    if (copy.samples.english) keys.push('english');
+    const custom = (d.answers.custom ?? []).filter((r: any) => r.q && r.a).map((r: any) => [r.q, r.a]);
+    const pairs = [...keys.map(k => copy.samples[k] as [string, string]), ...custom].map(([q, a]) => {
+      const missing = (a.match(/\{(\w+)\}/g) ?? []).some(m => !values[m.slice(1, -1)]);
+      const text = a.replace(/\{(\w+)\}/g, (_, k) => values[k] ?? '').replace(/\s+/g, ' ').trim();
+      return `<div class="ob-chat"><p class="q"><span>${esc(copy.review.customer)}</span>${esc(q)}</p><p class="a"><span>${esc(copy.review.assistant)}</span>${missing ? `<em>${esc(copy.review.missing)}</em>` : esc(text)}</p></div>`;
+    });
+    root.querySelector('[data-samples]')!.innerHTML = pairs.join('');
+  }
+
+  // ---------- Meta WhatsApp Embedded Signup ----------
+  const appId = root.dataset.metaApp;
+  const configId = root.dataset.metaConfig;
+  const connectBtn = root.querySelector<HTMLButtonElement>('[data-meta-connect]')!;
+  const metaStatus = root.querySelector<HTMLElement>('[data-meta-status]')!;
+  function showConnected(phoneNumberId?: string) {
+    metaStatus.hidden = false;
+    metaStatus.textContent = `✓ ${copy.whatsapp.connected}${phoneNumberId ? ` (ID ${phoneNumberId})` : ''}`;
+    connectBtn.hidden = true;
+  }
+  if (appId && configId) {
+    connectBtn.hidden = false;
+    window.addEventListener('message', (event) => {
+      if (!/^https:\/\/([a-z0-9-]+\.)?facebook\.com$/.test(event.origin)) return;
+      try {
+        const msg = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+        if (msg?.type === 'WA_EMBEDDED_SIGNUP' && msg.event?.startsWith('FINISH')) { meta = { ...meta, ...msg.data }; finishMeta(); }
+      } catch {}
+    });
+    connectBtn.addEventListener('click', async () => {
+      connectBtn.disabled = true; connectBtn.textContent = copy.whatsapp.connecting;
+      try {
+        await loadFacebook(appId);
+        (window as any).FB.login((response: any) => {
+          connectBtn.disabled = false; connectBtn.textContent = copy.whatsapp.connect;
+          if (response?.authResponse?.code) { meta.code = response.authResponse.code; finishMeta(); }
+          else { metaStatus.hidden = false; metaStatus.textContent = copy.whatsapp.connectError; }
+        }, { config_id: configId, response_type: 'code', override_default_response_type: true, extras: { setup: {}, featureType: '', sessionInfoVersion: '3' } });
+      } catch {
+        connectBtn.disabled = false; connectBtn.textContent = copy.whatsapp.connect;
+        metaStatus.hidden = false; metaStatus.textContent = copy.whatsapp.connectError;
+      }
+    });
+  } else {
+    root.querySelector<HTMLElement>('[data-meta-unavailable]')!.hidden = false;
+  }
+
+  // The code and the IDs arrive separately; send once we have the IDs.
+  let metaSent = false;
+  async function finishMeta() {
+    if (metaSent || !meta.waba_id || !meta.phone_number_id) return;
+    metaSent = true;
+    const res = await fetch(`${api}/api/autoreply/meta-signup`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ session_id: sessionId, ...meta }),
+    }).catch(() => null);
+    if (res?.ok) showConnected(meta.phone_number_id);
+    else { metaSent = false; metaStatus.hidden = false; metaStatus.textContent = copy.whatsapp.connectError; }
+  }
+
+  function loadFacebook(id: string) {
+    return new Promise<void>((resolve, reject) => {
+      if ((window as any).FB) return resolve();
+      (window as any).fbAsyncInit = () => { (window as any).FB.init({ appId: id, autoLogAppEvents: true, xfbml: false, version: 'v23.0' }); resolve(); };
+      const s = document.createElement('script');
+      s.src = 'https://connect.facebook.net/en_US/sdk.js'; s.async = true; s.crossOrigin = 'anonymous'; s.onerror = reject;
+      document.head.append(s);
+    });
+  }
+
+  // ---------- boot ----------
+  async function boot() {
+    if (!/^cs_(test|live)_/.test(sessionId)) return showState(copy.states.noSession);
+    const res = await fetch(`${api}/api/autoreply/order?session_id=${encodeURIComponent(sessionId)}`).catch(() => null);
+    if (!res) return showState(copy.states.error);
+    if (res.status === 404) return showState(copy.states.notFound);
+    if (!res.ok) return showState(copy.states.error);
+    const order = await res.json();
+    plan = order.plan;
+    root.querySelector('[data-plan]')!.textContent = order.planName + (order.pilot ? ' ★' : '');
+    root.querySelectorAll<HTMLElement>('[data-plan-only]').forEach(el => { if (!el.dataset.planOnly!.split(' ').includes(plan)) el.remove(); });
+    steps = [...form.querySelectorAll<HTMLFieldSetElement>(':scope > fieldset[data-step]')];
+    root.querySelector('[data-dots]')!.innerHTML = steps.map(() => '<li></li>').join('');
+
+    let local: { data?: Data; step?: number } = {};
+    try { local = JSON.parse(localStorage.getItem(draftKey) ?? '{}'); } catch {}
+    const serverHasData = order.onboarding && Object.keys(order.onboarding).length > 0;
+    fill(serverHasData ? order.onboarding : local.data ?? { business: { name: order.businessName } });
+    if (order.meta?.connected) showConnected(order.meta.phoneNumberId);
+
+    if (order.status === 'live') return showState(copy.states.live);
+    showState(order.status === 'awaiting_payment' ? copy.states.awaiting : null);
+    if (order.status === 'ready_for_review') { thanks.hidden = false; return; }
+    form.hidden = false;
+    current = Math.min(local.step ?? 0, steps.length - 1);
+    render();
+  }
+  boot();
+</script>
+
+<style>
+.ob{max-width:720px;padding-block:48px 90px}
+.ob-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px}
+.ob h1{font-size:clamp(32px,6vw,48px);letter-spacing:-.05em;line-height:1.05}
+.ob-intro{font-size:15px;line-height:1.7;margin-top:10px;color:var(--muted)}
+.ob-lang{flex:none;font-size:13px;font-weight:600;padding:10px 16px;min-height:44px;display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:30px}
+.ob-state{padding:16px 18px;border-radius:12px;background:#e9edde;font-size:15px;line-height:1.6;margin-bottom:20px}
+.ob-thanks{padding:28px;border-radius:14px;background:var(--night);color:#fff}
+.ob-thanks h2{color:#fff;font-size:28px;letter-spacing:-.03em;margin-bottom:8px}
+.ob-thanks p{color:#d3d8cb;margin-bottom:20px}
+.ob-thanks .button{background:#fff;color:var(--ink)}
+.ob-progress{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font-size:13px;font-weight:600}
+.ob-plan span{color:var(--muted);font-weight:400}
+.ob-save{width:100%;font-weight:400;color:var(--muted);min-height:1.4em}
+.ob-dots{display:flex;gap:6px;list-style:none;padding:0;margin:10px 0 28px}
+.ob-dots li{flex:1;height:6px;border-radius:3px;background:#d6dbcc}
+.ob-dots li.on{background:#6b8053}
+.ob-form>fieldset{border:0;padding:0;margin:0}
+.ob-form>fieldset>legend{font:700 26px/1.2 Manrope,sans-serif;letter-spacing:-.03em;margin-bottom:14px;scroll-margin-top:90px}
+.ob-help{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:18px}
+.ob-field{display:grid;gap:6px;margin-bottom:18px}
+.ob-field label{font-size:14px;font-weight:600}
+.ob-row .ob-field label{display:grid;gap:6px}
+.ob-field small{font-size:12px;color:var(--muted);margin-top:-2px}
+.ob input[type=text],.ob input[type=url],.ob input[type=tel],.ob select,.ob textarea{width:100%;font:16px/1.5 'DM Sans',sans-serif;padding:12px 14px;min-height:48px;border:1px solid #b9bfae;border-radius:10px;background:#fff;color:var(--ink)}
+.ob textarea{resize:vertical}
+.ob input:focus-visible,.ob select:focus-visible,.ob textarea:focus-visible,.ob button:focus-visible,.ob a:focus-visible{outline:3px solid #54784a;outline-offset:2px}
+.ob [aria-invalid=true]{border-color:#a3341c}
+.ob-checks{border:0;padding:0;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+.ob-checks legend{font-size:14px;font-weight:600;margin-bottom:8px;width:100%}
+.ob-checks label{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;min-height:44px;border:1px solid #b9bfae;border-radius:30px;font-size:14px;cursor:pointer;background:#fff}
+.ob-checks label:has(input:checked){background:#e9edde;border-color:#6b8053}
+.ob input[type=checkbox]{width:20px;height:20px;accent-color:#3d5c37;flex:none}
+.ob-check{display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.6;margin:8px 0 18px;cursor:pointer}
+.ob-check a{text-decoration:underline;text-underline-offset:3px}
+.ob-consent{padding:14px;border-radius:10px;background:#fbfaf5;border:1px solid var(--line)}
+.ob-connect{margin-bottom:20px;display:grid;gap:10px;justify-items:start}
+.ob-connected{font-weight:600;color:#3d5c37}
+.ob-sub{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.ob-sub h3{font-size:18px;margin-bottom:8px}
+.ob-row{padding:14px;border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:#fbfaf5}
+.ob-row .ob-field{margin-bottom:10px}
+.ob-add,.ob-remove{background:none;border:0;padding:10px 0;min-height:44px;font:600 14px 'DM Sans',sans-serif;color:#345b38;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.ob-samples-title{font-size:18px;margin:6px 0 12px}
+.ob-samples{display:grid;gap:12px;margin-bottom:22px}
+:global(.ob-chat){display:grid;gap:6px}
+:global(.ob-chat p){max-width:88%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.55}
+:global(.ob-chat p span){display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-bottom:2px}
+:global(.ob-chat .q){background:#fff;border:1px solid var(--line);justify-self:start}
+:global(.ob-chat .a){background:#dcf2d6;justify-self:end}
+:global(.ob-chat em){color:#7a5a17}
+.ob-error{padding:12px 14px;border-radius:10px;background:#fbe9e4;color:#7a2a17;font-size:14px;margin-bottom:14px}
+.ob-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:26px;position:sticky;bottom:0;padding:12px 0;background:linear-gradient(#f6f5ef00,#f6f5ef 30%)}
+.ob-nav .button{min-height:48px}
+.ob-nav [data-next],.ob-nav [data-submit]{margin-left:auto}
+.ob-nav .button.outline{background:transparent;color:var(--ink);border-color:#b9bfae}
+@media(max-width:600px){.ob{padding-block:28px 60px}.ob-head{flex-direction:column}.ob-nav .button{flex:1;justify-content:center}}
+</style>

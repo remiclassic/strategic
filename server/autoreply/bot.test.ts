@@ -2,7 +2,7 @@
 import { createHmac } from 'node:crypto';
 import { rmSync } from 'node:fs';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { CANNED, handleIncoming, inventedNumbers, loadConversation, runBot, soundsConfirmed } from './bot.js';
+import { CANNED, handleIncoming, hasContactDetails, inventedNumbers, loadConversation, runBot, soundsConfirmed } from './bot.js';
 import { botMode, slothClient } from './clients.js';
 import { detectLanguage } from './language.js';
 import { inboundMessages, insideWindow, validMetaSignature } from './whatsapp.js';
@@ -187,6 +187,34 @@ describe('site chat endpoint', () => {
     const res = await chat(post({ session: 'abcdef123456', message: 'How do I start?', locale: 'en' }), { model: says('Pick a plan on the offer page.') });
     expect(res.status).toBe(200);
     expect(await res.json()).toMatchObject({ reply: 'Pick a plan on the offer page.', action: 'answer', language: 'en' });
+  });
+
+  it('a handoff on the site asks for a way to reach the visitor, since nobody can reply in the chat later', async () => {
+    const res = await chat(post({ session: 'handoffweb0001', message: 'I want a refund', locale: 'en' }, '5.5.5.5'));
+    const body = await res.json();
+    expect(body.action).toBe('handoff');
+    expect(body.reply).toMatch(/Leave your email or WhatsApp number/);
+    expect(body.reply).not.toMatch(/reply here/);
+  });
+
+  it('a visitor who leaves contact details becomes a lead without calling the model', async () => {
+    let called = false;
+    const res = await chat(post({ session: 'leadweb0000001', message: 'Mi correo es ana@example.com', locale: 'es' }, '6.6.6.6'), { model: async () => { called = true; return { reply: 'x', action: 'answer' }; } });
+    expect(await res.json()).toMatchObject({ action: 'lead', language: 'es', reply: CANNED.web.thanks.es });
+    expect(called).toBe(false);
+  });
+
+  it('spots emails and phone numbers, but not prices or short numbers', () => {
+    expect(hasContactDetails('ana@example.com')).toBe(true);
+    expect(hasContactDetails('my WhatsApp is +52 984 123 4567')).toBe(true);
+    expect(hasContactDetails('(514) 555-0199')).toBe(true);
+    expect(hasContactDetails('how much is the 8,500 plan for 4 people?')).toBe(false);
+    expect(hasContactDetails('open 9:00 to 18:00')).toBe(false);
+  });
+
+  it('booking requests on the site always ask for contact details', async () => {
+    const r = await runBot({ client: tour, channel: 'web', message: 'Quiero reservar', model: says('Con gusto. Se la confirmamos pronto.', 'booking') });
+    expect(r.reply).toContain(CANNED.web.bookingNote.es);
   });
 
   it('rejects bad sessions and rate-limits by IP', async () => {

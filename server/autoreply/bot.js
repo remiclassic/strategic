@@ -23,6 +23,24 @@ export const CANNED = {
     en: 'Your request is noted, but it is not confirmed yet: a person on the team will confirm it here.',
     fr: 'Votre demande est notée, mais elle n’est pas encore confirmée: une personne de l’équipe vous la confirmera ici.',
   },
+  // The site chat is anonymous and nobody can answer "here" later, so a person needs a way to reach the visitor.
+  web: {
+    handoff: {
+      es: 'Esto lo tiene que responder una persona. Déjeme aquí su correo o su WhatsApp y Rémi le escribe, o escríbanos directo por WhatsApp con el botón de abajo.',
+      en: 'A person needs to answer this. Leave your email or WhatsApp number here and Rémi will get back to you, or message us on WhatsApp with the button below.',
+      fr: 'Une personne doit répondre à ça. Laissez-moi votre courriel ou votre numéro WhatsApp et Rémi vous écrira, ou écrivez-nous sur WhatsApp avec le bouton ci-dessous.',
+    },
+    bookingNote: {
+      es: 'Todavía no está confirmado. Déjeme su correo o su WhatsApp y Rémi le escribe para confirmarlo.',
+      en: 'It is not confirmed yet. Leave your email or WhatsApp number and Rémi will get back to you to confirm.',
+      fr: 'Ce n’est pas encore confirmé. Laissez-moi votre courriel ou votre numéro WhatsApp et Rémi vous écrira pour confirmer.',
+    },
+    thanks: {
+      es: '¡Gracias! Rémi recibió sus datos y le escribe pronto.',
+      en: 'Thanks! Rémi has your details and will get back to you soon.',
+      fr: 'Merci! Rémi a vos coordonnées et vous écrira bientôt.',
+    },
+  },
 };
 
 // Topics that always go to a person, in Spanish, English and French.
@@ -62,6 +80,10 @@ export function soundsConfirmed(reply) {
 }
 
 export const needsPerson = (text) => HANDOFF.some((re) => re.test(text));
+
+/** An email address, or a phone number of at least 8 digits. */
+export const hasContactDetails = (text) =>
+  /[^\s@]+@[^\s@]+\.[a-z]{2,}/i.test(text) || (String(text).match(/\+?\d[\d\s().-]{6,}\d/g) ?? []).some((m) => m.replace(/\D/g, '').length >= 8);
 
 /** Which language to answer in. Region bots follow their market's rule; Strategic Sloth follows the customer. */
 export function languageFor(client, text, previous) {
@@ -120,9 +142,10 @@ export async function callModel({ system, messages }) {
  * Decides the reply. Pure apart from the model call.
  * @returns {{ reply: string, action: 'answer'|'booking'|'handoff', language: string, reason?: string }}
  */
-export async function runBot({ client, history = [], message, previousLanguage, model = callModel }) {
+export async function runBot({ client, history = [], message, previousLanguage, channel, model = callModel }) {
   const language = languageFor(client, message, previousLanguage);
-  const handoff = (reason) => ({ reply: CANNED.handoff[language], action: 'handoff', language, reason });
+  const canned = channel === 'web' ? CANNED.web : CANNED;
+  const handoff = (reason) => ({ reply: canned.handoff[language], action: 'handoff', language, reason });
   if (!message?.trim()) return handoff('empty');
   if (needsPerson(message)) return handoff('sensitive_topic');
 
@@ -141,9 +164,10 @@ export async function runBot({ client, history = [], message, previousLanguage, 
   if (draft?.action === 'handoff' || !reply) return handoff('model_handoff');
   const customerWords = [message, ...history.filter((t) => t.role === 'customer').map((t) => t.text)].join(' ');
   if (inventedNumbers(reply, client, customerWords).length) return handoff('unapproved_number');
-  if (soundsConfirmed(reply)) return { reply: CANNED.bookingNote[language], action: 'booking', language, reason: 'confirmation_blocked' };
+  if (soundsConfirmed(reply)) return { reply: canned.bookingNote[language], action: 'booking', language, reason: 'confirmation_blocked' };
   if (draft.action === 'booking') {
-    const note = /confirm/i.test(reply) ? '' : ` ${CANNED.bookingNote[language]}`;
+    // On the site chat the visitor must leave a way to reach them, so the note is always added there.
+    const note = channel !== 'web' && /confirm/i.test(reply) ? '' : ` ${canned.bookingNote[language]}`;
     return { reply: reply + note, action: 'booking', language };
   }
   return { reply, action: 'answer', language };
@@ -165,7 +189,7 @@ export async function saveConversation(clientId, customerId, conv) {
 const transcript = (turns) => turns.map((t) => `${t.role === 'customer' ? 'Customer' : 'Assistant'}: ${t.text}`).join('\n');
 
 async function alertOwner(client, customer, conv, result, extra = '') {
-  const label = { handoff: 'needs a person', booking: 'booking request', draft: 'reply waiting for your approval' }[extra || result.action];
+  const label = { handoff: 'needs a person', booking: 'booking request', lead: 'visitor left contact details', draft: 'reply waiting for your approval' }[extra || result.action];
   await sendEmail({
     to: client.ownerEmail,
     subject: `[Auto-reply] ${client.business?.name || client.id}: ${label} (${customer.label})`,
@@ -184,7 +208,11 @@ export async function handleIncoming({ client, customer, text, send, defaultLang
   const history = [...conv.turns];
   conv.turns.push({ role: 'customer', text, at: new Date().toISOString() });
   conv.lastInboundAt = new Date().toISOString();
-  const result = await runBot({ client, history, message: text, previousLanguage: conv.language ?? defaultLanguage, model });
+  // A site visitor who leaves an email or phone number is a lead: thank them and tell the owner at once.
+  const leadLanguage = languageFor(client, text, conv.language ?? defaultLanguage);
+  const result = customer.channel === 'web' && hasContactDetails(text)
+    ? { reply: CANNED.web.thanks[leadLanguage], action: 'lead', language: leadLanguage }
+    : await runBot({ client, history, message: text, previousLanguage: conv.language ?? defaultLanguage, channel: customer.channel, model });
   conv.language = result.language;
 
   let draft = null;

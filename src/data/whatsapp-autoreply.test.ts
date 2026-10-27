@@ -3,10 +3,11 @@ import config from './autoreply.json';
 import { autoCopy, autoLocales, autoPaths, approxUsd, formatMoney, whatsappHref } from './whatsapp-autoreply';
 import { onboardingCopy } from './whatsapp-autoreply-onboarding';
 import { autoreplyLegal } from './whatsapp-autoreply-legal';
+import { siteCopy } from './whatsapp-autoreply-site';
 
 describe('auto-reply copy', () => {
   it('has no em or en dashes and no forbidden names', () => {
-    const blob = JSON.stringify([autoCopy, onboardingCopy, autoreplyLegal]);
+    const blob = JSON.stringify([autoCopy, onboardingCopy, autoreplyLegal, siteCopy]);
     expect(blob).not.toMatch(/[–—]/);
     expect(blob).not.toMatch(/Focusrail|Nickelodeon|Circadence|\bAres\b/);
   });

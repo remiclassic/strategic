@@ -31,7 +31,14 @@ function fileBackend() {
   };
   const save = async (data) => { await mkdir(path.dirname(file), { recursive: true }); await writeFile(file, JSON.stringify(data, null, 2)); };
   const expire = (data, key, seconds) => { data.__exp ??= {}; data.__exp[key] = Date.now() + Number(seconds) * 1000; };
-  return async (op, key, ...args) => {
+  // Each command reads, changes and rewrites the whole file, so commands run one at a time, like Redis.
+  let queue = Promise.resolve();
+  const run = (op, key, ...args) => {
+    const next = queue.then(() => apply(op, key, ...args));
+    queue = next.catch(() => {});
+    return next;
+  };
+  const apply = async (op, key, ...args) => {
     const data = await load();
     switch (op) {
       case 'GET': return data[key] ?? null;
@@ -53,6 +60,7 @@ function fileBackend() {
       default: throw new Error(`dev store: unsupported ${op}`);
     }
   };
+  return run;
 }
 
 let backend;

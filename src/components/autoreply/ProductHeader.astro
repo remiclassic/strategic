@@ -1,0 +1,37 @@
+---
+import { autoPaths, type AutoLocale } from '../../data/whatsapp-autoreply';
+import { localeChoices, siteCopy } from '../../data/whatsapp-autoreply-site';
+
+const { loc } = Astro.props as { loc: AutoLocale };
+const s = siteCopy[loc];
+const current = localeChoices.find(c => c.loc === loc)!;
+---
+<header class="p-header">
+  <div class="p-wrap">
+    <a class="p-brand" href={autoPaths(loc).page} aria-label={`${s.product}, ${s.by}`}>
+      <span class="p-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 4h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-7.6L7 21.4V18H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Zm6.2 3.2-3 5.1h2.6l-.8 3.5 3.9-5.6h-2.7l1.4-3Z"/></svg></span>
+      <span><b>{s.product}</b><small>{s.by}</small></span>
+    </a>
+    <nav class="p-nav" aria-label={s.product}>
+      <a href="#how">{s.nav.how}</a>
+      <a href="#video">{s.nav.demo}</a>
+      <a href="#features">{s.nav.features}</a>
+      <a href="#plans">{s.nav.pricing}</a>
+      <a href="#faq">{s.nav.faq}</a>
+    </nav>
+    <div class="p-header-actions">
+      <details class="p-lang">
+        <summary aria-label={`${current.lang.toUpperCase()} · ${current.region}, ${s.nav.lang}`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm-8.5 9h17M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3Z"/></svg>
+          {current.lang.toUpperCase()} · {current.region}
+        </summary>
+        <ul>
+          {localeChoices.map(c => (
+            <li><a href={autoPaths(c.loc).page} hreflang={c.loc === 'en-CA' ? 'en-CA' : c.loc} lang={c.lang} aria-current={c.loc === loc ? 'page' : undefined}>{c.label}<span>{c.region}</span></a></li>
+          ))}
+        </ul>
+      </details>
+      <a class="p-btn primary" href="#plans" data-track="service_cta" data-track-location={`autoreply-${loc}-header`}>{s.nav.cta}</a>
+    </div>
+  </div>
+</header>

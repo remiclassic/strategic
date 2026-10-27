@@ -16,6 +16,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = new URL(image, Astro.site);
 const siteURL = Astro.site!.href;
 const personId = new URL('/remi-couture/#person', Astro.site).href;
+const pageDefinesPerson = schema.some((node) => {
+  if (!node || typeof node !== 'object') return false;
+  const item = node as { '@type'?: string; '@id'?: string };
+  return item['@type'] === 'Person' && item['@id'] === personId;
+});
 const personSameAs = [
   'https://www.linkedin.com/in/remicouture/',
   'https://x.com/remicouture',
@@ -40,10 +45,10 @@ const graph = education
         logo: new URL('/studio-images/slothlogo.png', Astro.site).href,
         image: imageURL.href
       },
-      {
+      ...(pageDefinesPerson ? [] : [{
         '@type': 'Person',
         '@id': personId,
-        name: 'Guillaume (Remi) Couture',
+        name: 'Rémi Couture',
         additionalName: 'Rémi',
         alternateName: ['Remi Couture', 'Rémi Couture', 'Remy Couture', 'Guillaume Couture', 'Guillaume Remi Couture', 'Guillaume (Rémi) Couture'],
         jobTitle: 'Founder and UX/UI director',
@@ -52,7 +57,7 @@ const graph = education
         image: new URL('/studio-images/remi-founder-photo.jpg', Astro.site).href,
         knowsLanguage: ['en', 'fr'],
         sameAs: personSameAs
-      },
+      }]),
       { '@type': 'WebSite', '@id': `${siteURL}#learn-website`, name: 'Learn by Strategic Sloth', url: siteURL, publisher: { '@id': `${siteURL}#learn` }, inLanguage: lang },
       ...schema
     ]
@@ -68,6 +73,7 @@ const graph = education
         slogan: 'Small on purpose. Senior by default.',
         description:
           'Founder-led game UI and UX studio: UX audits, UI systems, motion and in-engine implementation in Unreal Engine, Unity, Godot, PlayCanvas and the web, plus app development and original games.',
+        sameAs: 'https://www.wikidata.org/wiki/Q141820975',
         founder: { '@id': personId },
         address: { '@type': 'PostalAddress', addressLocality: 'Montreal', addressRegion: 'QC', addressCountry: 'CA' },
         availableLanguage: ['English', 'French'],
@@ -90,10 +96,10 @@ const graph = education
           'UI motion design'
         ]
       },
-      {
+      ...(pageDefinesPerson ? [] : [{
         '@type': 'Person',
         '@id': personId,
-        name: 'Guillaume (Remi) Couture',
+        name: 'Rémi Couture',
         additionalName: 'Rémi',
         alternateName: ['Remi Couture', 'Rémi Couture', 'Remy Couture', 'Guillaume Couture', 'Guillaume Remi Couture', 'Guillaume (Rémi) Couture'],
         jobTitle: 'Founder and UX/UI director',
@@ -102,7 +108,7 @@ const graph = education
         image: new URL('/studio-images/remi-founder-photo.jpg', Astro.site).href,
         knowsLanguage: ['en', 'fr'],
         sameAs: personSameAs
-      },
+      }]),
       { '@type': 'WebSite', '@id': `${siteURL}#website`, name: 'Strategic Sloth', url: siteURL, publisher: { '@id': `${siteURL}#studio` }, inLanguage: lang },
       ...schema
     ];

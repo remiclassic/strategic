@@ -1,10 +1,11 @@
 ---
 import StudioLayout from '../../layouts/StudioLayout.astro';
 import RemiProfile from '../../components/RemiProfile.astro';
+import { remiProfileJsonLd } from '../../data/remi-person-schema';
 
-const title = 'Rémi Couture | Designer UX/UI de jeux, artiste Club Penguin, fondateur de Strategic Sloth';
+const title = 'Rémi Couture, développeur de jeux et fondateur de Strategic Sloth (Sloth Jam, artiste Club Penguin)';
 const description =
-  'Guillaume « Rémi » Couture, aussi écrit Remi ou Remy Couture : designer UX/UI de jeux à Montréal. Illustrateur et animateur sur Club Penguin chez Disney (2006 à 2009), créateur de Sloth Jam.';
+  'Rémi Couture est développeur de jeux et fondateur de Strategic Sloth. Aussi écrit Remi Couture : illustrateur et animateur sur Club Penguin (2006 à 2009), créateur de Sloth Jam, et designer UX/UI de jeux à Montréal.';
 
 const alternates = [
   { lang: 'fr', href: '/fr/remi-couture/' },
@@ -37,16 +38,7 @@ const schema = [
       publisher: { '@type': 'Organization', name: 'Global News' }
     }
   },
-  {
-    '@type': 'Person',
-    '@id': new URL('/remi-couture/#person', Astro.site).href,
-    subjectOf: {
-      '@type': 'RadioEpisode',
-      name: 'Former Kelowna game designer is back with a new free game for kids',
-      url: 'https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668-former-kelowna-game-designer-back-free-game-kids',
-      publisher: { '@type': 'Organization', name: 'CBC Radio One, Daybreak South' }
-    }
-  }
+  ...remiProfileJsonLd(Astro.site!),
 ];
 ---
 <StudioLayout title={title} description={description} lang="fr" alternates={alternates} image="/studio-images/remi-founder-photo.jpg" schema={schema}>

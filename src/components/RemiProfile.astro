@@ -12,7 +12,7 @@ const other = lang === 'en' ? 'fr' : 'en';
 <section class="rp-hero container">
   <div>
     <div class="rp-top"><p class="eyebrow"><span class="live-dot"></span> {t.eyebrow.toUpperCase()}</p><a class="rp-lang" href={t.switchHref} hreflang={other} lang={other}>{t.switchLabel}</a></div>
-    <h1>Rémi Couture</h1>
+    <h1>Rémi Couture <span class="rp-h1-role">{t.h1Role}</span></h1>
     <p class="lede" set:html={t.lede}/>
     <div class="rp-actions"><a class="button" href="/contact/">{t.ctaPrimary} <span>↗</span></a><a class="text-link" href="https://remiclassic.github.io/remiresume/">{t.resume} <span>↗</span></a><a class="text-link" href="https://www.linkedin.com/in/remicouture/">LinkedIn <span>↗</span></a></div>
     <p class="rp-note">{t.disambiguation}</p>
@@ -90,6 +90,7 @@ const other = lang === 'en' ? 'fr' : 'en';
 .rp-lang{font-size:12px;font-weight:600;padding:6px 14px;border:1px solid var(--line);border-radius:30px}
 .rp-lang:hover{background:var(--green)}
 .rp-hero h1{font-size:clamp(56px,7.6vw,116px);line-height:.95;letter-spacing:-.065em;margin-bottom:30px}
+.rp-hero h1 .rp-h1-role{display:block;margin-top:18px;font-size:clamp(16px,1.55vw,22px);font-weight:600;letter-spacing:-.02em;line-height:1.35;color:var(--muted);max-width:620px}
 .rp-hero .lede{font-size:clamp(17px,1.5vw,20px);max-width:620px}
 .rp-hero .lede :global(strong){color:var(--ink);font-weight:600}
 .rp-hero .lede :global(a){color:var(--ink);text-decoration:underline;text-decoration-color:#9fb085;text-underline-offset:4px}

@@ -136,6 +136,7 @@ describe('Strategic Sloth config', () => {
     const c = slothClient();
     expect(c.answers.autoreplyPrices).toContain('MXN 8,500');
     expect(c.answers.autoreplyPrices).toContain('850 $ CAD');
+    expect(c.answers.autoreplyPrices).toContain('Essential: US$450 setup + US$79 per month');
     expect(JSON.stringify(c.answers)).not.toMatch(/TODO/i);
     expect(c.mode).toBe('auto');
     expect(JSON.stringify(c)).not.toMatch(/[–—]/);

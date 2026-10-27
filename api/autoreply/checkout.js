@@ -6,13 +6,14 @@ import { LOCALES, findPlan, offer, onboardingPath, pagePath, priceId, regionOf, 
 import { fail, httpError, json, preflight, readBody } from '../../server/autoreply/http.js';
 import { pilotSpotsLeft, stripe } from '../../server/autoreply/orders.js';
 
-const checkoutLocale = { es: 'es-419', en: 'en', fr: 'fr-CA', 'en-CA': 'en' };
-const businessLabel = { es: 'Nombre del negocio', en: 'Business name', fr: 'Nom de l’entreprise', 'en-CA': 'Business name / Nom de l’entreprise' };
+const checkoutLocale = { es: 'es-419', en: 'en', fr: 'fr-CA', 'en-CA': 'en', 'en-US': 'en' };
+const businessLabel = { es: 'Nombre del negocio', en: 'Business name', fr: 'Nom de l’entreprise', 'en-CA': 'Business name / Nom de l’entreprise', 'en-US': 'Business name' };
 const termsText = {
   es: 'Al pagar acepta los términos del servicio',
   en: 'By paying you accept the terms of service',
   fr: 'En payant, vous acceptez les conditions du service',
-  'en-CA': 'By paying you accept the terms of service (French version prevails)',
+  'en-CA': 'By paying you accept the terms of service (for Quebec clients, the French version prevails)',
+  'en-US': 'By paying you accept the terms of service',
 };
 
 export async function buildSessionParams({ locale, plan: planId, pilot, method }) {

@@ -1,0 +1,12 @@
+---
+import StudioLayout from '../../../layouts/StudioLayout.astro';
+import AutoReplyOnboarding from '../../../components/AutoReplyOnboarding.astro';
+import { onboardingCopy } from '../../../data/whatsapp-autoreply-onboarding';
+import { htmlLang } from '../../../data/whatsapp-autoreply';
+
+const loc = 'en-US';
+const t = onboardingCopy[loc];
+---
+<StudioLayout title={t.title} description={t.description} lang={htmlLang(loc)} noindex>
+  <AutoReplyOnboarding loc={loc} />
+</StudioLayout>

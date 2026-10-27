@@ -6,8 +6,8 @@ const { loc } = Astro.props as { loc: AutoLocale };
 const s = siteCopy[loc];
 const t = autoCopy[loc];
 const paths = autoPaths(loc);
-const studio = { es: 'El estudio', en: 'The studio', fr: 'Le studio', 'en-CA': 'The studio' }[loc];
-const privacyChoices = { es: 'Opciones de privacidad', en: 'Privacy choices', fr: 'Choix de confidentialité', 'en-CA': 'Privacy choices' }[loc];
+const studio = { es: 'El estudio', en: 'The studio', fr: 'Le studio', 'en-CA': 'The studio', 'en-US': 'The studio' }[loc];
+const privacyChoices = { es: 'Opciones de privacidad', en: 'Privacy choices', fr: 'Choix de confidentialité', 'en-CA': 'Privacy choices', 'en-US': 'Privacy choices' }[loc];
 ---
 <footer class="p-footer">
   <div class="p-wrap">

@@ -43,8 +43,10 @@ const missed = {
   en: ['Missed call', 'Hi! Sorry we missed your call. How can we help?'],
   fr: ['Appel manqué', 'Bonjour! Désolé d’avoir manqué votre appel. Comment pouvons-nous vous aider?'],
   'en-CA': ['Missed call', 'Hi! Sorry we missed your call. How can we help?'],
+  'en-US': ['Missed call', 'Hi! Sorry we missed your call. How can we help?'],
 }[loc];
-const langPair = region === 'ca' ? ['FR', 'EN'] : ['ES', 'EN'];
+// Default language first, then the one the assistant switches to.
+const langPair = { es: ['ES', 'EN'], en: ['ES', 'EN'], fr: ['FR', 'EN'], 'en-CA': ['EN', 'FR'], 'en-US': ['EN', 'ES'] }[loc];
 const check = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 ---
 <StudioLayout title={t.title} description={t.description} lang={htmlLang(loc)} alternates={autoAlternates} schema={schema} product>

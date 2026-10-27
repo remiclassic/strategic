@@ -1,6 +1,8 @@
-// Which language the assistant answers in.
-// Quebec: French by default, English only when the customer writes in English (Charter of the French Language).
+// Which language the assistant answers in, by market:
+// Quebec (French page): French by default, English only when the customer writes in English (Charter of the French Language).
+// Canada (English page): English by default, French when the customer writes in French.
 // Mexico: Spanish by default, English when the customer writes in English.
+// United States: English by default, Spanish when the customer writes in Spanish.
 
 const EN = /\b(the|and|you|your|is|are|do|does|can|what|when|where|how|much|price|book|booking|open|hours|hello|hi|thanks|please|available|tomorrow|today|want|need|have|with|for|yes|i)\b/gi;
 const FR = /\b(le|la|les|et|vous|votre|est|sont|quand|où|comment|combien|prix|réserver|réservation|ouvert|heures|bonjour|salut|merci|svp|disponible|demain|aujourd'hui|je|tu|une|des|veux|voudrais|pour|avec|oui|ça)\b/gi;
@@ -8,13 +10,21 @@ const ES = /\b(el|la|los|las|y|usted|su|es|son|cuándo|dónde|cómo|cuánto|cuan
 
 const score = (text, re) => (text.match(re) ?? []).length;
 
+const PATTERNS = { en: EN, fr: FR, es: ES };
+
+/** [default language, the one it switches to] for an order's region and page locale. */
+export function marketLanguages(region, locale) {
+  if (region === 'us') return ['en', 'es'];
+  if (region === 'ca') return locale === 'en-CA' ? ['en', 'fr'] : ['fr', 'en'];
+  return ['es', 'en'];
+}
+
 /** @returns {'fr'|'en'|'es'} */
-export function replyLanguage(region, text = '') {
-  const fallback = region === 'ca' ? 'fr' : 'es';
-  const en = score(text, EN);
-  const other = score(text, region === 'ca' ? FR : ES);
+export function replyLanguage(region, text = '', locale) {
+  const [fallback, other] = marketLanguages(region, locale);
+  const otherScore = score(text, PATTERNS[other]);
   // Switch only on a clear signal, so short or mixed messages stay in the default language.
-  return en >= 2 && en > other ? 'en' : fallback;
+  return otherScore >= 2 && otherScore > score(text, PATTERNS[fallback]) ? other : fallback;
 }
 
 /**
@@ -33,8 +43,10 @@ export function detectLanguage(text = '', fallback = 'es') {
   return clear && top > scores[fallback] ? best : fallback;
 }
 
+const NAMES = { en: 'English', fr: 'French', es: 'Spanish' };
+
 /** Bot settings exported with each order for the bot platform. */
-export const botLanguageRules = (region) =>
-  region === 'ca'
-    ? { default: 'fr', switchTo: ['en'], rule: 'Reply in French. Switch to English only when the customer writes in English.' }
-    : { default: 'es', switchTo: ['en'], rule: 'Reply in Spanish. Switch to English when the customer writes in English.' };
+export function botLanguageRules(region, locale) {
+  const [d, o] = marketLanguages(region, locale);
+  return { default: d, switchTo: [o], rule: `Reply in ${NAMES[d]}. Switch to ${NAMES[o]} only when the customer writes in ${NAMES[o]}.` };
+}

@@ -28,7 +28,7 @@ await vite.close();
 
 function copyFor(loc) {
   const s = siteCopy[loc], t = autoCopy[loc], v = s.video;
-  const lang = loc === 'en-CA' ? 'en' : loc;
+  const lang = loc.startsWith('en') ? 'en' : loc;
   const customer = s.demo.lines.filter((l) => l.from === 'customer');
   return {
     product: s.product, by: s.by, clock: v.clock, unread: v.unread,

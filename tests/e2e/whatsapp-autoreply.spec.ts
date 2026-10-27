@@ -11,6 +11,7 @@ const pages = [
   { path: '/whatsapp-autoreply/', lang: 'en', heading: 'Never miss a customer', price: 'MXN 1,500', terms: '/whatsapp-autoreply/terms/', video: 'en' },
   { path: '/fr/whatsapp-autoreply/', lang: 'fr', heading: 'Ne manquez plus jamais', price: '129 $', terms: '/fr/whatsapp-autoreply/conditions/', video: 'fr' },
   { path: '/ca/whatsapp-autoreply/', lang: 'en', heading: 'Never miss', price: '$129', terms: '/ca/whatsapp-autoreply/terms/', video: 'en-ca' },
+  { path: '/us/whatsapp-autoreply/', lang: 'en', heading: 'Never miss', price: '$129', terms: '/us/whatsapp-autoreply/terms/', video: 'en-us' },
 ] as const;
 
 for (const def of pages) {
@@ -18,7 +19,7 @@ for (const def of pages) {
     await open(page, def.path);
     await expect(page.locator('html')).toHaveAttribute('lang', def.lang);
     await expect(page.locator('h1')).toContainText(def.heading);
-    for (const lang of ['es-MX', 'en', 'fr-CA', 'en-CA', 'x-default']) await expect(page.locator(`link[rel="alternate"][hreflang="${lang}"]`)).toHaveCount(1);
+    for (const lang of ['es-MX', 'en-MX', 'fr-CA', 'en-CA', 'en', 'x-default']) await expect(page.locator(`link[rel="alternate"][hreflang="${lang}"]`)).toHaveCount(1);
     await expect(page.locator('#plans .p-plan')).toHaveCount(3);
     await expect(page.locator('#plans .p-plan.featured')).toHaveCount(1);
     await expect(page.locator('#plans')).toContainText(def.price.replace(' ', ' '));
@@ -35,12 +36,22 @@ for (const def of pages) {
   });
 }
 
-test('Quebec pages list French first and show taxes', async ({ page }) => {
+test('Canada and Quebec pages show CAD with taxes, and the US page USD', async ({ page }) => {
   await open(page, '/ca/whatsapp-autoreply/');
   const choices = page.locator('.p-lang li a');
+  await expect(choices.nth(0)).toContainText('United States');
+  await expect(choices.nth(1)).toContainText('Canada');
   await expect(choices.nth(2)).toContainText('Français');
-  await expect(choices.nth(3)).toContainText('English');
+  await expect(page.locator('#plans')).toContainText('in Canadian dollars');
   await expect(page.locator('#plans')).toContainText('plus applicable taxes');
+  // English Canada leads with English; "French first" only appears where it talks about Quebec businesses.
+  await expect(page.locator('.p-hero')).not.toContainText('French first');
+  await open(page, '/us/whatsapp-autoreply/');
+  await expect(page.locator('#plans')).toContainText('in US dollars');
+  await expect(page.locator('#plans')).toContainText('Bookings');
+  await expect(page.locator('#plans')).toContainText('A2P 10DLC');
+  await expect(page.locator('.p-oxxo')).toHaveCount(0);
+  await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute('href', 'https://strategicsloth.com/us/whatsapp-autoreply/');
   await open(page, '/fr/whatsapp-autoreply/');
   await expect(page.locator('#plans')).toContainText('plus taxes applicables');
   await expect(page.locator('#plans')).toContainText('1 500 $');
@@ -70,11 +81,11 @@ test('auto-reply page fits a phone', async ({ page }) => {
 test('the language menu links all four versions and the footer has one auto-reply entry', async ({ page }) => {
   await open(page, '/es/whatsapp-autoreply/');
   await page.locator('.p-lang summary').click();
-  for (const href of ['/es/whatsapp-autoreply/', '/whatsapp-autoreply/', '/fr/whatsapp-autoreply/', '/ca/whatsapp-autoreply/']) {
+  for (const href of ['/es/whatsapp-autoreply/', '/whatsapp-autoreply/', '/fr/whatsapp-autoreply/', '/ca/whatsapp-autoreply/', '/us/whatsapp-autoreply/']) {
     await expect(page.locator(`.p-lang a[href="${href}"]`)).toBeVisible();
   }
   await open(page, '/');
-  await expect(page.locator('.site-footer a[href*="whatsapp-autoreply"]')).toHaveCount(1);
+  await expect(page.locator('.site-footer a[href="/us/whatsapp-autoreply/"]')).toHaveCount(1);
   await open(page, '/es/local-business/');
   await expect(page.locator('.site-footer a[href="/es/whatsapp-autoreply/"]')).toHaveCount(1);
 });

@@ -9,8 +9,9 @@ import { getJSON } from '../../server/autoreply/store.js';
 const MISSED = new Set(['no-answer', 'busy', 'failed', 'canceled']);
 
 const defaults = {
-  ca: (name) => `Bonjour! Désolé d’avoir manqué votre appel${name ? ` chez ${name}` : ''}. Répondez à ce texto avec votre question et on vous revient rapidement. (English? Just reply in English.)`,
-  mx: (name) => `¡Hola! Perdón por no contestar su llamada${name ? ` en ${name}` : ''}. Responda este mensaje con su pregunta y le contestamos pronto. (English? Just reply in English.)`,
+  fr: (name) => `Bonjour! Désolé d’avoir manqué votre appel${name ? ` chez ${name}` : ''}. Répondez à ce texto avec votre question et on vous revient rapidement. (English? Just reply in English.)`,
+  en: (name) => `Hi! Sorry we missed your call${name ? ` at ${name}` : ''}. Reply to this text with your question and we will get back to you soon.`,
+  es: (name) => `¡Hola! Perdón por no contestar su llamada${name ? ` en ${name}` : ''}. Responda este mensaje con su pregunta y le contestamos pronto. (English? Just reply in English.)`,
 };
 
 /** Twilio request signature: HMAC-SHA1 over the URL plus sorted key/value pairs. */
@@ -24,7 +25,9 @@ export function validSignature(authToken, url, params, signature) {
 
 export function missedCallText(order) {
   const custom = order.onboarding?.sms?.missedCallText?.trim();
-  return custom || defaults[order.region === 'ca' ? 'ca' : 'mx'](order.businessName);
+  // The Quebec page defaults to French, English Canada and the US to English, Mexico to Spanish.
+  const lang = order.locale === 'fr' || (order.region === 'ca' && !order.locale) ? 'fr' : order.region === 'mx' ? 'es' : 'en';
+  return custom || defaults[lang](order.businessName);
 }
 
 const twiml = () => new Response('<?xml version="1.0" encoding="UTF-8"?><Response/>', { headers: { 'Content-Type': 'text/xml' } });

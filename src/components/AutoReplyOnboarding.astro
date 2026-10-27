@@ -6,7 +6,8 @@ const { loc } = Astro.props as { loc: AutoLocale };
 const t = onboardingCopy[loc];
 const region = regionOf(loc);
 const paths = autoPaths(loc);
-const other = switcherFor(loc).find(s => s.loc !== loc)!;
+// The other language of the same region; the US version has none.
+const other = switcherFor(loc).find(s => s.loc !== loc);
 const api = (import.meta.env.PUBLIC_AUTOREPLY_API ?? '').replace(/\/$/, '');
 const metaAppId = import.meta.env.META_APP_ID ?? process.env.META_APP_ID ?? '';
 const metaConfigId = import.meta.env.META_CONFIG_ID ?? process.env.META_CONFIG_ID ?? '';
@@ -21,7 +22,7 @@ const id = (name: string) => `f-${name.replace(/\W/g, '-')}`;
       <h1>{t.h1}</h1>
       <p class="ob-intro">{t.intro}</p>
     </div>
-    <a class="ob-lang" href={autoPaths(other.loc).onboarding} data-keep-query hreflang={other.loc} lang={other.loc === 'en-CA' ? 'en' : other.loc}>{t.switchLabel}</a>
+    {other && <a class="ob-lang" href={autoPaths(other.loc).onboarding} data-keep-query hreflang={other.loc} lang={other.loc === 'en-CA' ? 'en' : other.loc}>{t.switchLabel}</a>}
   </header>
 
   <p class="ob-state" data-state role="status">{t.states.loading}</p>

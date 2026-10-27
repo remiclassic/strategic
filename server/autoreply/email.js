@@ -1,5 +1,5 @@
 // Transactional email through Resend (RESEND_API_KEY). Without a key, emails are logged and skipped.
-// Quebec clients always get French; English Quebec clients get French first, then English.
+// Quebec (French page) clients get French; English Canada clients get English, then French; US clients get English.
 import { env, onboardingPath, siteUrl } from './config.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -94,9 +94,9 @@ export function clientEmail(kind, order) {
   if (order.locale === 'en-CA') {
     const fr = copy.fr(order);
     const en = copy.en(order);
-    return { subject: `${fr.subject} / ${en.subject}`, ...render([...fr.lines, { hr: true }, ...en.lines]) };
+    return { subject: `${en.subject} / ${fr.subject}`, ...render([...en.lines, { hr: true }, ...fr.lines]) };
   }
-  const c = copy[order.locale === 'fr' ? 'fr' : order.locale === 'en' ? 'en' : 'es'](order);
+  const c = copy[order.locale === 'fr' ? 'fr' : order.locale === 'en' || order.locale === 'en-US' ? 'en' : 'es'](order);
   return { subject: c.subject, ...render(c.lines) };
 }
 

@@ -6,7 +6,7 @@ import { emailClient, emailOwner } from '../../server/autoreply/email.js';
 import { listOrders, saveOrder, setStatus, stripe, upsertFromSession } from '../../server/autoreply/orders.js';
 
 // Invoices follow the customer's preferred locale. Quebec French clients get French invoices.
-const invoiceLocale = { es: 'es-419', en: 'en', fr: 'fr-CA', 'en-CA': 'en-CA' };
+const invoiceLocale = { es: 'es-419', en: 'en', fr: 'fr-CA', 'en-CA': 'en-CA', 'en-US': 'en-US' };
 
 async function onPaid(session) {
   const order = await upsertFromSession(session);

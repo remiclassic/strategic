@@ -8,14 +8,16 @@ const d = autoreplyLegal[doc][loc];
 const t = autoCopy[loc];
 const paths = autoPaths(loc);
 // The other language of the same region, so a reader can switch without losing their place.
-const sibling: AutoLocale = loc === 'es' ? 'en' : loc === 'en' ? 'es' : loc === 'fr' ? 'en-CA' : 'fr';
-const siblingLabel = { es: 'Español', en: 'English', fr: 'Français', 'en-CA': 'English' }[sibling];
+// The other language of the same region, so a reader can switch without losing their place. The US has only English.
+const sibling: AutoLocale | null = ({ es: 'en', en: 'es', fr: 'en-CA', 'en-CA': 'fr', 'en-US': null } as Record<AutoLocale, AutoLocale | null>)[loc];
+const siblingLabel = sibling && { es: 'Español', en: 'English', fr: 'Français', 'en-CA': 'English', 'en-US': 'English' }[sibling];
+const hreflang = (l: AutoLocale) => (l === 'en-CA' ? 'en-CA' : l === 'en-US' ? 'en-US' : l);
 const alternates = [
-  { lang: htmlLang(loc) === 'en' && regionOf(loc) === 'ca' ? 'en-CA' : htmlLang(loc), href: Astro.url.pathname },
-  { lang: sibling === 'en-CA' ? 'en-CA' : sibling, href: autoPaths(sibling)[doc] },
+  { lang: hreflang(loc), href: Astro.url.pathname },
+  ...(sibling ? [{ lang: hreflang(sibling), href: autoPaths(sibling)[doc] }] : []),
 ];
-const back = { es: 'Volver a la oferta', en: 'Back to the offer', fr: 'Retour à l’offre', 'en-CA': 'Back to the offer' }[loc];
-const updatedLabel = { es: 'Actualizado el', en: 'Updated', fr: 'Mis à jour le', 'en-CA': 'Updated' }[loc];
+const back = { es: 'Volver a la oferta', en: 'Back to the offer', fr: 'Retour à l’offre', 'en-CA': 'Back to the offer', 'en-US': 'Back to the offer' }[loc];
+const updatedLabel = { es: 'Actualizado el', en: 'Updated', fr: 'Mis à jour le', 'en-CA': 'Updated', 'en-US': 'Updated' }[loc];
 ---
 <StudioLayout title={`${d.title} | ${t.serviceName}`} description={d.summary} lang={htmlLang(loc)} alternates={alternates}>
 <article class="legal-page container">
@@ -29,7 +31,7 @@ const updatedLabel = { es: 'Actualizado el', en: 'Updated', fr: 'Mis à jour le'
     <a href={paths.page}>← {back}</a>
     <a href={paths.terms} aria-current={doc === 'terms' ? 'page' : undefined}>{t.legalTerms}</a>
     <a href={paths.privacy} aria-current={doc === 'privacy' ? 'page' : undefined}>{t.legalPrivacy}</a>
-    <a href={autoPaths(sibling)[doc]} hreflang={sibling} lang={htmlLang(sibling)}>{siblingLabel}</a>
+    {sibling && <a href={autoPaths(sibling)[doc]} hreflang={hreflang(sibling)} lang={htmlLang(sibling)}>{siblingLabel}</a>}
   </nav>
   <div class="legal-page-body">
     {d.sections.map(section => <section><h2>{section.title}</h2><Fragment set:html={section.body}/></section>)}

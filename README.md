@@ -28,7 +28,8 @@ A self-serve offer: landing page, Stripe checkout, onboarding form, admin list.
 | `/es/whatsapp-autoreply/` | Spanish (main audience) | Mexico, MXN |
 | `/whatsapp-autoreply/` | English | Mexico, MXN |
 | `/fr/whatsapp-autoreply/` | Quebec French | Quebec, CAD |
-| `/ca/whatsapp-autoreply/` | English | Quebec, CAD |
+| `/ca/whatsapp-autoreply/` | English | Canada, CAD |
+| `/us/whatsapp-autoreply/` | American English | United States, USD |
 
 Each page has `onboarding/`, terms and privacy pages next to it. The admin page is `/admin/autoreply/` (noindex, not in the sitemap).
 
@@ -71,6 +72,10 @@ Vercel (server, keep secret):
 | `STRIPE_PRICE_CAD_BOOKINGS_SETUP`, `STRIPE_PRICE_CAD_BOOKINGS_MONTHLY` | Réservations prices |
 | `STRIPE_PRICE_CAD_COMPLETE_SETUP`, `STRIPE_PRICE_CAD_COMPLETE_MONTHLY` | Complet prices |
 | `STRIPE_PRICE_CAD_PILOT_SETUP` | 350 $ founding setup |
+| `STRIPE_PRICE_USD_BASIC_SETUP`, `STRIPE_PRICE_USD_BASIC_MONTHLY` | Essential prices (US) |
+| `STRIPE_PRICE_USD_BOOKINGS_SETUP`, `STRIPE_PRICE_USD_BOOKINGS_MONTHLY` | Bookings prices (US) |
+| `STRIPE_PRICE_USD_COMPLETE_SETUP`, `STRIPE_PRICE_USD_COMPLETE_MONTHLY` | Complete prices (US) |
+| `STRIPE_PRICE_USD_PILOT_SETUP` | US$350 founding setup |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Order storage. `KV_REST_API_URL` and `KV_REST_API_TOKEN` (the names Vercel's Upstash integration creates) work too |
 | `RESEND_API_KEY` | Sends the emails. Without it, emails are skipped and logged |
 | `RESEND_FROM` | Sender, e.g. `Strategic Sloth <hola@strategicsloth.com>`. The domain must be verified in Resend |

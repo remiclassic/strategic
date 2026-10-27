@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Auto-reply explainer</title>
+<!-- 36-second explainer for the auto-reply offer. Rendered frame by frame by render.mjs; window.render(t) draws time t. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=block">
+<style>
+  *{box-sizing:border-box;margin:0}
+  html,body{width:1280px;height:720px;overflow:hidden;background:#06100c;font-family:'DM Sans',sans-serif;color:#eef5f0}
+  .stage{position:relative;width:1280px;height:720px;overflow:hidden;background:radial-gradient(55% 60% at 70% 30%,#3ddc842e,transparent 70%),radial-gradient(40% 50% at 10% 0%,#2b7bdc1f,transparent 70%),#06100c}
+  .grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(75% 75% at 50% 40%,#000,transparent 85%)}
+  .brand{position:absolute;top:36px;left:48px;display:flex;align-items:center;gap:12px;font:800 20px Manrope,sans-serif;letter-spacing:-.02em}
+  .mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(140deg,#3ddc84,#1a9e57);color:#03140a}
+  .mark svg{width:24px;height:24px}
+  .brand small{display:block;font:500 13px 'DM Sans',sans-serif;color:#7d9286;letter-spacing:0}
+  .scene{position:absolute;inset:0;opacity:0}
+  .caption{position:absolute;left:0;right:0;bottom:56px;text-align:center;font:700 34px/1.25 Manrope,sans-serif;letter-spacing:-.025em;padding:0 120px;opacity:0}
+  .caption em{font-style:normal;color:#3ddc84}
+  [data-at]{opacity:0}
+  .card{background:#0f1c16;border:1px solid #ffffff1f;border-radius:22px;box-shadow:0 30px 70px #0009}
+  .bubble{max-width:440px;padding:14px 18px 10px;border-radius:18px;font-size:21px;line-height:1.4}
+  .bubble.c{background:#1e2b33;border-top-left-radius:6px}
+  .bubble.b{background:#0f5a37;border-top-right-radius:6px;margin-left:auto}
+  .bubble time{display:block;text-align:right;font-size:13px;color:#ffffff70;margin-top:4px}
+  .chatcard{position:absolute;left:50%;top:118px;width:600px;margin-left:-300px;padding:22px;display:grid;gap:14px}
+  .chathead{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid #ffffff14;font-weight:700;font-size:18px}
+  .chathead i{width:40px;height:40px;border-radius:50%;background:#3ddc84;color:#03140a;display:grid;place-items:center;font:800 17px Manrope;font-style:normal}
+  .chathead small{display:block;font-size:13px;color:#3ddc84;font-weight:500}
+  .chathead span{margin-left:auto;font-size:13px;padding:5px 11px;border-radius:999px;background:#ffffff12;color:#a3b7ab;font-weight:500}
+  .typing{display:flex;gap:6px;padding:16px 18px;border-radius:18px;background:#0f5a37;width:max-content;margin-left:auto}
+  .typing b{width:9px;height:9px;border-radius:50%;background:#ffffffaa}
+  /* scene 0 */
+  .clock{position:absolute;left:96px;top:170px;font:800 120px/1 Manrope,sans-serif;letter-spacing:-.05em}
+  .clock small{display:block;font:600 22px 'DM Sans',sans-serif;letter-spacing:0;color:#a3b7ab;margin-top:16px}
+  .inbox{position:absolute;right:110px;top:130px;width:500px;padding:20px;display:grid;gap:12px}
+  .inbox .row{display:flex;gap:14px;align-items:center;padding:14px;border-radius:14px;background:#ffffff08}
+  .inbox .dot{width:44px;height:44px;border-radius:50%;background:#1e2b33;flex:none}
+  .inbox p{font-size:18px;color:#d9e6de;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .inbox .badge{margin-left:auto;min-width:28px;height:28px;padding:0 8px;border-radius:999px;background:#3ddc84;color:#03140a;font:800 14px/28px Manrope;text-align:center}
+  /* scene 2 */
+  .approve{position:absolute;left:50%;top:120px;width:560px;margin-left:-280px;padding:30px;display:grid;gap:14px}
+  .approve h3{font:800 26px Manrope,sans-serif;letter-spacing:-.02em;margin-bottom:6px}
+  .approve .item{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:14px;background:#ffffff08;font-size:22px}
+  .approve .item i{width:30px;height:30px;border-radius:9px;background:#3ddc84;display:grid;place-items:center;color:#03140a;font-style:normal;font-weight:800}
+  /* scene 3 */
+  .alert{position:absolute;right:90px;top:300px;width:400px;padding:20px 22px;display:flex;gap:16px;border-color:#f5c56b66;background:#1d1a10}
+  .alert .bell{width:44px;height:44px;border-radius:12px;background:#f5c56b;color:#1f1505;display:grid;place-items:center;flex:none}
+  .alert b{display:block;font-size:20px}
+  .alert span{display:block;font-size:16px;color:#d9cfae;margin-top:4px}
+  .s3 .chatcard{left:110px;margin-left:0;width:540px}
+  /* scene 4 */
+  .steps{position:absolute;left:80px;right:80px;top:210px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .step{padding:26px 22px;min-height:190px}
+  .step b{display:block;font:500 16px ui-monospace,Menlo,monospace;color:#3ddc84}
+  .step strong{display:block;margin-top:46px;font:800 25px/1.2 Manrope,sans-serif;letter-spacing:-.02em}
+  .step.live{background:#3ddc84;border-color:#3ddc84;color:#03140a}
+  .step.live b{color:#03140a}
+  /* scene 5 */
+  .end{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+  .end .mark{width:88px;height:88px;border-radius:26px;margin:0 auto 26px}
+  .end .mark svg{width:52px;height:52px}
+  .end h2{font:800 64px/1.05 Manrope,sans-serif;letter-spacing:-.045em}
+  .end p{font-size:28px;color:#a3b7ab;margin-top:16px}
+  .end .url{display:inline-block;margin-top:30px;padding:14px 26px;border-radius:999px;background:#3ddc84;color:#03140a;font:800 24px Manrope,sans-serif}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="grid"></div>
+  <div class="brand" id="brand"><span class="mark"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 4h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-7.6L7 21.4V18H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Zm6.2 3.2-3 5.1h2.6l-.8 3.5 3.9-5.6h-2.7l1.4-3Z"/></svg></span><div><span data-k="product"></span><small data-k="by"></small></div></div>
+
+  <section class="scene" data-start="0" data-end="6">
+    <div class="clock" data-at="0.3"><span data-k="clock"></span><small data-k="unread"></small></div>
+    <div class="inbox card" data-at="0.8">
+      <div class="row" data-at="1.3"><span class="dot"></span><p data-k="in0"></p><span class="badge">1</span></div>
+      <div class="row" data-at="2.0"><span class="dot"></span><p data-k="in1"></p><span class="badge">1</span></div>
+      <div class="row" data-at="2.7"><span class="dot"></span><p data-k="in2"></p><span class="badge">1</span></div>
+    </div>
+  </section>
+
+  <section class="scene" data-start="6" data-end="12">
+    <div class="chatcard card" data-at="6.2">
+      <div class="chathead"><i data-k="initial"></i><div><span data-k="business"></span><small data-k="status"></small></div><span data-k="channel"></span></div>
+      <div class="bubble c" data-at="6.7"><span data-k="line0"></span><time data-k="time0"></time></div>
+      <div class="typing" data-at="7.5" data-until="8.7"><b></b><b></b><b></b></div>
+      <div class="bubble b" data-at="8.7"><span data-k="line1"></span><time data-k="time1"></time></div>
+    </div>
+  </section>
+
+  <section class="scene" data-start="12" data-end="18">
+    <div class="approve card" data-at="12.2">
+      <h3 data-k="approvedTitle"></h3>
+      <div class="item" data-at="12.9"><i>✓</i><span data-k="ap0"></span></div>
+      <div class="item" data-at="13.5"><i>✓</i><span data-k="ap1"></span></div>
+      <div class="item" data-at="14.1"><i>✓</i><span data-k="ap2"></span></div>
+      <div class="item" data-at="14.7"><i>✓</i><span data-k="ap3"></span></div>
+    </div>
+  </section>
+
+  <section class="scene s3" data-start="18" data-end="24">
+    <div class="chatcard card" data-at="18.2">
+      <div class="chathead"><i data-k="initial"></i><div><span data-k="business"></span><small data-k="status"></small></div><span data-k="channel"></span></div>
+      <div class="bubble c" data-at="18.7"><span data-k="handoff0"></span></div>
+      <div class="bubble b" data-at="19.8"><span data-k="handoffReply"></span></div>
+    </div>
+    <div class="alert card" data-at="20.8">
+      <span class="bell"><svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8a2.5 2.5 0 0 0 2.4 2Zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2Z"/></svg></span>
+      <div><b data-k="handoff1"></b><span data-k="alertBody"></span></div>
+    </div>
+  </section>
+
+  <section class="scene" data-start="24" data-end="30">
+    <div class="steps">
+      <div class="step card" data-at="24.3"><b>01</b><strong data-k="st0"></strong></div>
+      <div class="step card" data-at="24.9"><b>02</b><strong data-k="st1"></strong></div>
+      <div class="step card" data-at="25.5"><b>03</b><strong data-k="st2"></strong></div>
+      <div class="step card live" data-at="26.1"><b>04</b><strong data-k="st3"></strong></div>
+    </div>
+  </section>
+
+  <section class="scene" data-start="30" data-end="36.5">
+    <div class="end">
+      <div>
+        <div class="mark" data-at="30.2"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 4h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-7.6L7 21.4V18H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Zm6.2 3.2-3 5.1h2.6l-.8 3.5 3.9-5.6h-2.7l1.4-3Z"/></svg></div>
+        <h2 data-at="30.5" data-k="cap5"></h2>
+        <p data-at="31.0" data-k="endPrice"></p>
+        <span class="url" data-at="31.6" data-k="endUrl"></span>
+      </div>
+    </div>
+  </section>
+
+  <p class="caption" data-cap="0" data-start="0.2" data-end="5.8"></p>
+  <p class="caption" data-cap="1" data-start="6.2" data-end="11.8"></p>
+  <p class="caption" data-cap="2" data-start="12.2" data-end="17.8"></p>
+  <p class="caption" data-cap="3" data-start="18.2" data-end="23.8"></p>
+  <p class="caption" data-cap="4" data-start="24.2" data-end="29.8"></p>
+</div>
+<script>
+  // Copy arrives as window.COPY (set by render.mjs). Everything visible is a pure function of t.
+  const C = window.COPY;
+  for (const el of document.querySelectorAll('[data-k]')) el.textContent = C[el.dataset.k] ?? '';
+  for (const el of document.querySelectorAll('[data-cap]')) el.textContent = C.captions[+el.dataset.cap];
+  const ease = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+  const fade = 0.45;
+  window.DURATION = 36;
+  window.render = (t) => {
+    for (const s of document.querySelectorAll('.scene, .caption')) {
+      const a = +s.dataset.start, b = +s.dataset.end;
+      const o = Math.min(ease((t - a) / fade), 1 - ease((t - (b - fade)) / fade));
+      s.style.opacity = Math.max(0, o);
+      if (s.classList.contains('caption')) s.style.transform = `translateY(${(1 - ease((t - a) / fade)) * 16}px)`;
+    }
+    for (const el of document.querySelectorAll('[data-at]')) {
+      const p = ease((t - +el.dataset.at) / fade);
+      const until = el.dataset.until ? 1 - ease((t - +el.dataset.until) / 0.2) : 1;
+      el.style.opacity = Math.min(p, until);
+      el.style.transform = `translateY(${(1 - p) * 18}px)`;
+      if (el.dataset.until && t > +el.dataset.until + 0.2) el.style.display = 'none'; else if (el.dataset.until) el.style.display = '';
+    }
+    for (const [i, dot] of document.querySelectorAll('.typing b').entries()) dot.style.opacity = 0.35 + 0.65 * Math.abs(Math.sin(t * 5 + i * 0.7));
+  };
+  window.render(0);
+</script>
+</body>
+</html>

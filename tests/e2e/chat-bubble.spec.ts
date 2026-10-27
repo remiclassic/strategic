@@ -1,9 +1,9 @@
 import { test, expect, type Page } from '@playwright/test';
 
+// Saves an essential-only privacy choice before load: clicking the banner reloads the page, which races with assertions.
 async function open(page: Page, path: string) {
+  await page.addInitScript(() => localStorage.setItem('strategicSlothPrivacyV1', JSON.stringify({ analytics: false, marketing: false, updated: Date.now() - 1000 })));
   await page.goto(path);
-  const consent = page.getByRole('button', { name: 'Essential only', exact: true });
-  if (await consent.isVisible()) await consent.click();
 }
 
 test('chat bubble answers through the API and is labelled as automatic', async ({ page }) => {
@@ -31,7 +31,7 @@ test('chat bubble answers through the API and is labelled as automatic', async (
 
 test('the "try it" link on the offer page opens the chat, in French on the Quebec page', async ({ page }) => {
   await open(page, '/fr/whatsapp-autoreply/');
-  await page.getByRole('button', { name: /Essayez-le dans le clavardage/ }).click();
+  await page.getByRole('button', { name: /Essayez-le dans le clavardage/ }).first().click();
   await expect(page.getByRole('dialog', { name: 'Assistant Strategic Sloth' })).toBeVisible();
   await expect(page.getByLabel('Votre message')).toBeFocused();
 });

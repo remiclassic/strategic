@@ -87,7 +87,7 @@ export const hasContactDetails = (text) =>
 
 /** Which language to answer in. Region bots follow their market's rule; Strategic Sloth follows the customer. */
 export function languageFor(client, text, previous) {
-  if (client.region === 'mx' || client.region === 'ca') return replyLanguage(client.region, text);
+  if (client.region === 'mx' || client.region === 'ca' || client.region === 'us') return replyLanguage(client.region, text, client.locale);
   return detectLanguage(text, previous ?? 'es');
 }
 

@@ -9,7 +9,7 @@ import ChatBubble from '../components/ChatBubble.astro';
 
 import StudioHeader from '../components/StudioHeader.astro';
 const { title, description = 'Independent tools and game development by Strategic Sloth LLC.', education = false, noindex = false, services = false, product = false, lang = 'en', alternates = [] as { lang: string; href: string }[], image = '/og/strategic-sloth.jpg', schema = [] as object[] } = Astro.props;
-const autoreplyHref = lang === 'es' ? '/es/whatsapp-autoreply/' : lang === 'fr' ? '/fr/whatsapp-autoreply/' : '/whatsapp-autoreply/';
+const autoreplyHref = lang === 'es' ? '/es/whatsapp-autoreply/' : lang === 'fr' ? '/fr/whatsapp-autoreply/' : '/us/whatsapp-autoreply/';
 const ogLocale = lang === 'fr' ? 'fr_CA' : lang === 'es' ? 'es_MX' : 'en_US';
 const ogLocaleFor = (code: string) => code === 'fr' ? 'fr_CA' : code === 'es' ? 'es_MX' : 'en_US';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);

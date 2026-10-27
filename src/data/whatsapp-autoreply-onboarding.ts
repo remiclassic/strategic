@@ -1,4 +1,4 @@
-// Onboarding form strings. 'en-CA' reuses English with Quebec channel wording.
+// Onboarding form strings. 'en-CA' (Canada) and 'en-US' reuse English with their own channel wording.
 // The sample replies in `samples` are templates filled with the owner's own answers; {x} marks a field.
 import type { AutoLocale } from './whatsapp-autoreply';
 
@@ -354,15 +354,15 @@ const fr: OnboardingCopy = {
 
 const enCA: OnboardingCopy = {
   ...en,
-  title: 'Set up your assistant | 24/7 Auto-Reply (Quebec)',
+  title: 'Set up your assistant | 24/7 Auto-Reply (Canada)',
   switchLabel: 'Français',
   steps: { ...en.steps, whatsapp: 'Channels' },
   business: {
     ...en.business,
     types: ['Restaurant', 'Clinic', 'Salon', 'Garage', 'Contractor (plumbing, renovation)', 'Shop', 'Inn or cottage', 'Other'],
     hours: { label: 'Opening hours', placeholder: 'Mon to Fri 8 am to 5 pm. Sat 9 am to noon.' },
-    languageOptions: ['French', 'English', 'Spanish'],
-    phone: { label: 'Your cell, for alerts', hint: 'For example +1 514 000 0000' },
+    languageOptions: ['English', 'French', 'Spanish'],
+    phone: { label: 'Your cell, for alerts', hint: 'For example +1 416 000 0000' },
   },
   whatsapp: {
     ...en.whatsapp,
@@ -377,8 +377,8 @@ const enCA: OnboardingCopy = {
   sms: {
     title: 'Missed-call text-back',
     intro: 'We set up a Twilio number in your name, or forward your current number. We sort this out during setup.',
-    number: { label: 'Number your customers call', hint: 'For example +1 514 000 0000' },
-    text: { label: 'Text sent after a missed call', hint: 'Optional. Customers get French by default, so write it in French.', placeholder: 'Bonjour! Désolé d’avoir manqué votre appel. Répondez à ce texto avec votre question et on vous revient rapidement.' },
+    number: { label: 'Number your customers call', hint: 'For example +1 416 000 0000' },
+    text: { label: 'Text sent after a missed call', hint: 'Optional. Write it in your customers’ language; businesses in Quebec should write it in French.', placeholder: 'Hi! Sorry we missed your call. Reply to this text with your question and we will get back to you soon.' },
   },
   answers: {
     ...en.answers,
@@ -388,11 +388,39 @@ const enCA: OnboardingCopy = {
   },
   review: {
     ...en.review,
-    intro: 'Your Quebec customers get French by default. Here is how the assistant would reply with what you wrote. Answers you write in English are translated to French for French-speaking customers, and we show you the French version before going live.',
+    intro: 'Here is how the assistant would reply with what you wrote. It answers in English, and in French when the customer writes in French (French first for businesses in Quebec). We show you the French version before going live.',
     consent: 'I have read the privacy policy and consent to this information being used to set up my assistant.',
     privacyLink: 'Read the privacy policy',
   },
-  samples: { ...en.samples, english: ['Hi, do you have parking?', '(The customer wrote in English, so the assistant switches.) {location}'] },
+  samples: en.samples,
 };
 
-export const onboardingCopy: Record<AutoLocale, OnboardingCopy> = { es, en, fr, 'en-CA': enCA };
+const enUS: OnboardingCopy = {
+  ...enCA,
+  title: 'Set up your assistant | 24/7 Auto-Reply (US)',
+  switchLabel: '',
+  business: {
+    ...enCA.business,
+    types: ['Restaurant', 'Clinic', 'Salon or spa', 'Auto shop', 'Contractor (plumbing, HVAC, remodeling)', 'Shop', 'Vacation rental', 'Other'],
+    languageOptions: ['English', 'Spanish', 'French'],
+    phone: { label: 'Your cell, for alerts', hint: 'For example +1 212 555 0100' },
+  },
+  sms: {
+    ...enCA.sms!,
+    intro: 'We set up a Twilio number in your name, or forward your current number, and register it for business texting with US carriers. We sort this out during setup.',
+    number: { label: 'Number your customers call', hint: 'For example +1 212 555 0100' },
+    text: { label: 'Text sent after a missed call', hint: 'Optional. Otherwise we use a short message in English.', placeholder: 'Hi! Sorry we missed your call. Reply to this text with your question and we will get back to you soon.' },
+  },
+  answers: {
+    ...enCA.answers,
+    prices: { label: 'Prices', placeholder: 'Haircut: $35. Color from $90. Plus tax.' },
+    paymentOptions: ['Cash', 'Card', 'Zelle', 'Venmo', 'Check'],
+    location: { label: 'Location and parking', placeholder: 'Main St and 3rd Ave. Free parking behind the building.' },
+  },
+  review: {
+    ...enCA.review,
+    intro: 'Here is how the assistant would reply with what you wrote. It answers in English, and in Spanish when the customer writes in Spanish. We show you the Spanish version before going live.',
+  },
+};
+
+export const onboardingCopy: Record<AutoLocale, OnboardingCopy> = { es, en, fr, 'en-CA': enCA, 'en-US': enUS };

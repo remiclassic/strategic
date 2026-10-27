@@ -202,7 +202,7 @@ const fr: SiteCopy = {
 
 const enCA: SiteCopy = {
   ...en,
-  regionLabel: 'Quebec',
+  regionLabel: 'Canada',
   demo: {
     channel: 'Messenger', business: 'Your business', status: 'Replies instantly', example: 'Example',
     lines: [
@@ -217,7 +217,7 @@ const enCA: SiteCopy = {
   features: [
     { kind: 'instant', title: 'Instant answers', body: 'Hours, prices, address, appointments. Any time, in seconds.' },
     { kind: 'missed', title: 'Missed-call text-back', body: 'On a job site? The caller gets a text and the assistant takes it from there.' },
-    { kind: 'language', title: 'French first', body: 'Replies in French. Switches to English only when the customer writes in English.' },
+    { kind: 'language', title: 'English and French', body: 'Replies in the customer’s language. Businesses in Quebec answer in French first.' },
     { kind: 'sheet', title: 'Leads in your Google Sheet', body: 'Name, number and need, saved for you. You choose who to call back.' },
     { kind: 'handoff', title: 'A person when it matters', body: 'Complaints, refunds or anything unusual: your team gets an alert.' },
     { kind: 'booking', title: 'Appointment requests', body: 'Takes the day and the need. Your team confirms. No promises.' },
@@ -229,7 +229,7 @@ const enCA: SiteCopy = {
     ...en.video,
     captions: [
       'Your customers write at all hours.',
-      'Your assistant answers in seconds: French first, English when the customer writes in English.',
+      'Your assistant answers in seconds, in English or French.',
       'It only uses answers you approve.',
       'Anything tricky goes to a person on your team.',
       'Pick a plan, connect your accounts, approve. Live in 3 business days.',
@@ -240,12 +240,51 @@ const enCA: SiteCopy = {
   },
 };
 
-export const siteCopy: Record<AutoLocale, SiteCopy> = { es, en, fr, 'en-CA': enCA };
+const enUS: SiteCopy = {
+  ...enCA,
+  regionLabel: 'United States',
+  demo: {
+    channel: 'Text', business: 'Your business', status: 'Replies instantly', example: 'Example',
+    lines: [
+      { from: 'customer', text: 'Hi, do you have any openings Saturday?', time: '11:42 pm' },
+      { from: 'bot', text: 'Hi! Yes, Saturday from 9 am to noon. Want me to take an appointment request?', time: '11:42 pm' },
+      { from: 'customer', text: 'Yes, for an oil change.', time: '11:43 pm' },
+      { from: 'bot', text: 'Great. I am noting the request, and the team will text you to confirm the time.', time: '11:43 pm' },
+      { from: 'note', text: 'Request sent to the team' },
+    ],
+    callouts: en.demo.callouts,
+  },
+  features: [
+    { kind: 'instant', title: 'Instant answers', body: 'Hours, prices, address, appointments. Any time, in seconds.' },
+    { kind: 'missed', title: 'Missed-call text-back', body: 'On a job? The caller gets a text and the assistant takes it from there.' },
+    { kind: 'language', title: 'English and Spanish', body: 'Replies in the customer’s language. Switches to Spanish when the customer writes in Spanish.' },
+    { kind: 'sheet', title: 'Leads in your Google Sheet', body: 'Name, number and need, saved for you. You choose who to call back.' },
+    { kind: 'handoff', title: 'A person when it matters', body: 'Complaints, refunds or anything unusual: your team gets an alert.' },
+    { kind: 'booking', title: 'Appointment requests', body: 'Takes the day and the need. Your team confirms. No promises.' },
+  ],
+  sheetRows: [['Jordan', '+1 512 …', 'Oil change'], ['Maria', '+1 305 …', 'Estimate'], ['Chris', '+1 602 …', 'Hours']],
+  bookingCard: ['Request', 'Saturday morning · oil change', 'To confirm'],
+  video: {
+    ...enCA.video,
+    captions: [
+      'Your customers write at all hours.',
+      'Your assistant answers in seconds, in English or Spanish.',
+      'It only uses answers you approve.',
+      'Anything tricky goes to a person on your team.',
+      'Pick a plan, connect your accounts, approve. Live in 3 business days.',
+      'Never miss a customer again.',
+    ],
+    endTitle: '24/7 Auto-Reply', endPrice: 'From $79 a month, plus taxes', endUrl: 'strategicsloth.com/us/whatsapp-autoreply',
+  },
+};
 
-/** Region and language picker entries, French listed before English for Quebec. */
+export const siteCopy: Record<AutoLocale, SiteCopy> = { es, en, fr, 'en-CA': enCA, 'en-US': enUS };
+
+/** Region and language picker entries. */
 export const localeChoices: { loc: AutoLocale; label: string; region: string; lang: string }[] = [
+  { loc: 'en-US', label: 'English', region: 'United States', lang: 'en' },
+  { loc: 'en-CA', label: 'English', region: 'Canada', lang: 'en' },
+  { loc: 'fr', label: 'Français', region: 'Québec', lang: 'fr' },
   { loc: 'es', label: 'Español', region: 'México', lang: 'es' },
   { loc: 'en', label: 'English', region: 'Mexico', lang: 'en' },
-  { loc: 'fr', label: 'Français', region: 'Québec', lang: 'fr' },
-  { loc: 'en-CA', label: 'English', region: 'Quebec', lang: 'en' },
 ];

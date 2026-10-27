@@ -2,15 +2,15 @@
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-/** @type {{ regions: Record<'mx'|'ca', any> }} */
+/** @type {{ regions: Record<'mx'|'ca'|'us', any> }} */
 export const offer = require('../../src/data/autoreply.json');
 
-export const LOCALES = ['es', 'en', 'fr', 'en-CA'];
+export const LOCALES = ['es', 'en', 'fr', 'en-CA', 'en-US'];
 export const STATUSES = ['awaiting_payment', 'paid', 'onboarding', 'ready_for_review', 'live', 'payment_failed', 'cancelled'];
 
-export const regionOf = (locale) => (locale === 'fr' || locale === 'en-CA' ? 'ca' : 'mx');
+export const regionOf = (locale) => (locale === 'fr' || locale === 'en-CA' ? 'ca' : locale === 'en-US' ? 'us' : 'mx');
 
-const base = { es: '/es/whatsapp-autoreply/', en: '/whatsapp-autoreply/', fr: '/fr/whatsapp-autoreply/', 'en-CA': '/ca/whatsapp-autoreply/' };
+const base = { es: '/es/whatsapp-autoreply/', en: '/whatsapp-autoreply/', fr: '/fr/whatsapp-autoreply/', 'en-CA': '/ca/whatsapp-autoreply/', 'en-US': '/us/whatsapp-autoreply/' };
 export const pagePath = (locale) => base[locale] ?? base.en;
 export const onboardingPath = (locale) => `${pagePath(locale)}onboarding/`;
 export const termsPath = (locale) => `${pagePath(locale)}${locale === 'es' ? 'terminos' : locale === 'fr' ? 'conditions' : 'terms'}/`;
@@ -18,6 +18,7 @@ export const termsPath = (locale) => `${pagePath(locale)}${locale === 'es' ? 'te
 export const planNames = {
   mx: { basic: 'Básico', bookings: 'Reservas', complete: 'Completo' },
   ca: { basic: 'Essentiel', bookings: 'Réservations', complete: 'Complet' },
+  us: { basic: 'Essential', bookings: 'Bookings', complete: 'Complete' },
 };
 
 export const env = (name, fallback) => {

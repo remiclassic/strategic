@@ -32,6 +32,7 @@ describe('auto-reply copy', () => {
     expect(formatMoney(1500, 'fr')).toBe('1 500 $');
     expect(formatMoney(79, 'fr')).toBe('79 $');
     expect(formatMoney(1500, 'en-CA')).toBe('$1,500');
+    expect(formatMoney(1500, 'en-US')).toBe('$1,500');
     expect(approxUsd(4500)).toMatch(/^USD \d+$/);
   });
 
@@ -51,5 +52,7 @@ describe('auto-reply copy', () => {
     expect(autoPaths('fr').onboarding).toBe('/fr/whatsapp-autoreply/onboarding/');
     expect(autoPaths('en-CA').page).toBe('/ca/whatsapp-autoreply/');
     expect(autoPaths('es').privacy).toBe('/es/whatsapp-autoreply/aviso-de-privacidad/');
+    expect(autoPaths('en-US').page).toBe('/us/whatsapp-autoreply/');
+    expect(autoPaths('en-US').terms).toBe('/us/whatsapp-autoreply/terms/');
   });
 });

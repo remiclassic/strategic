@@ -24,9 +24,10 @@ export function botExport(order) {
     exportedAt: new Date().toISOString(),
     orderId: order.id,
     region: order.region,
+    locale: order.locale,
     plan: order.plan,
     planName: order.planName,
-    language: botLanguageRules(order.region),
+    language: botLanguageRules(order.region, order.locale),
     business: o.business ?? {},
     channels: { whatsapp: { ...(o.whatsapp ?? {}), ...(order.meta ?? {}) }, sms: o.sms ?? null },
     answers: o.answers ?? {},
@@ -58,7 +59,7 @@ export function clientFromOrder(order) {
   };
 }
 
-const money = (n, cur) => (cur === 'MXN' ? `MXN ${n.toLocaleString('en-US')}` : `${n} $ CAD`);
+const money = (n, cur) => (cur === 'MXN' ? `MXN ${n.toLocaleString('en-US')}` : cur === 'USD' ? `US$${n.toLocaleString('en-US')}` : `${n} $ CAD`);
 
 /** Plan prices written out from autoreply.json, so the bot can never drift from the pricing page. */
 export function autoreplyPricesText() {
@@ -67,7 +68,7 @@ export function autoreplyPricesText() {
     const pilot = cfg.pilot.spotsLeft > 0
       ? ` Founding offer while spots last: ${planNames[region][cfg.pilot.plan]} for ${money(cfg.pilot.setup, cfg.currency)} setup, first month free.`
       : '';
-    const where = region === 'mx' ? 'Mexico (prices in pesos)' : `Quebec (prices in Canadian dollars${cfg.plusTaxes ? ', plus applicable taxes' : ''})`;
+    const where = { mx: 'Mexico (prices in pesos)', ca: 'Canada (prices in Canadian dollars, plus applicable taxes)', us: 'United States (prices in US dollars, plus applicable taxes)' }[region];
     return `${where}: ${plans}.${pilot}`;
   }).join(' ');
 }

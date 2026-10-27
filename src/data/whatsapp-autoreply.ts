@@ -1,22 +1,23 @@
-// Copy for the 24/7 auto-reply offer. Four pages, two regions:
-// Mexico (Playa del Carmen, Riviera Maya) in Spanish and English, priced in MXN,
-// and Quebec in French and English, priced in CAD.
+// Copy for the 24/7 auto-reply offer. Five pages, three regions:
+// Mexico (Playa del Carmen, Riviera Maya) in Spanish and English, priced in MXN;
+// Canada in French (the Quebec version) and English, priced in CAD; the United States in English, priced in USD.
 // Rules: short sentences, no em dashes, no client names, testimonials or invented stats.
 import config from './autoreply.json';
 
-export type AutoLocale = 'es' | 'en' | 'fr' | 'en-CA';
-export type AutoRegion = 'mx' | 'ca';
+export type AutoLocale = 'es' | 'en' | 'fr' | 'en-CA' | 'en-US';
+export type AutoRegion = 'mx' | 'ca' | 'us';
 export type PlanId = 'basic' | 'bookings' | 'complete';
 
-export const autoLocales: AutoLocale[] = ['es', 'en', 'fr', 'en-CA'];
-export const regionOf = (loc: AutoLocale): AutoRegion => (loc === 'fr' || loc === 'en-CA' ? 'ca' : 'mx');
-export const htmlLang = (loc: AutoLocale) => (loc === 'en-CA' ? 'en' : loc);
+export const autoLocales: AutoLocale[] = ['es', 'en', 'fr', 'en-CA', 'en-US'];
+export const regionOf = (loc: AutoLocale): AutoRegion => (loc === 'fr' || loc === 'en-CA' ? 'ca' : loc === 'en-US' ? 'us' : 'mx');
+export const htmlLang = (loc: AutoLocale) => (loc === 'en-CA' || loc === 'en-US' ? 'en' : loc);
 
 const base: Record<AutoLocale, string> = {
   es: '/es/whatsapp-autoreply/',
   en: '/whatsapp-autoreply/',
   fr: '/fr/whatsapp-autoreply/',
   'en-CA': '/ca/whatsapp-autoreply/',
+  'en-US': '/us/whatsapp-autoreply/',
 };
 
 export const autoPaths = (loc: AutoLocale) => ({
@@ -26,32 +27,32 @@ export const autoPaths = (loc: AutoLocale) => ({
   privacy: `${base[loc]}${loc === 'es' ? 'aviso-de-privacidad' : loc === 'fr' ? 'confidentialite' : 'privacy'}/`,
 });
 
-// Every page lists all four so search engines see the full set; the two regions are different offers.
+// Every page lists all five so search engines see the full set; the regions are different offers.
+// Plain "en" (and so x-default) is the US page, the most general English version.
 export const autoAlternates = [
   { lang: 'es-MX', href: base.es },
-  { lang: 'en', href: base.en },
+  { lang: 'en-MX', href: base.en },
   { lang: 'fr-CA', href: base.fr },
   { lang: 'en-CA', href: base['en-CA'] },
+  { lang: 'en', href: base['en-US'] },
 ];
 
 // Language links shown on each page. Quebec lists French first (Charter of the French Language).
-export const switcherFor = (loc: AutoLocale) =>
-  regionOf(loc) === 'mx'
-    ? [
-        { loc: 'es' as AutoLocale, label: 'Español' },
-        { loc: 'en' as AutoLocale, label: 'English' },
-      ]
-    : [
-        { loc: 'fr' as AutoLocale, label: 'Français' },
-        { loc: 'en-CA' as AutoLocale, label: 'English' },
-      ];
+// The US version is English only.
+export const switcherFor = (loc: AutoLocale): { loc: AutoLocale; label: string }[] =>
+  ({
+    mx: [{ loc: 'es' as AutoLocale, label: 'Español' }, { loc: 'en' as AutoLocale, label: 'English' }],
+    ca: [{ loc: 'fr' as AutoLocale, label: 'Français' }, { loc: 'en-CA' as AutoLocale, label: 'English' }],
+    us: [{ loc: 'en-US' as AutoLocale, label: 'English' }],
+  })[regionOf(loc)];
 
 export const regionLinkFor = (loc: AutoLocale) =>
   ({
     es: { href: base.fr, label: '¿Negocio en Quebec? Versión en francés y CAD' },
     en: { href: base['en-CA'], label: 'Business in Quebec? Canadian version in CAD' },
     fr: { href: base.es, label: 'Entreprise au Mexique? Version en pesos (espagnol)' },
-    'en-CA': { href: base.en, label: 'Business in Mexico? Version in pesos' },
+    'en-CA': { href: base['en-US'], label: 'Business in the US? Version in US dollars' },
+    'en-US': { href: base['en-CA'], label: 'Business in Canada? Version in Canadian dollars' },
   })[loc];
 
 export const regionConfig = (region: AutoRegion) => config.regions[region];
@@ -59,7 +60,7 @@ export const regionConfig = (region: AutoRegion) => config.regions[region];
 const NBSP = ' ';
 const group = (n: number, sep: string) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
 
-/** "MXN 4,500", "1 500 $" (Quebec), "$1,500" (English Canada). */
+/** "MXN 4,500", "1 500 $" (Quebec), "$1,500" (English Canada and the US). */
 export function formatMoney(amount: number, loc: AutoLocale): string {
   if (regionOf(loc) === 'mx') return `MXN${NBSP}${group(amount, ',')}`;
   if (loc === 'fr') return `${group(amount, NBSP)}${NBSP}$`;
@@ -549,16 +550,16 @@ const fr: AutoCopy = {
 };
 
 const enCA: AutoCopy = {
-  title: '24/7 Auto-Reply on Messenger and Text for Quebec Businesses',
+  title: '24/7 Auto-Reply on Messenger and Text for Canadian Businesses',
   description:
-    'Customers get an answer in seconds, 24/7, on Messenger, text, Instagram or WhatsApp. French first, English when the customer writes in English. Only info you approve.',
-  serviceName: '24/7 Auto-Reply for Local Businesses (Quebec)',
+    'Customers get an answer in seconds, 24/7, on Messenger, text, Instagram or WhatsApp, in English or French. Only info you approve. Prices in Canadian dollars.',
+  serviceName: '24/7 Auto-Reply for Local Businesses (Canada)',
   crumbHome: 'Home',
-  crumbSelf: 'Auto-reply (Quebec)',
+  crumbSelf: 'Auto-reply (Canada)',
   eyebrow: 'Messenger and text, 24/7',
   h1: ['Never miss', 'a customer again.'],
   lede:
-    'Your customers get an answer in seconds, day and night. French first, using only the info you approve. Anything tricky goes to a real person.',
+    'Your customers get an answer in seconds, day and night, in English or French, using only the info you approve. Anything tricky goes to a real person.',
   heroCta: 'See plans',
   whatsappCta: 'Message us',
   tryIt: 'Try it now in the chat',
@@ -567,7 +568,7 @@ const enCA: AutoCopy = {
   channels: ['Messenger', 'Missed-call text', 'Instagram', 'WhatsApp'],
   facts: [
     ['Replies', 'In seconds, 24/7'],
-    ['Language', 'French first'],
+    ['Languages', 'English and French'],
     ['Live', 'Within 3 business days'],
     ['You decide', 'Approved answers only'],
   ],
@@ -575,7 +576,7 @@ const enCA: AutoCopy = {
   stepsTitle: ['Four steps.', 'No long meetings.'],
   stepsIntro: 'You can do it all from your phone. You approve every answer before it goes out.',
   steps: [
-    ['Choose a plan and pay', 'By card, online. Invoices in French or English.', 'Two minutes'],
+    ['Choose a plan and pay', 'By card, online. Invoices in English or French.', 'Two minutes'],
     ['Connect your accounts', 'Your Facebook Page for Messenger, your Instagram, and WhatsApp through Meta’s official window. The accounts stay yours.', 'About 5 minutes'],
     ['Approve your answers', 'Prices, hours, policies. We show you sample replies and you approve them.', 'From your phone'],
     ['Go live', 'We test it with you and switch the assistant on.', 'Within 3 business days'],
@@ -607,7 +608,7 @@ const enCA: AutoCopy = {
       name: 'Essentiel',
       blurb: 'Stop losing messages.',
       features: [
-        'Instant French and English answers from your approved FAQ',
+        'Instant English and French answers from your approved FAQ',
         'One channel of your choice: Messenger, Instagram or WhatsApp',
         'After-hours reply',
         'Lead capture to your Google Sheet, plus an owner alert',
@@ -661,17 +662,17 @@ const enCA: AutoCopy = {
     ['Meta must verify your business', 'It usually takes a few days and is out of our hands. We help you through it.'],
     ['It only answers from info you approve', 'If it does not know, it does not guess. It hands the chat to a person.'],
     ['It never confirms what it cannot check', 'A booking is a request until your team confirms it.'],
-    ['French first', 'The assistant replies in French. It switches to English only when the customer writes in English.'],
+    ['English and French', 'The assistant replies in English and switches to French when the customer writes in French. Businesses in Quebec get French first, as the law requires.'],
   ],
   faqEyebrow: 'Questions',
   faqTitle: 'Straight answers.',
   faq: [
-    ['Do my customers need WhatsApp?', 'No. In Quebec, most people write on Messenger or by text. We connect the channels your customers already use.'],
+    ['Do my customers need WhatsApp?', 'No. In Canada, most people write on Messenger or by text. We connect the channels your customers already use.'],
     ['How does missed-call text-back work?', 'When a call goes unanswered, the caller gets a text asking what they need. The assistant takes it from there and alerts you. Included in Réservations and Complet.'],
     ['Who owns the accounts?', 'You do. Your Facebook Page, Instagram, WhatsApp Business, the Twilio number and your Google Sheet. If you leave, you keep everything.'],
     ['What if a customer asks something unusual?', 'The assistant does not make things up. It tells the customer a person will reply and alerts your team.'],
     ['Can it take bookings?', 'On Réservations and Complet it takes the request with the details you need. Your team confirms. It never promises a spot it cannot check.'],
-    ['Why does it answer in French?', 'Quebec customers expect French. The assistant replies in French by default and switches to English only when the customer writes in English.'],
+    ['Does it speak French?', 'Yes. It replies in English by default and switches to French when the customer writes in French. For businesses in Quebec it answers in French first; see the French version of this page.'],
     ['How long until it is live?', 'Within 3 business days after you connect your accounts and approve your answers. Meta’s verification can add a few days.'],
     ['Are taxes included?', 'No. Prices are before tax. Applicable taxes are added on the invoice.'],
     ['How do I cancel?', 'Cancel the monthly plan any time with 30 days’ notice by email. Once setup starts, 50% of the setup fee is not refundable.'],
@@ -686,4 +687,107 @@ const enCA: AutoCopy = {
   checkoutError: 'We could not open checkout. Try again or message us.',
 };
 
-export const autoCopy: Record<AutoLocale, AutoCopy> = { es, en, fr, 'en-CA': enCA };
+const enUS: AutoCopy = {
+  ...enCA,
+  title: '24/7 Auto-Reply on Text and Messenger for US Local Businesses',
+  description:
+    'Customers get an answer in seconds, 24/7, by text, Messenger, Instagram or WhatsApp, in English or Spanish. Only info you approve. Prices in US dollars.',
+  serviceName: '24/7 Auto-Reply for Local Businesses (US)',
+  crumbSelf: 'Auto-reply (US)',
+  eyebrow: 'Text and Messenger, 24/7',
+  lede:
+    'Your customers get an answer in seconds, day and night, in English or Spanish, using only the info you approve. Anything tricky goes to a real person.',
+  channels: ['Text (missed calls)', 'Messenger', 'Instagram', 'WhatsApp'],
+  facts: [
+    ['Replies', 'In seconds, 24/7'],
+    ['Languages', 'English and Spanish'],
+    ['Live', 'Within 3 business days'],
+    ['You decide', 'Approved answers only'],
+  ],
+  steps: [
+    ['Choose a plan and pay', 'By card, online. Takes two minutes.', 'Two minutes'],
+    enCA.steps[1],
+    enCA.steps[2],
+    ['Go live', 'We test it with you and switch the assistant on. Texting goes live once US carriers approve it.', 'Within 3 business days'],
+  ],
+  who: [
+    ['Restaurants', 'Hours, menu, reservations, parking.'],
+    ['Clinics', 'Services, appointments, payment methods, directions.'],
+    ['Salons and spas', 'Prices, appointments, cancellations, offers.'],
+    ['Auto shops', 'Appointments, estimates, hours.'],
+    ['Contractors', 'Plumbing, HVAC, remodeling: service areas, quotes, emergencies.'],
+    ['Shops', 'Hours, stock, returns, in-store pickup.'],
+    ['Vacation rentals', 'Availability, check-in, house rules, directions.'],
+  ],
+  pricingTitle: ['Clear prices,', 'in US dollars.'],
+  checkoutNote: 'Secure payment with Stripe. Prices in US dollars, plus applicable taxes.',
+  plans: {
+    basic: {
+      name: 'Essential',
+      blurb: 'Stop losing messages.',
+      features: [
+        'Instant English and Spanish answers from your approved FAQ',
+        'One channel of your choice: Messenger, Instagram or WhatsApp',
+        'After-hours reply',
+        'Lead capture to your Google Sheet, plus an owner alert',
+        'Hands off to a real person',
+        '30 min a month of updates',
+      ],
+    },
+    bookings: {
+      name: 'Bookings',
+      blurb: 'For businesses that run on appointments.',
+      features: [
+        'Everything in Essential',
+        'Messenger, Instagram and WhatsApp',
+        'Missed-call text-back',
+        'Booking or appointment requests (your staff confirm)',
+        'Reminders and confirmations',
+        'Monthly report',
+        '1 h a month of updates',
+      ],
+    },
+    complete: {
+      name: 'Complete',
+      blurb: 'For two numbers, two locations or high volume.',
+      features: [
+        'Everything in Bookings',
+        'Up to 2 numbers',
+        'Next-day follow-up',
+        'Review requests',
+        'Monthly review call',
+        '2 h a month of updates',
+      ],
+    },
+  },
+  pilotTitle: 'First 3 businesses: Bookings for $350 setup, first month free.',
+  extra: [
+    'Your Messenger, Instagram and WhatsApp Business accounts stay yours. For WhatsApp, you pay Meta’s message fees directly. Meta gives each business number 1,000 free service messages a month. Below that, Meta does not charge you for those replies.',
+    'Missed-call text-back runs on a Twilio number in your name. Twilio charges per text plus a monthly fee for the number. US carriers also require business texting to be registered (A2P 10DLC), which has its own fees. You pay Twilio directly.',
+    'If your setup needs a chatbot platform, you pay that subscription directly. We tell you before we start.',
+  ],
+  extraLinks: [
+    ['Meta’s official WhatsApp pricing', metaPricingHref],
+    ['Twilio pricing for the US', 'https://www.twilio.com/en-us/sms/pricing/us'],
+  ],
+  honest: [
+    ['Meta must verify your business', 'It usually takes a few days and is out of our hands. We help you through it.'],
+    ['Business texting must be registered', 'US carriers approve business texting before it can go live. It can take some time. We guide you through it.'],
+    ['It only answers from info you approve', 'If it does not know, it does not guess. It hands the chat to a person.'],
+    ['It never confirms what it cannot check', 'A booking is a request until your team confirms it.'],
+  ],
+  faq: [
+    ['Do my customers need WhatsApp?', 'No. In the US, most people text or use Messenger. We connect the channels your customers already use.'],
+    ['How does missed-call text-back work?', 'When a call goes unanswered, the caller gets a text asking what they need. The assistant takes it from there and alerts you. Included in Bookings and Complete.'],
+    ['Who owns the accounts?', 'You do. Your Facebook Page, Instagram, WhatsApp Business, the Twilio number and your Google Sheet. If you leave, you keep everything.'],
+    ['What if a customer asks something unusual?', 'The assistant does not make things up. It tells the customer a person will reply and alerts your team.'],
+    ['Can it take bookings?', 'On Bookings and Complete it takes the request with the details you need. Your team confirms. It never promises a spot it cannot check.'],
+    ['Does it speak Spanish?', 'Yes. It replies in English by default and switches to Spanish when the customer writes in Spanish.'],
+    ['How long until it is live?', 'Within 3 business days after you connect your accounts and approve your answers. Meta’s verification and texting registration can add time.'],
+    ['Are taxes included?', 'No. Prices are before tax. Applicable taxes are added on the invoice.'],
+    ['How do I cancel?', 'Cancel the monthly plan any time with 30 days’ notice by email. Once setup starts, 50% of the setup fee is not refundable.'],
+    ['Who is behind this?', 'Strategic Sloth, the studio of Rémi Couture. He sets up every assistant himself.'],
+  ],
+};
+
+export const autoCopy: Record<AutoLocale, AutoCopy> = { es, en, fr, 'en-CA': enCA, 'en-US': enUS };

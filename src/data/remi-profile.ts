@@ -10,6 +10,7 @@ const links = (resume: string, credits: string): [string, string, string][] => [
   ['X', '@remicouture', 'https://x.com/remicouture'],
   ['ArtStation', 'remicouture', 'https://www.artstation.com/remicouture'],
   ['Behance', 'RemiCouture', 'https://www.behance.net/RemiCouture'],
+  ['Medium', '@rcouture_37711', 'https://medium.com/@rcouture_37711'],
   ['MobyGames', credits, 'https://www.mobygames.com/person/867552/remi-couture/'],
   ['GitHub', 'remiclassic', 'https://github.com/remiclassic'],
 ];
@@ -27,8 +28,9 @@ export const remiCopy = {
   en: {
     switchLabel: 'Français', switchHref: '/fr/remi-couture/',
     eyebrow: 'About · Game UX/UI designer',
+    h1Role: 'Game developer and founder of Strategic Sloth',
     portraitTop: ['Founder, Strategic Sloth', 'Montreal, QC'], portraitAlt: 'Portrait of Rémi Couture',
-    lede: '<strong>Guillaume "Rémi" Couture</strong> (also written Remi Couture or Remy Couture) is a game UX/UI designer and developer based in Greater Montreal, Canada, and the founder of <a href="/">Strategic Sloth LLC</a>.',
+    lede: '<strong>Rémi Couture</strong> is a game developer and founder of <a href="/">Strategic Sloth LLC</a>. Also written Remi Couture or Remy Couture (and known as Guillaume "Rémi" Couture), he is a game UX/UI designer and developer based in Greater Montreal, Canada.',
     disambiguation: 'Not to be confused with other people who share the name, including the Montreal special effects makeup artist Rémy Couture.',
     ctaPrimary: 'Work with Rémi', resume: 'Resume and portfolio',
     facts: [['20 years', 'in game UI, UX and product design'], ['12 studios', 'from Club Penguin to Offworld'], ['9 studios', 'directed at once as UX Director'], ['EN · FR', 'Greater Montreal, working worldwide']],
@@ -85,8 +87,9 @@ export const remiCopy = {
   fr: {
     switchLabel: 'English', switchHref: '/remi-couture/',
     eyebrow: 'À propos · Designer UX/UI de jeux',
+    h1Role: 'Développeur de jeux et fondateur de Strategic Sloth',
     portraitTop: ['Fondateur, Strategic Sloth', 'Montréal, QC'], portraitAlt: 'Portrait de Rémi Couture',
-    lede: '<strong>Guillaume « Rémi » Couture</strong> (aussi écrit Remi Couture ou Remy Couture) est designer et développeur UX/UI de jeux vidéo établi dans le Grand Montréal, et le fondateur de <a href="/">Strategic Sloth LLC</a>.',
+    lede: '<strong>Rémi Couture</strong> est développeur de jeux et fondateur de <a href="/">Strategic Sloth LLC</a>. Aussi écrit Remi Couture ou Remy Couture (et connu comme Guillaume « Rémi » Couture), il est designer et développeur UX/UI de jeux vidéo établi dans le Grand Montréal.',
     disambiguation: 'À ne pas confondre avec l’artiste maquilleur d’effets spéciaux montréalais Rémy Couture.',
     ctaPrimary: 'Travailler avec Rémi', resume: 'CV et portfolio',
     facts: [['20 ans', 'en UI, UX et design de produits de jeux'], ['12 studios', 'de Club Penguin à Offworld'], ['9 studios', 'dirigés à la fois comme directeur UX'], ['FR · EN', 'Grand Montréal, partout dans le monde']],
